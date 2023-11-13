@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://wwdxr7wxgwqh"]
+
+[ext_resource type="Script" path="res://Cell spawner.gd" id="1_j7nmy"]
+[ext_resource type="PackedScene" uid="uid://da16yu1ewq6l2" path="res://cell.tscn" id="2_37dny"]
+[ext_resource type="Script" path="res://fps_counter.gd" id="3_cximu"]
+
+[node name="Cell spawner" type="Node"]
+script = ExtResource("1_j7nmy")
+cell_scene = ExtResource("2_37dny")
+num_cells = 1000
+
+[node name="fps counter" type="Label" parent="."]
+z_index = 1
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_cximu")
