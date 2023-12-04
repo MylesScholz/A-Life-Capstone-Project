@@ -1,19 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://da16yu1ewq6l2"]
+[gd_scene load_steps=3 format=3 uid="uid://b8e2qe8b5d8pw"]
 
-[ext_resource type="Script" path="res://cell.gd" id="1_v5x6q"]
-[ext_resource type="Texture2D" uid="uid://cqjdr1pvbqjij" path="res://icon.svg" id="2_lxd07"]
+[ext_resource type="Texture2D" uid="uid://cqjdr1pvbqjij" path="res://icon.svg" id="1_hw1n4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21kod"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbw6r"]
 
-[node name="Cell" type="RigidBody2D"]
+[node name="Cell" type="Cell"]
 collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_v5x6q")
-metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_lxd07")
+texture = ExtResource("1_hw1n4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_21kod")
+shape = SubResource("RectangleShape2D_pbw6r")
