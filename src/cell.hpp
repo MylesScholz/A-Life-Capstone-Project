@@ -6,21 +6,21 @@
 
 namespace godot {
 
-class Cell : public RigidBody2D { 
-	GDCLASS(Cell, RigidBody2D) 
+    class Cell : public RigidBody2D {
+        GDCLASS(Cell, RigidBody2D)
 
-protected:
-    static void _bind_methods();
+    protected:
+        static void _bind_methods();
 
-public:
-    Cell();
-    ~Cell();
+    public:
+        Cell();
+        ~Cell();
 
-    void _process(double delta) override;
+        void _process(double delta) override;
 
-private:
-    float speed;
-    Ref<RandomNumberGenerator> rand;
-};
+    private:
+        float force_magnitude;
+        Ref<RandomNumberGenerator> rand;
+    };
 
 }

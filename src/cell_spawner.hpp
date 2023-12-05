@@ -28,12 +28,20 @@ public:
     void setCellScene(const Ref<PackedScene>);
     Ref<PackedScene> getCellScene() const;
 
+    void setMinForce(const float);
+    float getMinForce() const;
+
+    void setMaxForce(const float);
+    float getMaxForce() const;
+
     void spawnCell();
 
 private:
     Ref<PackedScene> _cellScene;
     Ref<RandomNumberGenerator> rand;
     int _numCells = 1;
+    float _minForce = 50.0;
+    float _maxForce = 150.0;
 };
 
 }
