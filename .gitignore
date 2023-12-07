@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+bin/*.dll
+bin/*.exp
+bin/*.lib
+.sconsign.dblite
+src/*.obj
