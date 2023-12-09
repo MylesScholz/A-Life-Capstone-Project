@@ -16,10 +16,16 @@ namespace godot {
         Cell();
         ~Cell();
 
+        void applyScale(float scale);
+
+        float getScale() const;
+        Size2 getSpriteSize() const;
+
         void _process(double delta) override;
 
     private:
-        float force_magnitude;
+        float _scale;
+        Size2 _spriteSize;
         Ref<RandomNumberGenerator> rand;
     };
 

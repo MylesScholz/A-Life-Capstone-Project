@@ -43,26 +43,48 @@ int CellSpawner::getNumCells() const {
 }
 
 void CellSpawner::setMinForce(const float minForce) {
-    _minForce = minForce;
+    if (minForce > _maxForce) {
+        _minForce = _maxForce;
+    } else {
+        _minForce = minForce;
+    }
 }
 float CellSpawner::getMinForce() const {
     return _minForce;
 }
 
 void CellSpawner::setMaxForce(const float maxForce) {
-    _maxForce = maxForce;
+    if (maxForce < _minForce) {
+        _maxForce = _minForce;
+    } else {
+        _maxForce = maxForce;
+    }
 }
 float CellSpawner::getMaxForce() const {
     return _maxForce;
 }
 
 void CellSpawner::spawnCell(){
+    // Instantiate cell scene
     Node* cell = _cellScene->instantiate();
+    // Get viewport size for positioning
     Size2 viewportSize = get_viewport()->get_visible_rect().size;
-    Size2 cellSize = cell->get_node<Sprite2D>("Sprite")->get_rect().size;
-    
-    Object::cast_to<Cell>(cell)->set_position(Vector2(rand->randi_range(cellSize.x/4, viewportSize.x - cellSize.x/4),
+    // Cast cell scene to Cell object for ease of use
+    Cell* cellObject = Object::cast_to<Cell>(cell);
+
+    // Set Cell size
+    cellObject->applyScale(rand->randf_range(0.25, 1));
+    Size2 cellSize = cellObject->getSpriteSize();
+
+    // Set Cell position to random location in viewport
+    cellObject->set_position(Vector2(rand->randi_range(cellSize.x/4, viewportSize.x - cellSize.x/4),
         rand->randi_range(cellSize.y/4, viewportSize.y - cellSize.y/4)));
+
+    // Apply random initial force to Cell
+    float force_magnitude = rand->randf_range(_minForce, _maxForce);
+    float direction = rand->randf_range(0, 2 * Math_PI);
+    Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
+    cellObject->apply_force(force);
 
     add_child(cell);
 }
