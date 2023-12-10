@@ -40,3 +40,16 @@ shape = SubResource("RectangleShape2D_mq8oa")
 [node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_mq8oa")
+
+[node name="StartButton" type="StartButton" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
