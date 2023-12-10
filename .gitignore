@@ -5,3 +5,5 @@ bin/*.exp
 bin/*.lib
 .sconsign.dblite
 src/*.obj
+.vscode/
+compile_commands.json
