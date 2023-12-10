@@ -1,4 +1,5 @@
 #pragma once
+#include "cell_state.hpp"
 
 #include <godot_cpp/classes/Engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
@@ -16,15 +17,16 @@ public:
   Cell();
   ~Cell();
 
-  void applyScale(float scale);
+  void applyScale(float);
 
   float getScale() const;
   Size2 getSpriteSize() const;
 
-  void _process(double delta) override;
+  void _ready() override;
+  void _process(double) override;
 
 private:
-  float _scale;
+  CellState *_cellState;
   Size2 _spriteSize;
   Ref<RandomNumberGenerator> rand;
 };

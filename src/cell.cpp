@@ -6,17 +6,11 @@
 
 using namespace godot;
 
-void Cell::_bind_methods() {
-  ClassDB::bind_method(D_METHOD("apply_scale", "scale"), &Cell::applyScale);
-
-  ClassDB::bind_method(D_METHOD("get_scale"), &Cell::getScale);
-  ClassDB::bind_method(D_METHOD("get_sprite_size"), &Cell::getSpriteSize);
-}
+void Cell::_bind_methods() {}
 
 Cell::Cell() {
   rand.instantiate();
 
-  _scale = 1;
   _spriteSize = Size2();
 }
 Cell::~Cell() {}
@@ -28,16 +22,42 @@ void Cell::applyScale(float scale) {
   this->get_node<CollisionShape2D>("CollisionShape2D")
       ->apply_scale(Vector2(scale, scale));
   this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
-  _scale *= scale;
+
+  _cellState->applyScale(scale);
   _spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
-float Cell::getScale() const { return _scale; }
+float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
+
+void Cell::_ready() { _cellState = this->get_node<CellState>("CellState"); }
 
 void Cell::_process(double delta) {
   // Don't run if in editor
   if (Engine::get_singleton()->is_editor_hint())
     return;
+
+  if (_cellState->getAlive()) {
+    // Living Cell behavior
+
+    // Increment the Cell's age
+    _cellState->incrementAge(delta);
+
+    // Aging and death
+    float ageDiff = _cellState->getAge() - _cellState->getLifespan();
+    if (ageDiff > 0) {
+      // The Cell's age exceeds its lifespan
+
+      // Generate a random number from 0 to the Cell's lifespan times 1 over
+      // delta. If that value is less than ageDiff, kill the Cell. This adds
+      // some variability to Cell lifespans.
+      if (rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) <
+          ageDiff) {
+        _cellState->setAlive(false);
+        // Stop Cell movement
+        this->set_linear_damp(10.0);
+      }
+    }
+  }
 }

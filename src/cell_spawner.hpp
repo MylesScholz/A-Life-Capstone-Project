@@ -20,8 +20,6 @@ public:
   CellSpawner();
   ~CellSpawner();
 
-  void _ready() override;
-
   void setNumCells(const int);
   int getNumCells() const;
 
@@ -35,6 +33,8 @@ public:
   float getMaxForce() const;
 
   void spawnCell();
+
+  void _ready() override;
 
 private:
   Ref<PackedScene> _cellScene;

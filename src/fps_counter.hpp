@@ -15,7 +15,7 @@ public:
   FpsCounter();
   ~FpsCounter();
 
-  void _process(double delta) override;
+  void _process(double) override;
 };
 
 } // namespace godot

@@ -2,6 +2,7 @@
 
 #include "cell.hpp"
 #include "cell_spawner.hpp"
+#include "cell_state.hpp"
 #include "fps_counter.hpp"
 
 #include <gdextension_interface.h>
@@ -17,6 +18,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 
   ClassDB::register_class<FpsCounter>();
   ClassDB::register_class<Cell>();
+  ClassDB::register_class<CellState>();
   ClassDB::register_class<CellSpawner>();
 }
 
