@@ -16,6 +16,8 @@ namespace godot {
         Cell();
         ~Cell();
 
+        static int CollisionCount;
+        void _on_body_entered(Node *body);
         void _process(double delta) override;
 
     private:
