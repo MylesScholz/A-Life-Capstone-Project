@@ -14,6 +14,8 @@ protected:
   static void _bind_methods();
 
 public:
+  static int CollisionCount;
+
   Cell();
   ~Cell();
 
@@ -24,6 +26,7 @@ public:
 
   void _ready() override;
   void _process(double) override;
+  void _on_body_entered(Node *body);
 
 private:
   CellState *_cellState;

@@ -6,9 +6,21 @@
 
 using namespace godot;
 
-void Cell::_bind_methods() {}
+void Cell::_bind_methods() {
+  ClassDB::bind_method(D_METHOD("_on_body_entered", "body"),
+                       &Cell::_on_body_entered);
+}
+
+int Cell::CollisionCount = 0;
 
 Cell::Cell() {
+  // Setting default required parameters for collision detection on RigidBody2D
+  // objects, then applying the signal to Cell objects.
+  this->set_contact_monitor(true);
+  this->set_max_contacts_reported(
+      1000); // Adjust max contacts as complexity increases.
+  this->connect("body_entered", Callable(this, "_on_body_entered"));
+
   rand.instantiate();
 
   _spriteSize = Size2();
@@ -61,3 +73,7 @@ void Cell::_process(double delta) {
     }
   }
 }
+
+// function updates on cell contacts. Increments counter for use in
+// stats_counter.cpp
+void Cell::_on_body_entered(Node *body) { CollisionCount++; }

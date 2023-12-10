@@ -91,7 +91,4 @@ void CellSpawner::_ready() {
   // Don't run if in editor
   if (Engine::get_singleton()->is_editor_hint())
     return;
-
-  for (int i = 0; i < _numCells; ++i)
-    spawnCell();
 }
