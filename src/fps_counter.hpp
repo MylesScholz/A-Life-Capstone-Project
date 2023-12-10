@@ -5,17 +5,17 @@
 
 namespace godot {
 
-class FpsCounter : public Label { 
-	GDCLASS(FpsCounter, Label) 
+class FpsCounter : public Label {
+  GDCLASS(FpsCounter, Label)
 
 protected:
-    static void _bind_methods();
+  static void _bind_methods();
 
 public:
-    FpsCounter();
-    ~FpsCounter();
+  FpsCounter();
+  ~FpsCounter();
 
-    void _process(double delta) override;
+  void _process(double delta) override;
 };
 
-}
+} // namespace godot

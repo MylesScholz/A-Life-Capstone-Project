@@ -6,27 +6,27 @@
 
 namespace godot {
 
-    class Cell : public RigidBody2D {
-        GDCLASS(Cell, RigidBody2D)
+class Cell : public RigidBody2D {
+  GDCLASS(Cell, RigidBody2D)
 
-    protected:
-        static void _bind_methods();
+protected:
+  static void _bind_methods();
 
-    public:
-        Cell();
-        ~Cell();
+public:
+  Cell();
+  ~Cell();
 
-        void applyScale(float scale);
+  void applyScale(float scale);
 
-        float getScale() const;
-        Size2 getSpriteSize() const;
+  float getScale() const;
+  Size2 getSpriteSize() const;
 
-        void _process(double delta) override;
+  void _process(double delta) override;
 
-    private:
-        float _scale;
-        Size2 _spriteSize;
-        Ref<RandomNumberGenerator> rand;
-    };
+private:
+  float _scale;
+  Size2 _spriteSize;
+  Ref<RandomNumberGenerator> rand;
+};
 
-}
+} // namespace godot
