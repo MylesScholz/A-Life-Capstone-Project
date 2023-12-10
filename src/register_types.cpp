@@ -3,6 +3,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
 #include "fps_counter.hpp"
+#include "stats_counter.hpp"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -15,6 +16,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
+	ClassDB::register_class<StatsCounter>();
 	ClassDB::register_class<FpsCounter>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellSpawner>();
