@@ -11,37 +11,37 @@
 namespace godot {
 
 class CellSpawner : public Node {
-  GDCLASS(CellSpawner, Node)
+	GDCLASS(CellSpawner, Node)
 
 protected:
-  static void _bind_methods();
+	static void _bind_methods();
 
 public:
-  CellSpawner();
-  ~CellSpawner();
+	CellSpawner();
+	~CellSpawner();
 
-  void setNumCells(const int);
-  int getNumCells() const;
+	void setNumCells(const int);
+	int getNumCells() const;
 
-  void setCellScene(const Ref<PackedScene>);
-  Ref<PackedScene> getCellScene() const;
+	void setCellScene(const Ref<PackedScene>);
+	Ref<PackedScene> getCellScene() const;
 
-  void setMinForce(const float);
-  float getMinForce() const;
+	void setMinForce(const float);
+	float getMinForce() const;
 
-  void setMaxForce(const float);
-  float getMaxForce() const;
+	void setMaxForce(const float);
+	float getMaxForce() const;
 
-  void spawnCell();
+	void spawnCell();
 
-  void _ready() override;
+	void _ready() override;
 
 private:
-  Ref<PackedScene> _cellScene;
-  Ref<RandomNumberGenerator> rand;
-  int _numCells = 1;
-  float _minForce = 50.0;
-  float _maxForce = 150.0;
+	Ref<PackedScene> _cellScene;
+	Ref<RandomNumberGenerator> rand;
+	int _numCells = 1;
+	float _minForce = 50.0;
+	float _maxForce = 150.0;
 };
 
 } // namespace godot
