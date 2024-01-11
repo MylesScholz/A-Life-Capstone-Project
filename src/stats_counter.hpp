@@ -5,17 +5,17 @@
 
 namespace godot {
 
-  class StatsCounter : public Label { 
-  	GDCLASS(StatsCounter, Label) 
-  
-  protected:
-      static void _bind_methods();
-  
-  public:
-      StatsCounter();
-      ~StatsCounter();
-  
-      void _process(double delta) override;
-  };
+class StatsCounter : public Label {
+	GDCLASS(StatsCounter, Label)
 
-}
+protected:
+	static void _bind_methods();
+
+public:
+	StatsCounter();
+	~StatsCounter();
+
+	void _process(double delta) override;
+};
+
+} //namespace godot

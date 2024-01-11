@@ -8,30 +8,30 @@
 namespace godot {
 
 class Cell : public RigidBody2D {
-  GDCLASS(Cell, RigidBody2D)
+	GDCLASS(Cell, RigidBody2D)
 
 protected:
-  static void _bind_methods();
+	static void _bind_methods();
 
 public:
-  static int CollisionCount;
+	static int CollisionCount;
 
-  Cell();
-  ~Cell();
+	Cell();
+	~Cell();
 
-  void applyScale(float);
+	void applyScale(float);
 
-  float getScale() const;
-  Size2 getSpriteSize() const;
+	float getScale() const;
+	Size2 getSpriteSize() const;
 
-  void _ready() override;
-  void _process(double) override;
-  void _on_body_entered(Node *body);
+	void _ready() override;
+	void _process(double) override;
+	void _on_body_entered(Node *body);
 
 private:
-  CellState *_cellState;
-  Size2 _spriteSize;
-  Ref<RandomNumberGenerator> rand;
+	CellState *_cellState;
+	Size2 _spriteSize;
+	Ref<RandomNumberGenerator> rand;
 };
 
 } // namespace godot
