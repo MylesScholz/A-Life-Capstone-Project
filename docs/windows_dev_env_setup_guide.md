@@ -7,7 +7,7 @@ This document provides instructions to set up the development environment on a W
 1. Check that Git is installed on your computer
    1. Open the Command Prompt (if it is not already open)
    2. Run `git --version`
-   3. If the command returns an error
+   3. If the command returns an error,
       1. Go to this link in your browser: https://git-scm.com/download/win
       2. Click "64-bit Git for Windows Setup" to download the installer
       3. In the directory where the file downloaded, run the installer
@@ -24,7 +24,7 @@ This document provides instructions to set up the development environment on a W
 1. Check that Python is installed on your computer
    1. Open the Command Prompt (if it is not already open)
    2. Run `python --version`
-   3. If the command returns an error
+   3. If the command returns an error or a version less than 3.6,
       1. Go to this link in your browser: https://www.python.org/downloads/
       2. Click "Download Python 3.*" to download the installer
       3. In the directory where the file downloaded, run the installer
@@ -45,7 +45,7 @@ This document provides instructions to set up the development environment on a W
 ## Installing the Godot Editor
 1. Check that Godot is installed on your computer
    1. Press the Windows key and search "Godot"
-   2. If no app (executable) shows up
+   2. If no app (executable) shows up,
       1. Go to this link in your browser: https://godotengine.org/download/archive/4.2-stable/
       2. Click the "Standard" button next to "Windows" to download a ZIP file containing the Godot editor
       3. In the directory where the file downloaded, unzip the file
@@ -57,7 +57,7 @@ This document provides instructions to set up the development environment on a W
 ## Building godot-cpp and the Project
 1. Open the Command Prompt in /A-Life-Capstone-Project/godot-cpp/ (or navigate there with `cd [file path]`)
 2. Run `scons platform=windows` (this may take a while to complete)
-3. When the command line returns, navigate to the repository director with `cd ..`
+3. When the command line returns, navigate to the repository directory with `cd ..`
 4. Run `scons` (this may also take a while)
 5. Check that the project built correctly by opening it in the Godot editor
    1. Open the Godot editor
@@ -66,11 +66,48 @@ This document provides instructions to set up the development environment on a W
    4. Click "Select Current Folder"
    5. The project should open without error and be able to run
 
+## Installing Clang-Format
+1. Go to this link in your browser: https://github.com/llvm/llvm-project/releases/tag/llvmorg-13.0.1
+2. Click "LLVM-13.0.1-win64.exe" to download the installer
+3. In the directory where the file downloaded, run the installer
+4. If the installer asks to uninstall an existing version of LLVM, click "Yes"
+5. Follow the installer instructions; use the default options, except click "Add LLVM to the system PATH for all users"
+6. Check that clang-format is installed properly
+   1. Open the Command Prompt (if it is not already open)
+   2. Run `clang-format --version`
+   3. If the command returns an error,
+      1. Press the Windows key, type "Edit the system environment variables", and select the option of the same name
+      2. In the "System Properties" window, click "Environment Variables..."
+      3. In the "Environment Variables" window, under "User Variables for [User]", click the "Path" entry
+      4. Click "Edit"
+      5. In the "Edit Environment Variable" window, click "New" and type "C:\Program Files\LLVM\bin\" (excluding the quotation marks)
+      6. Click "OK" in each of the three windows in reverse order to close them
+   4. Run `clang-format --version` again to confirm the change
+
 ## Setting Up Visual Studio Code
 1. Check that Visual Studio Code is installed on your computer
    1. Press the Windows key and search "Visual Studio Code" or "VS Code"
-   2. If no app shows up
+   2. If no app shows up,
       1. Go to this link in your browser: https://code.visualstudio.com/
       2. Click "Download for Windows" to download the installer
       3. In the directory where the file downloaded, run the installer
-      4. 
+      4. Follow the installer instructions; the default options should work
+   3. Open Visual Studio Code
+   4. In the "Extensions" tab on the right, search for and install, at minimum, the following extensions:
+      - C/C++
+      - C/C++ Extension Pack
+      - Clang-Format
+      - godot-tools
+      - Python
+   5. Open "Settings" by navigating through the top menu bar ("File" > "Preferences" > "Settings")
+   6. Under the "User" tab, navigate to C/C++ formatting ("Extensions" > "C/C++" > "Formatting")
+   7. Set the following settings:
+      - C_Cpp: Clang_format_fallback Style:  LLVM
+      - C_Cpp: Clang_format_path:            C:\Program Files\LLVM\bin\clang-format.exe
+      - C_Cpp: Clang_format_style:           file
+      - C_Cpp: Formatting:                   clangFormat
+   8. Under the "User" tab, navigate to text editor formatting ("Text Editor" > "Formatting")
+   9. Set the following settings:
+      - Format On Paste:      Checked
+      - Format On Save:       Checked
+      - Format On Save Mode:  file
