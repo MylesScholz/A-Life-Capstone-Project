@@ -92,22 +92,22 @@ This document provides instructions to set up the development environment on a W
       2. Click "Download for Windows" to download the installer
       3. In the directory where the file downloaded, run the installer
       4. Follow the installer instructions; the default options should work
-   3. Open Visual Studio Code
-   4. In the "Extensions" tab on the right, search for and install, at minimum, the following extensions:
-      - C/C++
-      - C/C++ Extension Pack
-      - Clang-Format
-      - godot-tools
-      - Python
-   5. Open "Settings" by navigating through the top menu bar ("File" > "Preferences" > "Settings")
-   6. Under the "User" tab, navigate to C/C++ formatting ("Extensions" > "C/C++" > "Formatting")
-   7. Set the following settings:
-      - C_Cpp: Clang_format_fallback Style:  LLVM
-      - C_Cpp: Clang_format_path:            C:\Program Files\LLVM\bin\clang-format.exe
-      - C_Cpp: Clang_format_style:           file
-      - C_Cpp: Formatting:                   clangFormat
-   8. Under the "User" tab, navigate to text editor formatting ("Text Editor" > "Formatting")
-   9. Set the following settings:
-      - Format On Paste:      Checked
-      - Format On Save:       Checked
-      - Format On Save Mode:  file
+2. Open Visual Studio Code
+3. In the "Extensions" tab on the right, search for and install, at minimum, the following extensions:
+   - C/C++
+   - C/C++ Extension Pack
+   - Clang-Format
+   - godot-tools
+   - Python
+4. Open "Settings" by navigating through the top menu bar ("File" > "Preferences" > "Settings")
+5. Under the "User" tab, navigate to C/C++ formatting ("Extensions" > "C/C++" > "Formatting")
+6. Set the following settings:
+   - C_Cpp: Clang_format_fallback Style:  LLVM
+   - C_Cpp: Clang_format_path:            C:\Program Files\LLVM\bin\clang-format.exe
+   - C_Cpp: Clang_format_style:           file
+   - C_Cpp: Formatting:                   clangFormat
+7. Under the "User" tab, navigate to text editor formatting ("Text Editor" > "Formatting")
+8. Set the following settings:
+   - Format On Paste:      Checked
+   - Format On Save:       Checked
+   - Format On Save Mode:  file
