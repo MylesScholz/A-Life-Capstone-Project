@@ -9,8 +9,8 @@ Code style will be enforced by clang-format which takes care of the standard for
 This project currently uses **clang-format 13** to be compatible with godot.
 
 ### Installation
-- Linux: Often comes out of the box with your distribution. Can also download precompiled binaries from the `LLVM website <https://releases.llvm.org/download.html>`_.
-- MacOS and Windows: Download precompiled binaries from the `LLVM website <https://releases.llvm.org/download.html>`_.
+- Linux: Often comes out of the box with your distribution. Can also download precompiled binaries from the [LLVM website](https://releases.llvm.org/download.html).
+- MacOS and Windows: Download precompiled binaries from the [LLVM website](https://releases.llvm.org/download.html).
 
 ### Usage
 To apply clang-format:
