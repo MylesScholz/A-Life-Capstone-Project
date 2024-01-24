@@ -65,6 +65,7 @@ This document provides instructions to set up the development environment on a W
    3. In the window that appears, navigate to the A-Life-Capstone-Project directory
    4. Click "Select Current Folder"
    5. The project should open without error and be able to run
+6. For troubleshooting, see the Godot documentation: https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html#building-for-target-platforms
 
 ## Installing Clang-Format
 1. Go to this link in your browser: https://github.com/llvm/llvm-project/releases/tag/llvmorg-13.0.1
