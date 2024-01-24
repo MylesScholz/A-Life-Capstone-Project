@@ -28,11 +28,19 @@ public:
 	void applyScale(const float);
 	float getScale() const;
 
+	void addNutrients(float);
+	void decrementNutrients(const float);
+	float getNutrients() const;
+
 private:
 	bool _alive;
 	float _age;
 	float _lifespan;
 	float _scale;
+	float _nutrients;
+	float _nutrient_maximum;
+	float _nutrient_efficiency;
+	float _homeostasis_level;
 };
 
 }; // namespace godot

@@ -19,8 +19,8 @@ offset_bottom = 23.0
 
 [node name="StatsCounter" type="StatsCounter" parent="."]
 z_index = 2
-offset_right = 40.0
 offset_top = 23.0
+offset_right = 40.0
 offset_bottom = 46.0
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
