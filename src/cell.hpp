@@ -1,5 +1,6 @@
 #pragma once
 #include "cell_state.hpp"
+#include "mitochondria.hpp"
 
 #include <godot_cpp/classes/Engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
@@ -30,6 +31,7 @@ public:
 
 private:
 	CellState *_cellState;
+	Mitochondria *_mitochondria;
 	Size2 _spriteSize;
 	Ref<RandomNumberGenerator> rand;
 };

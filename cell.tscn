@@ -26,8 +26,5 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 [node name="CellState" type="CellState" parent="."]
 lifespan = 20.0
 
-[node name="Mitochondria" type="CellState" parent="."]
-nutrients = 26.0
-nutrient_maximum = 26.0
-nutrient_efficiency = 1.0
-homeostasis_level = 5.0
+[node name="Mitochondria" type="Mitochondria" parent="."]
+lifespan = 20.0

@@ -15,10 +15,6 @@ CellState::CellState() {
 	_age = 0;
 	_lifespan = 1;
 	_scale = 1;
-	_nutrients = 26;
-	_nutrient_maximum = 26;
-	_nutrient_efficiency = 1;
-	_homeostasis_level = 5;
 }
 CellState::~CellState() {}
 
@@ -49,20 +45,3 @@ void CellState::applyScale(const float scale) {
 		_scale *= scale;
 }
 float CellState::getScale() const { return _scale; }
-
-void CellState::addNutrients(float nutrients) {
-	nutrients *= _nutrient_efficiency;
-	if (_nutrients + nutrients > _nutrient_maximum)
-		nutrients = _nutrient_maximum;
-	else
-		_nutrients += nutrients;
-}
-
-void CellState::decrementNutrients(const float decrement) {
-	if (_nutrients - decrement > 0)
-		_nutrients -= decrement;
-	else if (_nutrients - decrement <= 0)
-		_nutrients = 0;
-}
-
-float CellState::getNutrients() const { return _nutrients; }

@@ -43,22 +43,41 @@ float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
-void Cell::_ready() { _cellState = this->get_node<CellState>("CellState"); }
+void Cell::_ready() {
+	_cellState = this->get_node<CellState>("CellState");
+	_mitochondria = this->get_node<Mitochondria>("Mitochondria");
+	if (!_mitochondria) {
+		ERR_PRINT("Mitochondria node not found or not of type Mitochondria!");
+	} else {
+		if (!_mitochondria->is_class("Mitochondria")) {
+			ERR_PRINT("Node named 'Mitochondria' is not of type Mitochondria!");
+		} else {
+			ERR_PRINT("Node named 'Mitochondria' is of type Mitochondria");
+		}
+	}
+}
 
 void Cell::_process(double delta) {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
 
+	if (!_mitochondria) {
+		_cellState->setAlive(false); // kill cell
+		this->set_linear_damp(10.0);
+		ERR_PRINT("Mitochondria node is not initialized!");
+		return;
+	}
+
 	if (_cellState->getAlive()) {
 		// Living Cell behavior
 
 		// Increment the Cell's age and decrement nutrients
 		_cellState->incrementAge(delta);
-		_cellState->decrementNutrients(delta);
+		_mitochondria->decrementNutrients(delta);
 
 		// Aging, starvation and death
-		float nutrients = _cellState->getNutrients();
+		float nutrients = _mitochondria->getNutrients();
 		float ageDiff = _cellState->getAge() - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
