@@ -46,28 +46,12 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
 	_mitochondria = this->get_node<Mitochondria>("Mitochondria");
-	if (!_mitochondria) {
-		ERR_PRINT("Mitochondria node not found or not of type Mitochondria!");
-	} else {
-		if (!_mitochondria->is_class("Mitochondria")) {
-			ERR_PRINT("Node named 'Mitochondria' is not of type Mitochondria!");
-		} else {
-			ERR_PRINT("Node named 'Mitochondria' is of type Mitochondria");
-		}
-	}
 }
 
 void Cell::_process(double delta) {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
-
-	if (!_mitochondria) {
-		_cellState->setAlive(false); // kill cell
-		this->set_linear_damp(10.0);
-		ERR_PRINT("Mitochondria node is not initialized!");
-		return;
-	}
 
 	if (_cellState->getAlive()) {
 		// Living Cell behavior

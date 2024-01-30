@@ -6,7 +6,7 @@ void Mitochondria::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("add_nutrients", "amount"), &Mitochondria::addNutrients);
 	ClassDB::bind_method(D_METHOD("decrement_nutrients", "amount"), &Mitochondria::decrementNutrients);
 	ClassDB::bind_method(D_METHOD("get_nutrients"), &Mitochondria::getNutrients);
-	ClassDB::bind_method(D_METHOD("set_nutrients", "level"), &Mitochondria::getNutrients);
+	ClassDB::bind_method(D_METHOD("set_nutrients", "level"), &Mitochondria::setNutrients);
 	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::FLOAT, "nutrients"),
 			"set_nutrients", "get_nutrients");
 }
