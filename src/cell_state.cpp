@@ -18,6 +18,9 @@ CellState::CellState() {
 }
 CellState::~CellState() {}
 
+void CellState::setMitochondria(Mitochondria *mitochondria) { _mitochondria = mitochondria; }
+Mitochondria *CellState::getMitochondria() { return _mitochondria; }
+
 void CellState::setAlive(const bool alive) { _alive = alive; }
 bool CellState::getAlive() const { return _alive; }
 
@@ -45,3 +48,7 @@ void CellState::applyScale(const float scale) {
 		_scale *= scale;
 }
 float CellState::getScale() const { return _scale; }
+
+void CellState::_ready() {
+	_mitochondria = this->get_node<Mitochondria>("Mitochondria");
+}

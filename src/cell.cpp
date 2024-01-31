@@ -45,7 +45,6 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
-	_mitochondria = this->get_node<Mitochondria>("Mitochondria");
 }
 
 void Cell::_process(double delta) {
@@ -58,10 +57,10 @@ void Cell::_process(double delta) {
 
 		// Increment the Cell's age and decrement nutrients
 		_cellState->incrementAge(delta);
-		_mitochondria->decrementNutrients(delta);
+		_cellState->getMitochondria()->decrementNutrients(delta);
 
 		// Aging, starvation and death
-		float nutrients = _mitochondria->getNutrients();
+		float nutrients = _cellState->getMitochondria()->getNutrients();
 		float ageDiff = _cellState->getAge() - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan

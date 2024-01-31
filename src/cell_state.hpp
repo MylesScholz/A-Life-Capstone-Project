@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mitochondria.hpp"
 #include <godot_cpp/classes/node.hpp>
 
 namespace godot {
@@ -13,6 +14,9 @@ protected:
 public:
 	CellState();
 	~CellState();
+
+	void setMitochondria(Mitochondria *);
+	Mitochondria *getMitochondria();
 
 	void setAlive(const bool);
 	bool getAlive() const;
@@ -28,7 +32,10 @@ public:
 	void applyScale(const float);
 	float getScale() const;
 
+	void _ready() override;
+
 private:
+	Mitochondria *_mitochondria;
 	bool _alive;
 	float _age;
 	float _lifespan;

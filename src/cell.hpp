@@ -31,7 +31,6 @@ public:
 
 private:
 	CellState *_cellState;
-	Mitochondria *_mitochondria;
 	Size2 _spriteSize;
 	Ref<RandomNumberGenerator> rand;
 };
