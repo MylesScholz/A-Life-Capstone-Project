@@ -10,6 +10,8 @@ Cell
 │  │
 │  ├──Lifespan: the duration after which this Cell has a chance to die
 │  │
+│  ├──Scale: the scaling factor of this Cell relative to the default size (50 px-wide Sprite)
+│  │
 │  ├──Homeostasis Nutrient Cost: the amount of nutrients expended per unit of time to keep this Cell alive
 │  │
 │  ├──Reproduction Nutrient Cost: the amount of nutrients expended when this Cell reproduces
@@ -26,6 +28,8 @@ Cell
 │  │
 │  ├──Energy Maximum: the maximum amount of usable energy this Cell can store at one time
 │  │
+│  ├──Receptor Vectors: a list of vectors pointing from this Cell's center to activated CellMembrane Receptors
+│  │
 │  └──...
 │
 ├──CellStructure: an abstract class representing physical structures within this Cell; pointers to each structure are stored in this Cell
@@ -38,11 +42,19 @@ Cell
 │  │
 │  ├──Maintenance Energy Cost: the amount of energy required to maintain this CellStructure; the structure cannot activate if this cost is not met
 │  │
+│  ├──activate(CellState): tests the current CellState against the activation conditions of this CellStructure and executes any actions if the conditions are met
+│  │
 │  ├──Nucleus: the decision-making center of the cell
 │  │  │
 │  │  ├──Reproduction Nutrient Threshold: the amount of nutrients in this Cell above which the Cell will reproduce (should be > reproduction cost)
 │  │  │
 │  │  ├──Reproduction Energy Threshold: the amount of energy int this Cell above which the Cell will reproduce (should be > reproduction cost)
+│  │  │
+│  │  └──...
+│  │
+│  ├──CellMembrane: the external lipid barrier of this Cell; embedded with numerous proteins and structures that enable complex environmental interactions
+│  │  │
+│  │  ├──Receptor: an Area2D over this Cell that detects environmental nutrients; a CellMembrane may have multiple
 │  │  │
 │  │  └──...
 │  │
@@ -72,7 +84,11 @@ Cell
 │  │
 │  ├──Flagella: external cell components that enable motility
 │  │  │
+│  │  ├──Position Vector: the position vector of these Flagella relative to this Cell's center
+│  │  │
 │  │  ├──Movement Force: a 2D force vector that this Cell will apply to itself when these Flagella are activated
+│  │  │
+│  │  ├──Activation Energy Cost: the amount of energy expended per unit of time while these Flagella are activated
 │  │  │
 │  │  └──...
 │  │
