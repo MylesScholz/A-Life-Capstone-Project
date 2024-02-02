@@ -84,6 +84,9 @@ void CellSpawner::spawnCell() {
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
+	// Set z-index to ensure it's rendered behind other nodes
+	cellObject->set_z_index(-1);
+
 	add_child(cell);
 }
 
@@ -91,4 +94,8 @@ void CellSpawner::_ready() {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
+	// Spawn back ground cells
+	for (int i = 0; i < this->getNumCells(); i++) {
+		this->spawnCell(); // Add arguments so they don't die
+	}
 }

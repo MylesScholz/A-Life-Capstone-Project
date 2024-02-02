@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=7 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
+[ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wap8f"]
 size = Vector2(200, 720)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mq8oa"]
 size = Vector2(1480, 200)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2m2e"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okge4"]
 
 [node name="CellSpawner" type="CellSpawner"]
 num_cells = 10
@@ -41,15 +47,62 @@ shape = SubResource("RectangleShape2D_mq8oa")
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_mq8oa")
 
+[node name="BarPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_left = 119.0
+offset_right = 479.0
+offset_bottom = 720.0
+theme = ExtResource("2_d86u0")
+theme_type_variation = &"BarPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
+
+[node name="LineEdit" type="LineEdit" parent="BarPanel"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 119.0
+offset_right = 754.0
+offset_bottom = 223.0
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
+text = "A-Life Challenge 2.0"
+
+[node name="MenuPanel" type="Panel" parent="BarPanel"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 299.0
+offset_right = 319.0
+offset_bottom = 672.0
+theme = ExtResource("2_d86u0")
+
+[node name="Button" type="Button" parent="BarPanel"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 416.0
+offset_right = 279.0
+offset_bottom = 450.0
+
+[node name="Button2" type="Button" parent="BarPanel"]
+offset_left = 95.0
+offset_top = 464.0
+offset_right = 279.0
+offset_bottom = 498.0
+
+[node name="Button3" type="Button" parent="BarPanel"]
+offset_left = 96.0
+offset_top = 512.0
+offset_right = 280.0
+offset_bottom = 546.0
+
 [node name="StartButton" type="StartButton" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+anchors_preset = -1
+anchor_left = 0.344
+anchor_top = 0.511
+anchor_right = 0.344
+anchor_bottom = 0.511
+offset_left = -157.52
+offset_top = 0.0799866
+offset_right = 26.48
+offset_bottom = 34.08
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_d86u0")

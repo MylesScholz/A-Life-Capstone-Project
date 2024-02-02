@@ -20,7 +20,9 @@ void StartButton::_pressed() {
 	for (int i = 0; i < parent->getNumCells(); i++) {
 		parent->spawnCell();
 	}
-	this->set_visible(false);
+	// this->set_visible(false);
+	// kill all of the background cells
+	// hide the menu and all of it's components
 }
 
 // Mainly used for setting diffrent values for the button but these could be done in the godot client instead
@@ -29,6 +31,5 @@ void StartButton::_ready() {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
-
-	this->set_text("Start");
+	this->set_text("Start New Simulation");
 }
