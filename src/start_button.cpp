@@ -24,9 +24,9 @@ void StartButton::_pressed() {
 
 	// Show in-simulation display
 	Node *UI = spawner->get_child(1);
-	Object::cast_to<CanvasItem>(UI->get_child(4))->set_visible(false); // Menu
-	Object::cast_to<CanvasItem>(UI->get_child(5))->set_visible(true); // NavBar
-	Object::cast_to<CanvasItem>(UI->get_child(2))->set_visible(true); // Stats
+	Object::cast_to<CanvasItem>(UI->find_child("BarPanel"))->set_visible(false); // Menu
+	Object::cast_to<CanvasItem>(UI->find_child("NavBar"))->set_visible(true); // NavBar
+	Object::cast_to<CanvasItem>(UI->find_child("StatsPanel"))->set_visible(true); // Stats
 	Object::cast_to<FpsCounter>(UI->find_child("FpsCounter"))->toggle_fps();
 	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
 

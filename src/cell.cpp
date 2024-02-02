@@ -14,7 +14,7 @@
 #include "ribosomes_gene.hpp"
 
 #include "cell_spawner.hpp"
-#include "stats_counter.hpp"
+#include "stats.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
@@ -340,28 +340,26 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
 
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+		Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
+		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 
-		emit_signal("cell_selected", this);
+		ui_cam->call("on_cell_select", this);
 
-		statsCounter->_update_Stats(this);
-		//statsCounter->_update_signal(this);
+		stats->_set_selected_cell(this);
 	}
 }
 
 Array Cell::getStats() const {
-	Array stats;
-	stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
-	stats.push_back(_cellState->getAlive()); // index 1
-	stats.push_back(Math::round(_cellState->getAge() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getEnergyMaximum() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getNutrientMaximum() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
-	stats.push_back(Math::round(_cellState->getScale() * 1000000) / 1000000.00);
+	Array stats_array;
+	stats_array.push_back(_cellState->getBirthTime()); // index 0
+	stats_array.push_back(_cellState->getAlive()); // index 1
+	stats_array.push_back(_cellState->getAge() - _cellState->getLifespan());
+	stats_array.push_back(_cellState->getTotalEnergy());
+	stats_array.push_back(_cellState->getTotalNutrients());
+	stats_array.push_back(get_mass());
+	stats_array.push_back(getScale());
 	// Continue adding stats in a specific order
-	return stats;
+	return stats_array;
 }
 
 // function updates on cell contacts. Increments counter for use in

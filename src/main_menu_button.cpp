@@ -21,19 +21,8 @@ void MainMenuButton::_pressed() {
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();
 
-	// Close in-simulation display
-	Node *UI = spawner->get_node<Node>("UI");
-	UI->get_node<CanvasItem>("NavBar")->set_visible(false);
-	UI->get_node<CanvasItem>("StatsPanel")->set_visible(false);
-	UI->get_node<CanvasItem>("MenuPanels/SaveAndQuitMenuPanel")->set_visible(false);
-	Object::cast_to<FpsCounter>(UI->find_child("FpsCounter"))->toggle_fps();
-	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
+	Button *exitMenuButton = spawner->get_node<Button>("UI/MenuPanel/EXIT_TO_MENUButton");
 
-	UI->get_node<CanvasItem>("BarPanel")->set_visible(true); // Open menu
-
-	// Respawn background cells that don't die
-	spawner->get_node<Node>("UI/NavBar/PauseButton")->call("unpause");
-	for (int i = 0; i < spawner->getNumCells(); i++) {
-		spawner->spawnCell(1);
-	}
+	// call through to exitMenuButton to reset the UI
+	exitMenuButton->call("ui_reset");
 }

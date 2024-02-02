@@ -1,5 +1,9 @@
 extends TextureButton
 
+# Needs a way for c++ scripts to still run when paused for
+# things like the fps counter, main menu and reset buttons
+var main_menu =  null
+
 func _pressed():
 	var rootNode = get_tree().get_root()
 	var SaveAndQuit = rootNode.get_node("CellSpawner/UI/MenuPanels/SaveAndQuitMenuPanel").visible
@@ -19,6 +23,11 @@ func unpause(): # If paused, unpause
 		_pressed()
 		get_child(0).visible = false # Change pause button to unpaused
 		get_child(1).visible = true
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	main_menu = get_parent()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

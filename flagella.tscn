@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dtweix64dm1yx"]
 
-[ext_resource type="Texture2D" uid="uid://yhqnn7yev434" path="res://sprites/Flagella/Flagella.png" id="1_b4y4e"]
+[ext_resource type="Texture2D" uid="uid://yhqnn7yev434" path="res://Flagella.png" id="1_b4y4e"]
 [ext_resource type="Texture2D" uid="uid://bhreen2eblb2f" path="res://sprites/Flagella/FlagellaActivated0.png" id="2_3gsfp"]
 [ext_resource type="Texture2D" uid="uid://dbs7hxvevwc3m" path="res://sprites/Flagella/FlagellaActivated1.png" id="3_drte0"]
 
