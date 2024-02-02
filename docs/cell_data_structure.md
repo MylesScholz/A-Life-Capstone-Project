@@ -1,62 +1,100 @@
 # Cell Data Structure
 ```
 Cell
-|
-├──Cell State: a container for state variables of this cell divided by their associated organelle/component
+│
+├──CellState: a container for state variables of this Cell
 │  │
-│  ├──Nucleus: the decision-making center of the cell; contains "administrative" variables
+│  ├──Alive: whether this Cell is alive or not
+│  │
+│  ├──Birth Time: the time when this Cell was created
+│  │
+│  ├──Lifespan: the duration after which this Cell has a chance to die
+│  │
+│  ├──Homeostasis Nutrient Cost: the amount of nutrients expended per unit of time to keep this Cell alive
+│  │
+│  ├──Reproduction Nutrient Cost: the amount of nutrients expended when this Cell reproduces
+│  │
+│  ├──Total Nutrients: the total amount of nutrients stored in this Cell currently
+│  │
+│  ├──Nutrient Maximum: the maximum amount of nutrients this Cell can store at one time
+│  │
+│  ├──Homeostasis Energy Cost: the amount of energy expended per unit of time to keep this Cell alive
+│  │
+│  ├──Reproduction Energy Cost: the amount of energy expended when this Cell reproduces; scales with genome length
+│  │
+│  ├──Total Energy: the total amount of usable energy stored in this Cell currently
+│  │
+│  ├──Energy Maximum: the maximum amount of usable energy this Cell can store at one time
+│  │
+│  └──...
+│
+├──CellStructure: an abstract class representing physical structures within this Cell; pointers to each structure are stored in this Cell
+│  │
+│  ├──Creation Nutrient Cost: the amount of nutrients required to create this CellStructure
+│  │
+│  ├──Creation Energy Cost: the amount of energy required to create this CellStructure
+│  │
+│  ├──Maintenance Nutrient Cost: the amount of nutrients required to maintain this CellStructure; the structure cannot activate if this cost is not met
+│  │
+│  ├──Maintenance Energy Cost: the amount of energy required to maintain this CellStructure; the structure cannot activate if this cost is not met
+│  │
+│  ├──Nucleus: the decision-making center of the cell
 │  │  │
-│  │  ├──Alive: whether this cell is alive or not
+│  │  ├──Reproduction Nutrient Threshold: the amount of nutrients in this Cell above which the Cell will reproduce (should be > reproduction cost)
 │  │  │
-│  │  ├──Birth Time: the time when this cell was created
-│  │  │
-│  │  ├──Lifespan: the duration after which this cell has a chance to die
-│  │  │
-│  │  ├──Homeostasis Cost: the amount of nutrients expended per unit of time to keep this cell alive
-│  │  │
-│  │  ├──Reproduction Cost: the amount of nutrients expended when this cell reproduces
-│  │  │
-│  │  ├──Reproduction Threshold: the amount of nutrients needed for this cell to reproduce (> reproduction cost)
+│  │  ├──Reproduction Energy Threshold: the amount of energy int this Cell above which the Cell will reproduce (should be > reproduction cost)
 │  │  │
 │  │  └──...
 │  │
-│  ├──Mitochondria: the primary energy producer of the cell; contains nutrient variables
+│  ├──Ribosomes: chemical complexes that produce gene-coded proteins in cells
 │  │  │
-│  │  ├──Nutrients: the amount of nutrients stored in this cell currently
+│  │  ├──Efficiency: the proportion of energy that is preserved when converting to nutrients
 │  │  │
-│  │  ├──Nutrient Maximum: the maximum amount of nutrients this cell can store at one time
+│  │  ├──Activation Theshold: the amount of resources in this Cell above or below which these ribosomes will activate, depending on the threshold type and activation resource
 │  │  │
-│  │  ├──Nutrient Efficiency: the proportion of environmental nutrients this cell can gather per unit of time
+│  │  ├──Theshold Type: the type of the activation threshold: high-pass or low-pass
+│  │  │
+│  │  ├──Activation Resource: the resources to which these ribosomes "listen" to determine activation: nutrients or energy
 │  │  │
 │  │  └──...
 │  │
-│  ├──Flagella: an external cell component that enables motility; contains movement variables
+│  ├──Mitochondria: the primary energy-producing organelles of Eukaryotic cells
 │  │  │
-│  │  ├──Movement Force: a 2D force vector that this cell will apply to itself next
+│  │  ├──Efficiency: the proportion of nutrients that are preserved when converting to energy
+│  │  │
+│  │  ├──Activation Theshold: the amount of resources in this Cell above or below which these mitochondria will activate, depending on the threshold type and activation resource
+│  │  │
+│  │  ├──Theshold Type: the type of the activation threshold: high-pass or low-pass
+│  │  │
+│  │  ├──Activation Resource: the resources to which these mitochondria "listen" to determine activation: nutrients or energy
+│  │  │
+│  │  └──...
+│  │
+│  ├──Flagella: external cell components that enable motility
+│  │  │
+│  │  ├──Movement Force: a 2D force vector that this Cell will apply to itself when these Flagella are activated
 │  │  │
 │  │  └──...
 │  │
 │  └──...
 │
-├──Genome
+├──Genome: the genetic code of this Cell; contains a list of Genes (the gene sequence) and handles gene expression
 │  │
-│  ├──Active Genes: this cell's genes that may activate after its creation
-│  │  │
-│  │  ├──Gene: a node drawn from a universal pool representing a single feature or behavior of the cell
-│  │  │  |
-│  │  │  ├──Activation Function: a function that runs regularly and implements the gene's behavior
-│  │  │  |
-│  │  │  └──...
-│  │  │
-│  │  └──...
+│  ├──expressGenes(): iterates through the gene sequence, expressing each and applying modifiers; runs once at cell creation
 │  │
-│  ├──Passive Genes: this cell's genes that only activate at creation
+│  ├──Gene: an abstract class representing a single gene; stored in a list in the Genome node
 │  │  │
-│  │  ├──Gene: a node drawn from a universal pool representing a single feature or behavior of the cell
-│  │  │  |
-│  │  │  ├──Activation Function: a function that runs at the cell's creation and implements the gene's behavior
-│  │  │  |  
-│  │  │  └──...
+│  │  ├──getType(): returns whether this Gene is a structure gene or a modifier gene
+│  │  │
+│  │  ├──getName(): returns the unique name of this Gene
+│  │  │
+│  │  ├──express(): if this Gene is a structure gene, instantiate the structure and return it; otherwise, throw an error
+│  │  │
+│  │  ├──getValue(): if this Gene is a modifier gene, return the strength value of this modifier, from [0.0, 1.0]; otherwise, throw an error
+│  │  │
+│  │  ├──Structure Gene: a semantic type of Gene that defines a structure in the cell
+│  │  │
+│  │  ├──Modifier Gene: a semantic type of Gene that modifies a structure in the cell
 │  │  │
 │  │  └──...
 │  │
