@@ -55,6 +55,10 @@ Cell
 │  ├──CellMembrane: the external lipid barrier of this Cell; embedded with numerous proteins and structures that enable complex environmental interactions
 │  │  │
 │  │  ├──Receptor: an Area2D over this Cell that detects environmental nutrients; a CellMembrane may have multiple
+│  │  │  │
+│  │  │  ├──_on_body_entered(): when a collision is detected on the nutrient collision layer, this updates the CellState Receptor Vectors
+│  │  │  │
+│  │  │  └──...
 │  │  │
 │  │  └──...
 │  │
