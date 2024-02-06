@@ -1,7 +1,7 @@
 #pragma once
 
-#include <godot_cpp/classes/Engine.hpp>
-#include <godot_cpp/classes/Viewport.hpp>
+#include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/viewport.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
