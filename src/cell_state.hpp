@@ -16,9 +16,6 @@ public:
 	CellState();
 	~CellState();
 
-	void setMitochondria(Mitochondria *);
-	Mitochondria *getMitochondria();
-
 	void setAlive(const bool);
 	bool getAlive() const;
 
@@ -29,22 +26,14 @@ public:
 	void setLifespan(const float);
 	float getLifespan() const;
 
-	void setNucleus(Nucleus *);
-	Nucleus *getNucleus() const;
-
 	void setScale(const float);
 	void applyScale(const float);
 	float getScale() const;
 
-	void _ready() override;
-	void setMovementForce(const Vector2 &force);
-	Vector2 getMovementForce() const;
-
 private:
-	Nucleus *_nucleus;
-	Mitochondria *_mitochondria;
-	Flagella *_flagella;
+	bool _alive;
 	float _age;
+	float _lifespan;
 	float _scale;
 };
 
