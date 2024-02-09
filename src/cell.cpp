@@ -61,7 +61,7 @@ void Cell::_process(double delta) {
 
 		// Aging, starvation and death
 		float nutrients = _cellState->getTotalNutrients();
-		float ageDiff = _cellState->getAge(Time().get_ticks_msec()) - _cellState->getLifespan();
+		float ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
 
