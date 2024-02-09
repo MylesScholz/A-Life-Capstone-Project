@@ -1,7 +1,5 @@
 #pragma once
 
-#include "mitochondria.hpp"
-#include "nucleus.hpp"
 #include <godot_cpp/classes/node.hpp>
 
 namespace godot {
@@ -19,9 +17,7 @@ public:
 	void setAlive(const bool);
 	bool getAlive() const;
 
-	void setAge(const float);
-	void incrementAge(const float);
-	float getAge() const;
+	float getBirthTime() const;
 
 	void setLifespan(const float);
 	float getLifespan() const;
@@ -30,11 +26,28 @@ public:
 	void applyScale(const float);
 	float getScale() const;
 
+	void setHomeostasisNutrientCost(const float);
+	float getHomeostasisNutrientCost() const;
+
+	void setReproductionNutrientCost(const float);
+	float getReproductionNutrientCost() const;
+
+	void setTotalNutrients(const float);
+	void incrementTotalNutrients(const float);
+	float getTotalNutrients() const;
+
+	void setNutrientMaximum(const float);
+	float getNutrientMaximum() const;
+
 private:
 	bool _alive;
-	float _age;
+	float _birthTime;
 	float _lifespan;
 	float _scale;
+	float _homeostasisNutrientCost;
+	float _reproductionNutrientCost;
+	float _totalNutrients;
+	float _nutrientMaximum;
 };
 
 }; // namespace godot
