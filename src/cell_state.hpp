@@ -2,6 +2,7 @@
 
 #include "mitochondria.hpp"
 #include <godot_cpp/classes/node.hpp>
+#include "nucleus.hpp"
 
 namespace godot {
 
@@ -28,6 +29,10 @@ public:
 	void setLifespan(const float);
 	float getLifespan() const;
 
+	void setNucleus(Nucleus*);
+	Nucleus* getNucleus() const;
+
+
 	void setScale(const float);
 	void applyScale(const float);
 	float getScale() const;
@@ -36,9 +41,8 @@ public:
 
 private:
 	Mitochondria *_mitochondria;
-	bool _alive;
+	Nucleus* _nucleus;
 	float _age;
-	float _lifespan;
 	float _scale;
 };
 
