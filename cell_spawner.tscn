@@ -42,7 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, 0)
 
 [node name="LeftEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(-100, 360)
