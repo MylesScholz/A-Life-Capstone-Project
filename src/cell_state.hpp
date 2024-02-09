@@ -1,6 +1,7 @@
 #pragma once
 
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/time.hpp>
 
 namespace godot {
 
@@ -17,7 +18,9 @@ public:
 	void setAlive(const bool);
 	bool getAlive() const;
 
+	void setBirthTime(const int);
 	float getBirthTime() const;
+	float getAge(const int) const;
 
 	void setLifespan(const float);
 	float getLifespan() const;

@@ -7,7 +7,7 @@ void CellState::_bind_methods() {
 
 CellState::CellState() {
 	_alive = true;
-	_birthTime = 0.;
+	_birthTime = Time().get_ticks_msec() / 1000.;
 	_lifespan = 1.;
 	_scale = 1.;
 	_homeostasisNutrientCost = 1.;
@@ -21,7 +21,9 @@ CellState::~CellState() {
 void CellState::setAlive(const bool alive) { _alive = alive; }
 bool CellState::getAlive() const { return _alive; }
 
+void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.; }
 float CellState::getBirthTime() const { return _birthTime; }
+float CellState::getAge(const int currentMsec) const { return (currentMsec / 1000.) - _birthTime; }
 
 void CellState::setLifespan(const float lifespan) {
 	if (lifespan > 0)

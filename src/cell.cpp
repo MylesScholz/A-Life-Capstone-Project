@@ -2,6 +2,7 @@
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
 using namespace godot;
@@ -56,12 +57,11 @@ void Cell::_process(double delta) {
 		// Living Cell behavior
 
 		// Increment the Cell's age and decrement nutrients
-		_cellState->incrementAge(delta);
-		_cellState->getMitochondria()->decrementNutrients(delta);
+		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
 
 		// Aging, starvation and death
-		float nutrients = _cellState->getMitochondria()->getNutrients();
-		float ageDiff = _cellState->getAge() - _cellState->getLifespan();
+		float nutrients = _cellState->getTotalNutrients();
+		float ageDiff = _cellState->getAge(Time().get_ticks_msec()) - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
 
