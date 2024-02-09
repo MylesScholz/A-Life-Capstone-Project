@@ -23,13 +23,26 @@ z_index = 1
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="StatsCounter" type="StatsCounter" parent="."]
+[node name="Panel" type="Panel" parent="."]
+offset_left = 862.0
+offset_top = 404.0
+offset_right = 1079.0
+offset_bottom = 719.0
+
+[node name="StatsCounter" type="StatsCounter" parent="Panel"]
 z_index = 2
-offset_top = 23.0
-offset_right = 40.0
-offset_bottom = 46.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
+position = Vector2(0, -1)
 
 [node name="LeftEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(-100, 360)
@@ -82,12 +95,14 @@ offset_right = 279.0
 offset_bottom = 450.0
 
 [node name="Button2" type="Button" parent="BarPanel"]
+layout_mode = 0
 offset_left = 95.0
 offset_top = 464.0
 offset_right = 279.0
 offset_bottom = 498.0
 
 [node name="Button3" type="Button" parent="BarPanel"]
+layout_mode = 0
 offset_left = 96.0
 offset_top = 512.0
 offset_right = 280.0

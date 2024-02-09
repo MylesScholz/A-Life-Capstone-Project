@@ -5,16 +5,15 @@
 
 using namespace godot;
 
-void StatsCounter::_bind_methods() {}
+void StatsCounter::_bind_methods(){}
 
-StatsCounter::StatsCounter() {}
-StatsCounter::~StatsCounter() {}
+StatsCounter::StatsCounter(){}
+StatsCounter::~StatsCounter(){}
 
-void StatsCounter::_process(double delta) {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
-
-	const String stats = "COLLISIONS " + String::num(Cell::CollisionCount);
-	set_text(stats);
-}
+void StatsCounter::_process(double delta){
+    // Don't run if in editor
+    if(Engine::get_singleton()->is_editor_hint()) return;
+    
+    const String stats = "COLLISIONS " + String::num(Cell::CollisionCount);
+    set_text(stats);
+}  
