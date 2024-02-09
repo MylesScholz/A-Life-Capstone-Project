@@ -1,8 +1,8 @@
 #pragma once
 
 #include "mitochondria.hpp"
-#include <godot_cpp/classes/node.hpp>
 #include "nucleus.hpp"
+#include <godot_cpp/classes/node.hpp>
 
 namespace godot {
 
@@ -29,19 +29,21 @@ public:
 	void setLifespan(const float);
 	float getLifespan() const;
 
-	void setNucleus(Nucleus*);
-	Nucleus* getNucleus() const;
-
+	void setNucleus(Nucleus *);
+	Nucleus *getNucleus() const;
 
 	void setScale(const float);
 	void applyScale(const float);
 	float getScale() const;
 
 	void _ready() override;
+	void setMovementForce(const Vector2 &force);
+	Vector2 getMovementForce() const;
 
 private:
+	Nucleus *_nucleus;
 	Mitochondria *_mitochondria;
-	Nucleus* _nucleus;
+	Flagella *_flagella;
 	float _age;
 	float _scale;
 };
