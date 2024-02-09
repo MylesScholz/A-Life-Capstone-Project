@@ -26,6 +26,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Mitochondria>();
 	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<StartButton>();
+	ClassDB::register_class<Nucleus>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {
