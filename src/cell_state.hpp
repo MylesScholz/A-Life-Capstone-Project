@@ -5,12 +5,7 @@
 
 namespace godot {
 
-class CellState : public Node {
-	GDCLASS(CellState, Node)
-
-protected:
-	static void _bind_methods();
-
+class CellState {
 public:
 	CellState();
 	~CellState();

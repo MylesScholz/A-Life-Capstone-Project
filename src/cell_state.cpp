@@ -2,38 +2,15 @@
 
 using namespace godot;
 
-void CellState::_bind_methods() {
-	// Lifespan Variable
-	ClassDB::bind_method(D_METHOD("set_lifespan", "Lifespan"),
-			&CellState::setLifespan);
-	ClassDB::bind_method(D_METHOD("get_lifespan"), &CellState::getLifespan);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "Lifespan"),
-			"set_lifespan", "get_lifespan");
-
-	// Homeostasis Cost Variable
-	ClassDB::bind_method(D_METHOD("set_homeostasis_nutrient_cost", "homeostasisNutrientCost"),
-			&CellState::setHomeostasisNutrientCost);
-	ClassDB::bind_method(D_METHOD("get_homeostasis_nutrient_cost"), &CellState::getHomeostasisNutrientCost);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "Homeostasis Nutrient Cost"),
-			"set_homeostasis_nutrient_cost", "get_homeostasis_nutrient_cost");
-
-	// Reproduction Cost Variable
-	ClassDB::bind_method(D_METHOD("set_reproduction_nutrient_cost", "reproductionNutrientCost"),
-			&CellState::setReproductionNutrientCost);
-	ClassDB::bind_method(D_METHOD("get_reproduction_nutrient_cost"), &CellState::getReproductionNutrientCost);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "Reproduction Nutrient Cost"),
-			"set_reproduction_nutrient_cost", "get_reproduction_nutrient_cost");
-}
-
 CellState::CellState() {
 	_alive = true;
-	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.;
-	_lifespan = 1.;
-	_scale = 1.;
-	_homeostasisNutrientCost = 1.;
-	_reproductionNutrientCost = 1.;
-	_totalNutrients = 0.;
-	_nutrientMaximum = 1.;
+	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
+	_lifespan = 1.0;
+	_scale = 1.0;
+	_homeostasisNutrientCost = 1.0;
+	_reproductionNutrientCost = 1.0;
+	_totalNutrients = 0.0;
+	_nutrientMaximum = 1.0;
 }
 CellState::~CellState() {
 }
