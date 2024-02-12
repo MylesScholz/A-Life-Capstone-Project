@@ -1,0 +1,131 @@
+name: Build
+
+on: 
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+env:
+  # Only used for the cache key. Increment version to force clean build.
+  GODOT_BASE_BRANCH: master
+
+concurrency:
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: 🐧 Linux (GCC)
+            os: ubuntu-20.04
+            platform: linux
+            cache-name: linux-x86_64
+
+          - name: 🐧 Linux (GCC, Double Precision)
+            os: ubuntu-20.04
+            platform: linux
+            flags: precision=double
+            cache-name: linux-x86_64-f64
+
+          - name: 🏁 Windows (x86_64, MSVC)
+            os: windows-2019
+            platform: windows
+            cache-name: windows-x86_64-msvc
+
+          - name: 🏁 Windows (x86_64, MinGW)
+            os: windows-2019
+            platform: windows
+            flags: use_mingw=yes
+            cache-name: windows-x86_64-mingw
+
+          - name: 🍎 macOS (universal)
+            os: macos-11
+            platform: macos
+            flags: arch=universal
+            cache-name: macos-universal
+
+          # - name: 🤖 Android (arm64)
+          #   os: ubuntu-20.04
+          #   platform: android
+          #   flags: arch=arm64
+          #   cache-name: android-arm64
+
+          # - name: 🍏 iOS (arm64)
+          #   os: macos-11
+          #   platform: ios
+          #   flags: arch=arm64
+          #   cache-name: ios-arm64
+
+          # - name: 🌐 Web (wasm32)
+          #   os: ubuntu-20.04
+          #   platform: web
+          #   cache-name: web-wasm32
+
+    env:
+      SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
+      EM_VERSION: 3.1.39
+      EM_CACHE_FOLDER: "emsdk-cache"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Godot build cache
+        uses: ./.github/actions/godot-cache
+        with:
+          cache-name: ${{ matrix.cache-name }}
+        continue-on-error: true
+
+      - name: Set up Python (for SCons)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Android dependencies
+        if: ${{ matrix.platform == 'android' }}
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r23c
+          link-to-sdk: true
+
+      - name: Web dependencies
+        if: ${{ matrix.platform == 'web' }}
+        uses: mymindstorm/setup-emsdk@v13
+        with:
+          version: ${{env.EM_VERSION}}
+          actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
+
+      - name: Setup MinGW for Windows/MinGW build
+        if: ${{ matrix.platform == 'windows' && matrix.flags == 'use_mingw=yes' }}
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          version: 12.2.0
+
+      - name: Install scons
+        run: |
+          python -m pip install scons==4.0.0
+
+      - name: Generate godot-cpp sources only
+        run: |
+          cd godot-cpp
+          scons platform=${{ matrix.platform }} build_library=no ${{ matrix.flags }}
+          scons -c
+
+      - name: Build godot-cpp (debug)
+        run: |
+          cd godot-cpp
+          scons platform=${{ matrix.platform }} target=template_debug ${{ matrix.flags }}
+
+      - name: Build without rebuilding godot-cpp (debug)
+        run: |
+          scons platform=${{ matrix.platform }} target=template_debug ${{ matrix.flags }} build_library=no
+
+      - name: Build with godot-cpp (release)
+        run: |
+          scons platform=${{ matrix.platform }} target=template_release ${{ matrix.flags }}

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <godot_cpp/classes/Engine.hpp>
-#include <godot_cpp/classes/Label.hpp>
+#include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/label.hpp>
 
 namespace godot {
 

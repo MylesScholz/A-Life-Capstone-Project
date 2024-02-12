@@ -2,9 +2,9 @@
 #include "cell_state.hpp"
 #include "mitochondria.hpp"
 
-#include <godot_cpp/classes/Engine.hpp>
+#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
-#include <godot_cpp/classes/rigid_body2D.hpp>
+#include <godot_cpp/classes/rigid_body2d.hpp>
 
 namespace godot {
 
