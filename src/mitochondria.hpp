@@ -13,16 +13,6 @@ protected:
 public:
 	Mitochondria();
 	~Mitochondria();
-
-	void addNutrients(float);
-	void decrementNutrients(const float);
-	float getNutrients() const;
-	void setNutrients(const float);
-
-private:
-	float _nutrients;
-	float _nutrient_maximum;
-	float _nutrient_efficiency;
 };
 
 }; // namespace godot

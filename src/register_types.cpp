@@ -3,7 +3,10 @@
 #include "cell.hpp"
 #include "cell_spawner.hpp"
 #include "cell_state.hpp"
+#include "flagella.hpp"
 #include "fps_counter.hpp"
+#include "mitochondria.hpp"
+#include "nucleus.hpp"
 #include "start_button.hpp"
 #include "stats_counter.hpp"
 
@@ -20,10 +23,13 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 
 	ClassDB::register_class<StatsCounter>();
 	ClassDB::register_class<FpsCounter>();
-	ClassDB::register_class<Cell>();
-	ClassDB::register_class<CellSpawner>();
-	ClassDB::register_class<CellState>();
 	ClassDB::register_class<StartButton>();
+	ClassDB::register_class<CellSpawner>();
+	ClassDB::register_class<Cell>();
+	ClassDB::register_class<CellState>();
+	ClassDB::register_class<Nucleus>();
+	ClassDB::register_class<Mitochondria>();
+	ClassDB::register_class<Flagella>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {

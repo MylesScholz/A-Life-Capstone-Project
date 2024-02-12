@@ -18,7 +18,7 @@ public:
 	Vector2 getMovementForce() const;
 
 private:
-	Vector2 _movement_force;
+	Vector2 _movementForce;
 };
 
 }; // namespace godot

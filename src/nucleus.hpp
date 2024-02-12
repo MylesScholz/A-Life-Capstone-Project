@@ -16,30 +16,11 @@ public:
 	Nucleus();
 	~Nucleus();
 
-	void setAlive(const bool);
-	bool getAlive() const;
-
-	float getBirthTime() const;
-
-	void setLifespan(const float);
-	float getLifespan() const;
-
-	void setHomeostasisCost(const float);
-	float getHomeostasisCost() const;
-
-	void setReproCost(const float);
-	float getReproCost() const;
-
-	void setReproThreshold(const float);
-	float getReproThreshold() const;
+	void setReproductionNutrientThreshold(const float);
+	float getReproductionNutrientThreshold() const;
 
 private:
-	bool _alive;
-	float _birthTime;
-	float _lifespan;
-	float _homeostasisCost;
-	float _reproCost;
-	float _reproThreshold;
+	float _reproductionNutrientThreshold;
 };
 
 } //namespace godot
