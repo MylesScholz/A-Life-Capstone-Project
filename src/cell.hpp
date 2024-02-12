@@ -1,9 +1,9 @@
 #pragma once
 #include "cell_state.hpp"
 #include "cell_structure.hpp"
-#include "nucleus.hpp"
-#include "mitochondria.hpp"
 #include "genome.hpp"
+#include "mitochondria.hpp"
+#include "nucleus.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
