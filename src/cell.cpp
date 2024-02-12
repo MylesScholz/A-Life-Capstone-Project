@@ -89,16 +89,18 @@ void Cell::applyScale(const float scale) {
 	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
-float Cell::getScale() const { return _cellState.getScale(); }
+float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
-void Cell::_ready() {}
+void Cell::_ready() {
+	_cellState = this->get_node<CellState>("CellState");
+}
 
 void Cell::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
 
-	if (_cellState.getAlive()) {
+	if (_cellState->getAlive()) {
 		// Living Cell behavior
 
 		// Activate the Cell's structures
