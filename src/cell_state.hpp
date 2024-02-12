@@ -5,7 +5,7 @@
 
 namespace godot {
 
-class CellState : Node {
+class CellState : public Node {
 	GDCLASS(CellState, Node)
 
 protected:
