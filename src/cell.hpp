@@ -24,6 +24,8 @@ public:
 
 	float getScale() const;
 	Size2 getSpriteSize() const;
+	void resetCollisions();
+	void setImmortal(bool);
 
 	void _ready() override;
 	void _process(double) override;

@@ -12,6 +12,7 @@ void Cell::_bind_methods() {
 }
 
 int Cell::CollisionCount = 0;
+bool immortal = 0;
 
 Cell::Cell() {
 	// Setting default required parameters for collision detection on RigidBody2D
@@ -43,6 +44,16 @@ float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
+void Cell::resetCollisions() {
+	CollisionCount = 0;
+	return;
+}
+
+void Cell::setImmortal(bool isImmortal) {
+	immortal = isImmortal;
+	return;
+}
+
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
 }
@@ -60,8 +71,12 @@ void Cell::_process(double delta) {
 		_cellState->getMitochondria()->decrementNutrients(delta);
 
 		// Aging, starvation and death
-		float nutrients = _cellState->getMitochondria()->getNutrients();
-		float ageDiff = _cellState->getAge() - _cellState->getLifespan();
+		float nutrients;
+		float ageDiff;
+		if (!immortal) {
+			nutrients = _cellState->getMitochondria()->getNutrients();
+			ageDiff = _cellState->getAge() - _cellState->getLifespan();
+		}
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
 

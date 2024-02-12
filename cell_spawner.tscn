@@ -20,10 +20,12 @@ cell_scene = ExtResource("1_dm1x8")
 
 [node name="FpsCounter" type="FpsCounter" parent="."]
 z_index = 1
+offset_top = 66.0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 89.0
 
 [node name="StatsPanel" type="Panel" parent="."]
+visible = false
 offset_left = 862.0
 offset_top = 404.0
 offset_right = 1079.0
@@ -92,12 +94,27 @@ offset_right = 319.0
 offset_bottom = 672.0
 theme = ExtResource("2_d86u0")
 
+[node name="StartButton" type="StartButton" parent="BarPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.344
+anchor_top = 0.511
+anchor_right = 0.344
+anchor_bottom = 0.511
+offset_left = -28.84
+offset_top = 0.0799866
+offset_right = 155.16
+offset_bottom = 34.08
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_d86u0")
+
 [node name="Button" type="Button" parent="BarPanel"]
-layout_mode = 0
 offset_left = 95.0
 offset_top = 416.0
 offset_right = 279.0
 offset_bottom = 450.0
+theme = ExtResource("2_d86u0")
 
 [node name="Button2" type="Button" parent="BarPanel"]
 layout_mode = 0
@@ -113,16 +130,90 @@ offset_top = 512.0
 offset_right = 280.0
 offset_bottom = 546.0
 
-[node name="StartButton" type="StartButton" parent="."]
-anchors_preset = -1
-anchor_left = 0.344
-anchor_top = 0.511
-anchor_right = 0.344
-anchor_bottom = 0.511
-offset_left = -157.52
-offset_top = 0.0799866
-offset_right = 26.48
-offset_bottom = 34.08
-grow_horizontal = 2
-grow_vertical = 2
+[node name="NavBar" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 1080.0
+offset_bottom = 66.0
 theme = ExtResource("2_d86u0")
+theme_type_variation = &"BarPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
+
+[node name="LineEdit" type="LineEdit" parent="NavBar"]
+offset_left = 12.0
+offset_top = 1.0
+offset_right = 401.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
+text = "A-Life Challenge 2.0"
+
+[node name="Polygon2D" type="Polygon2D" parent="NavBar"]
+position = Vector2(560.268, -87.3415)
+scale = Vector2(0.829268, 0.829268)
+polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
+
+[node name="Polygon2D2" type="Polygon2D" parent="NavBar"]
+position = Vector2(573.13, -86.9565)
+scale = Vector2(0.826087, 0.826087)
+polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
+
+[node name="Polygon2D4" type="Polygon2D" parent="NavBar"]
+position = Vector2(731.239, -90.587)
+scale = Vector2(0.847826, 0.847826)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
+
+[node name="Polygon2D5" type="Polygon2D" parent="NavBar"]
+position = Vector2(740.143, -91.7143)
+scale = Vector2(0.857143, 0.857143)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
+
+[node name="Polygon2D6" type="Polygon2D" parent="NavBar"]
+position = Vector2(797.348, -93.2174)
+scale = Vector2(0.869565, 0.869565)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
+
+[node name="Polygon2D7" type="Polygon2D" parent="NavBar"]
+position = Vector2(808.457, -95.8478)
+scale = Vector2(0.891304, 0.891304)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
+
+[node name="Polygon2D8" type="Polygon2D" parent="NavBar"]
+position = Vector2(827.605, -92.079)
+scale = Vector2(0.868421, 0.868421)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
+
+[node name="Polygon2D9" type="Polygon2D" parent="NavBar"]
+position = Vector2(608.999, -112.072)
+scale = Vector2(1, 1)
+polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
+
+[node name="Line2D" type="Line2D" parent="NavBar"]
+position = Vector2(169, 68)
+points = PackedVector2Array(563, -59, 563, -10)
+width = 5.0
+default_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="Line2D2" type="Line2D" parent="NavBar"]
+position = Vector2(51, 68)
+points = PackedVector2Array(563, -59, 563, -10)
+width = 5.0
+default_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="LineEdit2" type="LineEdit" parent="NavBar"]
+offset_left = 510.0
+offset_top = 3.0
+offset_right = 622.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
+text = "Menu"
+
+[node name="LineEdit3" type="LineEdit" parent="NavBar"]
+offset_left = 632.0
+offset_top = 3.0
+offset_right = 744.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
+text = "Reset"

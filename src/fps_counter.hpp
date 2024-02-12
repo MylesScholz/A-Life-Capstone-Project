@@ -15,6 +15,8 @@ public:
 	FpsCounter();
 	~FpsCounter();
 
+	void start_fps();
+
 	void _process(double) override;
 };
 

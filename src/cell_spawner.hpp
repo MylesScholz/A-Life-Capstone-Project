@@ -1,12 +1,12 @@
 #pragma once
 
 #include <godot_cpp/classes/engine.hpp>
-#include <godot_cpp/classes/viewport.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/viewport.hpp>
 
 namespace godot {
 
@@ -32,7 +32,9 @@ public:
 	void setMaxForce(const float);
 	float getMaxForce() const;
 
-	void spawnCell();
+	void spawnCell(bool isImmortal = 0);
+
+	void removeAllCells();
 
 	void _ready() override;
 

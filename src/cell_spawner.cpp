@@ -61,7 +61,7 @@ void CellSpawner::setMaxForce(const float maxForce) {
 }
 float CellSpawner::getMaxForce() const { return _maxForce; }
 
-void CellSpawner::spawnCell() {
+void CellSpawner::spawnCell(bool isImmortal) {
 	// Instantiate cell scene
 	Node *cell = _cellScene->instantiate();
 	// Get viewport size for positioning
@@ -87,15 +87,28 @@ void CellSpawner::spawnCell() {
 	// Set z-index to ensure it's rendered behind other nodes
 	cellObject->set_z_index(-1);
 
+	// Prevent display cells from dying
+	cellObject->setImmortal(isImmortal);
+
 	add_child(cell);
+}
+
+void CellSpawner::removeAllCells() {
+	for (int i = get_child_count() - 1; i >= 0; i--) {
+		Node *child = get_child(i);
+		if (Object::cast_to<Cell>(child)) {
+			Object::cast_to<Cell>(child)->resetCollisions();
+			child->queue_free();
+		}
+	}
 }
 
 void CellSpawner::_ready() {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
-	// Spawn back ground cells
+	// Spawn back ground cells that don't die
 	for (int i = 0; i < this->getNumCells(); i++) {
-		this->spawnCell(); // Add arguments so they don't die
+		this->spawnCell(1);
 	}
 }
