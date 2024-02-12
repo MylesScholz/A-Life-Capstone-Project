@@ -2,6 +2,8 @@
 
 using namespace godot;
 
+void CellState::_bind_methods() {}
+
 CellState::CellState() {
 	_alive = true;
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
@@ -12,8 +14,7 @@ CellState::CellState() {
 	_totalNutrients = 0.0;
 	_nutrientMaximum = 1.0;
 }
-CellState::~CellState() {
-}
+CellState::~CellState() {}
 
 void CellState::setAlive(const bool alive) { _alive = alive; }
 bool CellState::getAlive() const { return _alive; }

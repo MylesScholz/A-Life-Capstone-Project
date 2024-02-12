@@ -30,7 +30,7 @@ public:
 	void _on_body_entered(Node *body);
 
 private:
-	CellState _cellState;
+	CellState *_cellState;
 	Size2 _spriteSize;
 	Ref<RandomNumberGenerator> rand;
 };

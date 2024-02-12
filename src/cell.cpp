@@ -24,7 +24,6 @@ Cell::Cell() {
 
 	rand.instantiate();
 
-	_cellState = CellState();
 	_spriteSize = Size2();
 }
 Cell::~Cell() {}
@@ -37,45 +36,47 @@ void Cell::applyScale(float scale) {
 			->apply_scale(Vector2(scale, scale));
 	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 
-	_cellState.applyScale(scale);
+	_cellState->applyScale(scale);
 	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
-float Cell::getScale() const { return _cellState.getScale(); }
+float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
-void Cell::_ready() {}
+void Cell::_ready() {
+	_cellState = this->get_node<CellState>("CellState");
+}
 
 void Cell::_process(double delta) {
 	// Don't run if in editor
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
 
-	if (_cellState.getAlive()) {
+	if (_cellState->getAlive()) {
 		// Living Cell behavior
 
 		// Increment the Cell's age and decrement nutrients
-		_cellState.incrementTotalNutrients(-delta * _cellState.getHomeostasisNutrientCost());
+		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
 
 		// Aging, starvation and death
-		float nutrients = _cellState.getTotalNutrients();
-		float ageDiff = _cellState.getAge(Time::get_singleton()->get_ticks_msec()) - _cellState.getLifespan();
+		float nutrients = _cellState->getTotalNutrients();
+		float ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
 
 			// Generate a random number from 0 to the Cell's lifespan times 1 over
 			// delta. If that value is less than ageDiff, kill the Cell. This adds
 			// some variability to Cell lifespans.
-			if (rand->randf_range(0, (1.0 / delta) * _cellState.getLifespan()) <
+			if (rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) <
 					ageDiff) {
-				_cellState.setAlive(false);
+				_cellState->setAlive(false);
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
 			}
 		}
 		if (nutrients <= 0) {
-			_cellState.setAlive(false);
+			_cellState->setAlive(false);
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
 		}
