@@ -26,16 +26,11 @@ offset_bottom = 89.0
 
 [node name="StatsPanel" type="Panel" parent="."]
 visible = false
-offset_left = 862.0
-offset_top = 404.0
+offset_left = 826.0
+offset_top = 228.0
 offset_right = 1079.0
 offset_bottom = 719.0
-
-[node name="LineEdit" type="LineEdit" parent="StatsPanel"]
-layout_mode = 0
-offset_right = 216.0
-offset_bottom = 33.0
-text = "Cell Statistics"
+theme = ExtResource("2_d86u0")
 
 [node name="StatsCounter" type="StatsCounter" parent="StatsPanel"]
 z_index = 2
@@ -43,11 +38,65 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 35.0
-offset_right = -2.0
+offset_left = 1.0
+offset_top = 241.0
+offset_right = -1.0
+offset_bottom = -223.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Tree" type="Tree" parent="StatsPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 27.0
+offset_right = 255.0
+offset_bottom = 208.0
+
+[node name="LineEdit" type="LineEdit" parent="StatsPanel"]
+layout_mode = 0
+offset_top = 206.0
+offset_right = 253.0
+offset_bottom = 239.0
+text = "Cell Statistics"
+editable = false
+
+[node name="LineEdit2" type="LineEdit" parent="StatsPanel"]
+layout_mode = 0
+offset_right = 254.0
+offset_bottom = 31.0
+text = "Cell Lineage"
+editable = false
+
+[node name="Button" type="Button" parent="StatsPanel"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = -1.0
+offset_right = 254.0
+offset_bottom = 30.0
+text = "x"
+
+[node name="ItemList" type="ItemList" parent="StatsPanel"]
+layout_mode = 0
+offset_top = 270.0
+offset_right = 253.0
+offset_bottom = 491.0
+allow_search = false
+item_count = 9
+item_0/text = "Alive:"
+item_0/selectable = false
+item_1/text = "Birth Time:"
+item_1/selectable = false
+item_2/text = "Age:"
+item_2/selectable = false
+item_3/text = "Nutrients:"
+item_3/selectable = false
+item_4/text = "Size:"
+item_4/selectable = false
+item_5/text = "Reproduction Threshold:"
+item_5/selectable = false
+item_6/text = "Reproduction Cost:"
+item_7/text = "Homeostasis Cost:"
+item_8/text = "Nutrient Efficiency:"
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 
@@ -110,6 +159,7 @@ grow_vertical = 2
 theme = ExtResource("2_d86u0")
 
 [node name="Button" type="Button" parent="BarPanel"]
+layout_mode = 0
 offset_left = 95.0
 offset_top = 416.0
 offset_right = 279.0
@@ -140,6 +190,7 @@ theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
 [node name="LineEdit" type="LineEdit" parent="NavBar"]
+layout_mode = 0
 offset_left = 12.0
 offset_top = 1.0
 offset_right = 401.0
@@ -185,7 +236,6 @@ polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
 
 [node name="Polygon2D9" type="Polygon2D" parent="NavBar"]
 position = Vector2(608.999, -112.072)
-scale = Vector2(1, 1)
 polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
 
 [node name="Line2D" type="Line2D" parent="NavBar"]
@@ -201,6 +251,7 @@ width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
 [node name="LineEdit2" type="LineEdit" parent="NavBar"]
+layout_mode = 0
 offset_left = 510.0
 offset_top = 3.0
 offset_right = 622.0
@@ -210,6 +261,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Menu"
 
 [node name="LineEdit3" type="LineEdit" parent="NavBar"]
+layout_mode = 0
 offset_left = 632.0
 offset_top = 3.0
 offset_right = 744.0
