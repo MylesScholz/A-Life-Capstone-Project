@@ -24,6 +24,12 @@ offset_top = 66.0
 offset_right = 40.0
 offset_bottom = 89.0
 
+[node name="TimeCounter" type="TimeCounter" parent="."]
+z_index = 1
+offset_top = 90.0
+offset_right = 40.0
+offset_bottom = 113.0
+
 [node name="StatsPanel" type="Panel" parent="."]
 visible = false
 offset_left = 826.0
@@ -156,6 +162,7 @@ offset_right = 155.16
 offset_bottom = 34.08
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
 
 [node name="Button" type="Button" parent="BarPanel"]
@@ -260,6 +267,14 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Menu"
 
+[node name="MainMenuButton" type="MainMenuButton" parent="NavBar/LineEdit2"]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 2.0
+offset_right = 91.0
+offset_bottom = 58.0
+mouse_default_cursor_shape = 2
+
 [node name="LineEdit3" type="LineEdit" parent="NavBar"]
 layout_mode = 0
 offset_left = 632.0
@@ -269,3 +284,11 @@ offset_bottom = 63.0
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Reset"
+
+[node name="TextureButton" type="ResetButton" parent="NavBar/LineEdit3"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = 3.0
+offset_right = 91.0
+offset_bottom = 59.0
+mouse_default_cursor_shape = 2

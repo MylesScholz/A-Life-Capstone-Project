@@ -11,8 +11,13 @@ FpsCounter::~FpsCounter() {}
 
 bool run = 0;
 
-void FpsCounter::start_fps() {
-	run = 1;
+void FpsCounter::toggle_fps() {
+	if (run) { // turn off
+		run = 0;
+		set_text("");
+	} else { // turn on
+		run = 1;
+	}
 	return;
 }
 
