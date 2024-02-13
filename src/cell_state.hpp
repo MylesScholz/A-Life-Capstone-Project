@@ -42,6 +42,8 @@ public:
 	void setNutrientMaximum(const float);
 	float getNutrientMaximum() const;
 
+	void _ready() override;
+
 private:
 	bool _alive;
 	float _birthTime;

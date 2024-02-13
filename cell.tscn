@@ -24,3 +24,7 @@ shape = SubResource("CircleShape2D_x8tnr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CellState" type="CellState" parent="."]
+lifespan = 20.0
+homeostasis_nutrient_cost = 0.01
+total_nutrients = 100.0
+nutrient_maximum = 100.0

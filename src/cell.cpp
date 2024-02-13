@@ -8,8 +8,7 @@
 using namespace godot;
 
 void Cell::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"),
-			&Cell::_on_body_entered);
+	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
 }
 
 int Cell::CollisionCount = 0;
@@ -36,6 +35,8 @@ void Cell::applyScale(float scale) {
 			->apply_scale(Vector2(scale, scale));
 	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 
+	_cellState = this->get_node<CellState>("CellState");
+
 	_cellState->applyScale(scale);
 	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
@@ -44,9 +45,7 @@ float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
-void Cell::_ready() {
-	_cellState = this->get_node<CellState>("CellState");
-}
+void Cell::_ready() {}
 
 void Cell::_process(double delta) {
 	// Don't run if in editor

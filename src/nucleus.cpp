@@ -4,11 +4,9 @@ using namespace godot;
 
 void Nucleus::_bind_methods() {
 	//Reproduction Threshold Variable
-	ClassDB::bind_method(D_METHOD("set_reproductionNutrientThreshold", "reproductionNutrientThreshold"),
-			&Nucleus::setReproductionNutrientThreshold);
+	ClassDB::bind_method(D_METHOD("set_reproductionNutrientThreshold", "reproductionNutrientThreshold"), &Nucleus::setReproductionNutrientThreshold);
 	ClassDB::bind_method(D_METHOD("get_reproductionNutrientThreshold"), &Nucleus::getReproductionNutrientThreshold);
-	ClassDB::add_property("Nucleus", PropertyInfo(Variant::FLOAT, "Reproduction Nutrient Threshold"),
-			"set_reproductionNutrientThreshold", "get_reproductionNutrientThreshold");
+	ClassDB::add_property("Nucleus", PropertyInfo(Variant::FLOAT, "Reproduction Nutrient Threshold"), "set_reproductionNutrientThreshold", "get_reproductionNutrientThreshold");
 }
 
 Nucleus::Nucleus() {
