@@ -2,13 +2,12 @@
 
 #include "cell_structure.hpp"
 
-#include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
-class Nucleus : public CellStructure, public Node {
-	GDCLASS(Nucleus, Node)
+class Nucleus : public CellStructure {
+	GDCLASS(Nucleus, CellStructure)
 
 protected:
 	static void _bind_methods();

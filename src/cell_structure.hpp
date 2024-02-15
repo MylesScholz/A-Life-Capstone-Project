@@ -4,7 +4,12 @@
 
 using namespace godot;
 
-class CellStructure {
+class CellStructure : public Node {
+	GDCLASS(CellStructure, Node)
+
+protected:
+	static void _bind_methods();
+
 public:
 	CellStructure();
 	~CellStructure();

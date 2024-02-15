@@ -1,12 +1,14 @@
 #include "cell_structure.hpp"
+
 #include <godot_cpp/variant/utility_functions.hpp>
 
-CellStructure::CellStructure() {}
+void CellStructure::_bind_methods() {}
 
+CellStructure::CellStructure() {}
 CellStructure::~CellStructure() {}
 
 void CellStructure::activate(CellState *) {
-	UtilityFunctions::print("CellStructure activate() called");
+	// UtilityFunctions::print("CellStructure::activate()");
 }
 
 void CellStructure::setCreationNutrientCost(const float creationNutrientCost) {

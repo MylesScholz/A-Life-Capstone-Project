@@ -17,7 +17,7 @@ Nucleus::~Nucleus() {}
 
 void Nucleus::activate(CellState *cellState) {
 	if (cellState->getTotalNutrients() >= _reproductionNutrientThreshold) {
-		UtilityFunctions::print("Nucleus activated");
+		// UtilityFunctions::print("Nucleus activated: ", cellState->getTotalNutrients(), " >= ", _reproductionNutrientThreshold);
 	}
 }
 

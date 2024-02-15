@@ -27,6 +27,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellState>();
+	ClassDB::register_class<CellStructure>();
 	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Mitochondria>();
 	ClassDB::register_class<Flagella>();
