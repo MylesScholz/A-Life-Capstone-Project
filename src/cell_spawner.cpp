@@ -3,6 +3,21 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
+// These includes are for starting testing and should stay with the class we're using as the project entry point
+#ifdef DEBUG_ENABLED
+#include <godot_cpp/classes/os.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
+
+#include <string>
+#include <vector>
+
+#include "TestHeader.hpp"
+#endif
+
+using namespace godot;
+
 void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_num_cells", "num_cells"), &CellSpawner::setNumCells);
 	ClassDB::bind_method(D_METHOD("get_num_cells"), &CellSpawner::getNumCells);
@@ -22,7 +37,10 @@ void CellSpawner::_bind_methods() {
 }
 
 CellSpawner::CellSpawner() { rand.instantiate(); }
-CellSpawner::~CellSpawner() {}
+CellSpawner::~CellSpawner() {
+	// Clean up spawned child nodes
+	queue_free();
+}
 
 void CellSpawner::setCellScene(const Ref<PackedScene> cellScene) {
 	_cellScene = cellScene;
@@ -79,7 +97,24 @@ void CellSpawner::spawnCell() {
 }
 
 void CellSpawner::_ready() {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
+	DONT_RUN_IN_EDITOR;
+
+	// If not in a release build, check for custom cmdline arg to run tests,
+	// forwarding additional user args into doctest as its args
+#ifdef DEBUG_ENABLED
+	for (auto arg : OS::get_singleton()->get_cmdline_args()) {
+		if (arg == "--runTests" || arg == "-T") {
+			// Collect user command line args to pass into doctest
+			std::vector<const char *> userArgs;
+			for (godot::String arg : OS::get_singleton()->get_cmdline_user_args()) {
+				const char *charArg = arg.ascii().get_data();
+				userArgs.push_back(charArg);
+			}
+
+			// Run the tests, exit, and return the value doctest returned
+			int retVal = doctest_run(userArgs.size(), userArgs.data());
+			get_tree()->quit(retVal);
+		}
+	}
+#endif
 }

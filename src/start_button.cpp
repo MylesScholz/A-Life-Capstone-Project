@@ -2,6 +2,8 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
 void StartButton::_bind_methods() {
 }
 
@@ -14,7 +16,7 @@ StartButton::~StartButton() {
 // _pressed is used as the function for when the button is pressed
 //  This button is also switching the button off once it gets pressed once.
 void StartButton::_pressed() {
-	CellSpawner *parent = (CellSpawner *)this->get_parent();
+	CellSpawner *parent = static_cast<CellSpawner *>(this->get_parent());
 	for (int i = 0; i < parent->getNumCells(); i++) {
 		parent->spawnCell();
 	}
@@ -24,9 +26,7 @@ void StartButton::_pressed() {
 // Mainly used for setting diffrent values for the button but these could be done in the godot client instead
 //
 void StartButton::_ready() {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
+	DONT_RUN_IN_EDITOR;
 
 	this->set_text("Start");
 }
