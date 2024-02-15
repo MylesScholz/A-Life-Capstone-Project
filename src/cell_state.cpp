@@ -7,21 +7,21 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_lifespan"), &CellState::getLifespan);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "lifespan"), "set_lifespan", "get_lifespan");
 
-	ClassDB::bind_method(D_METHOD("set_homeostasisNutrientCost", "homeostasisNutrientCost"), &CellState::setHomeostasisNutrientCost);
-	ClassDB::bind_method(D_METHOD("get_homeostasisNutrientCost"), &CellState::getHomeostasisNutrientCost);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "homeostasis_nutrient_cost"), "set_homeostasisNutrientCost", "get_homeostasisNutrientCost");
+	ClassDB::bind_method(D_METHOD("set_homeostasis_nutrient_cost", "homeostasis_nutrient_cost"), &CellState::setHomeostasisNutrientCost);
+	ClassDB::bind_method(D_METHOD("get_homeostasis_nutrient_cost"), &CellState::getHomeostasisNutrientCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "homeostasis_nutrient_cost"), "set_homeostasis_nutrient_cost", "get_homeostasis_nutrient_cost");
 
-	ClassDB::bind_method(D_METHOD("set_reproductionNutrientCost", "reproductionNutrientCost"), &CellState::setReproductionNutrientCost);
-	ClassDB::bind_method(D_METHOD("get_reproductionNutrientCost"), &CellState::getReproductionNutrientCost);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_nutrient_cost"), "set_reproductionNutrientCost", "get_reproductionNutrientCost");
+	ClassDB::bind_method(D_METHOD("set_reproduction_nutrient_cost", "reproduction_nutrient_cost"), &CellState::setReproductionNutrientCost);
+	ClassDB::bind_method(D_METHOD("get_reproduction_nutrient_cost"), &CellState::getReproductionNutrientCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_nutrient_cost"), "set_reproduction_nutrient_cost", "get_reproduction_nutrient_cost");
 
-	ClassDB::bind_method(D_METHOD("set_totalNutrients", "totalNutrients"), &CellState::setTotalNutrients);
-	ClassDB::bind_method(D_METHOD("get_totalNutrients"), &CellState::getTotalNutrients);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_nutrients"), "set_totalNutrients", "get_totalNutrients");
+	ClassDB::bind_method(D_METHOD("set_total_nutrients", "total_nutrients"), &CellState::setTotalNutrients);
+	ClassDB::bind_method(D_METHOD("get_total_nutrients"), &CellState::getTotalNutrients);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_nutrients"), "set_total_nutrients", "get_total_nutrients");
 
-	ClassDB::bind_method(D_METHOD("set_nutrientMaximum", "nutrientMaximum"), &CellState::setNutrientMaximum);
-	ClassDB::bind_method(D_METHOD("get_nutrientMaximum"), &CellState::getNutrientMaximum);
-	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "nutrient_maximum"), "set_nutrientMaximum", "get_nutrientMaximum");
+	ClassDB::bind_method(D_METHOD("set_nutrient_maximum", "nutrient_maximum"), &CellState::setNutrientMaximum);
+	ClassDB::bind_method(D_METHOD("get_nutrient_maximum"), &CellState::getNutrientMaximum);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "nutrient_maximum"), "set_nutrient_maximum", "get_nutrient_maximum");
 }
 
 CellState::CellState() {
