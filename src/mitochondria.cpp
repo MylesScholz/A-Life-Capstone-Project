@@ -6,3 +6,5 @@ void Mitochondria::_bind_methods() {}
 
 Mitochondria::Mitochondria() {}
 Mitochondria::~Mitochondria() {}
+
+void Mitochondria::activate(CellState *cellState) {}

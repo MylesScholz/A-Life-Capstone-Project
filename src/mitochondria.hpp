@@ -1,11 +1,13 @@
 #pragma once
 
+#include "cell_structure.hpp"
+
 #include <godot_cpp/classes/node.hpp>
 
-namespace godot {
+using namespace godot;
 
-class Mitochondria : public Node {
-	GDCLASS(Mitochondria, Node);
+class Mitochondria : public CellStructure {
+	GDCLASS(Mitochondria, CellStructure);
 
 protected:
 	static void _bind_methods();
@@ -13,6 +15,6 @@ protected:
 public:
 	Mitochondria();
 	~Mitochondria();
-};
 
-}; // namespace godot
+	void activate(CellState *) override;
+};

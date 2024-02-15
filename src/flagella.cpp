@@ -9,6 +9,8 @@ Flagella::Flagella() {
 }
 Flagella::~Flagella() {}
 
+void Flagella::activate(CellState *cellState) {}
+
 void Flagella::setMovementForce(const Vector2 &movementForce) {
 	_movementForce = movementForce;
 }
