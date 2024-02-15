@@ -93,7 +93,10 @@ float Cell::getScale() const { return _cellState->getScale(); }
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
-void Cell::_ready() {}
+void Cell::_ready() {
+	_cellState = this->get_node<CellState>("CellState");
+	_cellState->setTotalNutrients(_cellState->getNutrientMaximum());
+}
 
 void Cell::_process(double delta) {
 	DONT_RUN_IN_EDITOR;

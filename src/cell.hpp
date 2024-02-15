@@ -26,6 +26,8 @@ public:
 
 	void activateCellStructures();
 
+	void activateCellStructures();
+
 	void applyScale(const float);
 	float getScale() const;
 
