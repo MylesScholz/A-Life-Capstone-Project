@@ -19,8 +19,8 @@ jobs:
 
       - name: Configure dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
+          apt-get update
+          apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
             libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
 
       - name: Set up Python (for SCons)
