@@ -42,6 +42,19 @@ public:
 	void setNutrientMaximum(const float);
 	float getNutrientMaximum() const;
 
+	void setHomeostasisEnergyCost(const float);
+	float getHomeostasisEnergyCost() const;
+
+	void setReproductionEnergyCost(const float);
+	float getReproductionEnergyCost() const;
+
+	void setTotalEnergy(const float);
+	void incrementTotalEnergy(const float);
+	float getTotalEnergy() const;
+
+	void setEnergyMaximum(const float);
+	float getEnergyMaximum() const;
+
 	void _ready() override;
 
 private:
@@ -53,6 +66,10 @@ private:
 	float _reproductionNutrientCost;
 	float _totalNutrients;
 	float _nutrientMaximum;
+	float _homeostasisEnergyCost;
+	float _reproductionEnergyCost;
+	float _totalEnergy;
+	float _energyMaximum;
 };
 
 }; // namespace godot
