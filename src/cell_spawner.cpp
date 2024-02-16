@@ -6,30 +6,21 @@
 using namespace godot;
 
 void CellSpawner::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_num_cells", "num_cells"), &CellSpawner::setNumCells);
 	ClassDB::bind_method(D_METHOD("get_num_cells"), &CellSpawner::getNumCells);
-	ClassDB::bind_method(D_METHOD("set_num_cells", "num_cells"),
-			&CellSpawner::setNumCells);
-	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "num_cells"),
-			"set_num_cells", "get_num_cells");
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "num_cells"), "set_num_cells", "get_num_cells");
 
+	ClassDB::bind_method(D_METHOD("set_cell_scene", "cell_scene"), &CellSpawner::setCellScene);
 	ClassDB::bind_method(D_METHOD("get_cell_scene"), &CellSpawner::getCellScene);
-	ClassDB::bind_method(D_METHOD("set_cell_scene", "cell_scene"),
-			&CellSpawner::setCellScene);
-	ClassDB::add_property("CellSpawner",
-			PropertyInfo(Variant::OBJECT, "cell_scene"),
-			"set_cell_scene", "get_cell_scene");
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::OBJECT, "cell_scene"), "set_cell_scene", "get_cell_scene");
 
+	ClassDB::bind_method(D_METHOD("set_min_force", "min_force"), &CellSpawner::setMinForce);
 	ClassDB::bind_method(D_METHOD("get_min_force"), &CellSpawner::getMinForce);
-	ClassDB::bind_method(D_METHOD("set_min_force", "min_force"),
-			&CellSpawner::setMinForce);
-	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "min_force"),
-			"set_min_force", "get_min_force");
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "min_force"), "set_min_force", "get_min_force");
 
+	ClassDB::bind_method(D_METHOD("set_max_force", "max_force"), &CellSpawner::setMaxForce);
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
-	ClassDB::bind_method(D_METHOD("set_max_force", "max_force"),
-			&CellSpawner::setMaxForce);
-	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"),
-			"set_max_force", "get_max_force");
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
 }
 
 CellSpawner::CellSpawner() { rand.instantiate(); }

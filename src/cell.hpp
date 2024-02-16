@@ -1,12 +1,14 @@
 #pragma once
 #include "cell_state.hpp"
-#include "mitochondria.hpp"
+#include "cell_structure.hpp"
+#include "nucleus.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
+#include <godot_cpp/templates/vector.hpp>
 
-namespace godot {
+using namespace godot;
 
 class Cell : public RigidBody2D {
 	GDCLASS(Cell, RigidBody2D)
@@ -20,9 +22,11 @@ public:
 	Cell();
 	~Cell();
 
-	void applyScale(float);
+	void activateCellStructures();
 
+	void applyScale(float);
 	float getScale() const;
+
 	Size2 getSpriteSize() const;
 
 	void _ready() override;
@@ -32,7 +36,7 @@ public:
 private:
 	CellState *_cellState;
 	Size2 _spriteSize;
+	Vector<CellStructure *> _cellStructures;
+
 	Ref<RandomNumberGenerator> rand;
 };
-
-} // namespace godot

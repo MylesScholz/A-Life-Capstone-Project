@@ -7,3 +7,4 @@ bin/*.lib
 src/*.obj
 .vscode/
 compile_commands.json
+*.pdb

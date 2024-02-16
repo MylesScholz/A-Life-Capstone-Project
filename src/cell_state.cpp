@@ -1,65 +1,97 @@
 #include "cell_state.hpp"
-#include "flagella.hpp"
 
 using namespace godot;
 
 void CellState::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_lifespan", "lifespan"), &CellState::setLifespan);
+	ClassDB::bind_method(D_METHOD("get_lifespan"), &CellState::getLifespan);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "lifespan"), "set_lifespan", "get_lifespan");
+
+	ClassDB::bind_method(D_METHOD("set_homeostasis_nutrient_cost", "homeostasis_nutrient_cost"), &CellState::setHomeostasisNutrientCost);
+	ClassDB::bind_method(D_METHOD("get_homeostasis_nutrient_cost"), &CellState::getHomeostasisNutrientCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "homeostasis_nutrient_cost"), "set_homeostasis_nutrient_cost", "get_homeostasis_nutrient_cost");
+
+	ClassDB::bind_method(D_METHOD("set_reproduction_nutrient_cost", "reproduction_nutrient_cost"), &CellState::setReproductionNutrientCost);
+	ClassDB::bind_method(D_METHOD("get_reproduction_nutrient_cost"), &CellState::getReproductionNutrientCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_nutrient_cost"), "set_reproduction_nutrient_cost", "get_reproduction_nutrient_cost");
+
+	ClassDB::bind_method(D_METHOD("set_total_nutrients", "total_nutrients"), &CellState::setTotalNutrients);
+	ClassDB::bind_method(D_METHOD("get_total_nutrients"), &CellState::getTotalNutrients);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_nutrients"), "set_total_nutrients", "get_total_nutrients");
+
+	ClassDB::bind_method(D_METHOD("set_nutrient_maximum", "nutrient_maximum"), &CellState::setNutrientMaximum);
+	ClassDB::bind_method(D_METHOD("get_nutrient_maximum"), &CellState::getNutrientMaximum);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "nutrient_maximum"), "set_nutrient_maximum", "get_nutrient_maximum");
 }
 
 CellState::CellState() {
-	_age = 0;
-	_scale = 1;
-	_flagella = nullptr;
+	_alive = true;
+	_birthTime = 0.0;
+	_lifespan = 1.0;
+	_scale = 1.0;
+	_homeostasisNutrientCost = 1.0;
+	_reproductionNutrientCost = 1.0;
+	_totalNutrients = 0.0;
+	_nutrientMaximum = 1.0;
 }
-CellState::~CellState() {
-}
+CellState::~CellState() {}
 
-void CellState::setAlive(const bool alive) { _nucleus->setAlive(alive); }
-bool CellState::getAlive() const { return _nucleus->getAlive(); }
+void CellState::setAlive(const bool alive) { _alive = alive; }
+bool CellState::getAlive() const { return _alive; }
 
-void CellState::setMitochondria(Mitochondria *mitochondria) { _mitochondria = mitochondria; }
-Mitochondria *CellState::getMitochondria() { return _mitochondria; }
+void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
+float CellState::getBirthTime() const { return _birthTime; }
+float CellState::getAge(const int currentMsec) const { return (currentMsec / 1000.0) - _birthTime; }
 
-void CellState::setNucleus(Nucleus *nucleus) {
-	_nucleus = nucleus;
+void CellState::setLifespan(const float lifespan) {
+	if (lifespan > 0)
+		_lifespan = lifespan;
 }
-Nucleus *CellState::getNucleus() const {
-	return _nucleus;
-}
-
-void CellState::setAge(const float age) {
-	if (age >= 0)
-		_age = age;
-}
-void CellState::incrementAge(const float increment) {
-	if (_age + increment > 0)
-		_age += increment;
-	else
-		_age = 0;
-}
-float CellState::getAge() const { return _age; }
-
-void CellState::setLifespan(const float lifespan) { _nucleus->setLifespan(lifespan); }
-float CellState::getLifespan() const { return _nucleus->getLifespan(); }
+float CellState::getLifespan() const { return _lifespan; }
 
 void CellState::setScale(const float scale) { _scale = scale; }
 void CellState::applyScale(const float scale) {
-	if (scale <= 0)
+	if (scale > 0)
 		_scale *= scale;
 }
 float CellState::getScale() const { return _scale; }
 
+void CellState::setHomeostasisNutrientCost(const float homeostasisNutrientCost) {
+	if (homeostasisNutrientCost > 0)
+		_homeostasisNutrientCost = homeostasisNutrientCost;
+}
+float CellState::getHomeostasisNutrientCost() const { return _homeostasisNutrientCost; }
+
+void CellState::setReproductionNutrientCost(const float reproductionNutrientCost) {
+	if (reproductionNutrientCost > 0)
+		_reproductionNutrientCost = reproductionNutrientCost;
+}
+float CellState::getReproductionNutrientCost() const { return _reproductionNutrientCost; }
+
+void CellState::setTotalNutrients(const float totalNutrients) {
+	if (totalNutrients < 0)
+		_totalNutrients = 0;
+	else if (totalNutrients > _nutrientMaximum)
+		_totalNutrients = _nutrientMaximum;
+	else
+		_totalNutrients = totalNutrients;
+}
+void CellState::incrementTotalNutrients(const float nutrients) {
+	if (_totalNutrients + nutrients < 0)
+		_totalNutrients = 0;
+	else if (_totalNutrients + nutrients > _nutrientMaximum)
+		_totalNutrients = _nutrientMaximum;
+	else
+		_totalNutrients += nutrients;
+}
+float CellState::getTotalNutrients() const { return _totalNutrients; }
+
+void CellState::setNutrientMaximum(const float nutrientMaximum) {
+	if (nutrientMaximum >= 0)
+		_nutrientMaximum = nutrientMaximum;
+}
+float CellState::getNutrientMaximum() const { return _nutrientMaximum; }
+
 void CellState::_ready() {
-	_mitochondria = this->get_node<Mitochondria>("Mitochondria");
-	_nucleus = this->get_node<Nucleus>("Nucleus");
-}
-
-void CellState::setMovementForce(const Vector2 &force) {
-	if (_flagella) {
-		_flagella->setMovementForce(force);
-	}
-}
-
-Vector2 CellState::getMovementForce() const {
-	return _flagella ? _flagella->getMovementForce() : Vector2();
+	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
 }

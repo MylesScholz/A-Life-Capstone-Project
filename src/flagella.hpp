@@ -1,24 +1,26 @@
 #pragma once
 
+#include "cell_structure.hpp"
+
 #include <godot_cpp/classes/node.hpp>
 
-namespace godot {
+using namespace godot;
 
-class Flagella : public Node {
-	GDCLASS(Flagella, Node)
+class Flagella : public CellStructure {
+	GDCLASS(Flagella, CellStructure)
 
 protected:
-	static void _bind_methods():
+	static void _bind_methods();
 
 public:
-	Flagella():
-	~Flagella():
+	Flagella();
+	~Flagella();
+
+	void activate(CellState *) override;
 
 	void setMovementForce(const Vector2 &force);
 	Vector2 getMovementForce() const;
 
 private:
-	Vector2 _movement_force;
+	Vector2 _movementForce;
 };
-
-}; // namespace godot

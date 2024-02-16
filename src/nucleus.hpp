@@ -1,51 +1,26 @@
-#ifndef NUCLEUS_HPP
-#define NUCLEUS_HPP
+#pragma once
 
-#include <godot_cpp/classes/node.hpp>
-#include <time.h>
+#include "cell_structure.hpp"
 
-namespace godot {
+#include <godot_cpp/variant/utility_functions.hpp>
 
-    class Nucleus : public Node {
-        GDCLASS(Nucleus, Node)
-    
+using namespace godot;
 
-    protected:
-        static void _bind_methods();
+class Nucleus : public CellStructure {
+	GDCLASS(Nucleus, CellStructure)
 
-    public:
-        Nucleus();
-        ~Nucleus();
+protected:
+	static void _bind_methods();
 
-        void setAlive(const bool);
-        bool getAlive() const;
+public:
+	Nucleus();
+	~Nucleus();
 
-        float getBirthTime() const;
+	void activate(CellState *) override;
 
-	    void setLifespan(const float);
-	    float getLifespan() const;
+	void setReproductionNutrientThreshold(const float);
+	float getReproductionNutrientThreshold() const;
 
-        void setHomeostasisCost(const float);
-	    float getHomeostasisCost() const;
-
-    	void setReproCost(const float);
-	    float getReproCost() const;
-
-        void setReproThreshold(const float);
-	    float getReproThreshold() const;
-
-
-
-    private:
-        bool _alive;
-        float _birthTime;
-        float _lifespan;
-        float _homeostasisCost;
-        float _reproCost;
-        float _reproThreshold;
-    };
-    
-
-}
-
-#endif
+private:
+	float _reproductionNutrientThreshold;
+};
