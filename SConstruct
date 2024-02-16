@@ -13,7 +13,7 @@ env = SConscript("godot-cpp/SConstruct")
 # - LINKFLAGS are for linking flags
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Prepend(CPPPATH=["src/","tests/"])
+env.Prepend(CPPPATH=["doctest/","src/","tests/"])
 sources = Glob("src/*.cpp")
 
 # If non-release build, compile the test files
