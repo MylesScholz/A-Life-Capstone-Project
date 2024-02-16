@@ -1,5 +1,5 @@
 #pragma once
 
-#include <doctest.h>
+#include <doctest/doctest.h>
 
 int doctest_run(const int, const char *const *);
