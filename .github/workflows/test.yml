@@ -8,8 +8,6 @@ jobs:
   ci:
     name: Run Unit Tests
     runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:4.2.1
 
     steps:
       - name: Check out Git repository
@@ -17,11 +15,10 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Configure dependencies
-        run: |
-          apt-get update
-          apt-get install -y libssl-dev build-essential pkg-config libx11-dev libxcursor-dev \
-            libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
+      - name: Install godot
+        uses: paulloz/godot-action@v1.2.2
+        with:
+          version: 4.2
 
       - name: Set up Python (for SCons)
         uses: actions/setup-python@v5
