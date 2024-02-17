@@ -39,4 +39,6 @@ jobs:
       - name: Run tests
         run: |
           set -e
+          # launch the editor once so resources import
+          godot --no-window -e --quit
           godot --no-window -T
