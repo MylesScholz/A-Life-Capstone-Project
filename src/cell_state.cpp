@@ -35,8 +35,8 @@ CellState::CellState() {
 	_reproductionEnergyCost = 1.0;
 	_totalNutrients = 0.0;
 	_totalEnergy = 0.0;
-	_energyMaximum = 1.0
-	_nutrientMaximum = 1.0;	
+	_energyMaximum = 1.0;
+	_nutrientMaximum = 1.0;
 }
 CellState::~CellState() {}
 
@@ -96,17 +96,17 @@ void CellState::setNutrientMaximum(const float nutrientMaximum) {
 }
 float CellState::getNutrientMaximum() const { return _nutrientMaximum; }
 
-void CellState::setHomeostasisEnergyCost(const float homeostasisEnergyCost) { 
+void CellState::setHomeostasisEnergyCost(const float homeostasisEnergyCost) {
 	if (homeostasisEnergyCost > 0)
 		_homeostasisEnergyCost = homeostasisEnergyCost;
 }
-float CellState::getHomeostasisEnergyCost() const { return _homeostasisEnergyCost }
+float CellState::getHomeostasisEnergyCost() const { return _homeostasisEnergyCost; }
 
-void CellState::setReproductionEnergyCost(const float reproductionEnergyCost) { 
+void CellState::setReproductionEnergyCost(const float reproductionEnergyCost) {
 	if (reproductionEnergyCost > 0)
 		_reproductionEnergyCost = reproductionEnergyCost;
 }
-float CellState::getReproductionEnergyCost() const { return _reproductionEnergyCost }
+float CellState::getReproductionEnergyCost() const { return _reproductionEnergyCost; }
 
 void CellState::setTotalEnergy(const float totalEnergy) {
 	if (totalEnergy < 0)
