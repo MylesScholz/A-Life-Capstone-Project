@@ -19,8 +19,9 @@ jobs:
 
       - name: Configure dependencies
         run: |
+          git submodule update --init --recursive
           apt-get update
-          apt-get install -y build-essential pkg-config libx11-dev libxcursor-dev \
+          apt-get install -y libssl-dev build-essential pkg-config libx11-dev libxcursor-dev \
             libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
 
       - name: Set up Python (for SCons)
