@@ -15,6 +15,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Configure dependencies 
+        run: |
+          sudo apt-get update
+          sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
+            libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
+
       - name: Setup Godot
         uses: lihop/setup-godot@v2
         with:
@@ -39,6 +45,6 @@ jobs:
       - name: Run tests
         run: |
           set -e
-          # launch the editor once so resources import
-          godot --no-window -e --quit
-          godot --no-window -T
+          # launch the editor once so resources import, and use timeout to kill it after it's done
+          timeout 45 godot --no-window --disable-vsync -e
+          godot --no-window --disable-vsync -T
