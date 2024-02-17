@@ -1,28 +1,24 @@
-#pragma once
+#ifndef STRUCTURE_HPP
+#define STRUCTURE_HPP
 
-#include "cell_state.hpp"
+#include <godot_cpp/classes/node.hpp>
 
-using namespace godot;
+namespace godot {
 
-class CellStructure : public Node {
-	GDCLASS(CellStructure, Node)
+class CellStructure : public Node
+{
+    GDCLASS(CellStructure, Node);
 
 protected:
-	static void _bind_methods();
-
-public:
-	CellStructure();
-	~CellStructure();
-
-	virtual void activate(CellState *);
-
-	void setCreationNutrientCost(const float);
-	float getCreationNutrientCost() const;
-
-	void setMaintenanceNutrientCost(const float);
-	float getMaintenanceNutrientCost() const;
+    static void _bind_methods();
 
 private:
-	float _creationNutrientCost;
-	float _maintenanceNutrientCost;
+    /* data */
+public:
+    CellStructure(/* args */);
+    ~CellStructure();
 };
+
+}
+
+#endif
