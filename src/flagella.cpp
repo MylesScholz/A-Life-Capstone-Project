@@ -23,3 +23,9 @@ void Flagella::activate(CellState *cellState) {
 
 void Flagella::setMovementForceVector(const Vector2 movementForceVector) { _movementForceVector = movementForceVector; }
 Vector2 Flagella::getMovementForceVector() const { return _movementForceVector; }
+
+void Flagella::setPositionVector(const Vector2 positionVector) { _positionVector = positionVector; }
+Vector2 Flagella::getPositionVector() const { return _positionVector; }
+
+void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
+float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }

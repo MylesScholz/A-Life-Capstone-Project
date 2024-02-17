@@ -18,8 +18,14 @@ public:
 
 	void activate(CellState *) override;
 
-	void setMovementForceVector(const Vector2 force);
+	void setMovementForceVector(const Vector2 movementForceVector);
 	Vector2 getMovementForceVector() const;
+
+	void setPositionVector(const Vector2 positionVector);
+	Vector2 getPositionVector() const;
+
+	void setActivationEnergyCost(const float activationEnergyCost);
+	float getActivationEnergyCost() const;
 
 private:
 	Vector2 _movementForceVector;
