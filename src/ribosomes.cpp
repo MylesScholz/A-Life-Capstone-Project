@@ -29,6 +29,13 @@ void Ribosomes::_bind_methods() {
 }
 
 Ribosomes::Ribosomes() {
+	// CellStructure attributes
+	_creationNutrientCost = 10.0;
+	_maintenanceNutrientCost = 1.0;
+	_creationEnergyCost = 10.0;
+	_maintenanceEnergyCost = 1.0;
+
+	// Ribosomes attributes
 	_activationThreshold = 1.0;
 	_strength = 1.0;
 	_efficiency = 1.0;

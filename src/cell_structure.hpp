@@ -10,6 +10,11 @@ class CellStructure : public Node {
 protected:
 	static void _bind_methods();
 
+	float _creationNutrientCost;
+	float _maintenanceNutrientCost;
+	float _creationEnergyCost;
+	float _maintenanceEnergyCost;
+
 public:
 	CellStructure();
 	~CellStructure();
@@ -27,10 +32,4 @@ public:
 
 	void setMaintenanceEnergyCost(const float);
 	float getMaintenanceEnergyCost() const;
-
-private:
-	float _creationNutrientCost;
-	float _maintenanceNutrientCost;
-	float _creationEnergyCost;
-	float _maintenanceEnergyCost;
 };
