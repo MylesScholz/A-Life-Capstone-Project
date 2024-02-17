@@ -6,15 +6,15 @@
 
 using namespace godot;
 
-class Mitochondria : public CellStructure {
-	GDCLASS(Mitochondria, CellStructure);
+class Ribosomes : public CellStructure {
+	GDCLASS(Ribosomes, CellStructure)
 
 protected:
 	static void _bind_methods();
 
 public:
-	Mitochondria();
-	~Mitochondria();
+	Ribosomes();
+	~Ribosomes();
 
 	void activate(CellState *) override;
 

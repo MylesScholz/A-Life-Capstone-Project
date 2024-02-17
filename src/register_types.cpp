@@ -7,6 +7,7 @@
 #include "fps_counter.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
+#include "ribosomes.hpp"
 #include "start_button.hpp"
 #include "stats_counter.hpp"
 
@@ -30,6 +31,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CellStructure>();
 	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Mitochondria>();
+	ClassDB::register_class<Ribosomes>();
 	ClassDB::register_class<Flagella>();
 }
 
