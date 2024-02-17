@@ -4,8 +4,6 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
 
-env:
-  LANG: "en_US.UTF-8"
 jobs:
   ci:
     name: Run Unit Tests
@@ -20,8 +18,8 @@ jobs:
       - name: Configure dependencies 
         run: |
           sudo apt-get update
-          sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
-            libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
+          sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev libxkbcommon-x11-dev \
+            libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev
 
       - name: Setup Godot
         uses: lihop/setup-godot@v2
@@ -48,7 +46,9 @@ jobs:
         run: |
           # launch the editor once so resources import, and use timeout to kill it after it's done
           set +e
+          LANG=en_US.UTF-8 \
           timeout 45 godot --no-window --disable-vsync -e
 
           set -e
+          LANG=en_US.UTF-8 \
           godot --no-window --disable-vsync -T
