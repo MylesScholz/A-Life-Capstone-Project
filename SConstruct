@@ -16,9 +16,12 @@ env = SConscript("godot-cpp/SConstruct")
 env.Prepend(CPPPATH=["doctest/","src/","tests/"])
 sources = Glob("src/*.cpp")
 
+
+tests = ARGUMENTS.get('tests', 0)
 # If non-release build, compile the test files
-if env.debug_features:
-	sources.extend(Glob("tests/*.cpp"))
+if env.debug_features and int(tests):
+    sources.extend(Glob("tests/*.cpp"))
+    env.Append(CPPDEFINES=['TESTS_ENABLED'])
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(

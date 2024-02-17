@@ -6,7 +6,7 @@
 #include "helpers.hpp"
 
 // These includes are for starting testing and should stay with the class we're using as the project entry point
-#ifdef DEBUG_ENABLED
+#ifdef TESTS_ENABLED
 #include <godot_cpp/classes/os.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
@@ -101,7 +101,7 @@ void CellSpawner::_ready() {
 
 	// If not in a release build, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
-#ifdef DEBUG_ENABLED
+#ifdef TESTS_ENABLED
 	for (auto arg : OS::get_singleton()->get_cmdline_args()) {
 		if (arg == "--runTests" || arg == "-T") {
 			// Collect user command line args to pass into doctest

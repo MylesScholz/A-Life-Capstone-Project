@@ -37,7 +37,7 @@ jobs:
           cd godot-cpp
           scons platform=linux target=template_debug
           cd ..
-          scons platform=linux target=template_debug disable_exceptions=no
+          scons platform=linux target=template_debug disable_exceptions=no build_library=no tests=1
 
       - name: Run tests
         run: |

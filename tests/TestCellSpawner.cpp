@@ -2,7 +2,7 @@
 
 #include "cell_spawner.hpp"
 
-#include <godot_cpp/classes/Object.hpp>
+#include <godot_cpp/classes/object.hpp>
 
 namespace godot {
 
