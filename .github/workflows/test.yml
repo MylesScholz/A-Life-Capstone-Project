@@ -44,7 +44,7 @@ jobs:
 
       - name: Run tests
         run: |
-          set -e
           # launch the editor once so resources import, and use timeout to kill it after it's done
           timeout 45 godot --no-window --disable-vsync -e
+          set -e
           godot --no-window --disable-vsync -T
