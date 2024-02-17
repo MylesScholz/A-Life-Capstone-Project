@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "mitochondria.hpp"
 #include "nucleus.hpp"
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
@@ -30,6 +31,11 @@ Cell::Cell() {
 	Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
 	_cellStructures.push_back(nucleus);
 	this->add_child(nucleus);
+
+	Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
+	Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
+	_cellStructures.push_back(mitochondria);
+	this->add_child(mitochondria);
 
 	_spriteSize = Size2();
 }
@@ -75,9 +81,12 @@ void Cell::_process(double delta) {
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
+		// Decrement the Cell's energy
+		_cellState->incrementTotalEnergy(-delta * _cellState->getHomeostasisEnergyCost());
 
-		// Aging, starvation and death
+		// Aging, starvation, and death
 		float nutrients = _cellState->getTotalNutrients();
+		float energy = _cellState->getTotalEnergy();
 		float ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
@@ -91,7 +100,7 @@ void Cell::_process(double delta) {
 				this->set_linear_damp(10.0);
 			}
 		}
-		if (nutrients <= 0) {
+		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
