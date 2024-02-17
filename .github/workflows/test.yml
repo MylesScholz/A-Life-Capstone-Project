@@ -15,10 +15,10 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install godot
-        uses: paulloz/godot-action@v1.2.2
+      - name: Setup Godot
+        uses: lihop/setup-godot@v2
         with:
-          version: 4.2
+          version: 4.2.1-stable
 
       - name: Set up Python (for SCons)
         uses: actions/setup-python@v5
@@ -39,4 +39,4 @@ jobs:
       - name: Run tests
         run: |
           set -e
-          godot --headless -T
+          godot --no-window -T
