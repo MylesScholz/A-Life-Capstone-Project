@@ -22,7 +22,15 @@ public:
 	void setMaintenanceNutrientCost(const float);
 	float getMaintenanceNutrientCost() const;
 
+	void setCreationEnergyCost(const float);
+	float getCreationEnergyCost() const;
+
+	void setMaintenanceEnergyCost(const float);
+	float getMaintenanceEnergyCost() const;
+
 private:
 	float _creationNutrientCost;
 	float _maintenanceNutrientCost;
+	float _creationEnergyCost;
+	float _maintenanceEnergyCost;
 };

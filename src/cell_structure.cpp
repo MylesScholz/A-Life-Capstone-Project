@@ -22,3 +22,15 @@ void CellStructure::setMaintenanceNutrientCost(const float maintenanceNutrientCo
 		_maintenanceNutrientCost = maintenanceNutrientCost;
 }
 float CellStructure::getMaintenanceNutrientCost() const { return _maintenanceNutrientCost; }
+
+void CellStructure::setCreationEnergyCost(const float creationEnergyCost) {
+	if (creationEnergyCost > 0)
+		_creationEnergyCost = creationEnergyCost;
+}
+float CellStructure::getCreationEnergyCost() const { return _creationEnergyCost; }
+
+void CellStructure::setMaintenanceEnergyCost(const float maintenanceEnergyCost) {
+	if (maintenanceEnergyCost > 0)
+		_maintenanceEnergyCost = maintenanceEnergyCost;
+}
+float CellStructure::getMaintenanceEnergyCost() const { return _maintenanceEnergyCost; }

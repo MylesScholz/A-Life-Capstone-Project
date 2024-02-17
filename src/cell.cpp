@@ -59,7 +59,7 @@ void Cell::activateCellStructures() {
 	}
 }
 
-void Cell::applyScale(float scale) {
+void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
