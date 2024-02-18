@@ -6,6 +6,14 @@ void Flagella::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_movement_force", "movement_force"), &Flagella::setMovementForceVector);
 	ClassDB::bind_method(D_METHOD("get_movement_force"), &Flagella::getMovementForceVector);
 	ClassDB::add_property("Flagella", PropertyInfo(Variant::VECTOR2, "movement_force"), "set_movement_force", "get_movement_force");
+
+	ClassDB::bind_method(D_METHOD("set_position_vector", "position_vector"), &Flagella::setPositionVector);
+	ClassDB::bind_method(D_METHOD("get_position_vector"), &Flagella::getPositionVector);
+	ClassDB::add_property("Flagella", PropertyInfo(Variant::VECTOR2, "position_vector"), "set_position_vector", "get_posiion_vector");
+
+	ClassDB::bind_method(D_METHOD("set_activation_energy_cost", "activation_energy_cost"), &Flagella::setActivationEnergyCost);
+	ClassDB::bind_method(D_METHOD("get_activation_energy_cost"), &Flagella::getActivationEnergyCost);
+	ClassDB::add_property("Flagella", PropertyInfo(Variant::VECTOR2, "activation_energy_cost"), "set_activation_energy_cost", "get_activation_energy_cost");
 }
 
 Flagella::Flagella() {
