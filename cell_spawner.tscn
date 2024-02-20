@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=10 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
+[ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
+[ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
+[ext_resource type="Script" path="res://StatsContainer.gd" id="5_qq0ca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wap8f"]
 size = Vector2(200, 720)
@@ -37,8 +40,10 @@ offset_top = 228.0
 offset_right = 1079.0
 offset_bottom = 719.0
 theme = ExtResource("2_d86u0")
+script = ExtResource("3_o15cp")
 
 [node name="StatsCounter" type="StatsCounter" parent="StatsPanel"]
+visible = false
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
@@ -58,51 +63,38 @@ offset_top = 27.0
 offset_right = 255.0
 offset_bottom = 208.0
 
-[node name="LineEdit" type="LineEdit" parent="StatsPanel"]
+[node name="UpperLabel" type="Label" parent="StatsPanel"]
 layout_mode = 0
-offset_top = 206.0
-offset_right = 253.0
-offset_bottom = 239.0
-text = "Cell Statistics"
-editable = false
-
-[node name="LineEdit2" type="LineEdit" parent="StatsPanel"]
-layout_mode = 0
-offset_right = 254.0
-offset_bottom = 31.0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 106.0
+offset_bottom = 27.0
 text = "Cell Lineage"
-editable = false
 
-[node name="Button" type="Button" parent="StatsPanel"]
+[node name="LowerLabel" type="Label" parent="StatsPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 212.0
+offset_right = 114.0
+offset_bottom = 236.0
+text = "Cell Statistics"
+
+[node name="StatsExitButton" type="Button" parent="StatsPanel"]
 layout_mode = 0
 offset_left = 222.0
 offset_top = -1.0
 offset_right = 254.0
 offset_bottom = 30.0
 text = "x"
+script = ExtResource("4_beosf")
 
-[node name="ItemList" type="ItemList" parent="StatsPanel"]
+[node name="StatsContainer" type="VBoxContainer" parent="StatsPanel"]
 layout_mode = 0
-offset_top = 270.0
-offset_right = 253.0
+offset_left = 7.0
+offset_top = 240.0
+offset_right = 245.0
 offset_bottom = 491.0
-allow_search = false
-item_count = 9
-item_0/text = "Alive:"
-item_0/selectable = false
-item_1/text = "Birth Time:"
-item_1/selectable = false
-item_2/text = "Age:"
-item_2/selectable = false
-item_3/text = "Nutrients:"
-item_3/selectable = false
-item_4/text = "Size:"
-item_4/selectable = false
-item_5/text = "Reproduction Threshold:"
-item_5/selectable = false
-item_6/text = "Reproduction Cost:"
-item_7/text = "Homeostasis Cost:"
-item_8/text = "Nutrient Efficiency:"
+script = ExtResource("5_qq0ca")
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 
@@ -292,3 +284,5 @@ offset_top = 3.0
 offset_right = 91.0
 offset_bottom = 59.0
 mouse_default_cursor_shape = 2
+
+[connection signal="pressed" from="StatsPanel/StatsExitButton" to="StatsPanel" method="_on_stats_exit_button_pressed"]
