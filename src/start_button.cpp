@@ -34,12 +34,3 @@ void StartButton::_pressed() {
 		spawner->spawnCell();
 	}
 }
-
-// Mainly used for setting diffrent values for the button but these could be done in the godot client instead
-//
-void StartButton::_ready() {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
-	this->set_text("Start New Simulation");
-}

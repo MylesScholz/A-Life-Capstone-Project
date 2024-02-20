@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=13 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
 [ext_resource type="Script" path="res://StatsContainer.gd" id="5_qq0ca"]
+[ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
+[ext_resource type="Script" path="res://QuitButton.gd" id="6_cqljf"]
+[ext_resource type="Script" path="res://SpeedUpButton.gd" id="7_0omg7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wap8f"]
 size = Vector2(200, 720)
@@ -123,7 +126,7 @@ theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
-[node name="LineEdit" type="LineEdit" parent="BarPanel"]
+[node name="Title" type="LineEdit" parent="BarPanel"]
 layout_mode = 0
 offset_left = 84.0
 offset_top = 119.0
@@ -156,28 +159,33 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
+text = "Start New Simulation"
 
-[node name="Button" type="Button" parent="BarPanel"]
+[node name="LoadSimButton" type="Button" parent="BarPanel"]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 416.0
 offset_right = 279.0
 offset_bottom = 450.0
 theme = ExtResource("2_d86u0")
+text = "Load Simulation"
 
-[node name="Button2" type="Button" parent="BarPanel"]
+[node name="TutorialButton" type="Button" parent="BarPanel"]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 464.0
 offset_right = 279.0
 offset_bottom = 498.0
+text = "Run Tutorial"
 
-[node name="Button3" type="Button" parent="BarPanel"]
+[node name="QuitButton" type="Button" parent="BarPanel"]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 512.0
 offset_right = 280.0
 offset_bottom = 546.0
+text = "Quit"
+script = ExtResource("6_cqljf")
 
 [node name="NavBar" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -188,7 +196,7 @@ theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
-[node name="LineEdit" type="LineEdit" parent="NavBar"]
+[node name="NavTitle" type="LineEdit" parent="NavBar"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 1.0
@@ -198,58 +206,69 @@ theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "A-Life Challenge 2.0"
 
-[node name="Polygon2D" type="Polygon2D" parent="NavBar"]
+[node name="SlowDown1" type="Polygon2D" parent="NavBar"]
 position = Vector2(560.268, -87.3415)
 scale = Vector2(0.829268, 0.829268)
 polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
 
-[node name="Polygon2D2" type="Polygon2D" parent="NavBar"]
+[node name="SlowDown2" type="Polygon2D" parent="NavBar"]
 position = Vector2(573.13, -86.9565)
 scale = Vector2(0.826087, 0.826087)
 polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
 
-[node name="Polygon2D4" type="Polygon2D" parent="NavBar"]
+[node name="SlowDownButton" type="TextureButton" parent="NavBar"]
+layout_mode = 0
+offset_left = 750.0
+offset_top = 12.0
+offset_right = 799.0
+offset_bottom = 53.0
+
+[node name="SpeedUp1" type="Polygon2D" parent="NavBar"]
 position = Vector2(731.239, -90.587)
 scale = Vector2(0.847826, 0.847826)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Polygon2D5" type="Polygon2D" parent="NavBar"]
+[node name="SpeedUp2" type="Polygon2D" parent="NavBar"]
 position = Vector2(740.143, -91.7143)
 scale = Vector2(0.857143, 0.857143)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
 
-[node name="Polygon2D6" type="Polygon2D" parent="NavBar"]
+[node name="SpeedUpButton" type="TextureButton" parent="NavBar"]
+layout_mode = 0
+offset_left = 921.0
+offset_top = 11.0
+offset_right = 970.0
+offset_bottom = 53.0
+script = ExtResource("7_0omg7")
+
+[node name="Zoom1" type="Polygon2D" parent="NavBar"]
 position = Vector2(797.348, -93.2174)
 scale = Vector2(0.869565, 0.869565)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Polygon2D7" type="Polygon2D" parent="NavBar"]
+[node name="Zoom2" type="Polygon2D" parent="NavBar"]
 position = Vector2(808.457, -95.8478)
 scale = Vector2(0.891304, 0.891304)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Polygon2D8" type="Polygon2D" parent="NavBar"]
+[node name="Zoom3" type="Polygon2D" parent="NavBar"]
 position = Vector2(827.605, -92.079)
 scale = Vector2(0.868421, 0.868421)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
 
-[node name="Polygon2D9" type="Polygon2D" parent="NavBar"]
-position = Vector2(608.999, -112.072)
-polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
-
-[node name="Line2D" type="Line2D" parent="NavBar"]
+[node name="Div1" type="Line2D" parent="NavBar"]
 position = Vector2(169, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
-[node name="Line2D2" type="Line2D" parent="NavBar"]
+[node name="Div2" type="Line2D" parent="NavBar"]
 position = Vector2(51, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
-[node name="LineEdit2" type="LineEdit" parent="NavBar"]
+[node name="MenuText" type="LineEdit" parent="NavBar"]
 layout_mode = 0
 offset_left = 510.0
 offset_top = 3.0
@@ -259,7 +278,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Menu"
 
-[node name="MainMenuButton" type="MainMenuButton" parent="NavBar/LineEdit2"]
+[node name="MainMenuButton" type="MainMenuButton" parent="NavBar/MenuText"]
 layout_mode = 0
 offset_left = -7.0
 offset_top = 2.0
@@ -267,7 +286,7 @@ offset_right = 91.0
 offset_bottom = 58.0
 mouse_default_cursor_shape = 2
 
-[node name="LineEdit3" type="LineEdit" parent="NavBar"]
+[node name="ResetText" type="LineEdit" parent="NavBar"]
 layout_mode = 0
 offset_left = 632.0
 offset_top = 3.0
@@ -277,12 +296,35 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Reset"
 
-[node name="TextureButton" type="ResetButton" parent="NavBar/LineEdit3"]
+[node name="ResetButton" type="ResetButton" parent="NavBar/ResetText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 3.0
 offset_right = 91.0
 offset_bottom = 59.0
 mouse_default_cursor_shape = 2
+
+[node name="PauseButton" type="TextureButton" parent="NavBar"]
+layout_mode = 0
+offset_left = 838.0
+offset_top = 10.0
+offset_right = 884.0
+offset_bottom = 57.0
+mouse_default_cursor_shape = 2
+script = ExtResource("6_8cqgg")
+
+[node name="PlayButton" type="Polygon2D" parent="NavBar/PauseButton"]
+visible = false
+position = Vector2(-225, -121)
+polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
+
+[node name="PauseButton1" type="Polygon2D" parent="NavBar/PauseButton"]
+position = Vector2(-681, -86.2143)
+scale = Vector2(1, 0.928571)
+polygon = PackedVector2Array(711, 96, 711, 138, 719, 138, 719, 96)
+
+[node name="PauseButton2" type="Polygon2D" parent="NavBar/PauseButton/PauseButton1"]
+position = Vector2(-27, 0)
+polygon = PackedVector2Array(711, 96, 711, 138, 719, 138, 719, 96)
 
 [connection signal="pressed" from="StatsPanel/StatsExitButton" to="StatsPanel" method="_on_stats_exit_button_pressed"]

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "cell_spawner.hpp"
-#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/button.hpp>
+#include <godot_cpp/classes/engine.hpp>
 
 namespace godot {
 
@@ -15,8 +15,6 @@ protected:
 public:
 	StartButton();
 	~StartButton();
-
-	void _ready() override;
 
 	void _pressed() override;
 };
