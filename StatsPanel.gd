@@ -10,8 +10,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
+	var bar_panel = get_parent().get_node("BarPanel")
+	if Input.is_key_pressed(KEY_S) and not bar_panel.visible:
+		visible = true
 
 func _on_stats_exit_button_pressed():
 	visible = false
@@ -23,15 +24,12 @@ func _gui_input(event):
 			dragging = true
 			drag_offset = get_global_mouse_position() - global_position
 		else:
-			# Stop dragging when the mouse button is released.
 			dragging = false
-		# Consume the event to prevent further processing.
 		accept_event()
 
 	if event is InputEventMouseMotion and dragging:
 		# Update the panel's global position smoothly using the drag offset.
 		global_position = get_global_mouse_position() - drag_offset
-		# Consume the event to prevent further processing.
 		accept_event()
 
 
