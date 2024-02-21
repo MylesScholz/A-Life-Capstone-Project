@@ -21,6 +21,8 @@ public:
 	void setReproductionNutrientThreshold(const float);
 	float getReproductionNutrientThreshold() const;
 
+	void _ready() override;
+
 private:
 	float _reproductionNutrientThreshold;
 };
