@@ -68,6 +68,12 @@ void Cell::applyScale(const float scale) {
 	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
+	// Apply scaling to each CellStructure
+	for (auto &structure : _cellStructures) {
+		if (structure)
+			structure->applyScale(scale);
+	}
+
 	// Measure the new sprite size
 	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }

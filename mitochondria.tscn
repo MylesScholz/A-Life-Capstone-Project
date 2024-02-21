@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://dgm2tf2frjsuw"]
+[gd_scene load_steps=2 format=3 uid="uid://dgm2tf2frjsuw"]
+
+[ext_resource type="Texture2D" uid="uid://dta8ucnffe3ld" path="res://Mitochondria.png" id="1_t63am"]
 
 [node name="Mitochondria" type="Mitochondria"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(13.8145, -31.925)
+scale = Vector2(0.0648368, 0.0648368)
+texture = ExtResource("1_t63am")

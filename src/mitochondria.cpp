@@ -26,14 +26,16 @@ void Mitochondria::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_threshold_type", "threshold_type"), &Mitochondria::setThresholdType);
 	ClassDB::bind_method(D_METHOD("get_threshold_type"), &Mitochondria::getThresholdType);
 	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::STRING, "threshold_type"), "set_threshold_type", "get_threshold_type");
+
+	ClassDB::bind_method(D_METHOD("get_sprite"), &Mitochondria::getSprite);
 }
 
 Mitochondria::Mitochondria() {
 	// CellStructure attributes
-	_creationNutrientCost = 10.0;
-	_maintenanceNutrientCost = 1.0;
-	_creationEnergyCost = 10.0;
-	_maintenanceEnergyCost = 1.0;
+	this->setCreationNutrientCost(10.0);
+	this->setMaintenanceNutrientCost(1.0);
+	this->setCreationEnergyCost(10.0);
+	this->setMaintenanceEnergyCost(1.0);
 
 	// Mitochondria attributes
 	_activationThreshold = 1.0;
@@ -111,3 +113,9 @@ void Mitochondria::setThresholdType(const String thresholdType) {
 		_thresholdType = thresholdType;
 }
 String Mitochondria::getThresholdType() const { return _thresholdType; }
+
+void Mitochondria::_ready() {
+	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	if (sprite)
+		this->setSprite(sprite);
+}

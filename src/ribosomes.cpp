@@ -30,10 +30,10 @@ void Ribosomes::_bind_methods() {
 
 Ribosomes::Ribosomes() {
 	// CellStructure attributes
-	_creationNutrientCost = 10.0;
-	_maintenanceNutrientCost = 1.0;
-	_creationEnergyCost = 10.0;
-	_maintenanceEnergyCost = 1.0;
+	this->setCreationNutrientCost(10.0);
+	this->setMaintenanceNutrientCost(1.0);
+	this->setCreationEnergyCost(10.0);
+	this->setMaintenanceEnergyCost(1.0);
 
 	// Ribosomes attributes
 	_activationThreshold = 1.0;
@@ -111,3 +111,9 @@ void Ribosomes::setThresholdType(const String thresholdType) {
 		_thresholdType = thresholdType;
 }
 String Ribosomes::getThresholdType() const { return _thresholdType; }
+
+void Ribosomes::_ready() {
+	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	if (sprite)
+		this->setSprite(sprite);
+}

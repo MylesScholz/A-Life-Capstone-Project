@@ -36,6 +36,8 @@ public:
 	void setThresholdType(const String);
 	String getThresholdType() const;
 
+	void _ready() override;
+
 private:
 	float _activationThreshold;
 	float _strength;
