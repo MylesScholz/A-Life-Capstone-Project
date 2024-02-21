@@ -17,6 +17,8 @@ Description: an abstract class representing physical cell components in general
 ### Methods
 - virtual void activate(CellState *cellState): an empty method which should contain component activation checking and behavior in child classes
 
+- void applyScale(const float scale): applies the given linear scaling ratio to the CellStructure's sprite
+
 - void setCreationNutrientCost(const float creationNutrientCost): sets _creationNutrientCost to the given value if it is > 0.0
 - float getCreationNutrientCost() const: returns _creationNutrientCost
 
@@ -28,6 +30,9 @@ Description: an abstract class representing physical cell components in general
 
 - void setMaintenanceEnergyCost(const float maintenanceEnergyCost): sets _maintenanceEnergyCost to the given value if it is > 0.0
 - float getMaintenanceEnergyCost() const: returns _maintenanceEnergyCost
+
+- void setSprite(Sprite2D *): sets _sprite to the given value
+- Sprite2D *getSprite(): returns _sprite
 
 ## Non-Member Functions
 None

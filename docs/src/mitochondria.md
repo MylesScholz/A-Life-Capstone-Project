@@ -37,5 +37,7 @@ Description: the Mitochondria class is a CellStructure that converts nutrients i
 - void setThresholdType(const String thresholdType): sets _thresholdType to the given value if it is either "high-pass" or "low-pass"
 - String getThresholdType() const: returns _thresholdType
 
+- void _ready() override: runs once when this object is created and ready to use; sets this CellStructure's sprite property to a child Sprite2D node
+
 ## Non-Member Functions
 None

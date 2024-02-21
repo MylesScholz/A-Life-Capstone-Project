@@ -26,8 +26,6 @@ void Mitochondria::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_threshold_type", "threshold_type"), &Mitochondria::setThresholdType);
 	ClassDB::bind_method(D_METHOD("get_threshold_type"), &Mitochondria::getThresholdType);
 	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::STRING, "threshold_type"), "set_threshold_type", "get_threshold_type");
-
-	ClassDB::bind_method(D_METHOD("get_sprite"), &Mitochondria::getSprite);
 }
 
 Mitochondria::Mitochondria() {
