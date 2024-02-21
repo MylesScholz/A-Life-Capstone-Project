@@ -28,3 +28,9 @@ void Nucleus::setReproductionNutrientThreshold(const float reproductionNutrientT
 }
 
 float Nucleus::getReproductionNutrientThreshold() const { return _reproductionNutrientThreshold; }
+
+void Nucleus::_ready() {
+	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	if (sprite)
+		this->setSprite(sprite);
+}

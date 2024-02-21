@@ -27,16 +27,16 @@ void CellState::_bind_methods() {
 CellState::CellState() {
 	_alive = true;
 	_birthTime = 0.0;
-	_lifespan = 1.0;
+	_lifespan = 60.0;
 	_scale = 1.0;
 	_homeostasisNutrientCost = 1.0;
-	_reproductionNutrientCost = 1.0;
+	_reproductionNutrientCost = 50.0;
 	_homeostasisEnergyCost = 1.0;
-	_reproductionEnergyCost = 1.0;
-	_totalNutrients = 0.0;
-	_totalEnergy = 0.0;
-	_energyMaximum = 1.0;
-	_nutrientMaximum = 1.0;
+	_reproductionEnergyCost = 50.0;
+	_totalNutrients = 100.0;
+	_totalEnergy = 100.0;
+	_energyMaximum = 100.0;
+	_nutrientMaximum = 100.0;
 }
 CellState::~CellState() {}
 
