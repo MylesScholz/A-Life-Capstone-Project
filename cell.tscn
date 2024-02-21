@@ -4,13 +4,14 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_62si4"]
 friction = 0.0
-bounce = 5.0
+rough = true
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x8tnr"]
 radius = 50.0
 
 [node name="Cell" type="Cell"]
-mass = 0.01
+mass = 0.05
 physics_material_override = SubResource("PhysicsMaterial_62si4")
 gravity_scale = 0.0
 

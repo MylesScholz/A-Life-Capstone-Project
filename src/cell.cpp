@@ -68,6 +68,9 @@ void Cell::applyScale(const float scale) {
 	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
+	// Apply scaling to mass; scale is squared because mass is proportional to area
+	this->set_mass(this->get_mass() * scale * scale);
+
 	// Apply scaling to each CellStructure
 	for (auto &structure : _cellStructures) {
 		if (structure)
@@ -116,12 +119,14 @@ void Cell::_process(double delta) {
 				_cellState->setAlive(false);
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
+				this->set_angular_damp(10.0);
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
+			this->set_angular_damp(10.0);
 		}
 	}
 }
