@@ -1,5 +1,7 @@
 #pragma once
 #include "cell_state.hpp"
+#include "cell_structure.hpp"
+#include "nucleus.hpp"
 #include "mitochondria.hpp"
 #include "genome.hpp"
 

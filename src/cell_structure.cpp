@@ -1,13 +1,24 @@
 #include "cell_structure.hpp"
 
-using namespace godot;
+#include <godot_cpp/variant/utility_functions.hpp>
 
-void godot::CellStructure::_bind_methods() {
+void CellStructure::_bind_methods() {}
+
+CellStructure::CellStructure() {}
+CellStructure::~CellStructure() {}
+
+void CellStructure::activate(CellState *) {
+	// UtilityFunctions::print("CellStructure::activate()");
 }
 
-CellStructure::CellStructure(/* args */) {
+void CellStructure::setCreationNutrientCost(const float creationNutrientCost) {
+	if (creationNutrientCost > 0)
+		_creationNutrientCost = creationNutrientCost;
 }
+float CellStructure::getCreationNutrientCost() const { return _creationNutrientCost; }
 
-CellStructure::~CellStructure()
-{
+void CellStructure::setMaintenanceNutrientCost(const float maintenanceNutrientCost) {
+	if (maintenanceNutrientCost > 0)
+		_maintenanceNutrientCost = maintenanceNutrientCost;
 }
+float CellStructure::getMaintenanceNutrientCost() const { return _maintenanceNutrientCost; }
