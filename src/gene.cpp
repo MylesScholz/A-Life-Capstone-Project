@@ -18,8 +18,8 @@ std::string godot::Gene::getName() {
 	return std::string();
 }
 
-godot::CellStructure* godot::Gene::express() {
-	return new godot::CellStructure();
+CellStructure* godot::Gene::express() {
+	return new CellStructure();
 }
 
 float godot::Gene::getValue() {

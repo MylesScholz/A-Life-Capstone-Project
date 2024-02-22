@@ -2,7 +2,7 @@
 #define GENOME_CPP
 
 #include <godot_cpp/classes/node.hpp>
-#include <vector>
+#include <godot_cpp/templates/vector.hpp>
 #include "gene.hpp"
 #include "cell_structure.hpp"
 
@@ -18,14 +18,15 @@ protected:
 public:
     Genome();
     ~Genome();
-    std::vector<CellStructure*> expressGenes();
+    Vector<CellStructure*> expressGenes();
     void setGene(Gene*, int);
     void insertGene(Gene*, int);
     void removeGene(int);
+    void swapGene(int, int);
     Gene* getGene(int);
     int getSize();
 private:
-    std::vector<Gene*> genes;
+    Vector<Gene*> genes;
 };
 
 
