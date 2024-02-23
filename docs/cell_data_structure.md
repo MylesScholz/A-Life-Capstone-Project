@@ -64,25 +64,33 @@ Cell
 │  │
 │  ├──Ribosomes: chemical complexes that produce gene-coded proteins in cells
 │  │  │
+│  │  ├──Strength: a multiplier applied to the conversion between energy and nutrients
+│  │  │
 │  │  ├──Efficiency: the proportion of energy that is preserved when converting to nutrients
 │  │  │
-│  │  ├──Activation Theshold: the amount of resources in this Cell above or below which these ribosomes will activate, depending on the threshold type and activation resource
+│  │  ├──Conversion Rate: the ratio of nutrient units to energy units at which these Ribosomes convert
+│  │  │
+│  │  ├──Activation Theshold: the proportional amount of resources in this Cell above or below which these Ribosomes will activate, depending on the threshold type and activation resource
 │  │  │
 │  │  ├──Theshold Type: the type of the activation threshold: high-pass or low-pass
 │  │  │
-│  │  ├──Activation Resource: the resources to which these ribosomes "listen" to determine activation: nutrients or energy
+│  │  ├──Activation Resource: the resources to which these Ribosomes "listen" to determine activation: nutrients or energy
 │  │  │
 │  │  └──...
 │  │
 │  ├──Mitochondria: the primary energy-producing organelles of Eukaryotic cells
 │  │  │
+│  │  ├──Strength: a multiplier applied to the conversion between nutrients and energy
+│  │  │
 │  │  ├──Efficiency: the proportion of nutrients that are preserved when converting to energy
 │  │  │
-│  │  ├──Activation Theshold: the amount of resources in this Cell above or below which these mitochondria will activate, depending on the threshold type and activation resource
+│  │  ├──Conversion Rate: the ratio of energy units to nutrient units at which these Mitochondria convert
+│  │  │
+│  │  ├──Activation Theshold: the proportional amount of resources in this Cell above or below which these Mitochondria will activate, depending on the threshold type and activation resource
 │  │  │
 │  │  ├──Theshold Type: the type of the activation threshold: high-pass or low-pass
 │  │  │
-│  │  ├──Activation Resource: the resources to which these mitochondria "listen" to determine activation: nutrients or energy
+│  │  ├──Activation Resource: the resources to which these Mitochondria "listen" to determine activation: nutrients or energy
 │  │  │
 │  │  └──...
 │  │

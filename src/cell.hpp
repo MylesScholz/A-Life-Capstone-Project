@@ -24,7 +24,7 @@ public:
 
 	void activateCellStructures();
 
-	void applyScale(float);
+	void applyScale(const float);
 	float getScale() const;
 
 	Size2 getSpriteSize() const;

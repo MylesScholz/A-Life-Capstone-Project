@@ -75,6 +75,8 @@ void CellSpawner::spawnCell() {
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
+	cellObject->apply_torque(rand->randf_range(-500, 500));
+
 	add_child(cell);
 }
 
