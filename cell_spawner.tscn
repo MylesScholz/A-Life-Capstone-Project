@@ -597,7 +597,7 @@ offset_top = 227.0
 offset_right = 227.0
 offset_bottom = 258.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
-text = "EXIT TO MENU"
+text = "          EXIT"
 
 [node name="EXIT_TO_MENUButton" type="TextureButton" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
 layout_mode = 0
