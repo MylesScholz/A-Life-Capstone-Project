@@ -20,12 +20,23 @@ Flagella::Flagella() {
 	_movementForceVector = Vector2();
 	_positionVector = Vector2();
 	_activationEnergyCost = 1.0;
+	_activationEnergyThreshold = 1.0;
 }
 Flagella::~Flagella() {}
 
 void Flagella::activate(CellState *cellState) {
+	bool thresholdCondition = false;
+
 	if (cellState->getTotalEnergy() >= _activationEnergyCost) { //implement movement energy cost threshold
-		// UtilityFunctions::print("Flagella activated: ", cellState->getTotalEnergy(), " >= ", _activationEnergyCost);
+		thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
+	}
+
+	if (thresholdCondition) {
+		float force_magnitude = rand->randf_range(0, 10);
+		float direction = rand->randf_range(0, 2 * Math_PI);
+		Vector2 force = Vector(0, -1).rotated(direction) * force_magnitude;
+		cellState->setNextMovementVector(force);
+		cellState->incrementTotalEnergy(-_activationEnergyCost);
 	}
 }
 

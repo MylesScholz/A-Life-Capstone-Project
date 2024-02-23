@@ -100,6 +100,9 @@ void Cell::_process(double delta) {
 		// Activate the Cell's structures
 		this->activateCellStructures();
 
+		// Apply Flagella Movement Vectors
+		this->apply_force(_cellState->getNextMovementVector());
+
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
 		// Decrement the Cell's energy

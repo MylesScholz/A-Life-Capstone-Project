@@ -148,6 +148,11 @@ void CellState::setEnergyMaximum(const float energyMaximum) {
 }
 float CellState::getEnergyMaximum() const { return _energyMaximum; }
 
+void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
+	_nextMovementVector = nextMovementVector;
+}
+Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
+
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
 }

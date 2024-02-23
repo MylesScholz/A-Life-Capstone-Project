@@ -1,8 +1,10 @@
 #pragma once
 
 #include "cell_structure.hpp"
-
+#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
+#include <godot_cpp/classes/ref.hpp>
 
 using namespace godot;
 
@@ -30,5 +32,7 @@ public:
 private:
 	Vector2 _movementForceVector;
 	Vector2 _positionVector;
+	Ref<RandomNumberGenerator> rand;
 	float _activationEnergyCost;
+	float _activationEnergyThreshold;
 };
