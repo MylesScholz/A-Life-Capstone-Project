@@ -28,7 +28,11 @@ public:
 	void setImmortal(bool);
 
 	void _ready() override;
-	void _process(double) override;
+	void _process(double) override;\
+	Cell* getCell();
+	CellState* getCellState();
+	void setCellState(CellState* cellState);
+	bool getCellAlive();
 	void _on_body_entered(Node *body);
 
 private:

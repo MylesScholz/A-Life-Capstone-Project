@@ -8,6 +8,9 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_lifespan"), &CellState::getLifespan);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "lifespan"),
 			"set_lifespan", "get_lifespan");
+	ClassDB::bind_method(D_METHOD("get_age"), &CellState::getAge);
+	ClassDB::bind_method(D_METHOD("get_scale"), &CellState::getScale);
+	ClassDB::bind_method(D_METHOD("get_alive"), &CellState::getAlive);
 }
 
 CellState::CellState() {

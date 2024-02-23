@@ -9,6 +9,12 @@ using namespace godot;
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"),
 			&Cell::_on_body_entered);
+	ClassDB::bind_method(D_METHOD("get_cell"), &Cell::getCell);
+	ClassDB::bind_method(D_METHOD("get_scale"), &Cell::getScale);
+	ClassDB::bind_method(D_METHOD("apply_scale"), &Cell::applyScale);
+	ClassDB::bind_method(D_METHOD("get_cell_state"), &Cell::getCellState);
+    ClassDB::bind_method(D_METHOD("set_cell_state"), &Cell::setCellState);
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "cellState", PROPERTY_HINT_RESOURCE_TYPE, "cell_state"), "set_cell_state", "get_cell_state");
 }
 
 int Cell::CollisionCount = 0;
@@ -26,6 +32,7 @@ Cell::Cell() {
 
 	_spriteSize = Size2();
 }
+
 Cell::~Cell() {}
 
 void Cell::applyScale(float scale) {
@@ -96,6 +103,18 @@ void Cell::_process(double delta) {
 			this->set_linear_damp(10.0);
 		}
 	}
+}
+
+Cell* Cell::getCell() {
+	return this;
+}
+
+CellState* Cell::getCellState() {
+    return this->_cellState;
+}
+
+void Cell::setCellState(CellState* cellState) {
+    _cellState = cellState;
 }
 
 // function updates on cell contacts. Increments counter for use in
