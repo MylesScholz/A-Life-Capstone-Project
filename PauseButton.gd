@@ -4,7 +4,6 @@ extends TextureButton
 # things like the fps counter, main menu and reset buttons
 
 func _pressed():
-	#var parent_node = get_parent()
 	get_child(!get_tree().paused).visible = false
 	get_child(get_tree().paused).visible = true
 	get_tree().paused = !get_tree().paused
@@ -12,9 +11,11 @@ func _pressed():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	#pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
+
+
+func _on_menu_button_pressed():
+	_pressed()
