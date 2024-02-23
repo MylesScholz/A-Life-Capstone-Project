@@ -22,6 +22,22 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_nutrient_maximum", "nutrient_maximum"), &CellState::setNutrientMaximum);
 	ClassDB::bind_method(D_METHOD("get_nutrient_maximum"), &CellState::getNutrientMaximum);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "nutrient_maximum"), "set_nutrient_maximum", "get_nutrient_maximum");
+
+	ClassDB::bind_method(D_METHOD("set_homeostasis_energy_cost", "homeostasis_energy_cost"), &CellState::setHomeostasisEnergyCost);
+	ClassDB::bind_method(D_METHOD("get_homeostasis_energy_cost"), &CellState::getHomeostasisEnergyCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "homeostasis_energy_cost"), "set_homeostasis_energy_cost", "get_homeostasis_energy_cost");
+
+	ClassDB::bind_method(D_METHOD("set_reproduction_energy_cost", "reproduction_energy_cost"), &CellState::setReproductionEnergyCost);
+	ClassDB::bind_method(D_METHOD("get_reproduction_energy_cost"), &CellState::getReproductionEnergyCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_energy_cost"), "set_reproduction_energy_cost", "get_reproduction_energy_cost");
+
+	ClassDB::bind_method(D_METHOD("set_total_energy", "total_energy"), &CellState::setTotalEnergy);
+	ClassDB::bind_method(D_METHOD("get_total_energy"), &CellState::getTotalEnergy);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_energy"), "set_total_energy", "get_total_energy");
+
+	ClassDB::bind_method(D_METHOD("set_energy_maximum", "energy_maximum"), &CellState::setEnergyMaximum);
+	ClassDB::bind_method(D_METHOD("get_energy_maximum"), &CellState::getEnergyMaximum);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "energy_maximum"), "set_energy_maximum", "get_energy_maximum");
 }
 
 CellState::CellState() {
@@ -37,6 +53,7 @@ CellState::CellState() {
 	_totalEnergy = 100.0;
 	_energyMaximum = 100.0;
 	_nutrientMaximum = 100.0;
+	_nextMovementVector = Vector2();
 }
 CellState::~CellState() {}
 
@@ -131,6 +148,11 @@ void CellState::setEnergyMaximum(const float energyMaximum) {
 		_energyMaximum = energyMaximum;
 }
 float CellState::getEnergyMaximum() const { return _energyMaximum; }
+
+void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
+	_nextMovementVector = nextMovementVector;
+}
+Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
 
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;

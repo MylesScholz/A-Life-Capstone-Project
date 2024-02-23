@@ -55,6 +55,9 @@ public:
 	void setEnergyMaximum(const float);
 	float getEnergyMaximum() const;
 
+	void setNextMovementVector(const Vector2);
+	Vector2 getNextMovementVector() const;
+
 	void _ready() override;
 
 private:
@@ -70,6 +73,7 @@ private:
 	float _reproductionEnergyCost;
 	float _totalEnergy;
 	float _energyMaximum;
+	Vector2 _nextMovementVector;
 };
 
 }; // namespace godot
