@@ -29,6 +29,9 @@ public:
 	void setActivationEnergyCost(const float activationEnergyCost);
 	float getActivationEnergyCost() const;
 
+	void setActivationEnergyThreshold(const float activationEnergyThreshold);
+	float getActivationEnergyThreshold() const;
+
 private:
 	Vector2 _movementForceVector;
 	Vector2 _positionVector;

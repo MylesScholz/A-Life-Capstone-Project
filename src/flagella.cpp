@@ -13,7 +13,11 @@ void Flagella::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("set_activation_energy_cost", "activation_energy_cost"), &Flagella::setActivationEnergyCost);
 	ClassDB::bind_method(D_METHOD("get_activation_energy_cost"), &Flagella::getActivationEnergyCost);
-	ClassDB::add_property("Flagella", PropertyInfo(Variant::VECTOR2, "activation_energy_cost"), "set_activation_energy_cost", "get_activation_energy_cost");
+	ClassDB::add_property("Flagella", PropertyInfo(Variant::FLOAT, "activation_energy_cost"), "set_activation_energy_cost", "get_activation_energy_cost");
+
+	ClassDB::bind_method(D_METHOD("set_activation_energy_threshold"), &Flagella::setActivationEnergyThreshold);
+	ClassDB::bind_method(D_METHOD("get_activation_energy_threshold"), &Flagella::getActivationEnergyThreshold);
+	ClassDB::add_property("Flagella", PropertyInfo(Variant::FLOAT, "activation_energy_threshold"), "set_activation_energy_threshold", "get_activation_energy_threshold");
 }
 
 Flagella::Flagella() {
@@ -48,3 +52,6 @@ Vector2 Flagella::getPositionVector() const { return _positionVector; }
 
 void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
 float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }
+
+void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshold) { _activationEnergyThreshold = activationEnergyThreshold; }
+float Flagella::getActivationEnergyCost() const { return _activationEnergyThreshold; }
