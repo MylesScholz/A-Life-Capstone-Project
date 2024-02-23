@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "flagella.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
@@ -47,6 +48,11 @@ Cell::Cell() {
 	Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
 	_cellStructures.push_back(ribosomes);
 	this->add_child(ribosomes);
+
+	Ref<PackedScene> flagella_scene = ResourceLoader::get_singleton()->load("res://flagella.tscn");
+	Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
+	_cellStructures.push_back(flagella);
+	this->add_child(flagella);
 
 	_spriteSize = Size2();
 }

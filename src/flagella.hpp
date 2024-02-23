@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cell_structure.hpp"
-#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/ref.hpp>
@@ -20,22 +19,25 @@ public:
 
 	void activate(CellState *) override;
 
-	void setMovementForceVector(const Vector2 movementForceVector);
+	void setMovementForceVector(const Vector2);
 	Vector2 getMovementForceVector() const;
 
-	void setPositionVector(const Vector2 positionVector);
+	void setPositionVector(const Vector2);
 	Vector2 getPositionVector() const;
 
-	void setActivationEnergyCost(const float activationEnergyCost);
+	void setActivationEnergyCost(const float);
 	float getActivationEnergyCost() const;
 
-	void setActivationEnergyThreshold(const float activationEnergyThreshold);
+	void setActivationEnergyThreshold(const float);
 	float getActivationEnergyThreshold() const;
+
+	void _ready() override;
 
 private:
 	Vector2 _movementForceVector;
 	Vector2 _positionVector;
-	Ref<RandomNumberGenerator> rand;
 	float _activationEnergyCost;
 	float _activationEnergyThreshold;
+
+	Ref<RandomNumberGenerator> rand;
 };
