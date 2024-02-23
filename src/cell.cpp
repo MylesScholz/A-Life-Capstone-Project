@@ -1,5 +1,7 @@
 #include "cell.hpp"
+#include "mitochondria.hpp"
 #include "nucleus.hpp"
+#include "ribosomes.hpp"
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
@@ -26,10 +28,25 @@ Cell::Cell() {
 
 	rand.instantiate();
 
+	// Add CellStructures
+
+	// Load a CellStructure scene
 	Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
+	// Instantiate the scene and cast it to the specific type
 	Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
+	// Add the CellStructure pointer to _cellStructures and as a child under this Cell
 	_cellStructures.push_back(nucleus);
 	this->add_child(nucleus);
+
+	Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
+	Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
+	_cellStructures.push_back(mitochondria);
+	this->add_child(mitochondria);
+
+	Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
+	Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
+	_cellStructures.push_back(ribosomes);
+	this->add_child(ribosomes);
 
 	_spriteSize = Size2();
 }
@@ -42,14 +59,25 @@ void Cell::activateCellStructures() {
 	}
 }
 
-void Cell::applyScale(float scale) {
+void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
+	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
 	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
+	// Apply scaling to mass; scale is squared because mass is proportional to area
+	this->set_mass(this->get_mass() * scale * scale);
+
+	// Apply scaling to each CellStructure
+	for (auto &structure : _cellStructures) {
+		if (structure)
+			structure->applyScale(scale);
+	}
+
+	// Measure the new sprite size
 	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
@@ -59,7 +87,6 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
-	_cellState->setTotalNutrients(_cellState->getNutrientMaximum());
 }
 
 void Cell::_process(double delta) {
@@ -75,9 +102,12 @@ void Cell::_process(double delta) {
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
+		// Decrement the Cell's energy
+		_cellState->incrementTotalEnergy(-delta * _cellState->getHomeostasisEnergyCost());
 
-		// Aging, starvation and death
+		// Aging, starvation, and death
 		float nutrients = _cellState->getTotalNutrients();
+		float energy = _cellState->getTotalEnergy();
 		float ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
 		if (ageDiff > 0) {
 			// The Cell's age exceeds its lifespan
@@ -89,12 +119,14 @@ void Cell::_process(double delta) {
 				_cellState->setAlive(false);
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
+				this->set_angular_damp(10.0);
 			}
 		}
-		if (nutrients <= 0) {
+		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
+			this->set_angular_damp(10.0);
 		}
 	}
 }
