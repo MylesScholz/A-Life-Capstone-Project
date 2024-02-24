@@ -53,6 +53,7 @@ CellState::CellState() {
 	_totalEnergy = 100.0;
 	_energyMaximum = 100.0;
 	_nutrientMaximum = 100.0;
+	_nextMovementVector = Vector2();
 }
 CellState::~CellState() {}
 

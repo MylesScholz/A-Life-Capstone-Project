@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "cell_state.hpp"
 
 #include <godot_cpp/classes/sprite2d.hpp>
@@ -9,8 +10,11 @@ using namespace godot;
 class CellStructure : public Node2D {
 	GDCLASS(CellStructure, Node2D)
 
+
 protected:
 	static void _bind_methods();
+
+
 
 public:
 	CellStructure();
