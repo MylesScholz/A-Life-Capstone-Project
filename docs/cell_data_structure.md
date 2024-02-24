@@ -102,6 +102,8 @@ Cell
 │  │  │
 │  │  ├──Activation Energy Cost: the amount of energy expended per unit of time while these Flagella are activated
 │  │  │
+│  │  ├──Activation Energy Threshold: the proportional amount of energy in this Cell above which these flagella will activate
+│  │  │
 │  │  └──...
 │  │
 │  └──...
