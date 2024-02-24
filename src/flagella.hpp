@@ -2,8 +2,6 @@
 
 #include "cell_structure.hpp"
 #include <godot_cpp/classes/node.hpp>
-#include <godot_cpp/classes/random_number_generator.hpp>
-#include <godot_cpp/classes/ref.hpp>
 
 using namespace godot;
 
