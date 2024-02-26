@@ -1,14 +1,10 @@
-#include "TestHeader.hpp"
+#include "test_header.hpp"
 
 #include "cell_spawner.hpp"
 
 #include <godot_cpp/classes/object.hpp>
 
-namespace godot {
-
-TEST_CASE("Dummy") {
-	CHECK(1 == 1);
-}
+using namespace godot;
 
 TEST_CASE("Test CellSpawner") {
 	CellSpawner CellSpawner{};
@@ -32,5 +28,3 @@ TEST_CASE("Test CellSpawner") {
 		CHECK(CellSpawner.getMaxForce() == CellSpawner.getMinForce());
 	}
 }
-
-} //namespace godot

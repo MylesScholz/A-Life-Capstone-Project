@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-#include "TestHeader.hpp"
+#include "test_main.hpp"
 #endif
 
 using namespace godot;
@@ -99,7 +99,7 @@ void CellSpawner::spawnCell() {
 void CellSpawner::_ready() {
 	DONT_RUN_IN_EDITOR;
 
-	// If not in a release build, check for custom cmdline arg to run tests,
+	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
 #ifdef TESTS_ENABLED
 	for (auto arg : OS::get_singleton()->get_cmdline_args()) {
