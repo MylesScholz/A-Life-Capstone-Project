@@ -1,27 +1,27 @@
 #include "gene.hpp"
 #include "cell_structure.hpp"
 
-void godot::Gene::_bind_methods() {
+void Gene::_bind_methods() {
 }
 
-godot::Gene::Gene() {
+Gene::Gene() {
 }
 
-godot::Gene::~Gene() {
+Gene::~Gene() {
 }
 
-std::string godot::Gene::getType() {
-	return std::string();
+String Gene::getType() {
+	return String();
 }
 
-std::string godot::Gene::getName() {
-	return std::string();
+String Gene::getName() {
+	return String();
 }
 
-CellStructure* godot::Gene::express() {
+CellStructure *Gene::express() {
 	return new CellStructure();
 }
 
-float godot::Gene::getValue() {
+float Gene::getValue() {
 	return 0.0f;
 }

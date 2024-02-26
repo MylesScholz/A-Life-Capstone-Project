@@ -1,7 +1,5 @@
 #include "ribosomes.hpp"
 
-using namespace godot;
-
 void Ribosomes::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_activation_threshold", "activation_threshold"), &Ribosomes::setActivationThreshold);
 	ClassDB::bind_method(D_METHOD("get_activation_threshold"), &Ribosomes::getActivationThreshold);

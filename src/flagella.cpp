@@ -1,7 +1,5 @@
 #include "flagella.hpp"
 
-using namespace godot;
-
 void Flagella::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_movement_force_vector", "movement_force_vector"), &Flagella::setMovementForceVector);
 	ClassDB::bind_method(D_METHOD("get_movement_force_vector"), &Flagella::getMovementForceVector);

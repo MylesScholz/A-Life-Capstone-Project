@@ -1,7 +1,5 @@
 #include "cell_state.hpp"
 
-using namespace godot;
-
 void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_lifespan", "lifespan"), &CellState::setLifespan);
 	ClassDB::bind_method(D_METHOD("get_lifespan"), &CellState::getLifespan);

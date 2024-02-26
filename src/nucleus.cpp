@@ -1,7 +1,5 @@
 #include "nucleus.hpp"
 
-using namespace godot;
-
 void Nucleus::_bind_methods() {
 	//Reproduction Threshold Variable
 	ClassDB::bind_method(D_METHOD("set_reproduction_nutrient_threshold", "reproduction_nutrient_threshold"), &Nucleus::setReproductionNutrientThreshold);
