@@ -3,7 +3,7 @@
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/time.hpp>
 
-namespace godot {
+using namespace godot;
 
 class CellState : public Node {
 	GDCLASS(CellState, Node)
@@ -75,5 +75,3 @@ private:
 	float _energyMaximum;
 	Vector2 _nextMovementVector;
 };
-
-}; // namespace godot

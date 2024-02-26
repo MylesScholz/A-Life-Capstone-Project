@@ -8,7 +8,7 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/viewport.hpp>
 
-namespace godot {
+using namespace godot;
 
 class CellSpawner : public Node {
 	GDCLASS(CellSpawner, Node)
@@ -43,5 +43,3 @@ private:
 	float _minForce = 50.0;
 	float _maxForce = 150.0;
 };
-
-} // namespace godot

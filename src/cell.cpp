@@ -11,8 +11,6 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
-using namespace godot;
-
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
 }
@@ -56,7 +54,9 @@ Cell::Cell() {
 
 	_spriteSize = Size2();
 }
-Cell::~Cell() {}
+Cell::~Cell() {
+	queue_free();
+}
 
 void Cell::activateCellStructures() {
 	for (auto &structure : _cellStructures) {

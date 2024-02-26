@@ -1,28 +1,25 @@
-#ifndef GENE_HPP
-#define GENE_HPP
+#pragma once
 
-#include <godot_cpp/classes/node.hpp>
 #include "cell_structure.hpp"
-namespace godot {
+#include <godot_cpp/classes/node.hpp>
 
-class Gene : public Node
-{
-    GDCLASS(Gene, Node)
+using namespace godot;
+
+class Gene : public Node {
+	GDCLASS(Gene, Node)
 
 protected:
-    static void _bind_methods();
+	static void _bind_methods();
 
 public:
-    Gene(/* args */);
-    ~Gene();
-    virtual std::string getType();
-    virtual std::string getName();
-    virtual CellStructure* express();
-    virtual float getValue();
+	Gene(/* args */);
+	~Gene();
+
+	virtual String getType();
+	virtual String getName();
+	virtual CellStructure *express();
+	virtual float getValue();
+
 private:
-    /* data */
+	/* data */
 };
-
-}
-
-#endif

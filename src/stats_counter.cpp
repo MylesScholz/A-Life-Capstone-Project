@@ -3,8 +3,6 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
-using namespace godot;
-
 void StatsCounter::_bind_methods() {}
 
 StatsCounter::StatsCounter() {}

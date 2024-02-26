@@ -1,7 +1,5 @@
 #include "mitochondria.hpp"
 
-using namespace godot;
-
 void Mitochondria::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_activation_threshold", "activation_threshold"), &Mitochondria::setActivationThreshold);
 	ClassDB::bind_method(D_METHOD("get_activation_threshold"), &Mitochondria::getActivationThreshold);

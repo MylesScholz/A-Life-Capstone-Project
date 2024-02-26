@@ -3,7 +3,7 @@
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/label.hpp>
 
-namespace godot {
+using namespace godot;
 
 class StatsCounter : public Label {
 	GDCLASS(StatsCounter, Label)
@@ -17,5 +17,3 @@ public:
 
 	void _process(double delta) override;
 };
-
-} //namespace godot
