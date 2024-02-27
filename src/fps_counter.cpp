@@ -2,8 +2,6 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
-using namespace godot;
-
 void FpsCounter::_bind_methods() {}
 
 FpsCounter::FpsCounter() {}
