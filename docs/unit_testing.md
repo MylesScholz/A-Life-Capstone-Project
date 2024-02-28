@@ -11,13 +11,10 @@ scons platform=<PLATFORM>
 Where `<PLATFORM>` is the platform you're building for (windows, macos, linux, etc.)
 
 ### Building with tests enabled
-From there navigate back to the main directory and build with the following options
+From there navigate back to the main directory and build with the `tests` option:
 ```
-scons platform=<PLATFORM> disable_exceptions=no build_library=no tests=1
+scons platform=<PLATFORM> tests=1
 ```
-- There are several macros used for testing with doctest that require exceptions, so to support them `disable_exceptions=no` is used
-- However godot-cpp relies on exceptions being disabled, so in order to not rebuild it we build with `build_library=no`
-- In order to compile the tests, the custom flag `tests` is used
 
 ### Running tests
 Next to run the tests, run:

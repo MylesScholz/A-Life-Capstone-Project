@@ -2,6 +2,10 @@
 import os
 import sys
 
+tests = ARGUMENTS.get('tests', 0)
+if int(tests):
+	env = Environment(disable_exceptions='no', build_library='no', tools=["default"], PLATFORM="")
+	Export('env')
 env = SConscript("godot-cpp/SConstruct")
 
 # For reference:
@@ -16,8 +20,6 @@ env = SConscript("godot-cpp/SConstruct")
 env.Prepend(CPPPATH=["doctest/","src/","tests/"])
 sources = Glob("src/*.cpp")
 
-
-tests = ARGUMENTS.get('tests', 0)
 # If non-release build, compile the test files
 if env.debug_features and int(tests):
     sources.extend(Glob("tests/*.cpp"))
