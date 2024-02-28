@@ -65,7 +65,7 @@ void Mitochondria::activate(CellState *cellState) {
 
 	// Check whether the threshold is met
 	if (thresholdCondition) {
-		UtilityFunctions::print("Mitochondria activated");
+		// UtilityFunctions::print("Mitochondria activated");
 
 		// Decrement the nutrients based on the strength and efficiency of these Mitochondria
 		cellState->incrementTotalNutrients(-_efficiency * _strength);
