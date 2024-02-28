@@ -1,45 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=2 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wap8f"]
-size = Vector2(200, 720)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq8oa"]
-size = Vector2(1480, 200)
 
 [node name="CellSpawner" type="CellSpawner"]
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
-
-[node name="FpsCounter" type="FpsCounter" parent="."]
-z_index = 1
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="StatsCounter" type="StatsCounter" parent="."]
-z_index = 2
-offset_top = 23.0
-offset_right = 40.0
-offset_bottom = 46.0
-
-[node name="ViewportBoundaries" type="StaticBody2D" parent="."]
-
-[node name="LeftEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(-100, 360)
-shape = SubResource("RectangleShape2D_wap8f")
-
-[node name="RightEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(1180, 360)
-shape = SubResource("RectangleShape2D_wap8f")
-
-[node name="TopEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(540, -100)
-shape = SubResource("RectangleShape2D_mq8oa")
-
-[node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(540, 820)
-shape = SubResource("RectangleShape2D_mq8oa")
 
 [node name="StartButton" type="StartButton" parent="."]
 anchors_preset = 8
