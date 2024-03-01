@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
@@ -52,6 +53,11 @@ Cell::Cell() {
 	_cellStructures.push_back(flagella);
 	this->add_child(flagella);
 
+	Ref<PackedScene> cell_membrane_scene = ResourceLoader::get_singleton()->load("res://cell_membrane.tscn");
+	CellMembrane *cell_membrane = Object::cast_to<CellMembrane>(cell_membrane_scene->instantiate());
+	_cellStructures.push_back(cell_membrane);
+	this->add_child(cell_membrane);
+
 	_spriteSize = Size2();
 }
 Cell::~Cell() {
@@ -71,7 +77,6 @@ void Cell::applyScale(const float scale) {
 
 	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
-	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area
@@ -84,7 +89,7 @@ void Cell::applyScale(const float scale) {
 	}
 
 	// Measure the new sprite size
-	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
+	_spriteSize = this->get_node<CellMembrane>("CellMembrane")->getSprite()->get_rect().size;
 }
 
 float Cell::getScale() const { return _cellState->getScale(); }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx652d7pu2ewi"]
+
+[ext_resource type="Texture2D" uid="uid://b308m8851jwvb" path="res://CellMembrane.png" id="1_ydti7"]
+
+[node name="CellMembrane" type="CellMembrane"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.087, 0.087)
+texture = ExtResource("1_ydti7")
