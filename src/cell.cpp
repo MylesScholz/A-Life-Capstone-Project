@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
@@ -90,7 +91,6 @@ void Cell::applyScale(const float scale) {
 
 	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
-	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area
@@ -103,7 +103,7 @@ void Cell::applyScale(const float scale) {
 	}
 
 	// Measure the new sprite size
-	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
+	_spriteSize = this->get_node<CellMembrane>("CellMembrane")->getSprite()->get_rect().size;
 }
 
 float Cell::getScale() const { return _cellState->getScale(); }
