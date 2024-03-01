@@ -59,8 +59,7 @@ public:
 	void setNextMovementVector(const Vector2);
 	Vector2 getNextMovementVector() const;
 
-	void addReceptorVector(const Vector2);
-	void setReceptorVector(const int, const Vector2);
+	void setReceptorVectors(const Vector<Vector2>);
 	Vector<Vector2> getReceptorVectors() const;
 
 	void _ready() override;

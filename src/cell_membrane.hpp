@@ -26,14 +26,19 @@ public:
 	void _on_receptor_deactivated(Receptor *);
 
 	Vector<Receptor *> getReceptors();
-	void createReceptor();
-	void removeReceptor();
+	void createReceptors(const int);
+	void removeReceptors(const int);
 
 	Vector<Receptor *> getActivatedReceptors();
 
 	void _ready() override;
 
 private:
+	void _createReceptor();
+	void _removeReceptor();
+
+	void _rearrangeReceptors();
+
 	Vector<Receptor *> _receptors;
 	Vector<Receptor *> _activatedReceptors;
 };

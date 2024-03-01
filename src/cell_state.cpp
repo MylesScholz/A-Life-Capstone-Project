@@ -52,6 +52,7 @@ CellState::CellState() {
 	_energyMaximum = 100.0;
 	_nutrientMaximum = 100.0;
 	_nextMovementVector = Vector2();
+	_receptorVectors = Vector<Vector2>();
 }
 CellState::~CellState() {}
 
@@ -152,13 +153,7 @@ void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
 }
 Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
 
-void CellState::addReceptorVector(const Vector2 receptorVector) { _receptorVectors.push_back(receptorVector); }
-void CellState::setReceptorVector(const int index, const Vector2 receptorVector) {
-	if (index < 0 || index > _receptorVectors.size())
-		return;
-
-	_receptorVectors.set(index, receptorVector);
-}
+void CellState::setReceptorVectors(const Vector<Vector2> receptorVectors) { _receptorVectors = receptorVectors; }
 Vector<Vector2> CellState::getReceptorVectors() const { return _receptorVectors; }
 
 void CellState::_ready() {
