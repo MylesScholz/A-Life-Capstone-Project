@@ -16,8 +16,8 @@ public:
 	Receptor();
 	~Receptor();
 
-	void _on_body_entered(Node *);
-	void _on_body_exited(Node *);
+	void _on_area_entered(Area2D *);
+	void _on_area_exited(Area2D *);
 
 	void setSprite(Sprite2D *);
 	Sprite2D *getSprite();
