@@ -2,6 +2,8 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
 void FpsCounter::_bind_methods() {}
 
 FpsCounter::FpsCounter() {}
@@ -20,9 +22,7 @@ void FpsCounter::toggle_fps() {
 }
 
 void FpsCounter::_process(double delta) {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
+	DONT_RUN_IN_EDITOR;
 
 	if (run) {
 		const String fps =

@@ -11,6 +11,8 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
 }
@@ -117,9 +119,7 @@ void Cell::_ready() {
 }
 
 void Cell::_process(double delta) {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
+	DONT_RUN_IN_EDITOR;
 
 	this->keepCellsInBackground();
 	if (_cellState->getAlive()) {

@@ -4,6 +4,8 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
 void StartButton::_bind_methods() {
 }
 
