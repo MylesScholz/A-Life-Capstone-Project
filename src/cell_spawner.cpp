@@ -75,9 +75,6 @@ void CellSpawner::spawnCell(bool isImmortal) {
 
 	cellObject->apply_torque(rand->randf_range(-500, 500));
 
-	// Set z-index to ensure it's rendered behind other nodes
-	cellObject->set_z_index(-1);
-
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
 

@@ -61,8 +61,18 @@ Cell::~Cell() {
 
 void Cell::activateCellStructures() {
 	for (auto &structure : _cellStructures) {
-		if (structure)
+		if (structure) {
 			structure->activate(_cellState);
+		}
+	}
+}
+
+void Cell::keepCellsInBackground() {
+	for (auto &structure : _cellStructures) {
+		if (structure) {
+			this->set_z_index(-2);
+			structure->set_z_index(0);
+		}
 	}
 }
 
@@ -111,6 +121,7 @@ void Cell::_process(double delta) {
 	if (Engine::get_singleton()->is_editor_hint())
 		return;
 
+	this->keepCellsInBackground();
 	if (_cellState->getAlive()) {
 		// Living Cell behavior
 
@@ -126,9 +137,9 @@ void Cell::_process(double delta) {
 		_cellState->incrementTotalEnergy(-delta * _cellState->getHomeostasisEnergyCost());
 
 		// Aging, starvation and death
-		float nutrients;
-		float ageDiff;
-		float energy;
+		float nutrients = 100.0;
+		float ageDiff = 0;
+		float energy = 100.0;
 		if (!immortal) {
 			nutrients = _cellState->getTotalNutrients();
 			ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
