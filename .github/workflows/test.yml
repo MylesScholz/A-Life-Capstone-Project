@@ -1,0 +1,54 @@
+name: Unit Tests
+
+on: 
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  ci:
+    name: Run Unit Tests
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Configure dependencies 
+        run: |
+          sudo apt-get update
+          sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev libxkbcommon-x11-dev \
+            libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev
+
+      - name: Setup Godot
+        uses: lihop/setup-godot@v2
+        with:
+          version: 4.2.1-stable
+
+      - name: Set up Python (for SCons)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install scons
+        run: |
+          python -m pip install scons
+
+      - name: Build module
+        run: |
+          cd godot-cpp
+          scons platform=linux target=template_debug
+          cd ..
+          scons platform=linux target=template_debug tests=1
+
+      - name: Run tests
+        run: |
+          # launch the editor once so resources import, and use timeout to kill it after it's done
+          set +e
+          LANG=en_US.UTF-8 \
+          timeout 45 godot --no-window --disable-vsync -e
+
+          set -e
+          LANG=en_US.UTF-8 \
+          godot --no-window --disable-vsync -T

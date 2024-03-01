@@ -5,6 +5,7 @@ bin/*.exp
 bin/*.lib
 .sconsign.dblite
 src/*.obj
+tests/*.obj
 .vscode/
 compile_commands.json
 *.pdb
