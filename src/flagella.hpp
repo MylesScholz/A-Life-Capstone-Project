@@ -19,6 +19,7 @@ public:
 	~Flagella();
 
 	void activate(CellState *) override;
+	void modify(String, float) override;
 
 	void setMovementForceVector(const Vector2);
 	Vector2 getMovementForceVector() const;

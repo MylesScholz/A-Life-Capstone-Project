@@ -19,6 +19,9 @@ void Nucleus::activate(CellState *cellState) {
 	}
 }
 
+void Nucleus::modify(String modName, float modValue) {
+}
+
 void Nucleus::setReproductionNutrientThreshold(const float reproductionNutrientThreshold) {
 	if (reproductionNutrientThreshold > 0) {
 		_reproductionNutrientThreshold = reproductionNutrientThreshold;
