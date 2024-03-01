@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5ntrl3w82nt7"]
+
+[ext_resource type="Texture2D" uid="uid://dt0xfqxga5ter" path="res://Nucleus.png" id="1_yjunn"]
+
+[node name="Nucleus" type="Nucleus"]
+reproduction_nutrient_threshold = 50.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-14.1875, 14.1875)
+scale = Vector2(0.0852102, 0.0852102)
+texture = ExtResource("1_yjunn")

@@ -4,7 +4,7 @@
 #include <godot_cpp/classes/button.hpp>
 #include <godot_cpp/classes/engine.hpp>
 
-namespace godot {
+using namespace godot;
 
 class StartButton : public Button {
 	GDCLASS(StartButton, Button)
@@ -18,5 +18,3 @@ public:
 
 	void _pressed() override;
 };
-
-} //namespace godot

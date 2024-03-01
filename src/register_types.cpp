@@ -3,10 +3,13 @@
 #include "cell.hpp"
 #include "cell_spawner.hpp"
 #include "cell_state.hpp"
+#include "flagella.hpp"
 #include "fps_counter.hpp"
 #include "main_menu_button.hpp"
 #include "mitochondria.hpp"
+#include "nucleus.hpp"
 #include "reset_button.hpp"
+#include "ribosomes.hpp"
 #include "start_button.hpp"
 #include "stats_counter.hpp"
 #include "time_counter.hpp"
@@ -15,8 +18,6 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-using namespace godot;
-
 void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
 		return;
@@ -24,12 +25,16 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 
 	ClassDB::register_class<StatsCounter>();
 	ClassDB::register_class<FpsCounter>();
+	ClassDB::register_class<StartButton>();
+	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<TimeCounter>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellState>();
+	ClassDB::register_class<CellStructure>();
+	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Mitochondria>();
-	ClassDB::register_class<CellSpawner>();
-	ClassDB::register_class<StartButton>();
+	ClassDB::register_class<Ribosomes>();
+	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
 }

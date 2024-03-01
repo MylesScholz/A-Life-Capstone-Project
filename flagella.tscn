@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtweix64dm1yx"]
+
+[ext_resource type="Texture2D" uid="uid://yhqnn7yev434" path="res://Flagella.png" id="1_a1pmd"]
+
+[node name="Flagella" type="Flagella"]
+movement_force_vector = Vector2(0, 3)
+activation_energy_cost = 0.01
+activation_energy_threshold = 0.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, 3)
+scale = Vector2(0.0851612, 0.0851613)
+texture = ExtResource("1_a1pmd")

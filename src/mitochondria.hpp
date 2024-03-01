@@ -1,11 +1,13 @@
 #pragma once
 
-#include <godot_cpp/classes/node.hpp>
+#include "cell_structure.hpp"
 
-namespace godot {
+#include <godot_cpp/variant/utility_functions.hpp>
 
-class Mitochondria : public Node {
-	GDCLASS(Mitochondria, Node);
+using namespace godot;
+
+class Mitochondria : public CellStructure {
+	GDCLASS(Mitochondria, CellStructure);
 
 protected:
 	static void _bind_methods();
@@ -14,15 +16,33 @@ public:
 	Mitochondria();
 	~Mitochondria();
 
-	void addNutrients(float);
-	void decrementNutrients(const float);
-	float getNutrients() const;
-	void setNutrients(const float);
+	void activate(CellState *) override;
+
+	void setActivationThreshold(const float);
+	float getActivationThreshold() const;
+
+	void setStrength(const float);
+	float getStrength() const;
+
+	void setEfficiency(const float);
+	float getEfficiency() const;
+
+	void setConversionRate(const float);
+	float getConversionRate() const;
+
+	void setActivationResource(const String);
+	String getActivationResource() const;
+
+	void setThresholdType(const String);
+	String getThresholdType() const;
+
+	void _ready() override;
 
 private:
-	float _nutrients;
-	float _nutrient_maximum;
-	float _nutrient_efficiency;
+	float _activationThreshold;
+	float _strength;
+	float _efficiency;
+	float _conversionRate;
+	String _activationResource;
+	String _thresholdType;
 };
-
-}; // namespace godot
