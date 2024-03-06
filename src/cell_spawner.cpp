@@ -93,7 +93,7 @@ void CellSpawner::spawnCell() {
 
 	cellObject->apply_torque(rand->randf_range(-500, 500));
 
-	this->get_parent()->add_child(cell);
+	this->get_node<Node2D>("Environment")->add_child(cell);
 }
 
 void CellSpawner::_ready() {
