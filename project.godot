@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="A-life sim 2.0"
-run/main_scene="res://environment.tscn"
+run/main_scene="res://cell_spawner.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
