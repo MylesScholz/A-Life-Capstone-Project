@@ -4,6 +4,7 @@
 #include "cell_membrane.hpp"
 #include "cell_spawner.hpp"
 #include "cell_state.hpp"
+#include "environment.hpp"
 #include "flagella.hpp"
 #include "fps_counter.hpp"
 #include "mitochondria.hpp"
@@ -22,19 +23,20 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<StatsCounter>();
-	ClassDB::register_class<FpsCounter>();
-	ClassDB::register_class<StartButton>();
-	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<Cell>();
-	ClassDB::register_class<CellState>();
-	ClassDB::register_class<CellStructure>();
-	ClassDB::register_class<Nucleus>();
-	ClassDB::register_class<Mitochondria>();
-	ClassDB::register_class<Ribosomes>();
-	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<CellMembrane>();
+	ClassDB::register_class<CellSpawner>();
+	ClassDB::register_class<CellStructure>();
+	ClassDB::register_class<CellState>();
+	ClassDB::register_class<Environment>();
+	ClassDB::register_class<Flagella>();
+	ClassDB::register_class<FpsCounter>();
+	ClassDB::register_class<Mitochondria>();
+	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Receptor>();
+	ClassDB::register_class<Ribosomes>();
+	ClassDB::register_class<StartButton>();
+	ClassDB::register_class<StatsCounter>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {
