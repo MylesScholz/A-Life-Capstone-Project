@@ -1,6 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbvx5juolpfax"]
-
-[ext_resource type="PackedScene" uid="uid://dm4rsl52782k2" path="res://cell_spawner.tscn" id="1_ay6c6"]
+[gd_scene load_steps=3 format=3 uid="uid://bbvx5juolpfax"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vorx"]
 size = Vector2(200, 720)
@@ -9,8 +7,6 @@ size = Vector2(200, 720)
 size = Vector2(1480, 200)
 
 [node name="Environment" type="Node2D"]
-
-[node name="CellSpawner" parent="." instance=ExtResource("1_ay6c6")]
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 
@@ -29,14 +25,3 @@ shape = SubResource("RectangleShape2D_du2en")
 [node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_du2en")
-
-[node name="FpsCounter" type="FpsCounter" parent="."]
-z_index = 1
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="StatsCounter" type="StatsCounter" parent="."]
-z_index = 2
-offset_top = 23.0
-offset_right = 40.0
-offset_bottom = 46.0
