@@ -38,7 +38,7 @@ Flagella::~Flagella() {}
 void Flagella::activate(CellState *cellState) {
 	bool thresholdCondition = false;
 
-	if (cellState->getTotalEnergy() >= _activationEnergyCost) { //implement movement energy cost threshold
+	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
 		thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
 	}
 

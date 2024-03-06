@@ -22,6 +22,7 @@ void Receptor::setSprite(Sprite2D *sprite) { _sprite = sprite; }
 Sprite2D *Receptor::getSprite() { return _sprite; }
 
 void Receptor::_ready() {
+	// Connect the inherited area_entered and area_exited signals to the callbacks in this class
 	this->connect("area_entered", Callable(this, "_on_area_entered"));
 	this->connect("area_exited", Callable(this, "_on_area_exited"));
 
