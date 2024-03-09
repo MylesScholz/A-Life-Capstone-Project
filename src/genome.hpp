@@ -7,11 +7,7 @@
 
 using namespace godot;
 
-class Genome : public Node {
-	GDCLASS(Genome, Node)
-
-protected:
-	static void _bind_methods();
+class Genome {
 
 public:
 	Genome();

@@ -1,7 +1,5 @@
 #include "genome.hpp"
 
-void Genome::_bind_methods() {
-}
 
 Genome::Genome() {
 }
