@@ -19,6 +19,7 @@ public:
 
 	Vector<CellStructure *> expressGenes();
 
+	void addGene(Gene *);
 	void setGene(Gene *, int);
 	void insertGene(Gene *, int);
 	void removeGene(int);

@@ -4,6 +4,11 @@
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
+#include "nucleus_gene.hpp"
+#include "mitochondria_gene.hpp"
+#include "ribosomes_gene.hpp"
+#include "flagella_gene.hpp"
+
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
@@ -27,8 +32,22 @@ Cell::Cell() {
 
 	rand.instantiate();
 
-	// Add CellStructures
+	//temp setup a genome for testing.
+	_cellGenome.addGene(new NucleusGene());
+	_cellGenome.addGene(new MitochondriaGene());
+	_cellGenome.addGene(new RibosomesGene());
+	//_cellGenome.addGene(new FlagellaGene());
 
+	// Add CellStructures using the cell genome
+
+	_cellStructures = _cellGenome.expressGenes();
+	for (int i = 0; i < _cellStructures.size(); i++)
+	{
+		this->add_child(_cellStructures.get(i));
+	}
+	
+
+/*
 	// Load a CellStructure scene
 	Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
 	// Instantiate the scene and cast it to the specific type
@@ -51,7 +70,7 @@ Cell::Cell() {
 	Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
 	_cellStructures.push_back(flagella);
 	this->add_child(flagella);
-
+*/
 	_spriteSize = Size2();
 }
 Cell::~Cell() {

@@ -7,6 +7,11 @@ Genome::Genome() {
 }
 
 Genome::~Genome() {
+	for (int i = 0; i < genes.size(); i++)
+	{
+		delete genes.get(i);
+	}
+	
 }
 
 Vector<CellStructure *> Genome::expressGenes() {
@@ -27,6 +32,10 @@ Vector<CellStructure *> Genome::expressGenes() {
 	}
 
 	return cellStructures;
+}
+
+void Genome::addGene(Gene *newGene) {
+	genes.push_back(newGene);
 }
 
 void Genome::setGene(Gene *newGene, int index) {
