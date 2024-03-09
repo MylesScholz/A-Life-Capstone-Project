@@ -74,6 +74,9 @@ void Mitochondria::activate(CellState *cellState) {
 	}
 }
 
+void Mitochondria::modify(String modName, float modValue) {
+}
+
 void Mitochondria::setActivationThreshold(const float activationThreshold) {
 	if (activationThreshold >= 0.0 && activationThreshold <= 1.0)
 		_activationThreshold = activationThreshold;

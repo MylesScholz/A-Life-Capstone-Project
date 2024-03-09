@@ -11,6 +11,9 @@ void CellStructure::activate(CellState *) {
 	// UtilityFunctions::print("CellStructure::activate()");
 }
 
+void CellStructure::modify(String, float) {
+}
+
 void CellStructure::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
