@@ -1,8 +1,6 @@
 #include "gene.hpp"
 #include "cell_structure.hpp"
 
-void Gene::_bind_methods() {
-}
 
 Gene::Gene() {
 }

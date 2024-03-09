@@ -74,6 +74,9 @@ void Ribosomes::activate(CellState *cellState) {
 	}
 }
 
+void Ribosomes::modify(String modName, float modValue) {
+}
+
 void Ribosomes::setActivationThreshold(const float activationThreshold) {
 	if (activationThreshold >= 0.0 && activationThreshold <= 1.0)
 		_activationThreshold = activationThreshold;

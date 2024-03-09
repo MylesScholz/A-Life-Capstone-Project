@@ -39,7 +39,8 @@ private:
 	CellState *_cellState;
 	Size2 _spriteSize;
 	Vector<CellStructure *> _cellStructures;
-
+	Genome _cellGenome;
+	
 	Ref<RandomNumberGenerator> rand;
-	Genome cellGenome;
+
 };

@@ -21,6 +21,7 @@ public:
 	~CellStructure();
 
 	virtual void activate(CellState *);
+	virtual void modify(String, float);
 
 	void applyScale(const float);
 
