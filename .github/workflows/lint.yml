@@ -8,6 +8,8 @@ jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       - name: Check out Git repository
@@ -18,6 +20,5 @@ jobs:
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
-        checks: write
         with:
           clang_format: true 
