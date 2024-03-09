@@ -4,8 +4,6 @@
 #include "genome.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
-#include "mitochondria.hpp"
-#include "genome.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
@@ -28,8 +26,6 @@ public:
 
 	void activateCellStructures();
 
-	void activateCellStructures();
-
 	void applyScale(const float);
 	float getScale() const;
 
@@ -44,7 +40,6 @@ private:
 	Size2 _spriteSize;
 	Vector<CellStructure *> _cellStructures;
 	Genome _cellGenome;
-	
-	Ref<RandomNumberGenerator> rand;
 
+	Ref<RandomNumberGenerator> rand;
 };
