@@ -2,6 +2,8 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
+#include "helpers.hpp"
+
 using namespace godot;
 
 void TimeCounter::_bind_methods() {}
@@ -29,10 +31,11 @@ void TimeCounter::reset_time() {
 }
 
 void TimeCounter::_process(double delta) {
-	// Don't run if in editor
-	if (Engine::get_singleton()->is_editor_hint())
-		return;
+	DONT_RUN_IN_EDITOR;
 
+	if (this->get_text() == "-1") { // Communicate with GDScript
+		this->toggle_time();
+	}
 	if (start) {
 		total_time += delta; // Accumulate delta to track total time
 		const String time =
