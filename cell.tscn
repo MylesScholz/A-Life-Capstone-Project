@@ -11,6 +11,7 @@ bounce = 1.0
 radius = 50.0
 
 [node name="Cell" type="Cell"]
+input_pickable = true
 mass = 0.05
 physics_material_override = SubResource("PhysicsMaterial_62si4")
 gravity_scale = 0.0

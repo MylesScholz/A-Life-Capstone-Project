@@ -7,6 +7,7 @@
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
+#include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
 
@@ -42,6 +43,9 @@ public:
 	void setCellState(CellState *cellState);
 	bool getCellAlive();
 	void _on_body_entered(Node *body);
+
+	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
+    void emit_cell_selected_signal();
 
 private:
 	CellState *_cellState;

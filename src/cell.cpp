@@ -4,17 +4,24 @@
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
+#include "stats_counter.hpp"
+
+#include <godot_cpp/classes/input.hpp>
+#include <godot_cpp/classes/input_event.hpp>
+#include <godot_cpp/classes/input_event_mouse_button.hpp>
+
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
+#include <godot_cpp/classes/script.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
-
 #include "helpers.hpp"
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
+	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
 int Cell::CollisionCount = 0;
@@ -115,7 +122,14 @@ void Cell::setImmortal(bool isImmortal) {
 }
 
 void Cell::_ready() {
+	this->set_pickable(true);
 	_cellState = this->get_node<CellState>("CellState");
+
+	StatsCounter* statsCounter = this->get_node<StatsCounter>("StatsCounter");
+	if (statsCounter) {
+		godot::Callable callable = godot::Callable(statsCounter, "update_Stats"); // Assuming the method name is "update_Stats"
+		this->connect("cell_selected", callable);
+	}
 }
 
 void Cell::_process(double delta) {
@@ -165,6 +179,19 @@ void Cell::_process(double delta) {
 			this->set_angular_damp(10.0);
 		}
 	}
+}
+
+void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
+    Ref<InputEventMouseButton> mouse_button_event = event;
+    if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT) {
+		
+		UtilityFunctions::print("press detected");
+		UtilityFunctions::print(this);
+ 
+        //Object* stats_container = ResourceLoader::get_singleton()->load("res://StatsContainer.gd");
+		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
+		this->emit_signal("cell_selected", this);
+    }
 }
 
 // function updates on cell contacts. Increments counter for use in
