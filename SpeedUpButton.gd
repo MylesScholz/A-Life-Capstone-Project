@@ -1,9 +1,7 @@
 extends TextureButton
 
-var delta_multiplier = 1;
-
 func _pressed():
-	delta_multiplier += .5
+	GlobalVariables.delta_multiplier += .25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,5 +9,5 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass

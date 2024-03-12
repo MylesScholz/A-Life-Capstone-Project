@@ -72,19 +72,23 @@ corner_radius_bottom_left = 10
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
 
-[node name="FpsCounter" type="FpsCounter" parent="."]
+[node name="Environment" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="."]
+
+[node name="FpsCounter" type="FpsCounter" parent="UI"]
 z_index = 1
 offset_top = 66.0
 offset_right = 40.0
 offset_bottom = 89.0
 
-[node name="TimeCounter" type="TimeCounter" parent="."]
+[node name="TimeCounter" type="TimeCounter" parent="UI"]
 z_index = 1
 offset_top = 90.0
 offset_right = 40.0
 offset_bottom = 113.0
 
-[node name="StatsPanel" type="Panel" parent="."]
+[node name="StatsPanel" type="Panel" parent="UI"]
 visible = false
 offset_left = 826.0
 offset_top = 228.0
@@ -93,8 +97,8 @@ offset_bottom = 719.0
 theme = ExtResource("2_d86u0")
 script = ExtResource("3_o15cp")
 
-[node name="StatsCounter" type="StatsCounter" parent="StatsPanel"]
-process_mode = 3
+[node name="StatsCounter" type="StatsCounter" parent="UI/StatsPanel"]
+visible = false
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
@@ -107,14 +111,14 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Tree" type="Tree" parent="StatsPanel"]
+[node name="Tree" type="Tree" parent="UI/StatsPanel"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 27.0
 offset_right = 255.0
 offset_bottom = 208.0
 
-[node name="UpperLabel" type="Label" parent="StatsPanel"]
+[node name="UpperLabel" type="Label" parent="UI/StatsPanel"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 1.0
@@ -122,7 +126,7 @@ offset_right = 106.0
 offset_bottom = 27.0
 text = "Cell Lineage"
 
-[node name="LowerLabel" type="Label" parent="StatsPanel"]
+[node name="LowerLabel" type="Label" parent="UI/StatsPanel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 212.0
@@ -130,7 +134,7 @@ offset_right = 114.0
 offset_bottom = 236.0
 text = "Cell Statistics"
 
-[node name="StatsExitButton" type="Button" parent="StatsPanel"]
+[node name="StatsExitButton" type="Button" parent="UI/StatsPanel"]
 layout_mode = 0
 offset_left = 222.0
 offset_top = -1.0
@@ -139,8 +143,7 @@ offset_bottom = 30.0
 text = "x"
 script = ExtResource("4_beosf")
 
-[node name="StatsContainer" type="VBoxContainer" parent="StatsPanel"]
-visible = false
+[node name="StatsContainer" type="VBoxContainer" parent="UI/StatsPanel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 240.0
@@ -148,25 +151,25 @@ offset_right = 245.0
 offset_bottom = 491.0
 script = ExtResource("5_qq0ca")
 
-[node name="ViewportBoundaries" type="StaticBody2D" parent="."]
+[node name="ViewportBoundaries" type="StaticBody2D" parent="UI"]
 
-[node name="LeftEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
+[node name="LeftEdgeBoundary" type="CollisionShape2D" parent="UI/ViewportBoundaries"]
 position = Vector2(-100, 360)
 shape = SubResource("RectangleShape2D_wap8f")
 
-[node name="RightEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
+[node name="RightEdgeBoundary" type="CollisionShape2D" parent="UI/ViewportBoundaries"]
 position = Vector2(1180, 360)
 shape = SubResource("RectangleShape2D_wap8f")
 
-[node name="TopEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
+[node name="TopEdgeBoundary" type="CollisionShape2D" parent="UI/ViewportBoundaries"]
 position = Vector2(540, -100)
 shape = SubResource("RectangleShape2D_mq8oa")
 
-[node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
+[node name="BottomEdgeBoundary" type="CollisionShape2D" parent="UI/ViewportBoundaries"]
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_mq8oa")
 
-[node name="BarPanel" type="Panel" parent="."]
+[node name="BarPanel" type="Panel" parent="UI"]
 unique_name_in_owner = true
 offset_left = 119.0
 offset_right = 479.0
@@ -175,7 +178,7 @@ theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
-[node name="Title" type="LineEdit" parent="BarPanel"]
+[node name="Title" type="LineEdit" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 84.0
 offset_top = 119.0
@@ -185,7 +188,7 @@ theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "A-Life Challenge 2.0"
 
-[node name="MenuPanel" type="Panel" parent="BarPanel"]
+[node name="MenuPanel" type="Panel" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 53.0
 offset_top = 299.0
@@ -193,7 +196,7 @@ offset_right = 319.0
 offset_bottom = 672.0
 theme = ExtResource("2_d86u0")
 
-[node name="StartButton" type="StartButton" parent="BarPanel"]
+[node name="StartButton" type="StartButton" parent="UI/BarPanel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.344
@@ -210,7 +213,7 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
 text = "Start New Simulation"
 
-[node name="LoadSimButton" type="Button" parent="BarPanel"]
+[node name="LoadSimButton" type="Button" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 416.0
@@ -219,7 +222,7 @@ offset_bottom = 450.0
 theme = ExtResource("2_d86u0")
 text = "Load Simulation"
 
-[node name="TutorialButton" type="Button" parent="BarPanel"]
+[node name="TutorialButton" type="Button" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 464.0
@@ -227,7 +230,7 @@ offset_right = 279.0
 offset_bottom = 498.0
 text = "Run Tutorial"
 
-[node name="QuitButton" type="Button" parent="BarPanel"]
+[node name="QuitButton" type="Button" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 512.0
@@ -236,7 +239,7 @@ offset_bottom = 546.0
 text = "Quit"
 script = ExtResource("6_cqljf")
 
-[node name="NavBar" type="Panel" parent="."]
+[node name="NavBar" type="Panel" parent="UI"]
 unique_name_in_owner = true
 visible = false
 offset_right = 1080.0
@@ -245,7 +248,7 @@ theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
-[node name="NavTitle" type="LineEdit" parent="NavBar"]
+[node name="NavTitle" type="LineEdit" parent="UI/NavBar"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 1.0
@@ -255,7 +258,7 @@ theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "A-Life Challenge 2.0"
 
-[node name="MainMenuButton" type="MainMenuButton" parent="NavBar/NavTitle"]
+[node name="MainMenuButton" type="MainMenuButton" parent="UI/NavBar/NavTitle"]
 layout_mode = 0
 offset_left = -12.0
 offset_top = -1.0
@@ -263,34 +266,35 @@ offset_right = 351.0
 offset_bottom = 65.0
 mouse_default_cursor_shape = 2
 
-[node name="SlowDown1" type="Polygon2D" parent="NavBar"]
+[node name="SlowDown1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(560.268, -87.3415)
 scale = Vector2(0.829268, 0.829268)
 polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
 
-[node name="SlowDown2" type="Polygon2D" parent="NavBar"]
+[node name="SlowDown2" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(573.13, -86.9565)
 scale = Vector2(0.826087, 0.826087)
 polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
 
-[node name="SlowDownButton" type="TextureButton" parent="NavBar"]
+[node name="SlowDownButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
 offset_left = 750.0
 offset_top = 12.0
 offset_right = 799.0
 offset_bottom = 53.0
 
-[node name="SpeedUp1" type="Polygon2D" parent="NavBar"]
+[node name="SpeedUp1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(731.239, -90.587)
 scale = Vector2(0.847826, 0.847826)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="SpeedUp2" type="Polygon2D" parent="NavBar"]
+[node name="SpeedUp2" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(740.143, -91.7143)
 scale = Vector2(0.857143, 0.857143)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
 
-[node name="SpeedUpButton" type="TextureButton" parent="NavBar"]
+[node name="SpeedUpButton" type="TextureButton" parent="UI/NavBar"]
+visible = false
 layout_mode = 0
 offset_left = 921.0
 offset_top = 11.0
@@ -298,34 +302,34 @@ offset_right = 970.0
 offset_bottom = 53.0
 script = ExtResource("7_0omg7")
 
-[node name="Zoom1" type="Polygon2D" parent="NavBar"]
+[node name="Zoom1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(797.348, -93.2174)
 scale = Vector2(0.869565, 0.869565)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Zoom2" type="Polygon2D" parent="NavBar"]
+[node name="Zoom2" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(808.457, -95.8478)
 scale = Vector2(0.891304, 0.891304)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Zoom3" type="Polygon2D" parent="NavBar"]
+[node name="Zoom3" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(827.605, -92.079)
 scale = Vector2(0.868421, 0.868421)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
 
-[node name="Div1" type="Line2D" parent="NavBar"]
+[node name="Div1" type="Line2D" parent="UI/NavBar"]
 position = Vector2(169, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
-[node name="Div2" type="Line2D" parent="NavBar"]
+[node name="Div2" type="Line2D" parent="UI/NavBar"]
 position = Vector2(51, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
-[node name="MenuText" type="LineEdit" parent="NavBar"]
+[node name="MenuText" type="LineEdit" parent="UI/NavBar"]
 layout_mode = 0
 offset_left = 510.0
 offset_top = 3.0
@@ -335,7 +339,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Menu"
 
-[node name="MenuButton" type="TextureButton" parent="NavBar/MenuText"]
+[node name="MenuButton" type="TextureButton" parent="UI/NavBar/MenuText"]
 layout_mode = 0
 offset_left = -11.0
 offset_top = 3.0
@@ -344,7 +348,7 @@ offset_bottom = 56.0
 mouse_default_cursor_shape = 2
 script = ExtResource("8_7m3jv")
 
-[node name="ResetText" type="LineEdit" parent="NavBar"]
+[node name="ResetText" type="LineEdit" parent="UI/NavBar"]
 layout_mode = 0
 offset_left = 632.0
 offset_top = 3.0
@@ -354,7 +358,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Reset"
 
-[node name="ResetButton" type="ResetButton" parent="NavBar/ResetText"]
+[node name="ResetButton" type="ResetButton" parent="UI/NavBar/ResetText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 3.0
@@ -362,7 +366,7 @@ offset_right = 91.0
 offset_bottom = 59.0
 mouse_default_cursor_shape = 2
 
-[node name="PauseButton" type="TextureButton" parent="NavBar"]
+[node name="PauseButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
 offset_left = 838.0
 offset_top = 10.0
@@ -371,23 +375,23 @@ offset_bottom = 57.0
 mouse_default_cursor_shape = 2
 script = ExtResource("6_8cqgg")
 
-[node name="PlayButton" type="Polygon2D" parent="NavBar/PauseButton"]
+[node name="PlayButton" type="Polygon2D" parent="UI/NavBar/PauseButton"]
 visible = false
 position = Vector2(-225, -121)
 polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
 
-[node name="PauseButton1" type="Polygon2D" parent="NavBar/PauseButton"]
+[node name="PauseButton1" type="Polygon2D" parent="UI/NavBar/PauseButton"]
 position = Vector2(-681, -86.2143)
 scale = Vector2(1, 0.928571)
 polygon = PackedVector2Array(711, 96, 711, 138, 719, 138, 719, 96)
 
-[node name="PauseButton2" type="Polygon2D" parent="NavBar/PauseButton/PauseButton1"]
+[node name="PauseButton2" type="Polygon2D" parent="UI/NavBar/PauseButton/PauseButton1"]
 position = Vector2(-27, 0)
 polygon = PackedVector2Array(711, 96, 711, 138, 719, 138, 719, 96)
 
-[node name="MenuPanels" type="Node2D" parent="."]
+[node name="MenuPanels" type="Node2D" parent="UI"]
 
-[node name="SaveAndQuitMenuPanel" type="Panel" parent="MenuPanels"]
+[node name="SaveAndQuitMenuPanel" type="Panel" parent="UI/MenuPanels"]
 visible = false
 offset_left = 295.0
 offset_top = 216.0
@@ -396,10 +400,10 @@ offset_bottom = 570.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_peo4t")
 
-[node name="SaveAndQuit" type="Node2D" parent="MenuPanels/SaveAndQuitMenuPanel"]
+[node name="SaveAndQuit" type="Node2D" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 position = Vector2(-3, -12)
 
-[node name="SaveAndQuitTab" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit"]
+[node name="SaveAndQuitTab" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit"]
 offset_left = 9.0
 offset_top = 17.0
 offset_right = 108.0
@@ -407,7 +411,7 @@ offset_bottom = 64.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_byl61")
 
-[node name="SaveAndQuitText" type="TextEdit" parent="MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit"]
+[node name="SaveAndQuitText" type="TextEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit"]
 offset_left = 32.0
 offset_top = 17.0
 offset_right = 103.0
@@ -417,7 +421,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_xo2cg")
 text = "Save and
     Quit"
 
-[node name="SaveAndQuitButton" type="TextureButton" parent="MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit/SaveAndQuitText"]
+[node name="SaveAndQuitButton" type="TextureButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SaveAndQuit/SaveAndQuitText"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = -23.0
@@ -425,17 +429,17 @@ offset_top = -1.0
 offset_right = 76.0
 offset_bottom = 45.0
 
-[node name="SimSettings" type="Node2D" parent="MenuPanels/SaveAndQuitMenuPanel"]
+[node name="SimSettings" type="Node2D" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 position = Vector2(-3, -12)
 
-[node name="SimSettingsTab" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/SimSettings"]
+[node name="SimSettingsTab" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SimSettings"]
 offset_left = 108.0
 offset_top = 17.0
 offset_right = 207.0
 offset_bottom = 64.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pnooy")
 
-[node name="SimSettingsText" type="TextEdit" parent="MenuPanels/SaveAndQuitMenuPanel/SimSettings"]
+[node name="SimSettingsText" type="TextEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SimSettings"]
 offset_left = 126.0
 offset_top = 17.0
 offset_right = 212.0
@@ -446,7 +450,7 @@ text = "Simulation
   Settings"
 wrap_mode = 1
 
-[node name="SimSettingsButton" type="TextureButton" parent="MenuPanels/SaveAndQuitMenuPanel/SimSettings/SimSettingsText"]
+[node name="SimSettingsButton" type="TextureButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/SimSettings/SimSettingsText"]
 layout_mode = 0
 offset_left = -18.0
 offset_right = 81.0
@@ -454,7 +458,7 @@ offset_bottom = 46.0
 mouse_default_cursor_shape = 2
 script = ExtResource("10_51xgw")
 
-[node name="Panel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel"]
+[node name="Panel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 51.0
@@ -463,7 +467,7 @@ offset_bottom = 349.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hta6u")
 
-[node name="SimulationText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel"]
+[node name="SimulationText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel"]
 layout_mode = 0
 offset_left = 42.0
 offset_top = 12.0
@@ -472,7 +476,7 @@ offset_bottom = 43.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "Simulation"
 
-[node name="SavePanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="SavePanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 41.0
@@ -480,7 +484,7 @@ offset_right = 106.0
 offset_bottom = 81.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="SAVEText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="SAVEText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 46.0
@@ -489,7 +493,7 @@ offset_bottom = 77.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "SAVE"
 
-[node name="SaveAsPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="SaveAsPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 96.0
@@ -497,7 +501,7 @@ offset_right = 106.0
 offset_bottom = 136.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="SAVE_ASText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="SAVE_ASText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 101.0
@@ -506,7 +510,7 @@ offset_bottom = 132.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "SAVE AS"
 
-[node name="OpenPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="OpenPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 151.0
@@ -514,7 +518,7 @@ offset_right = 106.0
 offset_bottom = 191.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="OPENText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
+[node name="OPENText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 157.0
@@ -523,7 +527,7 @@ offset_bottom = 188.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "OPEN"
 
-[node name="OrganismText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel"]
+[node name="OrganismText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 12.0
@@ -532,7 +536,7 @@ offset_bottom = 43.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "Organism Tree"
 
-[node name="SavePanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="SavePanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 41.0
@@ -540,7 +544,7 @@ offset_right = 123.0
 offset_bottom = 81.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="SAVEText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="SAVEText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 46.0
@@ -549,7 +553,7 @@ offset_bottom = 77.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "SAVE"
 
-[node name="SaveAsPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="SaveAsPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 96.0
@@ -557,7 +561,7 @@ offset_right = 123.0
 offset_bottom = 136.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="SAVE_ASText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="SAVE_ASText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 101.0
@@ -566,7 +570,7 @@ offset_bottom = 132.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "SAVE AS"
 
-[node name="OpenPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="OpenPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = -6.0
 offset_top = 151.0
@@ -574,7 +578,7 @@ offset_right = 123.0
 offset_bottom = 191.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="OPENText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
+[node name="OPENText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/OrganismText"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 157.0
@@ -583,7 +587,7 @@ offset_bottom = 188.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "OPEN"
 
-[node name="ExitToMenuPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel/Panel"]
+[node name="ExitToMenuPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel"]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 221.0
@@ -591,25 +595,25 @@ offset_right = 260.0
 offset_bottom = 261.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="EXIT_TO_MENUText" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/Panel"]
+[node name="EXIT_TO_MENUText" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel"]
 layout_mode = 0
-offset_left = 111.0
+offset_left = 113.0
 offset_top = 227.0
-offset_right = 227.0
+offset_right = 225.0
 offset_bottom = 258.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
-text = "          EXIT"
+text = "EXIT TO MENU"
 
-[node name="EXIT_TO_MENUButton" type="TextureButton" parent="MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
+[node name="EXIT_TO_MENUButton" type="TextureButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
 layout_mode = 0
-offset_left = -31.0
+offset_left = -33.0
 offset_top = -6.0
-offset_right = 149.0
+offset_right = 147.0
 offset_bottom = 34.0
 mouse_default_cursor_shape = 2
 script = ExtResource("11_md7wg")
 
-[node name="ExitPanel" type="Panel" parent="MenuPanels/SaveAndQuitMenuPanel"]
+[node name="ExitPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 layout_mode = 0
 offset_left = 447.0
 offset_top = 7.0
@@ -617,7 +621,7 @@ offset_right = 472.0
 offset_bottom = 32.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_05uin")
 
-[node name="ExitEdit" type="LineEdit" parent="MenuPanels/SaveAndQuitMenuPanel/ExitPanel"]
+[node name="ExitEdit" type="LineEdit" parent="UI/MenuPanels/SaveAndQuitMenuPanel/ExitPanel"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = -12.0
@@ -627,7 +631,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yf4le")
 text = "x"
 
-[node name="MenuExitButton" type="TextureButton" parent="MenuPanels/SaveAndQuitMenuPanel/ExitPanel/ExitEdit"]
+[node name="MenuExitButton" type="TextureButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/ExitPanel/ExitEdit"]
 layout_mode = 0
 offset_left = -4.0
 offset_top = 12.0
@@ -636,7 +640,7 @@ offset_bottom = 37.0
 mouse_default_cursor_shape = 2
 script = ExtResource("12_snkx7")
 
-[node name="SimSettingsMenuPanel" type="Panel" parent="MenuPanels"]
+[node name="SimSettingsMenuPanel" type="Panel" parent="UI/MenuPanels"]
 visible = false
 offset_left = 295.0
 offset_top = 216.0
@@ -645,17 +649,17 @@ offset_bottom = 570.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_peo4t")
 
-[node name="SaveAndQuit" type="Node2D" parent="MenuPanels/SimSettingsMenuPanel"]
+[node name="SaveAndQuit" type="Node2D" parent="UI/MenuPanels/SimSettingsMenuPanel"]
 position = Vector2(0, -12)
 
-[node name="SaveAndQuitTab" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/SaveAndQuit"]
+[node name="SaveAndQuitTab" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/SaveAndQuit"]
 offset_left = 6.0
 offset_top = 17.0
 offset_right = 105.0
 offset_bottom = 64.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pnooy")
 
-[node name="SaveAndQuitText" type="TextEdit" parent="MenuPanels/SimSettingsMenuPanel/SaveAndQuit"]
+[node name="SaveAndQuitText" type="TextEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/SaveAndQuit"]
 offset_left = 29.0
 offset_top = 17.0
 offset_right = 84.0
@@ -665,7 +669,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_xo2cg")
 text = "Save and
     Quit"
 
-[node name="SaveAndQuitButton" type="TextureButton" parent="MenuPanels/SimSettingsMenuPanel/SaveAndQuit/SaveAndQuitText"]
+[node name="SaveAndQuitButton" type="TextureButton" parent="UI/MenuPanels/SimSettingsMenuPanel/SaveAndQuit/SaveAndQuitText"]
 layout_mode = 0
 offset_left = -23.0
 offset_right = 76.0
@@ -673,10 +677,10 @@ offset_bottom = 46.0
 mouse_default_cursor_shape = 2
 script = ExtResource("9_i11s2")
 
-[node name="SimSettings" type="Node2D" parent="MenuPanels/SimSettingsMenuPanel"]
+[node name="SimSettings" type="Node2D" parent="UI/MenuPanels/SimSettingsMenuPanel"]
 position = Vector2(0, -12)
 
-[node name="SimSettingsTab" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/SimSettings"]
+[node name="SimSettingsTab" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/SimSettings"]
 offset_left = 105.0
 offset_top = 17.0
 offset_right = 204.0
@@ -684,7 +688,7 @@ offset_bottom = 64.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_byl61")
 
-[node name="SimSettingsText" type="TextEdit" parent="MenuPanels/SimSettingsMenuPanel/SimSettings"]
+[node name="SimSettingsText" type="TextEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/SimSettings"]
 offset_left = 123.0
 offset_top = 17.0
 offset_right = 209.0
@@ -695,13 +699,13 @@ text = "Simulation
   Settings"
 wrap_mode = 1
 
-[node name="SimSettingsButton" type="TextureButton" parent="MenuPanels/SimSettingsMenuPanel/SimSettings/SimSettingsText"]
+[node name="SimSettingsButton" type="TextureButton" parent="UI/MenuPanels/SimSettingsMenuPanel/SimSettings/SimSettingsText"]
 layout_mode = 0
 offset_left = -18.0
 offset_right = 81.0
 offset_bottom = 46.0
 
-[node name="Panel" type="Panel" parent="MenuPanels/SimSettingsMenuPanel"]
+[node name="Panel" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 51.0
@@ -710,7 +714,7 @@ offset_bottom = 349.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hta6u")
 
-[node name="SimulationText" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/Panel"]
+[node name="SimulationText" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel"]
 layout_mode = 0
 offset_left = 42.0
 offset_top = 12.0
@@ -719,7 +723,7 @@ offset_bottom = 43.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "Simulation Settings"
 
-[node name="StartingCellsPanel" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="StartingCellsPanel" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 41.0
@@ -727,7 +731,7 @@ offset_right = 367.0
 offset_bottom = 81.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="STARTINGCELLSText" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="STARTINGCELLSText" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 46.0
@@ -736,7 +740,7 @@ offset_bottom = 77.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "STARTING CELLS:"
 
-[node name="MovementForcePanel" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="MovementForcePanel" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 96.0
@@ -744,7 +748,7 @@ offset_right = 367.0
 offset_bottom = 136.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="MOVEMENT_FORCEText" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="MOVEMENT_FORCEText" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 101.0
@@ -753,7 +757,7 @@ offset_bottom = 132.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "MOVEMENT FORCE:"
 
-[node name="ReproductionCostPanel" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="ReproductionCostPanel" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 151.0
@@ -761,7 +765,7 @@ offset_right = 367.0
 offset_bottom = 191.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="REPRODUCTION_COSTText" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="REPRODUCTION_COSTText" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 157.0
@@ -770,7 +774,7 @@ offset_bottom = 188.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "REPRODUCTION COST:"
 
-[node name="ReproductionCostPanel2" type="Panel" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="ReproductionCostPanel2" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -23.0
 offset_top = 206.0
@@ -778,7 +782,7 @@ offset_right = 367.0
 offset_bottom = 246.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_g1qg2")
 
-[node name="REPRODUCTION_COSTText2" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
+[node name="REPRODUCTION_COSTText2" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/Panel/SimulationText"]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 212.0
@@ -787,7 +791,7 @@ offset_bottom = 243.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "REPRODUCTION COST:"
 
-[node name="ExitPanel" type="Panel" parent="MenuPanels/SimSettingsMenuPanel"]
+[node name="ExitPanel" type="Panel" parent="UI/MenuPanels/SimSettingsMenuPanel"]
 layout_mode = 0
 offset_left = 447.0
 offset_top = 7.0
@@ -795,7 +799,7 @@ offset_right = 472.0
 offset_bottom = 32.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_05uin")
 
-[node name="ExitEdit" type="LineEdit" parent="MenuPanels/SimSettingsMenuPanel/ExitPanel"]
+[node name="ExitEdit" type="LineEdit" parent="UI/MenuPanels/SimSettingsMenuPanel/ExitPanel"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = -12.0
@@ -805,7 +809,7 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yf4le")
 text = "x"
 
-[node name="MenuExitButton" type="TextureButton" parent="MenuPanels/SimSettingsMenuPanel/ExitPanel/ExitEdit"]
+[node name="MenuExitButton" type="TextureButton" parent="UI/MenuPanels/SimSettingsMenuPanel/ExitPanel/ExitEdit"]
 layout_mode = 0
 offset_left = -4.0
 offset_top = 12.0
@@ -813,7 +817,3 @@ offset_right = 21.0
 offset_bottom = 37.0
 mouse_default_cursor_shape = 2
 script = ExtResource("12_snkx7")
-
-[connection signal="pressed" from="NavBar/MenuText/MenuButton" to="NavBar/PauseButton" method="_on_menu_button_pressed"]
-[connection signal="pressed" from="MenuPanels/SaveAndQuitMenuPanel/ExitPanel/ExitEdit/MenuExitButton" to="NavBar/PauseButton" method="_on_menu_button_pressed"]
-[connection signal="pressed" from="MenuPanels/SimSettingsMenuPanel/ExitPanel/ExitEdit/MenuExitButton" to="NavBar/PauseButton" method="_on_menu_button_pressed"]

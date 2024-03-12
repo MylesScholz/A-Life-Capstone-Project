@@ -1,9 +1,9 @@
 extends TextureButton
 
 func _pressed():
-	var menuPanels = get_parent().get_parent().get_parent().get_parent().get_parent()
-	menuPanels.get_node("MenuPanels/SaveAndQuitMenuPanel").visible = true
-	menuPanels.get_node("MenuPanels/SimSettingsMenuPanel").visible = false
+	var root = get_tree().get_root()
+	root.get_node("CellSpawner/UI/MenuPanels/SaveAndQuitMenuPanel").visible = true
+	root.get_node("CellSpawner/UI/MenuPanels/SimSettingsMenuPanel").visible = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

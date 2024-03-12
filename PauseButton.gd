@@ -4,9 +4,14 @@ extends TextureButton
 # things like the fps counter, main menu and reset buttons
 
 func _pressed():
-	get_child(!get_tree().paused).visible = false
-	get_child(get_tree().paused).visible = true
-	get_tree().paused = !get_tree().paused
+	var rootNode = get_tree().get_root()
+	var SaveAndQuit = rootNode.get_node("CellSpawner/UI/MenuPanels/SaveAndQuitMenuPanel").visible
+	var SimSettings = rootNode.get_node("CellSpawner/UI/MenuPanels/SimSettingsMenuPanel").visible
+	if (!SaveAndQuit and !SimSettings):
+		get_child(!get_tree().paused).visible = false # Change pause button visually
+		get_child(get_tree().paused).visible = true
+		get_tree().paused = !get_tree().paused # Pause and unpause
+		GlobalVariables.used_pause_button = !GlobalVariables.used_pause_button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,7 +20,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-
-
-func _on_menu_button_pressed():
-	_pressed()

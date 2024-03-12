@@ -14,7 +14,7 @@ ResetButton::~ResetButton() {}
 // _pressed is used as the function for when the button is pressed
 void ResetButton::_pressed() {
 	// Remove old cells
-	CellSpawner *spawner = (CellSpawner *)this->get_parent()->get_parent()->get_parent();
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	spawner->removeAllCells();
 
 	// Respawn new cells
