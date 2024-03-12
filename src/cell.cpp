@@ -5,6 +5,7 @@
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
+#include "cell_membrane_gene.hpp"
 #include "flagella_gene.hpp"
 #include "mitochondria_gene.hpp"
 #include "nucleus_gene.hpp"
@@ -39,6 +40,7 @@ Cell::Cell() {
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(new MitochondriaGene());
 	_cellGenome.addGene(new RibosomesGene());
+	_cellGenome.addGene(new CellMembraneGene());
 	//_cellGenome.addGene(new FlagellaGene());
 
 	// Add CellStructures using the cell genome
@@ -101,9 +103,6 @@ void Cell::applyScale(const float scale) {
 		if (structure)
 			structure->applyScale(scale);
 	}
-
-	// Measure the new sprite size
-	_spriteSize = this->get_node<CellMembrane>("CellMembrane")->getSprite()->get_rect().size;
 }
 
 float Cell::getScale() const { return _cellState->getScale(); }
@@ -112,6 +111,10 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
+
+	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	if (cellMembrane)
+		_spriteSize = cellMembrane->getSprite()->get_rect().size;
 }
 
 void Cell::_process(double delta) {

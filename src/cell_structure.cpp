@@ -16,18 +16,6 @@ void CellStructure::activate(CellState *) {
 void CellStructure::modify(String, float) {
 }
 
-void CellStructure::applyScale(const float scale) {
-	if (scale <= 0)
-		return;
-
-	_sprite = this->get_node<Sprite2D>("Sprite2D");
-	if (_sprite) {
-		_sprite->apply_scale(Vector2(scale, scale));
-		Vector2 offset = _sprite->get_position();
-		_sprite->set_position(offset * scale);
-	}
-}
-
 void CellStructure::setCreationNutrientCost(const float creationNutrientCost) {
 	if (creationNutrientCost > 0)
 		_creationNutrientCost = creationNutrientCost;

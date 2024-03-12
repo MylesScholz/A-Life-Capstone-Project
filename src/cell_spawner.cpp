@@ -1,6 +1,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
 
+#include <future>
 #include <godot_cpp/core/class_db.hpp>
 
 #include "helpers.hpp"

@@ -6,7 +6,6 @@
 [node name="CellSpawner" type="CellSpawner"]
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
-cell_container_scene = ExtResource("2_l2p5j")
 
 [node name="StartButton" type="StartButton" parent="."]
 anchors_preset = 8
