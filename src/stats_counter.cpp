@@ -20,40 +20,36 @@ void StatsCounter::_process(double delta) {
 
 void StatsCounter::_ready() {
 	set_process_mode(Node::PROCESS_MODE_ALWAYS);
-	
-	//this->connect("cell_selected", Callable(this, "_update_Stats"));
 
-	Label* default_label = new Label();
-	default_label->set_text("Click a cell to see information");
-    add_child(default_label);
+    Cell* selected_cell = nullptr;
+
+    add_label("Click a cell to see information");
 }
 
 void StatsCounter::_update_Stats(Variant cell_instance){
-	clear_stats();
-	
-
-	String cell = cell_instance.call("get_cell");
-
-        // Then create and add other labels as in the script
-    add_label("Cell: " + cell);
-    add_label("Size: ");
+    
+    
+    selected_cell = Object::cast_to<Cell>(cell_instance);
+    if (selected_cell) {
+        clear_stats();
+        Array stats = cell_instance.call("getStats");
+        add_label("Birth Time: " + String(stats[0]));
+        add_label("Alive: " + String(stats[1]));
+        add_label("Age: " + String(stats[2])); 
+        add_label("Energy: " + String(stats[3]));
+        add_label("Nutrients: " + String(stats[4]));
+    }
 }
 
 void StatsCounter::clear_stats() {
-    // Assuming all stat labels are added to a specific group for easy identification
-    const String stat_label_group = "stat_labels";
     
-    // Get all children nodes
     Array children = get_children();
     for (int i = 0; i < children.size(); ++i) {
-        Node *child = Object::cast_to<Node>(children[i]);
-        if (!child) continue; // Skip if for some reason the cast failed
-        
-        // Check if the child is in the 'stat_labels' group
-        if (child->is_in_group(stat_label_group)) {
-            // Remove the child from the scene tree
+        Label* child = Object::cast_to<Label>(children[i]);
+        // Check if the cast was successful
+        if (child) {
             remove_child(child);
-            // Optionally, to free memory if you're not going to reuse the node
+            // Optionally, queue the child for deletion
             child->queue_free();
         }
     }
@@ -62,12 +58,5 @@ void StatsCounter::clear_stats() {
 void StatsCounter::add_label(String text) {
     Label* label = new Label();
     label->set_text(text);
-    
-    // Assign the label to a group for easy identification
-    const String stat_label_group = "stat_labels";
-    label->add_to_group(stat_label_group);
-    
-    // Add the label as a child of this node
     add_child(label);
 }
-

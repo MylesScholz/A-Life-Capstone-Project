@@ -1,4 +1,5 @@
 #pragma once
+#include "cell.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/v_box_container.hpp>
@@ -23,4 +24,8 @@ public:
 	void add_label(String text);
 
 	void _process(double delta) override;
+
+private:
+	Cell* selected_cell;
+	int update_counter;
 };

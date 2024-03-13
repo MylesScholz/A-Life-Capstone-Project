@@ -45,7 +45,7 @@ public:
 	void _on_body_entered(Node *body);
 
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
-    void emit_cell_selected_signal();
+	Array getStats() const;
 
 private:
 	CellState *_cellState;

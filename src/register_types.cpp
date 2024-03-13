@@ -23,7 +23,6 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<StatsCounter>();
 	ClassDB::register_class<FpsCounter>();
 	ClassDB::register_class<StartButton>();
 	ClassDB::register_class<CellSpawner>();
@@ -37,6 +36,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
+	ClassDB::register_class<StatsCounter>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {

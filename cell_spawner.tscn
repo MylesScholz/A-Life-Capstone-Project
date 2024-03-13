@@ -98,16 +98,16 @@ theme = ExtResource("2_d86u0")
 script = ExtResource("3_o15cp")
 
 [node name="StatsCounter" type="StatsCounter" parent="UI/StatsPanel"]
-visible = false
+process_mode = 3
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 247.0
-offset_right = -5.0
-offset_bottom = -1.0
+offset_left = 12.0
+offset_top = 240.0
+offset_right = -13.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -144,6 +144,7 @@ text = "x"
 script = ExtResource("4_beosf")
 
 [node name="StatsContainer" type="VBoxContainer" parent="UI/StatsPanel"]
+visible = false
 layout_mode = 0
 offset_left = 7.0
 offset_top = 240.0

@@ -5,6 +5,7 @@
 #include "ribosomes.hpp"
 
 #include "stats_counter.hpp"
+#include "cell_spawner.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
@@ -12,7 +13,6 @@
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
-#include <godot_cpp/classes/script.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/time.hpp>
@@ -21,6 +21,9 @@
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
+	ClassDB::bind_method(D_METHOD("getScale"), &Cell::getScale);
+
+	ClassDB::bind_method(D_METHOD("getStats"), &Cell::getStats);
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
@@ -34,6 +37,13 @@ Cell::Cell() {
 	this->set_max_contacts_reported(
 			1000); // Adjust max contacts as complexity increases.
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
+
+	/*CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	StatsCounter *statsCounter = Object::cast_to<StatsCounter>(Spawner->find_child("StatsCounter"));
+	if (statsCounter) {
+		UtilityFunctions::print("REF BOUND");
+		this->connect("cell_selected", Callable(statsCounter, "_update_Stats"));
+    }*/
 
 	rand.instantiate();
 
@@ -124,12 +134,6 @@ void Cell::setImmortal(bool isImmortal) {
 void Cell::_ready() {
 	this->set_pickable(true);
 	_cellState = this->get_node<CellState>("CellState");
-
-	StatsCounter* statsCounter = this->get_node<StatsCounter>("StatsCounter");
-	if (statsCounter) {
-		godot::Callable callable = godot::Callable(statsCounter, "update_Stats"); // Assuming the method name is "update_Stats"
-		this->connect("cell_selected", callable);
-	}
 }
 
 void Cell::_process(double delta) {
@@ -190,8 +194,23 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
  
         //Object* stats_container = ResourceLoader::get_singleton()->load("res://StatsContainer.gd");
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
-		this->emit_signal("cell_selected", this);
+		
+		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+		
+		statsCounter->_update_Stats(this);
     }
+}
+
+Array Cell::getStats() const {
+    Array stats;
+    stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
+    stats.push_back(_cellState->getAlive());    // index 1
+    stats.push_back(_cellState->getLifespan()); // index 2 *BROKEN
+	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
+    // Continue adding stats in a specific order
+    return stats;
 }
 
 // function updates on cell contacts. Increments counter for use in
