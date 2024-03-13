@@ -15,17 +15,17 @@ protected:
 	static void _bind_methods();
 
 public:
+
 	StatsCounter();
 	~StatsCounter();
 
 	void _ready() override;
+	void _process(double delta) override;
 	void StatsCounter::_update_Stats(Variant cell_instance);
 	void clear_stats();
 	void add_label(String text);
 
-	void _process(double delta) override;
-
 private:
-	Cell* selected_cell;
-	int update_counter;
+	Cell* selected_cell = nullptr;
+	int update_counter = 0;
 };

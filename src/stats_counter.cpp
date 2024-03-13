@@ -2,6 +2,7 @@
 #include "cell.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/timer.hpp>
 
 #include "helpers.hpp"
 
@@ -16,13 +17,18 @@ StatsCounter::~StatsCounter() {}
 
 void StatsCounter::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
+
+    update_counter ++;
+    if (update_counter >= 300) {
+        update_counter = 0;
+        if (selected_cell) { // Update every 10 frames
+            _update_Stats(selected_cell);
+        }
+    }
 }
 
 void StatsCounter::_ready() {
 	set_process_mode(Node::PROCESS_MODE_ALWAYS);
-
-    Cell* selected_cell = nullptr;
-
     add_label("Click a cell to see information");
 }
 
