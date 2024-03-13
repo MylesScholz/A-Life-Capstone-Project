@@ -1,7 +1,6 @@
 #include "gene.hpp"
 #include "cell_structure.hpp"
 
-
 Gene::Gene() {
 }
 

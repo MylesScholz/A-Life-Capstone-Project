@@ -1,9 +1,11 @@
 #include "cell.hpp"
+#include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
+#include "cell_membrane_gene.hpp"
 #include "flagella_gene.hpp"
 #include "mitochondria_gene.hpp"
 #include "nucleus_gene.hpp"
@@ -38,6 +40,7 @@ Cell::Cell() {
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(new MitochondriaGene());
 	_cellGenome.addGene(new RibosomesGene());
+	_cellGenome.addGene(new CellMembraneGene());
 	//_cellGenome.addGene(new FlagellaGene());
 
 	// Add CellStructures using the cell genome
@@ -90,7 +93,6 @@ void Cell::applyScale(const float scale) {
 
 	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
-	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area
@@ -101,9 +103,6 @@ void Cell::applyScale(const float scale) {
 		if (structure)
 			structure->applyScale(scale);
 	}
-
-	// Measure the new sprite size
-	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
 float Cell::getScale() const { return _cellState->getScale(); }
@@ -112,6 +111,10 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
+
+	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	if (cellMembrane)
+		_spriteSize = cellMembrane->getSprite()->get_rect().size;
 }
 
 void Cell::_process(double delta) {
@@ -124,7 +127,7 @@ void Cell::_process(double delta) {
 		this->activateCellStructures();
 
 		// Apply Flagella Movement Vectors
-		this->apply_force(_cellState->getNextMovementVector());
+		this->apply_force(_cellState->getNextMovementVector().rotated(this->get_rotation()));
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());

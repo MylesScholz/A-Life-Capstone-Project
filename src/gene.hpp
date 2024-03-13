@@ -6,8 +6,6 @@
 using namespace godot;
 
 class Gene {
-
-
 public:
 	Gene(/* args */);
 	~Gene();

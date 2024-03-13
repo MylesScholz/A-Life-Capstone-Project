@@ -65,7 +65,7 @@ void Ribosomes::activate(CellState *cellState) {
 
 	// Check whether the threshold is met
 	if (thresholdCondition) {
-		UtilityFunctions::print("Ribosomes activated");
+		// UtilityFunctions::print("Ribosomes activated");
 
 		// Decrement the energy based on the strength and efficiency of these Ribosomes
 		cellState->incrementTotalEnergy(-_efficiency * _strength);

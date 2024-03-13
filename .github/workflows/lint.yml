@@ -8,6 +8,8 @@ jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       - name: Check out Git repository

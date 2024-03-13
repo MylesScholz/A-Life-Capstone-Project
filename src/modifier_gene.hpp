@@ -2,15 +2,12 @@
 
 #include "gene.hpp"
 
-
 using namespace godot;
 
 class ModifierGene : public Gene {
-
 public:
-    ModifierGene(String gene, float value);
-    ~ModifierGene();
-
+	ModifierGene(String gene, float value);
+	~ModifierGene();
 
 	String getType() override;
 	String getName() override;
@@ -18,6 +15,6 @@ public:
 	float getValue() override;
 
 private:
-    float modifierValue;
+	float modifierValue;
 	String geneName;
 };

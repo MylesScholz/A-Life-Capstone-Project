@@ -18,7 +18,7 @@ String RibosomesGene::getName() {
 }
 
 CellStructure *RibosomesGene::express() {
-    Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
+	Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
 	return Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
 }
 

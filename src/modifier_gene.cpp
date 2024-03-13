@@ -2,13 +2,13 @@
 
 ModifierGene::ModifierGene(String gene, float value) {
 	geneName = gene;
-    modifierValue = value;
+	modifierValue = value;
 }
 
 ModifierGene::~ModifierGene() {
 }
 
-String ModifierGene::getType() { 
+String ModifierGene::getType() {
 	return "Modifier";
 }
 

@@ -8,7 +8,6 @@
 using namespace godot;
 
 class Genome {
-
 public:
 	Genome();
 	~Genome();

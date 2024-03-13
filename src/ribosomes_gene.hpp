@@ -2,21 +2,18 @@
 
 #include "gene.hpp"
 
-
 using namespace godot;
 
-class RibosomesGene : public Gene
-{
+class RibosomesGene : public Gene {
 public:
-    RibosomesGene(/* args */);
-    ~RibosomesGene();
+	RibosomesGene(/* args */);
+	~RibosomesGene();
 
-    String getType() override;
+	String getType() override;
 	String getName() override;
 	CellStructure *express() override;
 	float getValue() override;
 
 private:
-    /* data */
-
+	/* data */
 };

@@ -1,15 +1,12 @@
 #include "genome.hpp"
 
-
 Genome::Genome() {
 }
 
 Genome::~Genome() {
-	for (int i = 0; i < genes.size(); i++)
-	{
+	for (int i = 0; i < genes.size(); i++) {
 		delete genes.get(i);
 	}
-	
 }
 
 Vector<CellStructure *> Genome::expressGenes() {

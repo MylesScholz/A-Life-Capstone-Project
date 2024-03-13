@@ -38,7 +38,7 @@ Flagella::~Flagella() {}
 void Flagella::activate(CellState *cellState) {
 	bool thresholdCondition = false;
 
-	if (cellState->getTotalEnergy() >= _activationEnergyCost) { //implement movement energy cost threshold
+	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
 		thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
 	}
 
@@ -49,7 +49,7 @@ void Flagella::activate(CellState *cellState) {
 		cellState->setNextMovementVector(force);
 		cellState->incrementTotalEnergy(-_activationEnergyCost);
 
-		UtilityFunctions::print("Flagella activated: (", force.x, ", ", force.y, ")");
+		// UtilityFunctions::print("Flagella activated: (", force.x, ", ", force.y, ")");
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
 	}
@@ -57,17 +57,10 @@ void Flagella::activate(CellState *cellState) {
 
 void Flagella::modify(String modName, float modValue) {
 	//Turns out Godot Strings hate switches
-	if(modName == "Strength")
-	{
-		setMovementForceVector(getMovementForceVector() * modValue); //Example 
-	}
-	else if(modName == "Efficiency")
-	{
-
-	}
-	else if(modName == "FlagellaPlacement")
-	{
-
+	if (modName == "Strength") {
+		setMovementForceVector(getMovementForceVector() * modValue); //Example
+	} else if (modName == "Efficiency") {
+	} else if (modName == "FlagellaPlacement") {
 	}
 }
 

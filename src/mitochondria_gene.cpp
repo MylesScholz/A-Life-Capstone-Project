@@ -18,7 +18,7 @@ String MitochondriaGene::getName() {
 }
 
 CellStructure *MitochondriaGene::express() {
-    Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
+	Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
 	return Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "cell_state.hpp"
 
 #include <godot_cpp/classes/sprite2d.hpp>
@@ -10,11 +9,8 @@ using namespace godot;
 class CellStructure : public Node2D {
 	GDCLASS(CellStructure, Node2D)
 
-
 protected:
 	static void _bind_methods();
-
-
 
 public:
 	CellStructure();
@@ -22,8 +18,6 @@ public:
 
 	virtual void activate(CellState *);
 	virtual void modify(String, float);
-
-	void applyScale(const float);
 
 	void setCreationNutrientCost(const float);
 	float getCreationNutrientCost() const;
@@ -37,6 +31,9 @@ public:
 	void setMaintenanceEnergyCost(const float);
 	float getMaintenanceEnergyCost() const;
 
+	void applyScale(const float);
+	float getScale() const;
+
 	void setSprite(Sprite2D *);
 	Sprite2D *getSprite();
 
@@ -45,5 +42,6 @@ private:
 	float _maintenanceNutrientCost;
 	float _creationEnergyCost;
 	float _maintenanceEnergyCost;
+	float _scale;
 	Sprite2D *_sprite;
 };
