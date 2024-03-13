@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
-[ext_resource type="PackedScene" uid="uid://bbvx5juolpfax" path="res://environment.tscn" id="2_l2p5j"]
+[ext_resource type="PackedScene" uid="uid://b3l77di28ev2c" path="res://cell_environment.tscn" id="2_ymrrk"]
 
 [node name="CellSpawner" type="CellSpawner"]
 num_cells = 10
@@ -31,4 +31,4 @@ offset_top = 23.0
 offset_right = 40.0
 offset_bottom = 46.0
 
-[node name="Environment" parent="." instance=ExtResource("2_l2p5j")]
+[node name="CellEnvironment" parent="." instance=ExtResource("2_ymrrk")]

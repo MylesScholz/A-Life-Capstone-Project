@@ -4,15 +4,15 @@
 
 using namespace godot;
 
-class Environment : public Area2D {
-	GDCLASS(Environment, Area2D)
+class CellEnvironment : public Area2D {
+	GDCLASS(CellEnvironment, Area2D)
 
 protected:
 	static void _bind_methods();
 
 public:
-	Environment();
-	~Environment();
+	CellEnvironment();
+	~CellEnvironment();
 
 	/* Methods */
 

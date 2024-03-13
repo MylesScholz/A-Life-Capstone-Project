@@ -1,7 +1,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
+#include "cell_environment.hpp"
 
-#include <future>
 #include <godot_cpp/core/class_db.hpp>
 
 #include "helpers.hpp"
@@ -94,7 +94,7 @@ void CellSpawner::spawnCell() {
 
 	cellObject->apply_torque(rand->randf_range(-500, 500));
 
-	this->get_node<Node2D>("Environment")->add_child(cell);
+	this->get_node<CellEnvironment>("CellEnvironment")->add_child(cell);
 }
 
 void CellSpawner::_ready() {

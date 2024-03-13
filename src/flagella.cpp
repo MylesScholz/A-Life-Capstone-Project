@@ -57,17 +57,10 @@ void Flagella::activate(CellState *cellState) {
 
 void Flagella::modify(String modName, float modValue) {
 	//Turns out Godot Strings hate switches
-	if(modName == "Strength")
-	{
-		setMovementForceVector(getMovementForceVector() * modValue); //Example 
-	}
-	else if(modName == "Efficiency")
-	{
-
-	}
-	else if(modName == "FlagellaPlacement")
-	{
-
+	if (modName == "Strength") {
+		setMovementForceVector(getMovementForceVector() * modValue); //Example
+	} else if (modName == "Efficiency") {
+	} else if (modName == "FlagellaPlacement") {
 	}
 }
 

@@ -1,10 +1,10 @@
 #include "register_types.hpp"
 
 #include "cell.hpp"
+#include "cell_environment.hpp"
 #include "cell_membrane.hpp"
 #include "cell_spawner.hpp"
 #include "cell_state.hpp"
-#include "environment.hpp"
 #include "flagella.hpp"
 #include "fps_counter.hpp"
 #include "mitochondria.hpp"
@@ -24,7 +24,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	}
 
 	ClassDB::register_class<CellSpawner>();
-	ClassDB::register_class<Environment>();
+	ClassDB::register_class<CellEnvironment>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellState>();
 	ClassDB::register_class<CellStructure>();
