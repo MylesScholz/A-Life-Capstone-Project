@@ -1,8 +1,8 @@
 #include "modifier_gene.hpp"
 
 ModifierGene::ModifierGene(String gene, float value) {
-	geneName = gene;
-	modifierValue = value;
+	_geneName = gene;
+	_modifierValue = value;
 }
 
 ModifierGene::~ModifierGene() {
@@ -13,7 +13,7 @@ String ModifierGene::getType() {
 }
 
 String ModifierGene::getName() {
-	return geneName;
+	return _geneName;
 }
 
 CellStructure *ModifierGene::express() {
@@ -21,5 +21,5 @@ CellStructure *ModifierGene::express() {
 }
 
 float ModifierGene::getValue() {
-	return modifierValue;
+	return _modifierValue;
 }
