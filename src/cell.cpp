@@ -10,6 +10,7 @@
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
+#include <godot_cpp/classes/os.hpp>
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
@@ -203,10 +204,11 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 }
 
 Array Cell::getStats() const {
+
     Array stats;
     stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
     stats.push_back(_cellState->getAlive());    // index 1
-    stats.push_back(_cellState->getLifespan()); // index 2 *BROKEN
+	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
     // Continue adding stats in a specific order
