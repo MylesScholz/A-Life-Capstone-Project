@@ -8,7 +8,9 @@ void Receptor::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("receptor_deactivated", PropertyInfo(Variant::OBJECT, "receptor")));
 }
 
-Receptor::Receptor() {}
+Receptor::Receptor() {
+	_baseSpriteScale = 0.15; // Must correspond to the Sprite2D scale value set in the Editor
+}
 Receptor::~Receptor() {}
 
 void Receptor::_on_area_entered(Area2D *area) {
@@ -16,6 +18,15 @@ void Receptor::_on_area_entered(Area2D *area) {
 }
 void Receptor::_on_area_exited(Area2D *area) {
 	this->emit_signal("receptor_deactivated", this);
+}
+
+void Receptor::setScale(const float scale) {
+	if (scale <= 0)
+		return;
+
+	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	if (sprite)
+		sprite->set_scale(Vector2(_baseSpriteScale * scale, _baseSpriteScale * scale));
 }
 
 void Receptor::setSprite(Sprite2D *sprite) { _sprite = sprite; }

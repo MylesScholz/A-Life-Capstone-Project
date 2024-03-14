@@ -17,12 +17,7 @@ Vector<CellStructure *> Genome::expressGenes() {
 			currentStructure = genes.get(i)->express();
 			cellStructures.push_back(currentStructure);
 		} else {
-			/*
-			WIP
-			get the name of modifier gene and the value and send it into the current structure.
-			something like:
-			currentStructure->modify(genes.at(i).getName(), genes.at(i).getValue())
-			*/
+			currentStructure->modify(genes.get(i)->getName(), genes.get(i)->getValue());
 		}
 	}
 

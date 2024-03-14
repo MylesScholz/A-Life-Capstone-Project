@@ -55,12 +55,20 @@ void Flagella::activate(CellState *cellState) {
 	}
 }
 
-void Flagella::modify(String modName, float modValue) {
-	//Turns out Godot Strings hate switches
-	if (modName == "Strength") {
-		setMovementForceVector(getMovementForceVector() * modValue); //Example
-	} else if (modName == "Efficiency") {
-	} else if (modName == "FlagellaPlacement") {
+void Flagella::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
+	 * STRENGTH: multiplies _movementForceVector
+	 * N_SUBSTRUCTURES: (not yet implemented)
+	 */
+
+	if (modifierName == "ACTIVATION_THRESHOLD") {
+		setActivationEnergyThreshold(modifierValue);
+	} else if (modifierName == "STRENGTH") {
+		setMovementForceVector(getMovementForceVector() * modifierValue);
+	} else if (modifierName == "N_SUBSTRUCTURES") {
+		// Set the number of Flagella
 	}
 }
 

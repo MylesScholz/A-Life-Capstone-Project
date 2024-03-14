@@ -19,11 +19,14 @@ public:
 	void _on_area_entered(Area2D *);
 	void _on_area_exited(Area2D *);
 
+	void setScale(const float);
+
 	void setSprite(Sprite2D *);
 	Sprite2D *getSprite();
 
 	void _ready() override;
 
 private:
+	float _baseSpriteScale;
 	Sprite2D *_sprite;
 };

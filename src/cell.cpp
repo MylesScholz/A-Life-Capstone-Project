@@ -8,6 +8,7 @@
 #include "cell_membrane_gene.hpp"
 #include "flagella_gene.hpp"
 #include "mitochondria_gene.hpp"
+#include "modifier_gene.hpp"
 #include "nucleus_gene.hpp"
 #include "ribosomes_gene.hpp"
 
@@ -38,10 +39,35 @@ Cell::Cell() {
 
 	//temp setup a genome for testing.
 	_cellGenome.addGene(new NucleusGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new MitochondriaGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new RibosomesGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new CellMembraneGene());
-	//_cellGenome.addGene(new FlagellaGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(new FlagellaGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 
 	// Add CellStructures using the cell genome
 

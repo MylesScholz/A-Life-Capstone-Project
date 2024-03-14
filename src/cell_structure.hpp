@@ -18,6 +18,7 @@ public:
 
 	virtual void activate(CellState *);
 	virtual void modify(String, float);
+	virtual void applyScale(const float);
 
 	void setCreationNutrientCost(const float);
 	float getCreationNutrientCost() const;
@@ -31,7 +32,6 @@ public:
 	void setMaintenanceEnergyCost(const float);
 	float getMaintenanceEnergyCost() const;
 
-	void applyScale(const float);
 	float getScale() const;
 
 	void setSprite(Sprite2D *);
