@@ -69,13 +69,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 
-	// Add CellStructures using the cell genome
-
-	_cellStructures = _cellGenome.expressGenes();
-	for (int i = 0; i < _cellStructures.size(); i++) {
-		this->add_child(_cellStructures.get(i));
-	}
-
 	/*
 		// Load a CellStructure scene
 		Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
@@ -137,6 +130,30 @@ Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::_ready() {
 	_cellState = this->get_node<CellState>("CellState");
+
+	//total values for cost calculations
+	float tReproNCost = 0.0;
+	float tReproECost = 0.0;
+	float tHNCost = 0.0;
+	float tHECost = 0.0;
+
+	// Add CellStructures using the cell genome
+	_cellStructures = _cellGenome.expressGenes();
+	for (int i = 0; i < _cellStructures.size(); i++) {
+		this->add_child(_cellStructures.get(i));
+		//add up the total costs of the cell structures.
+		tReproNCost += _cellStructures.get(i)->getCreationNutrientCost();
+		tReproECost += _cellStructures.get(i)->getCreationEnergyCost();
+		tHNCost += _cellStructures.get(i)->getMaintenanceNutrientCost();
+		tHECost += _cellStructures.get(i)->getMaintenanceEnergyCost();
+	}
+
+	//set the different costs after the calculations. 
+	_cellState->setReproductionNutrientCost(tReproNCost);
+	_cellState->setReproductionEnergyCost(tReproECost);
+	_cellState->setHomeostasisNutrientCost(tHNCost);
+	_cellState->setHomeostasisEnergyCost(tHECost);
+
 
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 	if (cellMembrane)
