@@ -22,12 +22,14 @@ public:
     float getScale() const;
 
     void setPosition(const float); // Placeholder type
-    float getPostion() const;
+    float getPosition() const;
 
     Size2 getSpriteSize() const;
 
-    void _ready() override;
+    void _feeding_cells(Vector<Cell> *cell);
     void _on_body_entered(Node *body);
+    void _on_body_exited(Node *body);
+    void _process(const float);
 
 private:
     float _scale;

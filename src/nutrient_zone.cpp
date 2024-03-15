@@ -1,5 +1,4 @@
-#include "environment.hpp"
-#include "cell.hpp"
+#include "nutrient_zone.hpp"
 
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
@@ -25,6 +24,10 @@ float NutrientZone::getPosition() const { return _nutrientZone->getPosition(); }
 
 Size2 NutrientZone::getSpriteSize() const {}
 
-void NutrientZone::_ready() {}
+void NutrientZone::_feeding_cells(Vector<Cell> *cell) {}
 
-void NutrientZone::_on_body_entered() {}
+void NutrientZone::_on_body_entered(Node *body) {}
+
+void NutrientZone::_on_body_exited(Node *body) {}
+
+void NutrientZone::_process(float nutrients) {}
