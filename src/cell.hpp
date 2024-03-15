@@ -6,8 +6,8 @@
 #include "nucleus.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
-#include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
 
