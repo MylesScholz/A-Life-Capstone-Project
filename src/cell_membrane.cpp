@@ -9,6 +9,7 @@ void CellMembrane::_bind_methods() {
 }
 
 CellMembrane::CellMembrane() {
+	_nReceptors = 0.0;
 	_receptors = Vector<Receptor *>();
 	_activatedReceptors = Vector<Receptor *>();
 }
@@ -27,6 +28,23 @@ void CellMembrane::activate(CellState *cellState) {
 	// Update the cell state with the list of position vectors of activated receptors
 	cellState->setReceptorVectors(receptorVectors);
 }
+void CellMembrane::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * N_SUBSTRUCTURES: creates given number of Receptors
+	 */
+
+	if (modifierName == "N_SUBSTRUCTURES") {
+		setNReceptors(modifierValue);
+	}
+}
+
+void CellMembrane::applyScale(const float scale) {
+	CellStructure::applyScale(scale);
+
+	_rearrangeReceptors();
+}
+
 void CellMembrane::_on_receptor_activated(Receptor *receptor) {
 	// Check if the receptor is already activated
 	int index = _activatedReceptors.find(receptor);
@@ -42,34 +60,15 @@ void CellMembrane::_on_receptor_deactivated(Receptor *receptor) {
 		_activatedReceptors.remove_at(index);
 }
 
+void CellMembrane::setNReceptors(const int nReceptors) {
+	if (nReceptors >= 0 && nReceptors <= 10) {
+		_nReceptors = nReceptors;
+		_updateReceptors();
+	}
+}
+int CellMembrane::getNReceptors() const { return _nReceptors; }
+
 Vector<Receptor *> CellMembrane::getReceptors() { return _receptors; }
-void CellMembrane::createReceptors(const int nReceptors) {
-	// Check limits on the number of receptors
-	if (nReceptors < 1 || nReceptors + _receptors.size() > 10)
-		return;
-
-	// Create each receptor
-	for (int i = 0; i < nReceptors; i++) {
-		_createReceptor();
-	}
-
-	// Update the positions of the receptors to accommodate the new receptors
-	_rearrangeReceptors();
-}
-void CellMembrane::removeReceptors(const int nReceptors) {
-	// Check limits on the number of receptors
-	if (nReceptors < 1 || nReceptors > _receptors.size())
-		return;
-
-	// Remove the given number of receptors
-	for (int i = 0; i < nReceptors; i++) {
-		_removeReceptor();
-	}
-
-	// Update the positions of the remaining receptors (if any)
-	_rearrangeReceptors();
-}
-
 Vector<Receptor *> CellMembrane::getActivatedReceptors() { return _activatedReceptors; }
 
 void CellMembrane::_ready() {
@@ -77,8 +76,21 @@ void CellMembrane::_ready() {
 	if (sprite)
 		this->setSprite(sprite);
 
-	// For testing: CellMembranes will have a genetically determined number of receptors (via modify())
-	createReceptors(6);
+	_updateReceptors();
+}
+
+void CellMembrane::_rearrangeReceptors() {
+	// Set the default receptor position ("top" of the cell, on the edge)
+	Vector2 receptorInitialPosition = Vector2(0, 52 * this->getScale());
+	// Calculate the rotation increment
+	float receptorRotationAngle = 2 * Math_PI / _receptors.size();
+
+	// For each receptor, position it by rotating it incrementally counterclockwise from the default position
+	for (int i = 0; i < _receptors.size(); i++) {
+		_receptors[i]->set_position(receptorInitialPosition.rotated(i * receptorRotationAngle));
+		_receptors[i]->set_rotation(i * receptorRotationAngle);
+		_receptors[i]->setScale(this->getScale());
+	}
 }
 
 void CellMembrane::_createReceptor() {
@@ -93,9 +105,19 @@ void CellMembrane::_createReceptor() {
 	// Connect the new Receptor's activation/deactivation signals to this CellMembrane's callback functions
 	receptor->connect("receptor_activated", Callable(this, "_on_receptor_activated"));
 	receptor->connect("receptor_deactivated", Callable(this, "_on_receptor_deactivated"));
+}
+void CellMembrane::_createReceptors(const int nReceptors) {
+	// Check limits on the number of receptors
+	if (nReceptors < 1 || nReceptors + _receptors.size() > 10)
+		return;
 
-	// Scale the new Receptor's sprite to match this CellMembrane's scale
-	receptor->getSprite()->apply_scale(Vector2(this->getScale(), this->getScale()));
+	// Create each receptor
+	for (int i = 0; i < nReceptors; i++) {
+		_createReceptor();
+	}
+
+	// Update the positions of the receptors to accommodate the new receptors
+	_rearrangeReceptors();
 }
 void CellMembrane::_removeReceptor() {
 	// Only attempt to remove a receptor if there is at least one
@@ -109,16 +131,23 @@ void CellMembrane::_removeReceptor() {
 	// Remove the receptor from the node hierarchy
 	this->remove_child(removedReceptor);
 }
+void CellMembrane::_removeReceptors(const int nReceptors) {
+	// Check limits on the number of receptors
+	if (nReceptors < 1 || nReceptors > _receptors.size())
+		return;
 
-void CellMembrane::_rearrangeReceptors() {
-	// Set the default receptor position ("top" of the cell, on the edge)
-	Vector2 receptorInitialPosition = Vector2(0, 52 * this->getScale());
-	// Calculate the rotation increment
-	float receptorRotationAngle = 2 * Math_PI / _receptors.size();
-
-	// For each receptor, position it by rotating it incrementally counterclockwise from the default position
-	for (int i = 0; i < _receptors.size(); i++) {
-		_receptors[i]->set_position(receptorInitialPosition.rotated(i * receptorRotationAngle));
-		_receptors[i]->set_rotation(i * receptorRotationAngle);
+	// Remove the given number of receptors
+	for (int i = 0; i < nReceptors; i++) {
+		_removeReceptor();
 	}
+
+	// Update the positions of the remaining receptors (if any)
+	_rearrangeReceptors();
+}
+
+void CellMembrane::_updateReceptors() {
+	if (_nReceptors > _receptors.size())
+		_createReceptors(_nReceptors - _receptors.size());
+	else if (_nReceptors < _receptors.size())
+		_removeReceptors(_receptors.size() - _nReceptors);
 }

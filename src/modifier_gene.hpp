@@ -2,6 +2,9 @@
 
 #include "gene.hpp"
 
+#include <godot_cpp/classes/random_number_generator.hpp>
+#include <optional>
+
 using namespace godot;
 
 class ModifierGene : public Gene {
@@ -15,6 +18,12 @@ public:
 	float getValue() override;
 
 private:
-	float modifierValue;
-	String geneName;
+	float _modifierValue;
+	String _geneName;
 };
+
+ModifierGene *boundedValueModifierGene(String, const float, const float, std::optional<const float>);
+
+ModifierGene *discreteValueModifierGene(String, Vector<float>, std::optional<const float>);
+
+ModifierGene *randomModifierGene();
