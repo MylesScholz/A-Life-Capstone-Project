@@ -1,5 +1,6 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
+#include "stats_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 
@@ -34,6 +35,8 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_max_force", "max_force"), &CellSpawner::setMaxForce);
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
+
+	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
 CellSpawner::CellSpawner() { rand.instantiate(); }
@@ -68,7 +71,7 @@ void CellSpawner::setMaxForce(const float maxForce) {
 }
 float CellSpawner::getMaxForce() const { return _maxForce; }
 
-void CellSpawner::spawnCell() {
+void CellSpawner::spawnCell(bool isImmortal) {
 	// Instantiate cell scene
 	Node *cell = _cellScene->instantiate();
 	// Get viewport size for positioning
@@ -93,12 +96,31 @@ void CellSpawner::spawnCell() {
 
 	cellObject->apply_torque(rand->randf_range(-500, 500));
 
+	// Prevent display cells from dying
+	cellObject->setImmortal(isImmortal);
+
 	add_child(cell);
+
+	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/
+}
+
+void CellSpawner::removeAllCells() {
+	for (int i = get_child_count() - 1; i >= 0; i--) {
+		Node *child = get_child(i);
+		if (Object::cast_to<Cell>(child)) {
+			Object::cast_to<Cell>(child)->resetCollisions();
+			child->queue_free();
+		}
+	}
 }
 
 void CellSpawner::_ready() {
 	DONT_RUN_IN_EDITOR;
-
+	// Spawn back ground cells that don't die
+	for (int i = 0; i < this->getNumCells(); i++) {
+		this->spawnCell(1);
+	}
 	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
 #ifdef TESTS_ENABLED

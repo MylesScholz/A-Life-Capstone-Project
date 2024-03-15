@@ -6,6 +6,7 @@
 #include "nucleus.hpp"
 
 #include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
@@ -26,14 +27,25 @@ public:
 
 	void activateCellStructures();
 
+	void keepCellsInBackground();
+
 	void applyScale(const float);
 	float getScale() const;
 
 	Size2 getSpriteSize() const;
+	void resetCollisions();
+	void setImmortal(bool);
 
 	void _ready() override;
 	void _process(double) override;
+	Cell *getCell();
+	CellState *getCellState();
+	void setCellState(CellState *cellState);
+	bool getCellAlive();
 	void _on_body_entered(Node *body);
+
+	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
+	Array getStats() const;
 
 private:
 	CellState *_cellState;

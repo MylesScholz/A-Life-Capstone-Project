@@ -36,6 +36,9 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_energy_maximum", "energy_maximum"), &CellState::setEnergyMaximum);
 	ClassDB::bind_method(D_METHOD("get_energy_maximum"), &CellState::getEnergyMaximum);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "energy_maximum"), "set_energy_maximum", "get_energy_maximum");
+	ClassDB::bind_method(D_METHOD("get_age"), &CellState::getAge);
+	ClassDB::bind_method(D_METHOD("get_scale"), &CellState::getScale);
+	ClassDB::bind_method(D_METHOD("get_alive"), &CellState::getAlive);
 }
 
 CellState::CellState() {

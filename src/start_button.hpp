@@ -16,7 +16,5 @@ public:
 	StartButton();
 	~StartButton();
 
-	void _ready() override;
-
 	void _pressed() override;
 };
