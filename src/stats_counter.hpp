@@ -3,7 +3,6 @@
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/v_box_container.hpp>
-#include <godot_cpp/classes/label.hpp>
 #include <godot_cpp/classes/node.hpp>
 
 using namespace godot;
@@ -21,8 +20,7 @@ public:
 
 	void _ready() override;
 	void _process(double delta) override;
-	void StatsCounter::_update_Stats(Variant cell_instance);
-	void StatsCounter::_update_signal(Variant cell_instance);
+	void _update_Stats(Variant cell_instance);
 	void clear_stats();
 	void add_label(String text);
 

@@ -88,6 +88,7 @@ offset_right = 40.0
 offset_bottom = 113.0
 
 [node name="StatsPanel" type="Panel" parent="UI"]
+visible = false
 offset_left = 826.0
 offset_top = 228.0
 offset_right = 1079.0

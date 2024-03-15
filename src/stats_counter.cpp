@@ -2,7 +2,6 @@
 #include "cell.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/classes/timer.hpp>
 
 #include "helpers.hpp"
 
