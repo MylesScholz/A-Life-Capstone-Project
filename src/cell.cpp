@@ -4,21 +4,21 @@
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
-#include "stats_counter.hpp"
 #include "cell_spawner.hpp"
+#include "stats_counter.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/os.hpp>
 
+#include "helpers.hpp"
 #include <godot_cpp/classes/collision_shape2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
-#include "helpers.hpp"
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
@@ -180,37 +180,35 @@ void Cell::_process(double delta) {
 }
 
 void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
-    Ref<InputEventMouseButton> mouse_button_event = event;
-    if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT) {
-		
+	Ref<InputEventMouseButton> mouse_button_event = event;
+	if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT) {
 		UtilityFunctions::print("press detected");
 		UtilityFunctions::print(this);
- 
-        //Object* stats_container = ResourceLoader::get_singleton()->load("res://StatsContainer.gd");
+
+		//Object* stats_container = ResourceLoader::get_singleton()->load("res://StatsContainer.gd");
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
-		
+
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 
 		emit_signal("cell_selected", this);
-		
+
 		statsCounter->_update_Stats(this);
 		//statsCounter->_update_signal(this);
-    }
+	}
 }
 
 Array Cell::getStats() const {
-
-    Array stats;
-    stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
-    stats.push_back(_cellState->getAlive());    // index 1
+	Array stats;
+	stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
+	stats.push_back(_cellState->getAlive()); // index 1
 	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
 	stats.push_back(Math::round(getScale() * 1000000) / 1000000.00);
-    // Continue adding stats in a specific order
-    return stats;
+	// Continue adding stats in a specific order
+	return stats;
 }
 
 // function updates on cell contacts. Increments counter for use in
