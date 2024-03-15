@@ -22,6 +22,7 @@ public:
 	void _ready() override;
 	void _process(double delta) override;
 	void StatsCounter::_update_Stats(Variant cell_instance);
+	void StatsCounter::_update_signal(Variant cell_instance);
 	void clear_stats();
 	void add_label(String text);
 

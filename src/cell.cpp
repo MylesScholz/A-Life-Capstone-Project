@@ -39,13 +39,6 @@ Cell::Cell() {
 			1000); // Adjust max contacts as complexity increases.
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 
-	/*CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-	StatsCounter *statsCounter = Object::cast_to<StatsCounter>(Spawner->find_child("StatsCounter"));
-	if (statsCounter) {
-		UtilityFunctions::print("REF BOUND");
-		this->connect("cell_selected", Callable(statsCounter, "_update_Stats"));
-    }*/
-
 	rand.instantiate();
 
 	// Add CellStructures
@@ -198,8 +191,11 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+
+		emit_signal("cell_selected", this);
 		
 		statsCounter->_update_Stats(this);
+		//statsCounter->_update_signal(this);
     }
 }
 
@@ -211,6 +207,8 @@ Array Cell::getStats() const {
 	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
+	stats.push_back(Math::round(getScale() * 1000000) / 1000000.00);
     // Continue adding stats in a specific order
     return stats;
 }

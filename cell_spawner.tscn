@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=26 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
-[ext_resource type="Script" path="res://StatsContainer.gd" id="5_qq0ca"]
 [ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="6_cqljf"]
 [ext_resource type="Script" path="res://SpeedUpButton.gd" id="7_0omg7"]
@@ -89,7 +88,6 @@ offset_right = 40.0
 offset_bottom = 113.0
 
 [node name="StatsPanel" type="Panel" parent="UI"]
-visible = false
 offset_left = 826.0
 offset_top = 228.0
 offset_right = 1079.0
@@ -105,9 +103,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
-offset_top = 240.0
+offset_top = 245.0
 offset_right = -13.0
-offset_bottom = -8.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -128,10 +126,10 @@ text = "Cell Lineage"
 
 [node name="LowerLabel" type="Label" parent="UI/StatsPanel"]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 212.0
-offset_right = 114.0
-offset_bottom = 236.0
+offset_left = 6.0
+offset_top = 213.0
+offset_right = 113.0
+offset_bottom = 237.0
 text = "Cell Statistics"
 
 [node name="StatsExitButton" type="Button" parent="UI/StatsPanel"]
@@ -142,15 +140,6 @@ offset_right = 254.0
 offset_bottom = 30.0
 text = "x"
 script = ExtResource("4_beosf")
-
-[node name="StatsContainer" type="VBoxContainer" parent="UI/StatsPanel"]
-visible = false
-layout_mode = 0
-offset_left = 7.0
-offset_top = 240.0
-offset_right = 245.0
-offset_bottom = 491.0
-script = ExtResource("5_qq0ca")
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="UI"]
 
@@ -179,7 +168,7 @@ theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_c2m2e")
 
-[node name="Title" type="LineEdit" parent="UI/BarPanel"]
+[node name="Title" type="Label" parent="UI/BarPanel"]
 layout_mode = 0
 offset_left = 84.0
 offset_top = 119.0
@@ -818,3 +807,5 @@ offset_right = 21.0
 offset_bottom = 37.0
 mouse_default_cursor_shape = 2
 script = ExtResource("12_snkx7")
+
+[connection signal="pressed" from="UI/StatsPanel/StatsExitButton" to="UI/StatsPanel" method="_on_stats_exit_button_pressed"]
