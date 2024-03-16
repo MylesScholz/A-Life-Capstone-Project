@@ -3,6 +3,7 @@
 
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/v_box_container.hpp>
+#include <godot_cpp/classes/label.hpp>
 #include <godot_cpp/classes/node.hpp>
 
 using namespace godot;
