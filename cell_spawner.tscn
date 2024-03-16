@@ -1,6 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
+[ext_resource type="PackedScene" uid="uid://b3l77di28ev2c" path="res://cell_environment.tscn" id="2_ymrrk"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
@@ -71,7 +72,7 @@ corner_radius_bottom_left = 10
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
 
-[node name="Environment" type="Node" parent="."]
+[node name="CellEnvironment" parent="." instance=ExtResource("2_ymrrk")]
 
 [node name="UI" type="Node" parent="."]
 
