@@ -107,8 +107,10 @@ void CellSpawner::spawnCell(bool isImmortal) {
 }
 
 void CellSpawner::removeAllCells() {
-	for (int i = get_child_count() - 1; i >= 0; i--) {
-		Node *child = get_child(i);
+	CellEnvironment *env = this->get_node<CellEnvironment>("CellEnvironment");
+
+	for (int i = env->get_child_count() - 1; i >= 0; i--) {
+		Node *child = env->get_child(i);
 		if (Object::cast_to<Cell>(child)) {
 			Object::cast_to<Cell>(child)->resetCollisions();
 			child->queue_free();
