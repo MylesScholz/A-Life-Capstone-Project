@@ -32,7 +32,9 @@ public:
 	void setMaxForce(const float);
 	float getMaxForce() const;
 
-	void spawnCell();
+	void spawnCell(bool isImmortal = 0);
+
+	void removeAllCells();
 
 	void _ready() override;
 

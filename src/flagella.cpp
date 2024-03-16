@@ -48,8 +48,6 @@ void Flagella::activate(CellState *cellState) {
 
 		cellState->setNextMovementVector(force);
 		cellState->incrementTotalEnergy(-_activationEnergyCost);
-
-		// UtilityFunctions::print("Flagella activated: (", force.x, ", ", force.y, ")");
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
 	}
