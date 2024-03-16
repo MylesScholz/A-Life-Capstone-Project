@@ -55,6 +55,7 @@ CellState::CellState() {
 	_energyMaximum = 100.0;
 	_nutrientMaximum = 100.0;
 	_nextMovementVector = Vector2();
+	_receptorVectors = Vector<Vector2>();
 }
 CellState::~CellState() {}
 
@@ -154,6 +155,9 @@ void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
 	_nextMovementVector = nextMovementVector;
 }
 Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
+
+void CellState::setReceptorVectors(const Vector<Vector2> receptorVectors) { _receptorVectors = receptorVectors; }
+Vector<Vector2> CellState::getReceptorVectors() const { return _receptorVectors; }
 
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;

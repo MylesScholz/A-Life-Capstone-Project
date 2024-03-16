@@ -2,6 +2,7 @@
 
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/time.hpp>
+#include <godot_cpp/templates/vector.hpp>
 
 using namespace godot;
 
@@ -58,6 +59,9 @@ public:
 	void setNextMovementVector(const Vector2);
 	Vector2 getNextMovementVector() const;
 
+	void setReceptorVectors(const Vector<Vector2>);
+	Vector<Vector2> getReceptorVectors() const;
+
 	void _ready() override;
 
 private:
@@ -74,4 +78,5 @@ private:
 	float _totalEnergy;
 	float _energyMaximum;
 	Vector2 _nextMovementVector;
+	Vector<Vector2> _receptorVectors;
 };

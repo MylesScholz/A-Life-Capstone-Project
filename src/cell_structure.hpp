@@ -17,8 +17,8 @@ public:
 	~CellStructure();
 
 	virtual void activate(CellState *);
-
-	void applyScale(const float);
+	virtual void modify(String, float);
+	virtual void applyScale(const float);
 
 	void setCreationNutrientCost(const float);
 	float getCreationNutrientCost() const;
@@ -32,6 +32,8 @@ public:
 	void setMaintenanceEnergyCost(const float);
 	float getMaintenanceEnergyCost() const;
 
+	float getScale() const;
+
 	void setSprite(Sprite2D *);
 	Sprite2D *getSprite();
 
@@ -40,5 +42,6 @@ private:
 	float _maintenanceNutrientCost;
 	float _creationEnergyCost;
 	float _maintenanceEnergyCost;
+	float _scale;
 	Sprite2D *_sprite;
 };

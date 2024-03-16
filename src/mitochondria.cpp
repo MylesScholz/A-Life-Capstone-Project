@@ -65,12 +65,45 @@ void Mitochondria::activate(CellState *cellState) {
 
 	// Check whether the threshold is met
 	if (thresholdCondition) {
-		UtilityFunctions::print("Mitochondria activated");
+		// UtilityFunctions::print("Mitochondria activated");
 
 		// Decrement the nutrients based on the strength and efficiency of these Mitochondria
 		cellState->incrementTotalNutrients(-_efficiency * _strength);
 		// Increment the energy based on the strength, conversion rate (energy:nutrients), and efficiency of these Mitochondria
 		cellState->incrementTotalEnergy(_efficiency * _conversionRate * _strength);
+	}
+}
+
+void Mitochondria::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * ACTIVATION_THRESHOLD: sets _activationThreshold
+	 * STRENGTH: sets _strength
+	 * CONVERSION_RATE: sets _conversionRate
+	 * ACTIVATION_RESOURCE: sets _activationResource (0 -> "nutrients", 1 -> "energy")
+	 * THRESHOLD_TYPE: sets _thresholdType (0 -> "low-pass", 1 -> "high-pass")
+	 */
+
+	if (modifierName == "ACTIVATION_THRESHOLD") {
+		setActivationThreshold(modifierValue);
+	} else if (modifierName == "STRENGTH") {
+		setStrength(modifierValue);
+	} else if (modifierName == "CONVERSION_RATE") {
+		setConversionRate(modifierValue);
+	} else if (modifierName == "ACTIVATION_RESOURCE") {
+		// Map float modifierValue to String _activationResource
+		if (modifierValue == 0) {
+			setActivationResource("nutrients");
+		} else if (modifierValue == 1) {
+			setActivationResource("energy");
+		}
+	} else if (modifierName == "THRESHOLD_TYPE") {
+		// Map float modifierValue to String _thresholdType
+		if (modifierValue == 0) {
+			setThresholdType("low-pass");
+		} else if (modifierValue == 1) {
+			setThresholdType("high-pass");
+		}
 	}
 }
 

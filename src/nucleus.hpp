@@ -17,6 +17,7 @@ public:
 	~Nucleus();
 
 	void activate(CellState *) override;
+	void modify(String, float) override;
 
 	void setReproductionNutrientThreshold(const float);
 	float getReproductionNutrientThreshold() const;

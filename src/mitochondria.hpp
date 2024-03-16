@@ -17,6 +17,7 @@ public:
 	~Mitochondria();
 
 	void activate(CellState *) override;
+	void modify(String, float) override;
 
 	void setActivationThreshold(const float);
 	float getActivationThreshold() const;

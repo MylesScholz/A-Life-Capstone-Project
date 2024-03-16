@@ -38,10 +38,6 @@ public:
 
 	void _ready() override;
 	void _process(double) override;
-	Cell *getCell();
-	CellState *getCellState();
-	void setCellState(CellState *cellState);
-	bool getCellAlive();
 	void _on_body_entered(Node *body);
 
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
@@ -51,7 +47,7 @@ private:
 	CellState *_cellState;
 	Size2 _spriteSize;
 	Vector<CellStructure *> _cellStructures;
+	Genome _cellGenome;
 
 	Ref<RandomNumberGenerator> rand;
-	Genome cellGenome;
 };

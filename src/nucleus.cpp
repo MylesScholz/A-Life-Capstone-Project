@@ -19,6 +19,17 @@ void Nucleus::activate(CellState *cellState) {
 	}
 }
 
+void Nucleus::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * ACTIVATION_THRESHOLD: sets _reproductionNutrientThreshold
+	 */
+
+	if (modifierName == "ACTIVATION_THRESHOLD") {
+		setReproductionNutrientThreshold(modifierValue);
+	}
+}
+
 void Nucleus::setReproductionNutrientThreshold(const float reproductionNutrientThreshold) {
 	if (reproductionNutrientThreshold > 0) {
 		_reproductionNutrientThreshold = reproductionNutrientThreshold;

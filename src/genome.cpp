@@ -1,12 +1,12 @@
 #include "genome.hpp"
 
-void Genome::_bind_methods() {
-}
-
 Genome::Genome() {
 }
 
 Genome::~Genome() {
+	for (int i = 0; i < genes.size(); i++) {
+		delete genes.get(i);
+	}
 }
 
 Vector<CellStructure *> Genome::expressGenes() {
@@ -17,16 +17,15 @@ Vector<CellStructure *> Genome::expressGenes() {
 			currentStructure = genes.get(i)->express();
 			cellStructures.push_back(currentStructure);
 		} else {
-			/*
-			WIP
-			get the name of modifier gene and the value and send it into the current structure.
-			something like:
-			currentStructure->modify(genes.at(i).getName(), genes.at(i).getValue())
-			*/
+			currentStructure->modify(genes.get(i)->getName(), genes.get(i)->getValue());
 		}
 	}
 
 	return cellStructures;
+}
+
+void Genome::addGene(Gene *newGene) {
+	genes.push_back(newGene);
 }
 
 void Genome::setGene(Gene *newGene, int index) {

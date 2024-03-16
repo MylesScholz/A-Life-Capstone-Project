@@ -1,8 +1,16 @@
 #include "cell.hpp"
+#include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
+
+#include "cell_membrane_gene.hpp"
+#include "flagella_gene.hpp"
+#include "mitochondria_gene.hpp"
+#include "modifier_gene.hpp"
+#include "nucleus_gene.hpp"
+#include "ribosomes_gene.hpp"
 
 #include "cell_spawner.hpp"
 #include "stats_counter.hpp"
@@ -41,31 +49,69 @@ Cell::Cell() {
 
 	rand.instantiate();
 
-	// Add CellStructures
+	//temp setup a genome for testing.
+	_cellGenome.addGene(new NucleusGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(new MitochondriaGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(new RibosomesGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(new CellMembraneGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(new FlagellaGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 
-	// Load a CellStructure scene
-	Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
-	// Instantiate the scene and cast it to the specific type
-	Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
-	// Add the CellStructure pointer to _cellStructures and as a child under this Cell
-	_cellStructures.push_back(nucleus);
-	this->add_child(nucleus);
+	// Add CellStructures using the cell genome
 
-	Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
-	Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
-	_cellStructures.push_back(mitochondria);
-	this->add_child(mitochondria);
+	_cellStructures = _cellGenome.expressGenes();
+	for (int i = 0; i < _cellStructures.size(); i++) {
+		this->add_child(_cellStructures.get(i));
+	}
 
-	Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
-	Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
-	_cellStructures.push_back(ribosomes);
-	this->add_child(ribosomes);
+	/*
+		// Load a CellStructure scene
+		Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
+		// Instantiate the scene and cast it to the specific type
+		Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
+		// Add the CellStructure pointer to _cellStructures and as a child under this Cell
+		_cellStructures.push_back(nucleus);
+		this->add_child(nucleus);
 
-	Ref<PackedScene> flagella_scene = ResourceLoader::get_singleton()->load("res://flagella.tscn");
-	Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
-	_cellStructures.push_back(flagella);
-	this->add_child(flagella);
+		Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
+		Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
+		_cellStructures.push_back(mitochondria);
+		this->add_child(mitochondria);
 
+		Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
+		Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
+		_cellStructures.push_back(ribosomes);
+		this->add_child(ribosomes);
+
+		Ref<PackedScene> flagella_scene = ResourceLoader::get_singleton()->load("res://flagella.tscn");
+		Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
+		_cellStructures.push_back(flagella);
+		this->add_child(flagella);
+	*/
 	_spriteSize = Size2();
 }
 Cell::~Cell() {
@@ -95,7 +141,6 @@ void Cell::applyScale(const float scale) {
 
 	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
-	this->get_node<Sprite2D>("Sprite")->apply_scale(Vector2(scale, scale));
 	this->get_node<CellState>("CellState")->applyScale(scale);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area
@@ -106,9 +151,6 @@ void Cell::applyScale(const float scale) {
 		if (structure)
 			structure->applyScale(scale);
 	}
-
-	// Measure the new sprite size
-	_spriteSize = this->get_node<Sprite2D>("Sprite")->get_rect().size;
 }
 
 float Cell::getScale() const { return _cellState->getScale(); }
@@ -128,6 +170,10 @@ void Cell::setImmortal(bool isImmortal) {
 void Cell::_ready() {
 	this->set_pickable(true);
 	_cellState = this->get_node<CellState>("CellState");
+
+	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	if (cellMembrane)
+		_spriteSize = cellMembrane->getSprite()->get_rect().size;
 }
 
 void Cell::_process(double delta) {
@@ -141,7 +187,7 @@ void Cell::_process(double delta) {
 		this->activateCellStructures();
 
 		// Apply Flagella Movement Vectors
-		this->apply_force(_cellState->getNextMovementVector());
+		this->apply_force(_cellState->getNextMovementVector().rotated(this->get_rotation()));
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());

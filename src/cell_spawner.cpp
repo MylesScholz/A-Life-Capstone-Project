@@ -1,5 +1,6 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
+#include "cell_environment.hpp"
 #include "stats_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
@@ -99,15 +100,17 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
 
-	add_child(cell);
+	this->get_node<CellEnvironment>("CellEnvironment")->add_child(cell);
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/
 }
 
 void CellSpawner::removeAllCells() {
-	for (int i = get_child_count() - 1; i >= 0; i--) {
-		Node *child = get_child(i);
+	CellEnvironment *env = this->get_node<CellEnvironment>("CellEnvironment");
+
+	for (int i = env->get_child_count() - 1; i >= 0; i--) {
+		Node *child = env->get_child(i);
 		if (Object::cast_to<Cell>(child)) {
 			Object::cast_to<Cell>(child)->resetCollisions();
 			child->queue_free();

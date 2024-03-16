@@ -5,12 +5,7 @@
 
 using namespace godot;
 
-class Gene : public Node {
-	GDCLASS(Gene, Node)
-
-protected:
-	static void _bind_methods();
-
+class Gene {
 public:
 	Gene(/* args */);
 	~Gene();

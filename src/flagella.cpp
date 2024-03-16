@@ -38,7 +38,7 @@ Flagella::~Flagella() {}
 void Flagella::activate(CellState *cellState) {
 	bool thresholdCondition = false;
 
-	if (cellState->getTotalEnergy() >= _activationEnergyCost) { //implement movement energy cost threshold
+	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
 		thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
 	}
 
@@ -50,6 +50,23 @@ void Flagella::activate(CellState *cellState) {
 		cellState->incrementTotalEnergy(-_activationEnergyCost);
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
+	}
+}
+
+void Flagella::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
+	 * STRENGTH: multiplies _movementForceVector
+	 * N_SUBSTRUCTURES: (not yet implemented)
+	 */
+
+	if (modifierName == "ACTIVATION_THRESHOLD") {
+		setActivationEnergyThreshold(modifierValue);
+	} else if (modifierName == "STRENGTH") {
+		setMovementForceVector(getMovementForceVector() * modifierValue);
+	} else if (modifierName == "N_SUBSTRUCTURES") {
+		// Set the number of Flagella
 	}
 }
 
