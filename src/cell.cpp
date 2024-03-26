@@ -188,6 +188,7 @@ void Cell::_process(double delta) {
 
 		// Apply Flagella Movement Vectors
 		this->apply_force(_cellState->getNextMovementVector().rotated(this->get_rotation()));
+		this->apply_force(_cellState->getNextMovementVector().rotated(this->get_rotation()));
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());

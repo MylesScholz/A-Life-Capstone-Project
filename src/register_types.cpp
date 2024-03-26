@@ -41,6 +41,8 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Mitochondria>();
 	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Receptor>();
+	ClassDB::register_class<Nucleus>();
+	ClassDB::register_class<Receptor>();
 	ClassDB::register_class<Ribosomes>();
 	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();

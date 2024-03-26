@@ -39,51 +39,52 @@ void Flagella::activate(CellState *cellState) {
 	bool thresholdCondition = false;
 
 	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
-		thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
+		if (cellState->getTotalEnergy() >= _activationEnergyCost) {
+			thresholdCondition = cellState->getTotalEnergy() / cellState->getEnergyMaximum() >= _activationEnergyThreshold;
+		}
+
+		if (thresholdCondition) {
+			float direction = rand->randf_range(0, 2 * Math_PI);
+			Vector2 force = _movementForceVector.rotated(direction);
+
+			cellState->setNextMovementVector(force);
+			cellState->incrementTotalEnergy(-_activationEnergyCost);
+		} else {
+			cellState->setNextMovementVector(Vector2(0, 0));
+		}
 	}
 
-	if (thresholdCondition) {
-		float direction = rand->randf_range(0, 2 * Math_PI);
-		Vector2 force = _movementForceVector.rotated(direction);
+	void Flagella::modify(String modifierName, float modifierValue) {
+		/*
+		 * Relevant ModifierGenes
+		 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
+		 * STRENGTH: multiplies _movementForceVector
+		 * N_SUBSTRUCTURES: (not yet implemented)
+		 */
 
-		cellState->setNextMovementVector(force);
-		cellState->incrementTotalEnergy(-_activationEnergyCost);
-	} else {
-		cellState->setNextMovementVector(Vector2(0, 0));
+		if (modifierName == "ACTIVATION_THRESHOLD") {
+			setActivationEnergyThreshold(modifierValue);
+		} else if (modifierName == "STRENGTH") {
+			setMovementForceVector(getMovementForceVector() * modifierValue);
+		} else if (modifierName == "N_SUBSTRUCTURES") {
+			// Set the number of Flagella
+		}
 	}
-}
 
-void Flagella::modify(String modifierName, float modifierValue) {
-	/*
-	 * Relevant ModifierGenes
-	 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
-	 * STRENGTH: multiplies _movementForceVector
-	 * N_SUBSTRUCTURES: (not yet implemented)
-	 */
+	void Flagella::setMovementForceVector(const Vector2 movementForceVector) { _movementForceVector = movementForceVector; }
+	Vector2 Flagella::getMovementForceVector() const { return _movementForceVector; }
 
-	if (modifierName == "ACTIVATION_THRESHOLD") {
-		setActivationEnergyThreshold(modifierValue);
-	} else if (modifierName == "STRENGTH") {
-		setMovementForceVector(getMovementForceVector() * modifierValue);
-	} else if (modifierName == "N_SUBSTRUCTURES") {
-		// Set the number of Flagella
+	void Flagella::setPositionVector(const Vector2 positionVector) { _positionVector = positionVector; }
+	Vector2 Flagella::getPositionVector() const { return _positionVector; }
+
+	void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
+	float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }
+
+	void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshold) { _activationEnergyThreshold = activationEnergyThreshold; }
+	float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
+
+	void Flagella::_ready() {
+		Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+		if (sprite)
+			this->setSprite(sprite);
 	}
-}
-
-void Flagella::setMovementForceVector(const Vector2 movementForceVector) { _movementForceVector = movementForceVector; }
-Vector2 Flagella::getMovementForceVector() const { return _movementForceVector; }
-
-void Flagella::setPositionVector(const Vector2 positionVector) { _positionVector = positionVector; }
-Vector2 Flagella::getPositionVector() const { return _positionVector; }
-
-void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
-float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }
-
-void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshold) { _activationEnergyThreshold = activationEnergyThreshold; }
-float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
-
-void Flagella::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
-	if (sprite)
-		this->setSprite(sprite);
-}
