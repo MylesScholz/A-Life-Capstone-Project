@@ -43,6 +43,5 @@ private:
 	float _creationEnergyCost;
 	float _maintenanceEnergyCost;
 	float _scale;
-	float _scale;
 	Sprite2D *_sprite;
 };

@@ -1,40 +1,46 @@
 #pragma once
 
-#include "environment.hpp"
 #include "cell.hpp"
 
-#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/templates/vector.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
 class NutrientZone : public Area2D {
-    GDCLASS(NutrientZone, Area2D)
+	GDCLASS(NutrientZone, Area2D)
 
 protected:
-    static void _bind_methods();
+	static void _bind_methods();
 
 public:
-    NutrientZone();
-    ~NutrientZone();
+	NutrientZone();
+	~NutrientZone();
 
-    void applyScale(const float);
-    float getScale() const;
+	void _on_body_entered(Node *);
+	void _on_body_exited(Node *);
 
-    void setPosition(const float); // Placeholder type
-    float getPosition() const;
+	void setTotalNutrients(const float);
+	void incrementTotalNutrients(const float);
+	float getTotalNutrients() const;
 
-    Size2 getSpriteSize() const;
+	void setNutrientMaximum(const float);
+	float getNutrientMaximum() const;
 
-    void _feeding_cells(Vector<Cell> *cell);
-    void _on_body_entered(Node *body);
-    void _on_body_exited(Node *body);
-    void _process(const float);
+	void setRegenerationRate(const float);
+	float getRegenerationRate() const;
+
+	void setFeedingRate(const float);
+	float getFeedingRate() const;
+
+	void _ready();
+	void _process(float);
 
 private:
-    float _scale;
-    float _position;
-
-    NutrientZone *_nutrientZone;
-    Size2 _spriteSize;
+	Vector<Cell *> _feedingCells;
+	float _totalNutrients;
+	float _nutrientMaximum;
+	float _feedingRate;
+	float _regenerationRate;
 };

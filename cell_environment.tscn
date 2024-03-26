@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3l77di28ev2c"]
+[gd_scene load_steps=4 format=3 uid="uid://b3l77di28ev2c"]
+
+[ext_resource type="PackedScene" uid="uid://htdfk532t5nd" path="res://nutrient_zone.tscn" id="1_5dxwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vorx"]
 size = Vector2(200, 720)
@@ -25,3 +27,5 @@ shape = SubResource("RectangleShape2D_du2en")
 [node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_du2en")
+
+[node name="NutrientZone" parent="." instance=ExtResource("1_5dxwq")]

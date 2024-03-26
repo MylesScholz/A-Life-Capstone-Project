@@ -7,9 +7,6 @@ void CellStructure::_bind_methods() {}
 CellStructure::CellStructure() {
 	_scale = 1.0;
 }
-CellStructure::CellStructure() {
-	_scale = 1.0;
-}
 CellStructure::~CellStructure() {}
 
 void CellStructure::activate(CellState *) {

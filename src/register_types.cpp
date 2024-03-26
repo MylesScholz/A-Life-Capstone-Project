@@ -11,6 +11,7 @@
 #include "main_menu_button.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
+#include "nutrient_zone.hpp"
 #include "receptor.hpp"
 #include "reset_button.hpp"
 #include "ribosomes.hpp"
@@ -31,20 +32,17 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<StartButton>();
 	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<CellEnvironment>();
+	ClassDB::register_class<NutrientZone>();
 	ClassDB::register_class<TimeCounter>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellState>();
 	ClassDB::register_class<CellStructure>();
 	ClassDB::register_class<CellMembrane>();
 	ClassDB::register_class<Flagella>();
-	ClassDB::register_class<FpsCounter>();
 	ClassDB::register_class<Mitochondria>();
 	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Receptor>();
-	ClassDB::register_class<Nucleus>();
-	ClassDB::register_class<Receptor>();
 	ClassDB::register_class<Ribosomes>();
-	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
 	ClassDB::register_class<StatsCounter>();

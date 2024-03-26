@@ -53,38 +53,39 @@ void Flagella::activate(CellState *cellState) {
 			cellState->setNextMovementVector(Vector2(0, 0));
 		}
 	}
+}
 
-	void Flagella::modify(String modifierName, float modifierValue) {
-		/*
-		 * Relevant ModifierGenes
-		 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
-		 * STRENGTH: multiplies _movementForceVector
-		 * N_SUBSTRUCTURES: (not yet implemented)
-		 */
+void Flagella::modify(String modifierName, float modifierValue) {
+	/*
+	 * Relevant ModifierGenes
+	 * ACTIVATION_THRESHOLD: sets _activationEnergyThreshold
+	 * STRENGTH: multiplies _movementForceVector
+	 * N_SUBSTRUCTURES: (not yet implemented)
+	 */
 
-		if (modifierName == "ACTIVATION_THRESHOLD") {
-			setActivationEnergyThreshold(modifierValue);
-		} else if (modifierName == "STRENGTH") {
-			setMovementForceVector(getMovementForceVector() * modifierValue);
-		} else if (modifierName == "N_SUBSTRUCTURES") {
-			// Set the number of Flagella
-		}
+	if (modifierName == "ACTIVATION_THRESHOLD") {
+		setActivationEnergyThreshold(modifierValue);
+	} else if (modifierName == "STRENGTH") {
+		setMovementForceVector(getMovementForceVector() * modifierValue);
+	} else if (modifierName == "N_SUBSTRUCTURES") {
+		// Set the number of Flagella
 	}
+}
 
-	void Flagella::setMovementForceVector(const Vector2 movementForceVector) { _movementForceVector = movementForceVector; }
-	Vector2 Flagella::getMovementForceVector() const { return _movementForceVector; }
+void Flagella::setMovementForceVector(const Vector2 movementForceVector) { _movementForceVector = movementForceVector; }
+Vector2 Flagella::getMovementForceVector() const { return _movementForceVector; }
 
-	void Flagella::setPositionVector(const Vector2 positionVector) { _positionVector = positionVector; }
-	Vector2 Flagella::getPositionVector() const { return _positionVector; }
+void Flagella::setPositionVector(const Vector2 positionVector) { _positionVector = positionVector; }
+Vector2 Flagella::getPositionVector() const { return _positionVector; }
 
-	void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
-	float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }
+void Flagella::setActivationEnergyCost(const float activationEnergyCost) { _activationEnergyCost = activationEnergyCost; }
+float Flagella::getActivationEnergyCost() const { return _activationEnergyCost; }
 
-	void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshold) { _activationEnergyThreshold = activationEnergyThreshold; }
-	float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
+void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshold) { _activationEnergyThreshold = activationEnergyThreshold; }
+float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
 
-	void Flagella::_ready() {
-		Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
-		if (sprite)
-			this->setSprite(sprite);
-	}
+void Flagella::_ready() {
+	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	if (sprite)
+		this->setSprite(sprite);
+}

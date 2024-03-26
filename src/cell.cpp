@@ -155,6 +155,25 @@ void Cell::applyScale(const float scale) {
 
 float Cell::getScale() const { return _cellState->getScale(); }
 
+float Cell::incrementNutrients(const float nutrients) {
+	// The actual nutrient increment may be less than the parameter value due to boundaries
+	float actualIncrement = 0;
+
+	if (_cellState->getTotalNutrients() + nutrients < 0) {
+		actualIncrement = -_cellState->getTotalNutrients();
+		_cellState->incrementTotalNutrients(actualIncrement);
+	} else if (_cellState->getTotalNutrients() + nutrients > _cellState->getNutrientMaximum()) {
+		actualIncrement = _cellState->getNutrientMaximum() - _cellState->getTotalNutrients();
+		_cellState->incrementTotalNutrients(actualIncrement);
+	} else {
+		actualIncrement = nutrients;
+		_cellState->incrementTotalNutrients(actualIncrement);
+	}
+
+	// Return the actual amount of nutrients incremented
+	return actualIncrement;
+}
+
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::resetCollisions() {
