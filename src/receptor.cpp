@@ -14,10 +14,12 @@ Receptor::Receptor() {
 Receptor::~Receptor() {}
 
 void Receptor::_on_area_entered(Area2D *area) {
-	this->emit_signal("receptor_activated", this);
+	if (area->get_class() == "NutrientZone")
+		this->emit_signal("receptor_activated", this);
 }
 void Receptor::_on_area_exited(Area2D *area) {
-	this->emit_signal("receptor_deactivated", this);
+	if (area->get_class() == "NutrientZone")
+		this->emit_signal("receptor_deactivated", this);
 }
 
 void Receptor::setScale(const float scale) {
