@@ -22,11 +22,11 @@ void NutrientZone::_bind_methods() {
 }
 
 NutrientZone::NutrientZone() {
-	_feedingCells = Vector<Cell *>();
 	_totalNutrients = 1000.0;
 	_nutrientMaximum = 1000.0;
 	_feedingRate = 0.1;
 	_regenerationRate = 1.0;
+	_feedingCells = Vector<Cell *>();
 }
 NutrientZone::~NutrientZone() {}
 
@@ -55,6 +55,15 @@ void NutrientZone::_on_body_exited(Node *body) {
 	if (index >= 0)
 		// If found, remove the Cell from _feedingCells
 		_feedingCells.remove_at(index);
+}
+
+void NutrientZone::applyScale(const float scale) {
+	if (scale < 0 && scale > 1.0)
+		return;
+
+	// Apply the scaling to the collision shape and sprite
+	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
+	this->get_node<Sprite2D>("Sprite2D")->apply_scale(Vector2(scale, scale));
 }
 
 void NutrientZone::setTotalNutrients(const float totalNutrients) {
@@ -89,9 +98,13 @@ void NutrientZone::setRegenerationRate(const float regenerationRate) {
 }
 float NutrientZone::getRegenerationRate() const { return _regenerationRate; }
 
+Sprite2D *NutrientZone::getSprite() { return _sprite; }
+
 void NutrientZone::_ready() {
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 	this->connect("body_exited", Callable(this, "_on_body_exited"));
+
+	_sprite = this->get_node<Sprite2D>("Sprite2D");
 }
 void NutrientZone::_process(float delta) {
 	// Regenerate nutrients

@@ -5,7 +5,6 @@
 #include "cell_membrane.hpp"
 #include "cell_spawner.hpp"
 #include "cell_state.hpp"
-#include "environment.hpp"
 #include "flagella.hpp"
 #include "fps_counter.hpp"
 #include "main_menu_button.hpp"

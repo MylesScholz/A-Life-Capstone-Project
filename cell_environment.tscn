@@ -9,6 +9,8 @@ size = Vector2(200, 720)
 size = Vector2(1480, 200)
 
 [node name="CellEnvironment" type="CellEnvironment"]
+nutrient_zone_scene = ExtResource("1_5dxwq")
+n_nutrient_zones = 3
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 
@@ -27,5 +29,3 @@ shape = SubResource("RectangleShape2D_du2en")
 [node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
 position = Vector2(540, 820)
 shape = SubResource("RectangleShape2D_du2en")
-
-[node name="NutrientZone" parent="." instance=ExtResource("1_5dxwq")]
