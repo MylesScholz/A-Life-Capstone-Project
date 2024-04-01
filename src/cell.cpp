@@ -27,6 +27,7 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
@@ -38,6 +39,39 @@ void Cell::_bind_methods() {
 
 int Cell::CollisionCount = 0;
 bool immortal = 0;
+
+Cell::Cell(Cell& oldCell) {
+	// UtilityFunctions::print("Started copy constructor");
+	this->set_contact_monitor(true);
+	this->set_max_contacts_reported(
+			1000); // Adjust max contacts as complexity increases.
+	this->connect("body_entered", Callable(this, "_on_body_entered"));
+
+	rand.instantiate();
+	// UtilityFunctions::print("Instantiated rand");
+
+	for(int i=0; i < oldCell._cellGenome.getSize(); ++i){
+		Gene* gene = oldCell._cellGenome.getGene(i);
+
+		Gene* newGene = gene->clone();
+		_cellGenome.addGene(newGene);
+	}
+	// UtilityFunctions::print("Copied genes");
+
+	// Add CellStructures using the cell genome
+	_cellStructures = _cellGenome.expressGenes();
+	// UtilityFunctions::print("Expressed genes");
+
+	this->add_child(oldCell.get_node<CollisionShape2D>("CollisionShape2D")->duplicate(true));
+	this->add_child(oldCell.get_node<CellState>("CellState")->duplicate(true));
+
+	for (int i = 0; i < _cellStructures.size(); i++) {
+		this->add_child(_cellStructures.get(i));
+	}
+	// UtilityFunctions::print("Added structures");
+
+	_spriteSize = Size2();
+}
 
 Cell::Cell() {
 	// Setting default required parameters for collision detection on RigidBody2D
@@ -82,7 +116,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 
 	// Add CellStructures using the cell genome
-
 	_cellStructures = _cellGenome.expressGenes();
 	for (int i = 0; i < _cellStructures.size(); i++) {
 		this->add_child(_cellStructures.get(i));
@@ -171,6 +204,17 @@ void Cell::_ready() {
 	this->set_pickable(true);
 	_cellState = this->get_node<CellState>("CellState");
 
+	float sumReproductionNutrientCost = 0;
+	float sumReproductionEnergyCost = 0;
+
+	for (CellStructure* structure: _cellStructures) {
+		sumReproductionNutrientCost += structure->getCreationNutrientCost();
+		sumReproductionEnergyCost += structure->getCreationEnergyCost();
+	}
+
+	_cellState->setReproductionNutrientCost(sumReproductionNutrientCost);
+	_cellState->setReproductionEnergyCost(sumReproductionEnergyCost);
+
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 	if (cellMembrane)
 		_spriteSize = cellMembrane->getSprite()->get_rect().size;
@@ -191,6 +235,7 @@ void Cell::_process(double delta) {
 
 		// Decrement the Cell's nutrients
 		_cellState->incrementTotalNutrients(-delta * _cellState->getHomeostasisNutrientCost());
+		// _cellState->incrementTotalNutrients(delta * _cellState->getHomeostasisNutrientCost());	// Testing reproduction, increase nutrients instead of decrease
 		// Decrement the Cell's energy
 		_cellState->incrementTotalEnergy(-delta * _cellState->getHomeostasisEnergyCost());
 

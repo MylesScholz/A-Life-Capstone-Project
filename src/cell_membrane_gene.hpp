@@ -18,6 +18,8 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
+	CellMembraneGene* clone() { return new CellMembraneGene(*this); }
+
 private:
 	/* Attributes */
 };

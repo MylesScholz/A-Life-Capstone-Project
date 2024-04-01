@@ -4,6 +4,7 @@
 #include "stats_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 #include "helpers.hpp"
 
@@ -36,6 +37,9 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_max_force", "max_force"), &CellSpawner::setMaxForce);
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
+
+	ClassDB::bind_method(D_METHOD("_on_cell_reproduction", "cell"), &CellSpawner::_on_cell_reproduction);
+	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
 
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
@@ -102,8 +106,34 @@ void CellSpawner::spawnCell(bool isImmortal) {
 
 	this->get_node<CellEnvironment>("CellEnvironment")->add_child(cell);
 
+	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/
+}
+
+void CellSpawner::_on_cell_reproduction(Cell *cell) {
+	// UtilityFunctions::print("Would have reproduced");
+	// return;
+	// spawnCell();
+	Cell childCell(*cell);
+	// UtilityFunctions::print("Finished copy constructor");
+
+	childCell.applyScale(cell->getScale());
+	childCell.set_position(cell->get_position());
+
+	float force_magnitude = rand->randf_range(_minForce, _maxForce);
+	float direction = rand->randf_range(0, 2 * Math_PI);
+	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
+	childCell.apply_force(force);
+
+	childCell.apply_torque(rand->randf_range(-500, 500));
+	// UtilityFunctions::print("Finished applying forces");
+
+	this->get_node<CellEnvironment>("CellEnvironment")->add_child(&childCell); // not 100% sure using a Cell* instead of a Node* will work here
+
+	childCell.get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+	UtilityFunctions::print("Added new child cell");
 }
 
 void CellSpawner::removeAllCells() {

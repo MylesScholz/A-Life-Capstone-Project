@@ -24,6 +24,7 @@ public:
 
 	Cell();
 	~Cell();
+	Cell(Cell&);
 
 	void activateCellStructures();
 
