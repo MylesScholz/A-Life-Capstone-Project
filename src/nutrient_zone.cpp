@@ -70,13 +70,23 @@ void NutrientZone::setTotalNutrients(const float totalNutrients) {
 	if (totalNutrients > 0)
 		_totalNutrients = totalNutrients;
 }
-void NutrientZone::incrementTotalNutrients(const float nutrients) {
-	if (_totalNutrients + nutrients < 0)
+float NutrientZone::incrementTotalNutrients(const float nutrients) {
+	// The amount actually incremented may be less than nutrients because of the bounds
+	float actualIncrement = 0;
+
+	if (_totalNutrients + nutrients < 0) {
+		actualIncrement = _totalNutrients;
 		_totalNutrients = 0;
-	else if (_totalNutrients + nutrients > _nutrientMaximum)
+	} else if (_totalNutrients + nutrients > _nutrientMaximum) {
+		actualIncrement = _nutrientMaximum - _totalNutrients;
 		_totalNutrients = _nutrientMaximum;
-	else
+	} else {
+		actualIncrement = nutrients;
 		_totalNutrients += nutrients;
+	}
+
+	// Return the amount actually incremented by
+	return actualIncrement;
 }
 float NutrientZone::getTotalNutrients() const { return _totalNutrients; }
 
@@ -111,14 +121,18 @@ void NutrientZone::_process(float delta) {
 	incrementTotalNutrients(delta * _regenerationRate);
 
 	// Feed each Cell in this NutrientZone
-	for (Cell *cell : _feedingCells) {
-		// Calculate the feeding amount for this Cell:
-		// The total nutrients in this NutrientZone divided equally among currently feeding Cells and multiplied by delta, the feeding rate, and this Cell's scale
-		float feedingAmount = delta * _totalNutrients * _feedingRate * cell->getScale() / _feedingCells.size();
 
-		// Cells may not be able to consume the full feeding amount, so get the actual amount consumed
-		float actualFeedingAmount = cell->incrementNutrients(feedingAmount);
-		// Decrement this NutrientZone's total nutrients by the amount actually consumed by this Cell
-		incrementTotalNutrients(-actualFeedingAmount);
+	// Feeding coefficient: a value that scales the nutrients fed to Cells based on the current delta and the NutrientZone's feeding rate and area (proportional to scale squared)
+	float feedingCoefficient = delta * _feedingRate / (this->get_scale().x * this->get_scale().x);
+	for (int i = 0; i < _feedingCells.size(); i++) {
+		// Calculate the feeding amount for this Cell:
+		// The total nutrients divided by the number of remaining unfed Cells and scaled by the feeding coefficient and the current Cell's area (proportional to scale squared)
+		float feedingAmount = feedingCoefficient * _feedingCells[i]->getScale() * _feedingCells[i]->getScale() * _totalNutrients / (_feedingCells.size() - i);
+
+		// The NutrientZone may not have enough nutrients for the calculated feeding amount,
+		// so decrement the total nutrients and get the actual amount decremented (the return value)
+		float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
+		// Feed the current Cell the actual feeding amount
+		_feedingCells[i]->incrementNutrients(actualFeedingAmount);
 	}
 }

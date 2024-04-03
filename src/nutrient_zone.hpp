@@ -26,7 +26,7 @@ public:
 	void applyScale(const float);
 
 	void setTotalNutrients(const float);
-	void incrementTotalNutrients(const float);
+	float incrementTotalNutrients(const float);
 	float getTotalNutrients() const;
 
 	void setNutrientMaximum(const float);

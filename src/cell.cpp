@@ -161,14 +161,12 @@ float Cell::incrementNutrients(const float nutrients) {
 
 	if (_cellState->getTotalNutrients() + nutrients < 0) {
 		actualIncrement = -_cellState->getTotalNutrients();
-		_cellState->incrementTotalNutrients(actualIncrement);
 	} else if (_cellState->getTotalNutrients() + nutrients > _cellState->getNutrientMaximum()) {
 		actualIncrement = _cellState->getNutrientMaximum() - _cellState->getTotalNutrients();
-		_cellState->incrementTotalNutrients(actualIncrement);
 	} else {
 		actualIncrement = nutrients;
-		_cellState->incrementTotalNutrients(actualIncrement);
 	}
+	_cellState->incrementTotalNutrients(actualIncrement);
 
 	// Return the actual amount of nutrients incremented
 	return actualIncrement;
