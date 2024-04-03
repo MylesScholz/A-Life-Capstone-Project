@@ -40,7 +40,6 @@ public:
 
 private:
 	Ref<PackedScene> _cellScene;
-	Ref<RandomNumberGenerator> rand;
 	int _numCells = 1;
 	float _minForce = 50.0;
 	float _maxForce = 150.0;

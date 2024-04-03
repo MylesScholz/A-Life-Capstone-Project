@@ -35,7 +35,9 @@ public:
 	float incrementNutrients(const float);
 
 	Size2 getSpriteSize() const;
+
 	void resetCollisions();
+
 	void setImmortal(bool);
 
 	void _ready() override;
@@ -51,5 +53,5 @@ private:
 	Vector<CellStructure *> _cellStructures;
 	Genome _cellGenome;
 
-	Ref<RandomNumberGenerator> rand;
+	Ref<RandomNumberGenerator> _rand;
 };

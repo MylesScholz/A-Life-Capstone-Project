@@ -16,6 +16,7 @@ Description: an abstract class representing physical cell components in general
 
 ### Methods
 - virtual void activate(CellState *cellState): an empty method which should contain component activation checking and behavior in child classes
+- virtual void modify(String modifierName, float modifierValue): an empty method which should set relevant attributes based on a modifier Gene name and value in child classes
 
 - void applyScale(const float scale): applies the given linear scaling ratio to the CellStructure's sprite
 

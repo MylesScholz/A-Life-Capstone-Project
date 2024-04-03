@@ -47,8 +47,6 @@ Cell::Cell() {
 			1000); // Adjust max contacts as complexity increases.
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 
-	rand.instantiate();
-
 	//temp setup a genome for testing.
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -226,7 +224,7 @@ void Cell::_process(double delta) {
 			// Generate a random number from 0 to the Cell's lifespan times 1 over
 			// delta. If that value is less than ageDiff, kill the Cell. This adds
 			// some variability to Cell lifespans.
-			if (rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
+			if (_rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
 				_cellState->setAlive(false);
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
