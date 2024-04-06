@@ -43,7 +43,9 @@ void CellState::_bind_methods() {
 
 CellState::CellState() {
 	_alive = true;
+	_age = 0.0;
 	_birthTime = 0.0;
+	_deathTime = NULL;
 	_lifespan = 60.0;
 	_scale = 1.0;
 	_homeostasisNutrientCost = 1.0;
@@ -59,12 +61,17 @@ CellState::CellState() {
 }
 CellState::~CellState() {}
 
-void CellState::setAlive(const bool alive) { _alive = alive; }
+void CellState::setAlive(const bool alive) {
+	if (_alive && !alive) // If killing a Cell the first time
+		_deathTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
+	_alive = alive;
+}
 bool CellState::getAlive() const { return _alive; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }
-float CellState::getAge(const int currentMsec) const { return (currentMsec / 1000.0) - _birthTime; }
+float CellState::getAge() const { return _age; }
+void CellState::increaseAge(const float delta) { _age += delta; }
 
 void CellState::setLifespan(const float lifespan) {
 	if (lifespan > 0)
