@@ -218,7 +218,8 @@ void Cell::_process(double delta) {
 		float energy = 100.0;
 		if (!immortal) {
 			nutrients = _cellState->getTotalNutrients();
-			ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
+			_cellState->increaseAge(delta);
+			ageDiff = _cellState->getAge() - _cellState->getLifespan();
 			energy = _cellState->getTotalEnergy();
 		}
 		if (ageDiff > 0) {
@@ -266,7 +267,7 @@ Array Cell::getStats() const {
 	Array stats;
 	stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
 	stats.push_back(_cellState->getAlive()); // index 1
-	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getAge() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);

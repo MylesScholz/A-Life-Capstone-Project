@@ -37,11 +37,11 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<CellState>();
 	ClassDB::register_class<CellStructure>();
 	ClassDB::register_class<CellMembrane>();
-	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<Mitochondria>();
 	ClassDB::register_class<Nucleus>();
 	ClassDB::register_class<Receptor>();
 	ClassDB::register_class<Ribosomes>();
+	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
 	ClassDB::register_class<StatsCounter>();

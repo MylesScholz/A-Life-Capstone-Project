@@ -21,7 +21,8 @@ public:
 
 	void setBirthTime(const int);
 	float getBirthTime() const;
-	float getAge(const int) const;
+	float getAge() const;
+	void increaseAge(const float);
 
 	void setLifespan(const float);
 	float getLifespan() const;
@@ -66,7 +67,9 @@ public:
 
 private:
 	bool _alive;
+	float _age;
 	float _birthTime;
+	float _deathTime;
 	float _lifespan;
 	float _scale;
 	float _homeostasisNutrientCost;
