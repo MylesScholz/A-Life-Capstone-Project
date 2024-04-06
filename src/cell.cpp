@@ -47,6 +47,9 @@ Cell::Cell() {
 			1000); // Adjust max contacts as complexity increases.
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 
+	// Instantiate the random number generator
+	_rand.instantiate();
+
 	//temp setup a genome for testing.
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
