@@ -160,6 +160,7 @@ void Cell::applyScale(const float scale) {
 			structure->applyScale(scale);
 	}
 }
+float Cell::getScale() const { return this->get_node<CellState>("CellState")->getScale(); }
 
 float Cell::incrementNutrients(const float nutrients) {
 	// The actual nutrient increment may be less than the parameter value due to boundaries

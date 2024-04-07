@@ -30,6 +30,7 @@ public:
 	void keepCellsInBackground();
 
 	void applyScale(const float);
+	float getScale() const;
 
 	float incrementNutrients(const float);
 
