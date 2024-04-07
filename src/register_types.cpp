@@ -10,6 +10,7 @@
 #include "main_menu_button.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
+#include "nutrient_zone.hpp"
 #include "receptor.hpp"
 #include "reset_button.hpp"
 #include "ribosomes.hpp"
@@ -30,6 +31,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<StartButton>();
 	ClassDB::register_class<CellSpawner>();
 	ClassDB::register_class<CellEnvironment>();
+	ClassDB::register_class<NutrientZone>();
 	ClassDB::register_class<TimeCounter>();
 	ClassDB::register_class<Cell>();
 	ClassDB::register_class<CellState>();

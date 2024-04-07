@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3l77di28ev2c"]
+[gd_scene load_steps=4 format=3 uid="uid://b3l77di28ev2c"]
+
+[ext_resource type="PackedScene" uid="uid://htdfk532t5nd" path="res://nutrient_zone.tscn" id="1_5dxwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vorx"]
 size = Vector2(200, 720)
@@ -7,6 +9,8 @@ size = Vector2(200, 720)
 size = Vector2(1480, 200)
 
 [node name="CellEnvironment" type="CellEnvironment"]
+nutrient_zone_scene = ExtResource("1_5dxwq")
+n_nutrient_zones = 3
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 

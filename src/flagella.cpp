@@ -43,11 +43,23 @@ void Flagella::activate(CellState *cellState) {
 	}
 
 	if (thresholdCondition) {
-		float direction = rand->randf_range(0, 2 * Math_PI);
-		Vector2 force = _movementForceVector.rotated(direction);
+		// Sum the activated receptor vectors to get the direction towards a NutrientZone
+		Vector2 force = Vector2();
+		for (Vector2 receptorVector : cellState->getReceptorVectors())
+			force += receptorVector.normalized();
+		// Scale the force by the movement force vector magnitude and the size of the Cell
+		force *= _movementForceVector.length() * cellState->getScale();
 
+		// If there are no activated Receptors, move in a random direction
+		if (cellState->getReceptorVectors().size() == 0) {
+			float direction = rand->randf_range(0, 2 * Math_PI);
+			force = _movementForceVector.rotated(direction) * cellState->getScale();
+		}
+
+		// Set the next movement vector
 		cellState->setNextMovementVector(force);
-		cellState->incrementTotalEnergy(-_activationEnergyCost);
+		// Subtract the energy cost of activating the Flagella, scaled by the magnitude of the force
+		cellState->incrementTotalEnergy(-(_activationEnergyCost * force.length()));
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
 	}

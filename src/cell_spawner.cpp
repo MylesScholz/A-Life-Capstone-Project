@@ -40,7 +40,7 @@ void CellSpawner::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
-CellSpawner::CellSpawner() { rand.instantiate(); }
+CellSpawner::CellSpawner() {}
 CellSpawner::~CellSpawner() {
 	// Clean up spawned child nodes
 	queue_free();
@@ -73,6 +73,9 @@ void CellSpawner::setMaxForce(const float maxForce) {
 float CellSpawner::getMaxForce() const { return _maxForce; }
 
 void CellSpawner::spawnCell(bool isImmortal) {
+	// Create a RandomNumberGenerator object
+	RandomNumberGenerator rand = RandomNumberGenerator();
+
 	// Instantiate cell scene
 	Node *cell = _cellScene->instantiate();
 	// Get viewport size for positioning
@@ -81,21 +84,21 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
 	// Set Cell size
-	cellObject->applyScale(rand->randf_range(0.25, 1));
+	cellObject->applyScale(rand.randf_range(0.25, 1));
 	Size2 cellSize = cellObject->getSpriteSize();
 
 	// Set Cell position to random location in viewport
 	cellObject->set_position(Vector2(
-			rand->randi_range(cellSize.x / 4, viewportSize.x - cellSize.x / 4),
-			rand->randi_range(cellSize.y / 4, viewportSize.y - cellSize.y / 4)));
+			rand.randi_range(cellSize.x / 4, viewportSize.x - cellSize.x / 4),
+			rand.randi_range(cellSize.y / 4, viewportSize.y - cellSize.y / 4)));
 
 	// Apply random initial force to Cell
-	float force_magnitude = rand->randf_range(_minForce, _maxForce);
-	float direction = rand->randf_range(0, 2 * Math_PI);
+	float force_magnitude = rand.randf_range(_minForce, _maxForce);
+	float direction = rand.randf_range(0, 2 * Math_PI);
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
-	cellObject->apply_torque(rand->randf_range(-500, 500));
+	cellObject->apply_torque(rand.randf_range(-500, 500));
 
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);

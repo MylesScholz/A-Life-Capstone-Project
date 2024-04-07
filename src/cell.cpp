@@ -47,7 +47,8 @@ Cell::Cell() {
 			1000); // Adjust max contacts as complexity increases.
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 
-	rand.instantiate();
+	// Instantiate the random number generator
+	_rand.instantiate();
 
 	//temp setup a genome for testing.
 	_cellGenome.addGene(new NucleusGene());
@@ -155,6 +156,23 @@ void Cell::applyScale(const float scale) {
 
 float Cell::getScale() const { return _cellState->getScale(); }
 
+float Cell::incrementNutrients(const float nutrients) {
+	// The actual nutrient increment may be less than the parameter value due to boundaries
+	float actualIncrement = 0;
+
+	if (_cellState->getTotalNutrients() + nutrients < 0) {
+		actualIncrement = -_cellState->getTotalNutrients();
+	} else if (_cellState->getTotalNutrients() + nutrients > _cellState->getNutrientMaximum()) {
+		actualIncrement = _cellState->getNutrientMaximum() - _cellState->getTotalNutrients();
+	} else {
+		actualIncrement = nutrients;
+	}
+	_cellState->incrementTotalNutrients(actualIncrement);
+
+	// Return the actual amount of nutrients incremented
+	return actualIncrement;
+}
+
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
 void Cell::resetCollisions() {
@@ -210,7 +228,7 @@ void Cell::_process(double delta) {
 			// Generate a random number from 0 to the Cell's lifespan times 1 over
 			// delta. If that value is less than ageDiff, kill the Cell. This adds
 			// some variability to Cell lifespans.
-			if (rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
+			if (_rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
 				_cellState->setAlive(false);
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
