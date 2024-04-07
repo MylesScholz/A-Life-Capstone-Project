@@ -22,6 +22,7 @@ Description: The Cell object represents a biological cell within a simulation. I
 - void keepCellsInBackground(): sets the z-index of the Cell and all its CellStructures so that the Cell is behind the CellStructures
 
 - void applyScale(const float scale): applies a linear scaling to the Cell; updates the Sprite2D, CollisionShape2D, CellState, and _spriteSize
+- float getScale() const: returns the scale property of the cell (from CellState)
 
 - Size2 getSpriteSize() const: returns the rectangular area of the Cell's sprite
 

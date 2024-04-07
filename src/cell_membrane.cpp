@@ -35,6 +35,7 @@ void CellMembrane::activate(CellState *cellState) {
 	// Update the cell state with the list of position vectors of activated receptors
 	cellState->setReceptorVectors(receptorVectors);
 
+	// If both nutrients and energy meet the activation threshold, emit a cell growth signal
 	if (cellState->getTotalNutrients() >= _activationThreshold * cellState->getNutrientMaximum() && cellState->getTotalEnergy() >= _activationThreshold * cellState->getEnergyMaximum())
 		this->emit_signal("cell_growth");
 }
