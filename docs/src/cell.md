@@ -17,13 +17,13 @@ Description: The Cell object represents a biological cell within a simulation. I
 
 ### Methods
 - void applyScale(const float scale): applies a linear scaling to the Cell; updates the Sprite2D, CollisionShape2D, CellState, and _spriteSize
-- float getScale() const: returns the scale property of the cell (from CellState)
 
 - Size2 getSpriteSize() const: returns the rectangular area of the Cell's sprite
 
 - void _ready() override: runs once when the Cell has been created and is ready to be used; points _cellState to this Cell's CellState Node
 - void _process(double delta) override: runs once per in-game frame; delta stores the real time since the last frame; simulates CellStructure activation and Cell aging, starvation, and death
 - void _on_body_entered(Node *body): runs when another Node collides with this one; increments CollisionCount
+- void _on_cell_growth(): triggered by a CellMembrane signal; increases this Cell's size if its nutrients and energy are sufficient
 
 ## Non-Member Functions
 None

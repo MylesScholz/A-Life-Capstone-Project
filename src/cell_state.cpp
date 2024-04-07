@@ -192,9 +192,7 @@ void CellState::setGrowthRate(const float growthRate) {
 }
 float CellState::getGrowthRate() const { return _growthRate; }
 
-void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
-	_nextMovementVector = nextMovementVector;
-}
+void CellState::setNextMovementVector(const Vector2 nextMovementVector) { _nextMovementVector = nextMovementVector; }
 Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
 
 void CellState::setReceptorVectors(const Vector<Vector2> receptorVectors) { _receptorVectors = receptorVectors; }
