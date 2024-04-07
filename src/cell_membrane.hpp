@@ -31,6 +31,9 @@ public:
 	void setActivationThreshold(const float);
 	float getActivationThreshold() const;
 
+	void setGrowthCap(const float);
+	float getGrowthCap() const;
+
 	void setNReceptors(const int);
 	int getNReceptors() const;
 
@@ -50,6 +53,7 @@ private:
 	void _updateReceptors();
 
 	float _activationThreshold;
+	float _growthCap;
 	int _nReceptors;
 	Vector<Receptor *> _receptors;
 	Vector<Receptor *> _activatedReceptors;

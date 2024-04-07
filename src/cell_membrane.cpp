@@ -16,6 +16,7 @@ void CellMembrane::_bind_methods() {
 
 CellMembrane::CellMembrane() {
 	_activationThreshold = 0.95;
+	_growthCap = 1.0;
 	_nReceptors = 0.0;
 	_receptors = Vector<Receptor *>();
 	_activatedReceptors = Vector<Receptor *>();
@@ -35,8 +36,11 @@ void CellMembrane::activate(CellState *cellState) {
 	// Update the cell state with the list of position vectors of activated receptors
 	cellState->setReceptorVectors(receptorVectors);
 
-	// If both nutrients and energy meet the activation threshold, emit a cell growth signal
-	if (cellState->getTotalNutrients() >= _activationThreshold * cellState->getNutrientMaximum() && cellState->getTotalEnergy() >= _activationThreshold * cellState->getEnergyMaximum())
+	// Check that both nutrients and energy meet the activation threshold
+	bool thresholdCondition = cellState->getTotalNutrients() >= _activationThreshold * cellState->getNutrientMaximum() && cellState->getTotalEnergy() >= _activationThreshold * cellState->getEnergyMaximum();
+
+	// If the threshold is met and the cellState's current scale does not exceed the growth cap, emit a growth signal
+	if (thresholdCondition && cellState->getScale() < _growthCap)
 		this->emit_signal("cell_growth");
 }
 void CellMembrane::modify(String modifierName, float modifierValue) {
@@ -45,6 +49,9 @@ void CellMembrane::modify(String modifierName, float modifierValue) {
 	 * N_SUBSTRUCTURES: creates given number of Receptors
 	 */
 
+	if (modifierName == "GROWTH_CAP") {
+		setGrowthCap(modifierValue);
+	}
 	if (modifierName == "N_SUBSTRUCTURES") {
 		setNReceptors(modifierValue);
 	}
@@ -76,6 +83,12 @@ void CellMembrane::setActivationThreshold(const float activationThreshold) {
 		_activationThreshold = activationThreshold;
 }
 float CellMembrane::getActivationThreshold() const { return _activationThreshold; }
+
+void CellMembrane::setGrowthCap(const float growthCap) {
+	if (growthCap > 0 && growthCap <= 1.0)
+		_growthCap = growthCap;
+}
+float CellMembrane::getGrowthCap() const { return _growthCap; }
 
 void CellMembrane::setNReceptors(const int nReceptors) {
 	if (nReceptors >= 0 && nReceptors <= 10) {
