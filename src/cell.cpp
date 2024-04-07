@@ -151,7 +151,20 @@ void Cell::applyScale(const float scale) {
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
 	_cellState->applyScale(scale);
 
-	// Apply scaling to mass; scale is squared because mass is proportional to area
+	// Apply scaling to nutrient and energy maxima; capacity is analogous to area for a circle,
+	// so the area scaling ratio is the linear scaling ratio (s) squared:
+	// A2 / A1
+	// (pi * r2 ^ 2) / (pi * r1 ^ 2)
+	// r2 = s * r1
+	// (s ^ 2 * r1 ^ 2) / (r1 ^ 2)
+	// s ^ 2
+	float newNutrientMaximum = _cellState->getNutrientMaximum() * scale * scale;
+	_cellState->setNutrientMaximum(newNutrientMaximum);
+
+	float newEnergyMaximum = _cellState->getEnergyMaximum() * scale * scale;
+	_cellState->setEnergyMaximum(newEnergyMaximum);
+
+	// Apply scaling to mass; scale is squared because mass is proportional to area for a circle
 	this->set_mass(this->get_mass() * scale * scale);
 
 	// Apply scaling to each CellStructure
@@ -277,7 +290,9 @@ Array Cell::getStats() const {
 	stats.push_back(_cellState->getAlive()); // index 1
 	stats.push_back(Math::round(_cellState->getAge() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getEnergyMaximum() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getNutrientMaximum() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
 	stats.push_back(Math::round(_cellState->getScale() * 1000000) / 1000000.00);
 	// Continue adding stats in a specific order

@@ -139,8 +139,11 @@ void CellState::incrementTotalNutrients(const float nutrients) {
 float CellState::getTotalNutrients() const { return _totalNutrients; }
 
 void CellState::setNutrientMaximum(const float nutrientMaximum) {
-	if (nutrientMaximum >= 0)
+	if (nutrientMaximum >= 0) {
 		_nutrientMaximum = nutrientMaximum;
+		if (_totalNutrients > _nutrientMaximum)
+			_totalNutrients = _nutrientMaximum;
+	}
 }
 float CellState::getNutrientMaximum() const { return _nutrientMaximum; }
 
@@ -181,8 +184,11 @@ void CellState::incrementTotalEnergy(const float energy) {
 float CellState::getTotalEnergy() const { return _totalEnergy; }
 
 void CellState::setEnergyMaximum(const float energyMaximum) {
-	if (energyMaximum >= 0)
+	if (energyMaximum >= 0) {
 		_energyMaximum = energyMaximum;
+		if (_totalEnergy > _energyMaximum)
+			_totalEnergy = _energyMaximum;
+	}
 }
 float CellState::getEnergyMaximum() const { return _energyMaximum; }
 
