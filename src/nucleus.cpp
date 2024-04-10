@@ -14,8 +14,14 @@ Nucleus::Nucleus() {
 Nucleus::~Nucleus() {}
 
 void Nucleus::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	if (cellState->getTotalNutrients() >= _reproductionNutrientThreshold) {
 		// UtilityFunctions::print("Nucleus activated: ", cellState->getTotalNutrients(), " >= ", _reproductionNutrientThreshold);
+
+		this->getSprite()->set_frame(1);
+		this->getSprite()->play("activate");
 	}
 }
 
@@ -39,7 +45,7 @@ void Nucleus::setReproductionNutrientThreshold(const float reproductionNutrientT
 float Nucleus::getReproductionNutrientThreshold() const { return _reproductionNutrientThreshold; }
 
 void Nucleus::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 }

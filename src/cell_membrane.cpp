@@ -26,6 +26,9 @@ CellMembrane::~CellMembrane() {
 }
 
 void CellMembrane::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	Vector<Vector2> receptorVectors = Vector<Vector2>();
 
 	// Add the position vector of each activated receptor to a new list
@@ -102,7 +105,7 @@ Vector<Receptor *> CellMembrane::getReceptors() { return _receptors; }
 Vector<Receptor *> CellMembrane::getActivatedReceptors() { return _activatedReceptors; }
 
 void CellMembrane::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 

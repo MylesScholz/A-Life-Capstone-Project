@@ -36,6 +36,9 @@ Flagella::Flagella() {
 Flagella::~Flagella() {}
 
 void Flagella::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	bool thresholdCondition = false;
 
 	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
@@ -60,6 +63,9 @@ void Flagella::activate(CellState *cellState) {
 		cellState->setNextMovementVector(force);
 		// Subtract the energy cost of activating the Flagella, scaled by the magnitude of the force
 		cellState->incrementTotalEnergy(-(_activationEnergyCost * force.length()));
+
+		this->getSprite()->set_frame(rand->randi_range(1, 2));
+		this->getSprite()->play("activate");
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
 	}
@@ -95,7 +101,8 @@ void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshol
 float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
 
 void Flagella::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
-	if (sprite)
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
+	if (sprite) {
 		this->setSprite(sprite);
+	}
 }

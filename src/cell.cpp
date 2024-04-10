@@ -134,7 +134,10 @@ void Cell::keepCellsInBackground() {
 	for (auto &structure : _cellStructures) {
 		if (structure) {
 			this->set_z_index(-2);
-			structure->set_z_index(0);
+			if (structure->get_class() == "Flagella")
+				structure->set_z_index(-1);
+			else
+				structure->set_z_index(0);
 		}
 	}
 }
@@ -210,7 +213,7 @@ void Cell::_ready() {
 
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 	if (cellMembrane) {
-		_spriteSize = cellMembrane->getSprite()->get_rect().size;
+		_spriteSize = cellMembrane->getSpriteSize();
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
 	}
 }
@@ -330,5 +333,9 @@ void Cell::_on_cell_growth() {
 
 		// Grow the Cell
 		applyScale(_cellState->getGrowthRate());
+
+		CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+		cellMembrane->getSprite()->set_frame(1);
+		cellMembrane->getSprite()->play("activate");
 	}
 }
