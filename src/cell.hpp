@@ -43,6 +43,7 @@ public:
 	void _ready() override;
 	void _process(double) override;
 	void _on_body_entered(Node *body);
+	void _on_cell_growth();
 
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
 	Array getStats() const;
