@@ -190,7 +190,7 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
 		
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/TabContainer/StatsCounter");
 
 		emit_signal("cell_selected", this);
 		
