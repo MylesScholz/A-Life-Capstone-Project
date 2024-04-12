@@ -53,3 +53,30 @@ void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
 		_nNutrientZones = nNutrientZones;
 }
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }
+
+void CellEnvironment::_on_cell_death(Cell *cell) {
+	// Instantiate the NutrientZone scene and cast it to a NutrientZone
+	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
+
+	// Get viewport size for positioning
+	Size2 viewportSize = get_viewport()->get_visible_rect().size;
+
+	// Apply a scaling to the NutrientZone approximately proportional to the dead cell
+	nutrientZone->applyScale(cell->getScale() / 4);
+
+	// Set the NutrientZone's position in the same position as the dead cell
+	godot::Vector2 cellPosition = cell->get_position();
+	Vector2 nutrientZonePosition = Vector2(cellPosition.x - viewportSize.x / 2, cellPosition.y - viewportSize.y / 2);
+	nutrientZone->set_position(nutrientZonePosition);
+
+	// Set the NutrientZone to delete itself when it runs out of nutrients
+	nutrientZone->setDeleteOnEmpty(true);
+
+	// Set the NutrientZone's total nutrients to the dead cell's total nutrients and not to regenerate
+	CellState *cellState = cell->get_node<CellState>("CellState");
+	nutrientZone->setTotalNutrients(cellState->getTotalNutrients());
+	nutrientZone->setRegenerationRate(0.0);
+
+	// Add the NutrientZone as a child of this node
+	this->add_child(nutrientZone);
+}

@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "cell_environment.hpp"
 #include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
@@ -37,6 +38,9 @@ void Cell::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("_on_cell_growth"), &Cell::_on_cell_growth);
 	ADD_SIGNAL(MethodInfo("cell_growth"));
+
+	ClassDB::bind_method(D_METHOD("_on_cell_death"), &CellEnvironment::_on_cell_death);
+	ADD_SIGNAL(MethodInfo("cell_death"));
 }
 
 int Cell::CollisionCount = 0;
@@ -213,6 +217,11 @@ void Cell::_ready() {
 		_spriteSize = cellMembrane->getSprite()->get_rect().size;
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
 	}
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	CellEnvironment *cellEnvironment = spawner->get_node<CellEnvironment>("CellEnvironment");
+	if (cellEnvironment) {
+		this->connect("cell_death", Callable(cellEnvironment, "_on_cell_death")); // _on_cell_death() in cell_environment.cpp
+	}
 }
 
 void Cell::_process(double delta) {
@@ -254,6 +263,10 @@ void Cell::_process(double delta) {
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
 				this->set_angular_damp(10.0);
+				// Create NutrientZone
+				this->emit_signal("cell_death", this);
+				// Remove the Cell from the scene
+				queue_free();
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
@@ -261,6 +274,10 @@ void Cell::_process(double delta) {
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
 			this->set_angular_damp(10.0);
+			// Create NutrientZone
+			this->emit_signal("cell_death", this);
+			// Remove the Cell from the scene
+			queue_free();
 		}
 	}
 }
