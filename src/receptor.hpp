@@ -2,7 +2,6 @@
 
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 

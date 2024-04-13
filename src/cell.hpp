@@ -24,7 +24,7 @@ public:
 
 	Cell();
 	~Cell();
-	Cell(Cell&);
+	void seteq(Cell*);
 
 	void activateCellStructures();
 

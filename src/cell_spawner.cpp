@@ -4,7 +4,6 @@
 #include "stats_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 
 #include "helpers.hpp"
 
@@ -106,34 +105,32 @@ void CellSpawner::spawnCell(bool isImmortal) {
 
 	this->get_node<CellEnvironment>("CellEnvironment")->add_child(cell);
 
-	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+	if(!isImmortal) // Do we want the cells on the title screen to be able to reproduce?
+		cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/
 }
 
 void CellSpawner::_on_cell_reproduction(Cell *cell) {
-	// UtilityFunctions::print("Would have reproduced");
-	// return;
-	// spawnCell();
-	Cell childCell(*cell);
-	// UtilityFunctions::print("Finished copy constructor");
+	Node *childCell = _cellScene->instantiate();
+	Cell *cellObject = Object::cast_to<Cell>(childCell);
 
-	childCell.applyScale(cell->getScale());
-	childCell.set_position(cell->get_position());
+	cellObject->seteq(cell);
 
+	cellObject->set_position(cell->get_position());
+
+	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework
 	float force_magnitude = rand->randf_range(_minForce, _maxForce);
 	float direction = rand->randf_range(0, 2 * Math_PI);
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
-	childCell.apply_force(force);
+	cellObject->apply_force(force);
 
-	childCell.apply_torque(rand->randf_range(-500, 500));
-	// UtilityFunctions::print("Finished applying forces");
+	cellObject->apply_torque(rand->randf_range(-500, 500));
 
-	this->get_node<CellEnvironment>("CellEnvironment")->add_child(&childCell); // not 100% sure using a Cell* instead of a Node* will work here
+	this->get_node<CellEnvironment>("CellEnvironment")->add_child(childCell); // not 100% sure using a Cell* instead of a Node* will work here
 
-	childCell.get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
-	UtilityFunctions::print("Added new child cell");
+	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
@@ -150,10 +147,7 @@ void CellSpawner::removeAllCells() {
 
 void CellSpawner::_ready() {
 	DONT_RUN_IN_EDITOR;
-	// Spawn back ground cells that don't die
-	for (int i = 0; i < this->getNumCells(); i++) {
-		this->spawnCell(1);
-	}
+	
 	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
 #ifdef TESTS_ENABLED
@@ -172,4 +166,9 @@ void CellSpawner::_ready() {
 		}
 	}
 #endif
+
+	// Spawn back ground cells that don't die
+	for (int i = 0; i < this->getNumCells(); i++) {
+		this->spawnCell(1);
+	}
 }

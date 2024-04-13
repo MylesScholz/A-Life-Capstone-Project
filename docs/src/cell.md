@@ -16,6 +16,7 @@ Description: The Cell object represents a biological cell within a simulation. I
 - rand (Ref\<RandomNumberGenerator\>): a reference to a random number generator object; used for determining Cell death
 
 ### Methods
+- void seteq(Cell* otherCell): copies over all aspects of another cell to this one. Used during reproduction to match a child cell to its parent
 - void applyScale(const float scale): applies a linear scaling to the Cell; updates the Sprite2D, CollisionShape2D, CellState, and _spriteSize
 - float getScale() const: returns the scale property of the cell (from CellState)
 

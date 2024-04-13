@@ -13,6 +13,16 @@ Description: the CellState Node is a manager for the Cell's state variables, suc
 - _birthTime (float): the time in seconds when the cell was "born"
 - _lifespan (float): the time threshold beyond which the cell has a chance to die
 - _scale (float): the proportion of the cell's default size that the cell currently is
+- _homeostasisNutrientCost (float): the total nutrient cost for homeostasis at each time step
+- _reproductionNutrientCost (float): the total nutrient cost for a cell to create a child cell
+- _totalNutrients (float): the total nutrients a cell has
+- _nutrientMaximum (float): the maximum nutrients a cell can hold
+- _homeostasisEnergyCost (float): the total energy cost for homeostasis at each time step
+- _reproductionEnergyCost (float): the total energy cost for a cell to create a child cell
+- _totalEnergy (float): the total energy a cell has
+- _energyMaximum (float): the maximum energy a cell can hold
+- _nextMovementVector (Vector2): the average movement vector calculated based on the values of all receptors
+- _receptorVectors (Vector<Vector2>): the vectors for all of the receptors
 
 ### Methods
 - void setAlive(const bool alive): sets _alive to the given value
@@ -54,6 +64,9 @@ Description: the CellState Node is a manager for the Cell's state variables, suc
 
 - void setEnergyMaximum(const float energyMaximum): sets _energyMaximum to the given value if it is >= 0.0
 - float getEnergyMaximum() const: returns _energyMaximum
+
+- void setReceptorVectors(const Vector<Vector2> receptorVectors): set _receptorVectors to a new set of vector values
+- Vector<Vector2> getReceptorVectors() const: returns _receptorVectors
 
 - void _ready() override: runs once when the CellState has been created and is ready to be used; sets _birthTime to the current simulation second
 
