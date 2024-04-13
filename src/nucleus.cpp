@@ -24,12 +24,9 @@ void Nucleus::activate(CellState *cellState) {
 		this->getSprite()->stop();
 
 	// This should be somewhere else, or maybe should be a multiplier to the reproduction nutrient cost?
-	float baseCost = 5.0;
+	constexpr float baseCost = 5.0;
 
-	// Need to figure out avoiding reproduction when cells are immortal
 	if (cellState->getTotalNutrients() >= _reproductionNutrientThreshold && cellState->getTotalEnergy() >= _reproductionEnergyThreshold) {
-		UtilityFunctions::print("About to reproduce. Current nutrients: ", cellState->getTotalNutrients());
-
 		cellState->incrementTotalNutrients(-cellState->getReproductionNutrientCost() - baseCost);
 		cellState->incrementTotalEnergy(-cellState->getReproductionEnergyCost() - baseCost);
 
@@ -63,6 +60,14 @@ void Nucleus::setReproductionNutrientThreshold(const float reproductionNutrientT
 }
 
 float Nucleus::getReproductionNutrientThreshold() const { return _reproductionNutrientThreshold; }
+
+void Nucleus::setReproductionEnergyThreshold(const float reproductionEnergyThreshold) {
+	if (reproductionEnergyThreshold > 0) {
+		_reproductionEnergyThreshold = reproductionEnergyThreshold;
+	}
+}
+
+float Nucleus::getReproductionEnergyThreshold() const { return _reproductionEnergyThreshold; }
 
 void Nucleus::_ready() {
 	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");

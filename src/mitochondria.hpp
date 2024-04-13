@@ -2,8 +2,6 @@
 
 #include "cell_structure.hpp"
 
-#include <godot_cpp/variant/utility_functions.hpp>
-
 using namespace godot;
 
 class Mitochondria : public CellStructure {

@@ -1,7 +1,5 @@
 #include "cell_structure.hpp"
 
-#include <godot_cpp/variant/utility_functions.hpp>
-
 void CellStructure::_bind_methods() {}
 
 CellStructure::CellStructure() {

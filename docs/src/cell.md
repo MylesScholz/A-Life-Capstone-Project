@@ -17,6 +17,8 @@ Description: The Cell object represents a biological cell within a simulation. I
 - _rand (Ref\<RandomNumberGenerator\>): a reference to a random number generator object; used for determining Cell death
 
 ### Methods
+- void seteq(Cell* otherCell): copies over all aspects of another cell to this one. Used during reproduction to match a child cell to its parent
+
 - void activateCellStructures(): calls each CellStructure's activate() method, passing the current value of _cellState
 
 - void keepCellsInBackground(): sets the z-index of the Cell and all its CellStructures so that the Cell is behind the CellStructures
