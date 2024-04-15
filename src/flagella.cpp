@@ -102,7 +102,6 @@ float Flagella::getActivationEnergyThreshold() const { return _activationEnergyT
 
 void Flagella::_ready() {
 	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
-	if (sprite) {
+	if (sprite)
 		this->setSprite(sprite);
-	}
 }

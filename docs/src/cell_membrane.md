@@ -10,13 +10,14 @@ Description: the CellMembrane class is a CellStructure that contains and manages
 
 ### Properties
 - _activationThreshold (float): the proportion (in [0.0, 1.0]) of nutrients and energy that must be met for the CellMembrane to activate (which triggers cell growth)
+- _growthCap (float): the genetically defined maximum scale that this CellMembrane can grow to (in (0.0, 1.0])
 - _nReceptors (int): the number of Receptors in this CellMembrane
 - _receptors (Vector\<Receptor *\>): a dynamic list of references to the current Receptors in this CellMembrane
 - _activatedReceptors (Vector\<Receptor *\>): a dynamic list of references to the currently activated Receptors in this CellMembrane
 
 ### Methods
-- void activate(CellState *cellState): updates the given CellState's _receptorVectors field with a list of position vectors of the currently activated Receptors in this CellMembrane; if the given CellState meets the activation threshold, emits a cell growth signal
-- modify(String modifierName, float modifierValue): sets relevant attributes based on a modifier Gene name and value; responds to N_SUBSTRUCTURES Genes
+- void activate(CellState *cellState): updates the given CellState's _receptorVectors field with a list of position vectors of the currently activated Receptors in this CellMembrane; if the given CellState meets the activation threshold and is below the growth cap, emits a cell growth signal and plays the sprite animation
+- modify(String modifierName, float modifierValue): sets relevant attributes based on a modifier Gene name and value; responds to N_SUBSTRUCTURES and GROWTH_CAP Genes
 - applyScale(const float scale): applies a given linear scaling to this CellMembrane's Sprite2D, CollisionShape2D, and Receptors
 
 - void _on_receptor_activated(Receptor *receptor): a signal callback function that adds the signalling Receptor to _activatedReceptors (if not already there)
@@ -24,6 +25,9 @@ Description: the CellMembrane class is a CellStructure that contains and manages
 
 - void setActivationThreshold(const float activationThreshold): sets _activationThreshold to the given value if it is in [0.0, 1.0]
 - float getActivationThreshold(): returns _activationThreshold
+
+- void setGrowthCap(const float growthCap): sets _growthCap to the given value if it is in (0.0, 1.0]
+- float getGrowthCap() const: returns _growthCap
 
 - void setNReceptors(const int nReceptors): sets _nReceptors to the given value and updates the Receptors
 - int getNReceptors(): returns _nReceptors
