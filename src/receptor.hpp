@@ -21,12 +21,15 @@ public:
 
 	void setScale(const float);
 
+	int getNNutrientZones() const;
+
 	void setSprite(AnimatedSprite2D *);
 	AnimatedSprite2D *getSprite();
 
 	void _ready() override;
 
 private:
+	int _nNutrientZones;
 	float _baseSpriteScale;
 	AnimatedSprite2D *_sprite;
 };

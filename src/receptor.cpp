@@ -9,12 +9,15 @@ void Receptor::_bind_methods() {
 }
 
 Receptor::Receptor() {
+	_nNutrientZones = 0;
 	_baseSpriteScale = 0.15; // Must correspond to the Sprite2D scale value set in the Editor
 }
 Receptor::~Receptor() {}
 
 void Receptor::_on_area_entered(Area2D *area) {
 	if (area->get_class() == "NutrientZone") {
+		_nNutrientZones++;
+
 		this->emit_signal("receptor_activated", this);
 
 		_sprite->set_frame(1);
@@ -22,9 +25,13 @@ void Receptor::_on_area_entered(Area2D *area) {
 }
 void Receptor::_on_area_exited(Area2D *area) {
 	if (area->get_class() == "NutrientZone") {
+		if (_nNutrientZones > 0)
+			_nNutrientZones--;
+
 		this->emit_signal("receptor_deactivated", this);
 
-		_sprite->set_frame(0);
+		if (_nNutrientZones == 0)
+			_sprite->set_frame(0);
 	}
 }
 
@@ -36,6 +43,8 @@ void Receptor::setScale(const float scale) {
 	if (sprite)
 		sprite->set_scale(Vector2(_baseSpriteScale * scale, _baseSpriteScale * scale));
 }
+
+int Receptor::getNNutrientZones() const { return _nNutrientZones; }
 
 void Receptor::setSprite(AnimatedSprite2D *sprite) { _sprite = sprite; }
 AnimatedSprite2D *Receptor::getSprite() { return _sprite; }

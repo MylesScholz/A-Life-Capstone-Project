@@ -139,6 +139,9 @@ void NutrientZone::_process(float delta) {
 		// The total nutrients divided by the number of remaining unfed Cells and scaled by the feeding coefficient and the current Cell's area (proportional to scale squared)
 		float feedingAmount = feedingCoefficient * _feedingCells[i]->getScale() * _feedingCells[i]->getScale() * _totalNutrients / (_feedingCells.size() - i);
 
+		// Make the feeding amount at least 0.01 so NutrientZones can run out
+		feedingAmount = MAX(feedingAmount, 0.01);
+
 		// The NutrientZone may not have enough nutrients for the calculated feeding amount,
 		// so decrement the total nutrients and get the actual amount decremented (the return value)
 		float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
