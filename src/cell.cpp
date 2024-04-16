@@ -39,7 +39,6 @@ void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_cell_growth"), &Cell::_on_cell_growth);
 	ADD_SIGNAL(MethodInfo("cell_growth"));
 
-	ClassDB::bind_method(D_METHOD("_on_cell_death"), &CellEnvironment::_on_cell_death);
 	ADD_SIGNAL(MethodInfo("cell_death"));
 }
 
@@ -216,11 +215,6 @@ void Cell::_ready() {
 	if (cellMembrane) {
 		_spriteSize = cellMembrane->getSprite()->get_rect().size;
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
-	}
-	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-	CellEnvironment *cellEnvironment = spawner->get_node<CellEnvironment>("CellEnvironment");
-	if (cellEnvironment) {
-		this->connect("cell_death", Callable(cellEnvironment, "_on_cell_death")); // _on_cell_death() in cell_environment.cpp
 	}
 }
 
