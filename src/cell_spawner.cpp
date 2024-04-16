@@ -103,7 +103,9 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
 
-	this->get_node<CellEnvironment>("CellEnvironment")->add_child(cell);
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
+	cellEnvironment->add_child(cell);
+	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/

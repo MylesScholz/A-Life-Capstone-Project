@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "cell_environment.hpp"
 #include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
@@ -37,6 +38,8 @@ void Cell::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("_on_cell_growth"), &Cell::_on_cell_growth);
 	ADD_SIGNAL(MethodInfo("cell_growth"));
+
+	ADD_SIGNAL(MethodInfo("cell_death"));
 }
 
 int Cell::CollisionCount = 0;
@@ -257,6 +260,10 @@ void Cell::_process(double delta) {
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
 				this->set_angular_damp(10.0);
+				// Create NutrientZone
+				this->emit_signal("cell_death", this);
+				// Remove the Cell from the scene
+				queue_free();
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
@@ -264,6 +271,10 @@ void Cell::_process(double delta) {
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
 			this->set_angular_damp(10.0);
+			// Create NutrientZone
+			this->emit_signal("cell_death", this);
+			// Remove the Cell from the scene
+			queue_free();
 		}
 	}
 }

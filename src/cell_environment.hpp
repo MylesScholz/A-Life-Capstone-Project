@@ -29,6 +29,8 @@ public:
 	void setNNutrientZones(const int);
 	int getNNutrientZones() const;
 
+	void _on_cell_death(Cell *);
+
 private:
 	int _nNutrientZones;
 	Ref<PackedScene> _nutrientZoneScene;
