@@ -27,6 +27,7 @@ NutrientZone::NutrientZone() {
 	_feedingRate = 0.1;
 	_regenerationRate = 1.0;
 	_feedingCells = Vector<Cell *>();
+	_deleteOnEmpty = false;
 }
 NutrientZone::~NutrientZone() {}
 
@@ -103,18 +104,27 @@ void NutrientZone::setFeedingRate(const float feedingRate) {
 float NutrientZone::getFeedingRate() const { return _feedingRate; }
 
 void NutrientZone::setRegenerationRate(const float regenerationRate) {
-	if (regenerationRate > 0)
+	if (regenerationRate >= 0)
 		_regenerationRate = regenerationRate;
 }
 float NutrientZone::getRegenerationRate() const { return _regenerationRate; }
 
 Sprite2D *NutrientZone::getSprite() { return _sprite; }
 
+void NutrientZone::setDeleteOnEmpty(const bool deleteOnEmpty) { _deleteOnEmpty = deleteOnEmpty; }
+
+bool NutrientZone::getDeleteOnEmpty() const { return _deleteOnEmpty; }
+
 void NutrientZone::_ready() {
 	this->connect("body_entered", Callable(this, "_on_body_entered"));
 	this->connect("body_exited", Callable(this, "_on_body_exited"));
 
 	_sprite = this->get_node<Sprite2D>("Sprite2D");
+
+	// If spawned with no nutrients, delete the NutrientZone
+	if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {
+		queue_free();
+	}
 }
 void NutrientZone::_process(float delta) {
 	// Regenerate nutrients
@@ -132,6 +142,11 @@ void NutrientZone::_process(float delta) {
 		// The NutrientZone may not have enough nutrients for the calculated feeding amount,
 		// so decrement the total nutrients and get the actual amount decremented (the return value)
 		float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
+
+		// Delete the NutrientZone if it is empty and set to delete on empty (Note: will not delete unless trying to feed a Cell, should not be a problem)
+		if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {
+			queue_free();
+		}
 		// Feed the current Cell the actual feeding amount
 		_feedingCells[i]->incrementNutrients(actualFeedingAmount);
 	}

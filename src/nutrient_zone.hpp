@@ -38,6 +38,9 @@ public:
 	void setRegenerationRate(const float);
 	float getRegenerationRate() const;
 
+	void setDeleteOnEmpty(const bool);
+	bool getDeleteOnEmpty() const;
+
 	Sprite2D *getSprite();
 
 	void _ready();
@@ -50,4 +53,5 @@ private:
 	float _regenerationRate;
 	Sprite2D *_sprite;
 	Vector<Cell *> _feedingCells;
+	bool _deleteOnEmpty;
 };
