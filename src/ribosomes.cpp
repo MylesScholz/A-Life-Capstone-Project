@@ -44,6 +44,9 @@ Ribosomes::Ribosomes() {
 Ribosomes::~Ribosomes() {}
 
 void Ribosomes::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	bool thresholdCondition = false;
 
 	// Check whether these Ribosomes listen to "nutrients" or "energy" to determine activation
@@ -71,6 +74,9 @@ void Ribosomes::activate(CellState *cellState) {
 		cellState->incrementTotalEnergy(-_efficiency * _strength);
 		// Increment the nutrients based on the strength, conversion rate (nutrients:energy), and efficiency of these Ribosomes
 		cellState->incrementTotalNutrients(_efficiency * _conversionRate * _strength);
+
+		this->getSprite()->set_frame(1);
+		this->getSprite()->play("activate");
 	}
 }
 
@@ -144,7 +150,7 @@ void Ribosomes::setThresholdType(const String thresholdType) {
 String Ribosomes::getThresholdType() const { return _thresholdType; }
 
 void Ribosomes::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 }

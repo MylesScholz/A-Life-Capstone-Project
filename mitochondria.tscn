@@ -1,11 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgm2tf2frjsuw"]
+[gd_scene load_steps=4 format=3 uid="uid://dgm2tf2frjsuw"]
 
-[ext_resource type="Texture2D" uid="uid://dta8ucnffe3ld" path="res://Mitochondria.png" id="1_t63am"]
+[ext_resource type="Texture2D" uid="uid://dta8ucnffe3ld" path="res://sprites/Mitochondria/Mitochondria.png" id="1_y4sua"]
+[ext_resource type="Texture2D" uid="uid://f52f22d765fg" path="res://sprites/Mitochondria/MitochondriaActivated.png" id="2_7ekrb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ugb65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y4sua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ekrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_y4sua")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 10.0
+}]
 
 [node name="Mitochondria" type="Mitochondria"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 position = Vector2(13.9458, -30.4625)
 scale = Vector2(0.0739614, 0.0739614)
-texture = ExtResource("1_t63am")
+sprite_frames = SubResource("SpriteFrames_ugb65")
+animation = &"activate"
+frame = 2
+frame_progress = 1.0

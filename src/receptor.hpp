@@ -1,7 +1,7 @@
 #pragma once
 
+#include <godot_cpp/classes/animated_sprite2d.hpp>
 #include <godot_cpp/classes/area2d.hpp>
-#include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
@@ -21,12 +21,15 @@ public:
 
 	void setScale(const float);
 
-	void setSprite(Sprite2D *);
-	Sprite2D *getSprite();
+	int getNNutrientZones() const;
+
+	void setSprite(AnimatedSprite2D *);
+	AnimatedSprite2D *getSprite();
 
 	void _ready() override;
 
 private:
+	int _nNutrientZones;
 	float _baseSpriteScale;
-	Sprite2D *_sprite;
+	AnimatedSprite2D *_sprite;
 };

@@ -1,11 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://xrmkxnl40oq3"]
+[gd_scene load_steps=4 format=3 uid="uid://xrmkxnl40oq3"]
 
-[ext_resource type="Texture2D" uid="uid://ftm20f5a6seu" path="res://Ribosomes.png" id="1_auepq"]
+[ext_resource type="Texture2D" uid="uid://ftm20f5a6seu" path="res://sprites/Ribosomes/Ribosomes.png" id="1_auepq"]
+[ext_resource type="Texture2D" uid="uid://bl128i8m40qdl" path="res://sprites/Ribosomes/RibosomesActivated.png" id="2_ly5y4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p7tnh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_auepq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ly5y4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_auepq")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 10.0
+}]
 
 [node name="Ribosomes" type="Ribosomes"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 position = Vector2(1.24263, 4.99999)
 scale = Vector2(0.0923788, 0.0923788)
-texture = ExtResource("1_auepq")
+sprite_frames = SubResource("SpriteFrames_p7tnh")
+animation = &"activate"
+frame = 2
+frame_progress = 1.0

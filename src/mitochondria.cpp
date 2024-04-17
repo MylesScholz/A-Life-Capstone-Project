@@ -44,6 +44,9 @@ Mitochondria::Mitochondria() {
 Mitochondria::~Mitochondria() {}
 
 void Mitochondria::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	bool thresholdCondition = false;
 
 	// Check whether these Mitochondria listen to "nutrients" or "energy" to determine activation
@@ -71,6 +74,9 @@ void Mitochondria::activate(CellState *cellState) {
 		cellState->incrementTotalNutrients(-_efficiency * _strength);
 		// Increment the energy based on the strength, conversion rate (energy:nutrients), and efficiency of these Mitochondria
 		cellState->incrementTotalEnergy(_efficiency * _conversionRate * _strength);
+
+		this->getSprite()->set_frame(1);
+		this->getSprite()->play("activate");
 	}
 }
 
@@ -144,7 +150,7 @@ void Mitochondria::setThresholdType(const String thresholdType) {
 String Mitochondria::getThresholdType() const { return _thresholdType; }
 
 void Mitochondria::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 }

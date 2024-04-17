@@ -2,7 +2,8 @@
 
 #include "cell_state.hpp"
 
-#include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/animated_sprite2d.hpp>
+#include <godot_cpp/classes/sprite_frames.hpp>
 
 using namespace godot;
 
@@ -34,8 +35,9 @@ public:
 
 	float getScale() const;
 
-	void setSprite(Sprite2D *);
-	Sprite2D *getSprite();
+	void setSprite(AnimatedSprite2D *);
+	AnimatedSprite2D *getSprite();
+	Size2 getSpriteSize();
 
 private:
 	float _creationNutrientCost;
@@ -43,5 +45,5 @@ private:
 	float _creationEnergyCost;
 	float _maintenanceEnergyCost;
 	float _scale;
-	Sprite2D *_sprite;
+	AnimatedSprite2D *_sprite;
 };
