@@ -73,7 +73,10 @@ void Cell::seteq(Cell *otherCell) {
 
 	// Not sure if this makes sense to do
 	_spriteSize = otherCell->getSpriteSize();
-	applyScale(otherCell->getScale());
+
+	float newScale = otherCell->getScale() * (sqrt(2) / 2);
+	applyScale(newScale);
+	otherCell->applyScale(newScale);
 }
 
 Cell::Cell() {
