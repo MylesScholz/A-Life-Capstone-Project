@@ -64,6 +64,9 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setReproductionEnergyCost(otherCell->_cellState->getReproductionEnergyCost());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
 	_cellState->setEnergyMaximum(otherCell->_cellState->getEnergyMaximum());
+	_cellState->setScale(otherCell->_cellState->getScale());
+
+	set_mass(otherCell->get_mass());
 
 	// Not sure if this makes sense to do
 	_spriteSize = otherCell->getSpriteSize();
