@@ -1,6 +1,6 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
-#include "stats_counter.hpp"
+#include "stats.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 

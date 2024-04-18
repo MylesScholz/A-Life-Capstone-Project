@@ -11,7 +11,7 @@
 #include "reset_button.hpp"
 #include "ribosomes.hpp"
 #include "start_button.hpp"
-#include "stats_counter.hpp"
+#include "stats.hpp"
 #include "time_counter.hpp"
 
 #include <gdextension_interface.h>
@@ -36,7 +36,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Flagella>();
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
-	ClassDB::register_class<StatsCounter>();
+	ClassDB::register_class<Stats>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {

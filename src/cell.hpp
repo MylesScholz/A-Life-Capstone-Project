@@ -10,6 +10,8 @@
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
+#include <godot_cpp/classes/camera2d.hpp>
+#include <godot_cpp/classes/panel.hpp>
 
 using namespace godot;
 

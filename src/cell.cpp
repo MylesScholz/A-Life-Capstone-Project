@@ -4,7 +4,7 @@
 #include "nucleus.hpp"
 #include "ribosomes.hpp"
 
-#include "stats_counter.hpp"
+#include "stats.hpp"
 #include "cell_spawner.hpp"
 
 #include <godot_cpp/classes/input.hpp>
@@ -188,29 +188,33 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
  
         //Object* stats_container = ResourceLoader::get_singleton()->load("res://StatsContainer.gd");
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
+
+		emit_signal("cell_selected");
 		
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/TabContainer/StatsCounter");
+		Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
+		Panel *selectpanel = spawner->get_node<Panel>("UI/NavBar/CellSelectPanel");
+		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 
-		emit_signal("cell_selected", this);
+		ui_cam->call("zoom_on_cell", this);
+		selectpanel->call("on_cell_select", this);
 		
-		statsCounter->_update_Stats(this);
-		//statsCounter->_update_signal(this);
+		stats->_update_Stats(this);
     }
 }
 
 Array Cell::getStats() const {
 
-    Array stats;
-    stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
-    stats.push_back(_cellState->getAlive());    // index 1
-	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
-	stats.push_back(Math::round(getScale() * 1000000) / 1000000.00);
+    Array stats_array;
+    stats_array.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
+    stats_array.push_back(_cellState->getAlive());    // index 1
+	stats_array.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
+	stats_array.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
+	stats_array.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
+	stats_array.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
+	stats_array.push_back(Math::round(getScale() * 1000000) / 1000000.00);
     // Continue adding stats in a specific order
-    return stats;
+    return stats_array;
 }
 
 // function updates on cell contacts. Increments counter for use in

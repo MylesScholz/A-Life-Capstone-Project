@@ -5,6 +5,7 @@ var drag_offset = Vector2()
 
 var bar_panel = null
 var open_button = null
+var s_key_was_pressed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,9 +16,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_key_pressed(KEY_S) and not bar_panel.visible:
-		visible = true
-		open_button.visible = false
+	if Input.is_key_pressed(KEY_S):
+		if not s_key_was_pressed and not bar_panel.visible:
+			visible = !visible
+			open_button.visible = !open_button.visible
+			s_key_was_pressed = true
+	else:
+		s_key_was_pressed = false
 
 func _on_stats_exit_button_pressed():
 	visible = false
