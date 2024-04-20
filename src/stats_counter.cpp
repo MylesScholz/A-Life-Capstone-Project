@@ -16,12 +16,13 @@ StatsCounter::~StatsCounter() {}
 
 void StatsCounter::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
-
-	update_counter++;
-	if (update_counter >= 300) {
-		update_counter = 0;
-		if (selected_cell) { // Update every 10 frames
-			_update_Stats(selected_cell);
+	if (delta != 0) {
+		update_counter++;
+		if (update_counter >= 300) {
+			update_counter = 0;
+			if (selected_cell) { // Update every 10 frames
+				_update_Stats(selected_cell);
+			}
 		}
 	}
 }

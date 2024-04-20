@@ -8,10 +8,13 @@ func _pressed():
 	rootNode.get_node("CellSpawner/UI/MenuPanels/SimSettingsMenuPanel").visible = false
 	
 	if (!GlobalVariables.used_pause_button):
+		print("unpausing")
 		var pauseButton = rootNode.get_node("CellSpawner/UI/NavBar/PauseButton")
-		pauseButton.get_child(!get_tree().paused).visible = false # Change pause button visually
-		pauseButton.get_child(get_tree().paused).visible = true
-		get_tree().paused = !get_tree().paused # Pause and unpause
+		pauseButton.get_child(GlobalVariables.used_pause_button).visible = false # Change pause button visually
+		pauseButton.get_child(!GlobalVariables.used_pause_button).visible = true
+		GlobalVariables.time_scale_backup_two = Engine.time_scale # Pause and unpause
+		Engine.time_scale = GlobalVariables.time_scale_backup_one
+		GlobalVariables.time_scale_backup_one = GlobalVariables.time_scale_backup_two
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

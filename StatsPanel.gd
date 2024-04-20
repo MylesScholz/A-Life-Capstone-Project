@@ -9,7 +9,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var bar_panel = get_parent().get_node("BarPanel")
 	if Input.is_key_pressed(KEY_S) and not bar_panel.visible:
 		visible = true
