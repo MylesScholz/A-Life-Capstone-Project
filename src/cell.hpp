@@ -9,6 +9,7 @@
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 #include <godot_cpp/classes/rigid_body2d.hpp>
+#include <godot_cpp/classes/sprite_frames.hpp>
 #include <godot_cpp/templates/vector.hpp>
 
 using namespace godot;
@@ -33,13 +34,18 @@ public:
 	void applyScale(const float);
 	float getScale() const;
 
+	float incrementNutrients(const float);
+
 	Size2 getSpriteSize() const;
+
 	void resetCollisions();
+
 	void setImmortal(bool);
 
 	void _ready() override;
 	void _process(double) override;
 	void _on_body_entered(Node *body);
+	void _on_cell_growth();
 
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
 	Array getStats() const;

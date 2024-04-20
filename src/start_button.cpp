@@ -33,4 +33,10 @@ void StartButton::_pressed() {
 	for (int i = 0; i < spawner->getNumCells(); i++) {		
 		spawner->spawnCell();
 	}
+
+	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
+	environment->removeAllNutrientZones();
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
+	}
 }

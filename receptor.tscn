@@ -1,6 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb161r1t8cx6m"]
+[gd_scene load_steps=5 format=3 uid="uid://bb161r1t8cx6m"]
 
-[ext_resource type="Texture2D" uid="uid://bpqggyeprblio" path="res://Receptor.png" id="1_md2ys"]
+[ext_resource type="Texture2D" uid="uid://bpqggyeprblio" path="res://sprites/Receptor/Receptor.png" id="1_md2ys"]
+[ext_resource type="Texture2D" uid="uid://xky1u5ef0aur" path="res://sprites/Receptor/ReceptorActivated.png" id="2_yjoyf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6iwjq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_md2ys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_yjoyf")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_becq6"]
 radius = 28.0
@@ -8,9 +23,10 @@ height = 102.0
 
 [node name="Receptor" type="Receptor"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_md2ys")
+sprite_frames = SubResource("SpriteFrames_6iwjq")
+animation = &"activate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.15, 0.15)

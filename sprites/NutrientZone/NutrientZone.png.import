@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dta8ucnffe3ld"
-path="res://.godot/imported/Mitochondria.png-e9a1bd61d28b00d077825abf6e7b712e.ctex"
+uid="uid://q37a7gray3ag"
+path="res://.godot/imported/NutrientZone.png-4614da58c27f309b0195946b3edb1df7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mitochondria.png"
-dest_files=["res://.godot/imported/Mitochondria.png-e9a1bd61d28b00d077825abf6e7b712e.ctex"]
+source_file="res://sprites/NutrientZone/NutrientZone.png"
+dest_files=["res://.godot/imported/NutrientZone.png-4614da58c27f309b0195946b3edb1df7.ctex"]
 
 [params]
 

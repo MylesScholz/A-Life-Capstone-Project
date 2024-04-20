@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b308m8851jwvb"
-path="res://.godot/imported/CellMembrane.png-0d851785c9cd69c3693cbb46006aafa4.ctex"
+uid="uid://damshe10xbbwk"
+path="res://.godot/imported/NucleusActivated.png-f58102305f0666abe8d0bd911909d06a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CellMembrane.png"
-dest_files=["res://.godot/imported/CellMembrane.png-0d851785c9cd69c3693cbb46006aafa4.ctex"]
+source_file="res://sprites/Nucleus/NucleusActivated.png"
+dest_files=["res://.godot/imported/NucleusActivated.png-f58102305f0666abe8d0bd911909d06a.ctex"]
 
 [params]
 

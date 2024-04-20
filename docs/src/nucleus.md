@@ -14,6 +14,7 @@ Description: the Nucleus class is CellStructure that manages reproduction
 
 ### Methods
 - void activate(CellState *cellState) override: an activation function that begins cell reproduction if the nutrient and energy thresholds are met
+- void modify(String modifierName, float modifierValue): sets relevant attributes based on a modifier Gene name and value; responds to ACTIVATION_THRESHOLD Genes
 
 - void setReproductionNutrientThreshold(const float reproductionNutrientThreshold): sets _reproductionNutrientThreshold to the given value if it is > 0.0
 - float getReproductionNutrientThreshold() const: returns _reproductionNutrientThreshold

@@ -16,7 +16,7 @@ void CellStructure::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
-	_sprite = this->get_node<Sprite2D>("Sprite2D");
+	_sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (_sprite) {
 		_sprite->apply_scale(Vector2(scale, scale));
 		Vector2 offset = _sprite->get_position();
@@ -52,5 +52,9 @@ float CellStructure::getMaintenanceEnergyCost() const { return _maintenanceEnerg
 
 float CellStructure::getScale() const { return _scale; }
 
-void CellStructure::setSprite(Sprite2D *sprite) { _sprite = sprite; }
-Sprite2D *CellStructure::getSprite() { return _sprite; }
+void CellStructure::setSprite(AnimatedSprite2D *sprite) { _sprite = sprite; }
+AnimatedSprite2D *CellStructure::getSprite() { return _sprite; }
+Size2 CellStructure::getSpriteSize() {
+	if (_sprite)
+		return _sprite->get_sprite_frames()->get_frame_texture("activate", 0)->get_size();
+}

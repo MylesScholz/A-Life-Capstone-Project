@@ -1,6 +1,12 @@
 #include "cell_membrane.hpp"
 
 void CellMembrane::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_activation_threshold", "activation_threshold"), &CellMembrane::setActivationThreshold);
+	ClassDB::bind_method(D_METHOD("get_activation_threshold"), &CellMembrane::getActivationThreshold);
+	ClassDB::add_property("CellMembrane", PropertyInfo(Variant::FLOAT, "activation_threshold"), "set_activation_threshold", "get_activation_threshold");
+
+	ADD_SIGNAL(MethodInfo("cell_growth"));
+
 	ClassDB::bind_method(D_METHOD("_on_receptor_activated", "receptor"), &CellMembrane::_on_receptor_activated);
 	ClassDB::bind_method(D_METHOD("_on_receptor_deactivated", "receptor"), &CellMembrane::_on_receptor_deactivated);
 
@@ -9,6 +15,8 @@ void CellMembrane::_bind_methods() {
 }
 
 CellMembrane::CellMembrane() {
+	_activationThreshold = 0.95;
+	_growthCap = 1.0;
 	_nReceptors = 0.0;
 	_receptors = Vector<Receptor *>();
 	_activatedReceptors = Vector<Receptor *>();
@@ -18,6 +26,9 @@ CellMembrane::~CellMembrane() {
 }
 
 void CellMembrane::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	Vector<Vector2> receptorVectors = Vector<Vector2>();
 
 	// Add the position vector of each activated receptor to a new list
@@ -27,6 +38,13 @@ void CellMembrane::activate(CellState *cellState) {
 
 	// Update the cell state with the list of position vectors of activated receptors
 	cellState->setReceptorVectors(receptorVectors);
+
+	// Check that both nutrients and energy meet the activation threshold
+	bool thresholdCondition = cellState->getTotalNutrients() >= _activationThreshold * cellState->getNutrientMaximum() && cellState->getTotalEnergy() >= _activationThreshold * cellState->getEnergyMaximum();
+
+	// If the threshold is met and the cellState's current scale does not exceed the growth cap, emit a growth signal
+	if (thresholdCondition && cellState->getScale() * cellState->getGrowthRate() < _growthCap)
+		this->emit_signal("cell_growth");
 }
 void CellMembrane::modify(String modifierName, float modifierValue) {
 	/*
@@ -34,6 +52,9 @@ void CellMembrane::modify(String modifierName, float modifierValue) {
 	 * N_SUBSTRUCTURES: creates given number of Receptors
 	 */
 
+	if (modifierName == "GROWTH_CAP") {
+		setGrowthCap(modifierValue);
+	}
 	if (modifierName == "N_SUBSTRUCTURES") {
 		setNReceptors(modifierValue);
 	}
@@ -46,11 +67,7 @@ void CellMembrane::applyScale(const float scale) {
 }
 
 void CellMembrane::_on_receptor_activated(Receptor *receptor) {
-	// Check if the receptor is already activated
-	int index = _activatedReceptors.find(receptor);
-	if (index < 0)
-		// If not, add the receptor to the local list of activated receptors
-		_activatedReceptors.push_back(receptor);
+	_activatedReceptors.push_back(receptor);
 }
 void CellMembrane::_on_receptor_deactivated(Receptor *receptor) {
 	// Find the receptor in the local list of activated receptors
@@ -59,6 +76,18 @@ void CellMembrane::_on_receptor_deactivated(Receptor *receptor) {
 		// If found, remove the receptor
 		_activatedReceptors.remove_at(index);
 }
+
+void CellMembrane::setActivationThreshold(const float activationThreshold) {
+	if (activationThreshold >= 0 && activationThreshold <= 1)
+		_activationThreshold = activationThreshold;
+}
+float CellMembrane::getActivationThreshold() const { return _activationThreshold; }
+
+void CellMembrane::setGrowthCap(const float growthCap) {
+	if (growthCap > 0 && growthCap <= 1.0)
+		_growthCap = growthCap;
+}
+float CellMembrane::getGrowthCap() const { return _growthCap; }
 
 void CellMembrane::setNReceptors(const int nReceptors) {
 	if (nReceptors >= 0 && nReceptors <= 10) {
@@ -72,7 +101,7 @@ Vector<Receptor *> CellMembrane::getReceptors() { return _receptors; }
 Vector<Receptor *> CellMembrane::getActivatedReceptors() { return _activatedReceptors; }
 
 void CellMembrane::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 

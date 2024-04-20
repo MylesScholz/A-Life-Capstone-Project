@@ -1,9 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx652d7pu2ewi"]
+[gd_scene load_steps=4 format=3 uid="uid://dx652d7pu2ewi"]
 
-[ext_resource type="Texture2D" uid="uid://b308m8851jwvb" path="res://CellMembrane.png" id="1_ydti7"]
+[ext_resource type="Texture2D" uid="uid://b308m8851jwvb" path="res://sprites/CellMembrane/CellMembrane.png" id="1_oiqwk"]
+[ext_resource type="Texture2D" uid="uid://cophgp5mauirl" path="res://sprites/CellMembrane/CellMembraneActivated.png" id="2_gmnoc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2jdpw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oiqwk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gmnoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_oiqwk")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 10.0
+}]
 
 [node name="CellMembrane" type="CellMembrane"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.087, 0.087)
-texture = ExtResource("1_ydti7")
+sprite_frames = SubResource("SpriteFrames_2jdpw")
+animation = &"activate"
+frame = 2
+frame_progress = 1.0

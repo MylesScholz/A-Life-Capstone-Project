@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ftm20f5a6seu"
-path="res://.godot/imported/Ribosomes.png-d7ac2b7bcba1979c01ae04a1b4b19ea8.ctex"
+uid="uid://dt0xfqxga5ter"
+path="res://.godot/imported/Nucleus.png-e35c06d0020786064b46e8e20f797f79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Ribosomes.png"
-dest_files=["res://.godot/imported/Ribosomes.png-d7ac2b7bcba1979c01ae04a1b4b19ea8.ctex"]
+source_file="res://sprites/Nucleus/Nucleus.png"
+dest_files=["res://.godot/imported/Nucleus.png-e35c06d0020786064b46e8e20f797f79.ctex"]
 
 [params]
 

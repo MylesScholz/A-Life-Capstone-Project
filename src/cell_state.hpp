@@ -21,7 +21,8 @@ public:
 
 	void setBirthTime(const int);
 	float getBirthTime() const;
-	float getAge(const int) const;
+	float getAge() const;
+	void increaseAge(const float);
 
 	void setLifespan(const float);
 	float getLifespan() const;
@@ -36,6 +37,9 @@ public:
 	void setReproductionNutrientCost(const float);
 	float getReproductionNutrientCost() const;
 
+	void setGrowthNutrientCost(const float);
+	float getGrowthNutrientCost() const;
+
 	void setTotalNutrients(const float);
 	void incrementTotalNutrients(const float);
 	float getTotalNutrients() const;
@@ -49,12 +53,18 @@ public:
 	void setReproductionEnergyCost(const float);
 	float getReproductionEnergyCost() const;
 
+	void setGrowthEnergyCost(const float);
+	float getGrowthEnergyCost() const;
+
 	void setTotalEnergy(const float);
 	void incrementTotalEnergy(const float);
 	float getTotalEnergy() const;
 
 	void setEnergyMaximum(const float);
 	float getEnergyMaximum() const;
+
+	void setGrowthRate(const float);
+	float getGrowthRate() const;
 
 	void setNextMovementVector(const Vector2);
 	Vector2 getNextMovementVector() const;
@@ -66,17 +76,22 @@ public:
 
 private:
 	bool _alive;
+	float _age;
 	float _birthTime;
+	float _deathTime;
 	float _lifespan;
 	float _scale;
 	float _homeostasisNutrientCost;
 	float _reproductionNutrientCost;
+	float _growthNutrientCost;
 	float _totalNutrients;
 	float _nutrientMaximum;
 	float _homeostasisEnergyCost;
 	float _reproductionEnergyCost;
+	float _growthEnergyCost;
 	float _totalEnergy;
 	float _energyMaximum;
+	float _growthRate;
 	Vector2 _nextMovementVector;
 	Vector<Vector2> _receptorVectors;
 };

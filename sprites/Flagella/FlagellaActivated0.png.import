@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oummc6xippob"
-path="res://.godot/imported/BlueCell.png-f997ffc4632bbf5962e3692f90e48437.ctex"
+uid="uid://bhreen2eblb2f"
+path="res://.godot/imported/FlagellaActivated0.png-1b466659bd366d8a22d19dcdac9ebea3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BlueCell.png"
-dest_files=["res://.godot/imported/BlueCell.png-f997ffc4632bbf5962e3692f90e48437.ctex"]
+source_file="res://sprites/Flagella/FlagellaActivated0.png"
+dest_files=["res://.godot/imported/FlagellaActivated0.png-1b466659bd366d8a22d19dcdac9ebea3.ctex"]
 
 [params]
 

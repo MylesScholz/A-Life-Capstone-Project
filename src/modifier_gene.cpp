@@ -45,6 +45,7 @@ ModifierGene *randomModifierGene() {
 		"ACTIVATION_THRESHOLD",
 		"STRENGTH",
 		"CONVERSION_RATE",
+		"GROWTH_CAP",
 		"ACTIVATION_RESOURCE",
 		"THRESHOLD_TYPE",
 		"N_SUBSTRUCTURES"
@@ -74,6 +75,9 @@ ModifierGene *randomModifierGene() {
 	}
 	if (randType == "CONVERSION_RATE") {
 		return boundedValueModifierGene(randType, 0, 10);
+	}
+	if (randType == "GROWTH_CAP") {
+		return boundedValueModifierGene(randType, 0.25, 1);
 	}
 	if (randType == "ACTIVATION_RESOURCE") {
 		return discreteValueModifierGene(randType, binaryValues);

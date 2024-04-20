@@ -1,4 +1,5 @@
 #include "cell.hpp"
+#include "cell_environment.hpp"
 #include "cell_membrane.hpp"
 #include "flagella.hpp"
 #include "mitochondria.hpp"
@@ -31,10 +32,15 @@
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
-	ClassDB::bind_method(D_METHOD("getScale"), &Cell::getScale);
 
 	ClassDB::bind_method(D_METHOD("getStats"), &Cell::getStats);
+
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
+
+	ClassDB::bind_method(D_METHOD("_on_cell_growth"), &Cell::_on_cell_growth);
+	ADD_SIGNAL(MethodInfo("cell_growth"));
+
+	ADD_SIGNAL(MethodInfo("cell_death"));
 }
 
 int Cell::CollisionCount = 0;
@@ -160,7 +166,10 @@ void Cell::keepCellsInBackground() {
 	for (auto &structure : _cellStructures) {
 		if (structure) {
 			this->set_z_index(-2);
-			structure->set_z_index(0);
+			if (structure->get_class() == "Flagella")
+				structure->set_z_index(-1);
+			else
+				structure->set_z_index(0);
 		}
 	}
 }
@@ -169,11 +178,28 @@ void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
+	_cellState = this->get_node<CellState>("CellState");
+	if (_cellState && _cellState->getScale() * scale > 1)
+		return;
+
 	// Apply the scaling to the collision shape, sprite, and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
-	this->get_node<CellState>("CellState")->applyScale(scale);
+	_cellState->applyScale(scale);
 
-	// Apply scaling to mass; scale is squared because mass is proportional to area
+	// Apply scaling to nutrient and energy maxima; capacity is analogous to area for a circle,
+	// so the area scaling ratio is the linear scaling ratio (s) squared:
+	// A2 / A1
+	// (pi * r2 ^ 2) / (pi * r1 ^ 2)
+	// r2 = s * r1
+	// (s ^ 2 * r1 ^ 2) / (r1 ^ 2)
+	// s ^ 2
+	float newNutrientMaximum = _cellState->getNutrientMaximum() * scale * scale;
+	_cellState->setNutrientMaximum(newNutrientMaximum);
+
+	float newEnergyMaximum = _cellState->getEnergyMaximum() * scale * scale;
+	_cellState->setEnergyMaximum(newEnergyMaximum);
+
+	// Apply scaling to mass; scale is squared because mass is proportional to area for a circle
 	this->set_mass(this->get_mass() * scale * scale);
 
 	// Apply scaling to each CellStructure
@@ -182,8 +208,24 @@ void Cell::applyScale(const float scale) {
 			structure->applyScale(scale);
 	}
 }
+float Cell::getScale() const { return this->get_node<CellState>("CellState")->getScale(); }
 
-float Cell::getScale() const { return _cellState->getScale(); }
+float Cell::incrementNutrients(const float nutrients) {
+	// The actual nutrient increment may be less than the parameter value due to boundaries
+	float actualIncrement = 0;
+
+	if (_cellState->getTotalNutrients() + nutrients < 0) {
+		actualIncrement = -_cellState->getTotalNutrients();
+	} else if (_cellState->getTotalNutrients() + nutrients > _cellState->getNutrientMaximum()) {
+		actualIncrement = _cellState->getNutrientMaximum() - _cellState->getTotalNutrients();
+	} else {
+		actualIncrement = nutrients;
+	}
+	_cellState->incrementTotalNutrients(actualIncrement);
+
+	// Return the actual amount of nutrients incremented
+	return actualIncrement;
+}
 
 Size2 Cell::getSpriteSize() const { return _spriteSize; }
 
@@ -219,8 +261,10 @@ void Cell::_ready() {
 	_cellState->setReproductionEnergyCost(sumReproductionEnergyCost);
 
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
-	if (cellMembrane)
-		_spriteSize = cellMembrane->getSprite()->get_rect().size;
+	if (cellMembrane) {
+		_spriteSize = cellMembrane->getSpriteSize();
+		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
+	}
 }
 
 void Cell::_process(double delta) {
@@ -247,7 +291,8 @@ void Cell::_process(double delta) {
 		float energy = 100.0;
 		if (!immortal) {
 			nutrients = _cellState->getTotalNutrients();
-			ageDiff = _cellState->getAge(Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan();
+			_cellState->increaseAge(delta);
+			ageDiff = _cellState->getAge() - _cellState->getLifespan();
 			energy = _cellState->getTotalEnergy();
 		}
 		if (ageDiff > 0) {
@@ -261,6 +306,10 @@ void Cell::_process(double delta) {
 				// Stop Cell movement
 				this->set_linear_damp(10.0);
 				this->set_angular_damp(10.0);
+				// Create NutrientZone
+				this->emit_signal("cell_death", this);
+				// Remove the Cell from the scene
+				queue_free();
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
@@ -268,6 +317,10 @@ void Cell::_process(double delta) {
 			// Stop Cell movement
 			this->set_linear_damp(10.0);
 			this->set_angular_damp(10.0);
+			// Create NutrientZone
+			this->emit_signal("cell_death", this);
+			// Remove the Cell from the scene
+			queue_free();
 		}
 	}
 }
@@ -295,11 +348,13 @@ Array Cell::getStats() const {
 	Array stats;
 	stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
 	stats.push_back(_cellState->getAlive()); // index 1
-	stats.push_back(Math::round(_cellState->getAge((Time::get_singleton()->get_ticks_msec()) - _cellState->getLifespan()) * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getAge() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getEnergyMaximum() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
+	stats.push_back(Math::round(_cellState->getNutrientMaximum() * 1000.0) / 1000.0);
 	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
-	stats.push_back(Math::round(getScale() * 1000000) / 1000000.00);
+	stats.push_back(Math::round(_cellState->getScale() * 1000000) / 1000000.00);
 	// Continue adding stats in a specific order
 	return stats;
 }
@@ -307,3 +362,37 @@ Array Cell::getStats() const {
 // function updates on cell contacts. Increments counter for use in
 // stats_counter.cpp
 void Cell::_on_body_entered(Node *body) { CollisionCount++; }
+
+void Cell::_on_cell_growth() {
+	// Area (a)  is used for calculating the cost of growth
+	// a = pi * r^2
+	float area = Math_PI * _cellState->getScale() * _cellState->getScale();
+
+	// deltaArea (dA) is used for calculating the cost of growth
+	// dA = A - a
+	// dA = (pi * R^2) - (pi * r^2)
+	// dA = pi * (R^2 - r^2)
+	// R = s * r where s = _cellState->getGrowthRate()
+	// dA = pi * (s^2 * r^2 - r^2)
+	// dA = pi * r^2 * (s^2 - 1)
+	// dA = a * (s^2 - 1)
+	float deltaArea = area * (_cellState->getGrowthRate() * _cellState->getGrowthRate() - 1);
+
+	// Calculate the cost of growth in nutrients and energy
+	float growthNutrientCost = _cellState->getGrowthNutrientCost() * deltaArea;
+	float growthEnergyCost = _cellState->getGrowthEnergyCost() * deltaArea;
+
+	// Check that the Cell has sufficient nutrients and energy to grow
+	if (_cellState->getTotalNutrients() >= growthNutrientCost && _cellState->getTotalEnergy() >= growthEnergyCost) {
+		// Deduct the growth cost from the Cell
+		_cellState->incrementTotalNutrients(-growthNutrientCost);
+		_cellState->incrementTotalEnergy(-growthEnergyCost);
+
+		// Grow the Cell
+		applyScale(_cellState->getGrowthRate());
+
+		CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+		cellMembrane->getSprite()->set_frame(1);
+		cellMembrane->getSprite()->play("activate");
+	}
+}

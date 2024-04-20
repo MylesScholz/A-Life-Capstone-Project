@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yhqnn7yev434"
-path="res://.godot/imported/Flagella.png-db813770cefe8ad4a5d05d25c5a86140.ctex"
+uid="uid://bl128i8m40qdl"
+path="res://.godot/imported/RibosomesActivated.png-ff475980861f929d8d01a238764daa17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Flagella.png"
-dest_files=["res://.godot/imported/Flagella.png-db813770cefe8ad4a5d05d25c5a86140.ctex"]
+source_file="res://sprites/Ribosomes/RibosomesActivated.png"
+dest_files=["res://.godot/imported/RibosomesActivated.png-ff475980861f929d8d01a238764daa17.ctex"]
 
 [params]
 

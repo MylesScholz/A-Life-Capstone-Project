@@ -6,7 +6,7 @@ CellSpawner
 Inherits: Node  
 Inherited by: none  
 
-Description: The cell spawner is a node in the base scene which instantiates cells into the simulation. It takes multiple properties from the base scene, including a separate cell scene, which acts as a template for the cells that will be instantiated.
+Description: the CellSpawner is the root node of the project's main scene, containing the CellEnvironment and the UI. It instantiates Cells in the CellEnvironment when triggered by various UI events.
 
 ### Properties
 - _cellScene (Ref\<PackedScene\>): a reference to a Godot scene containing a Cell node which will be instantiated by the CellSpawner
@@ -28,7 +28,7 @@ Description: The cell spawner is a node in the base scene which instantiates cel
 - void setMaxForce(const float maxForce): sets _maxForce to the given value; does not allow _maxForce < _minForce
 - float getMaxForce() const: returns _maxForce
 
-- void spawnCell(): instantiates one Cell scene as a child of this Node; Cell placement, scaling, and initial force are randomized
+- void spawnCell(bool isImmortal): instantiates one Cell as a child of this Node; Cell placement, scaling, and initial force are randomized; Cell immortality is set to isImmortal
 
 - void _ready() override: runs once when the CellSpawner has been created and is ready to be used; disables this object running in the Godot Editor
 - void _on_cell_reproduction(Cell *cell): runs when a cell signals to reproduce. It then spawns a new cell which is a copy of the original. This is where mutation will take place once we implement it.

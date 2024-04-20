@@ -39,10 +39,10 @@ void StatsCounter::_update_Stats(Variant cell_instance) {
 		add_label("Birth Time: " + String(stats[0]));
 		add_label("Alive: " + String(stats[1]));
 		add_label("Age: " + String(stats[2]));
-		add_label("Energy: " + String(stats[3]));
-		add_label("Nutrients: " + String(stats[4]));
-		add_label("Mass: " + String(stats[5]) + " µg");
-		add_label("Size: " + String(stats[6]) + " µm");
+		add_label("Energy: " + String(stats[3]) + " / " + String(stats[4]));
+		add_label("Nutrients: " + String(stats[5]) + " / " + String(stats[6]));
+		add_label("Mass: " + String(stats[7]) + " µg");
+		add_label("Size: " + String(stats[8]) + " µm");
 	}
 }
 

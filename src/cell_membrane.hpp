@@ -7,6 +7,7 @@
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/templates/vector.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -27,6 +28,12 @@ public:
 	void _on_receptor_activated(Receptor *);
 	void _on_receptor_deactivated(Receptor *);
 
+	void setActivationThreshold(const float);
+	float getActivationThreshold() const;
+
+	void setGrowthCap(const float);
+	float getGrowthCap() const;
+
 	void setNReceptors(const int);
 	int getNReceptors() const;
 
@@ -45,6 +52,8 @@ private:
 
 	void _updateReceptors();
 
+	float _activationThreshold;
+	float _growthCap;
 	int _nReceptors;
 	Vector<Receptor *> _receptors;
 	Vector<Receptor *> _activatedReceptors;

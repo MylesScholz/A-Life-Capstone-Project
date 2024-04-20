@@ -65,7 +65,7 @@ void Nucleus::setReproductionEnergyThreshold(const float reproductionEnergyThres
 float Nucleus::getReproductionEnergyThreshold() const { return _reproductionEnergyThreshold; }
 
 void Nucleus::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 }

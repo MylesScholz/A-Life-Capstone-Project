@@ -15,8 +15,8 @@ Description: the Flagella class is a CellStructure that enables the randomized m
 -_activationEnergyThreshold (float): a float that defines the degree of force excerted onto the cell while these Flagella are activated
 
 ### Methods
-
-- void activate(CellState *) override: checks whether the CellState passes the activation threshold and that Flagella activation would not fully exert cell energy and if so, activates the Flagella
+- void activate(CellState *) override: checks whether the CellState passes the activation threshold and that Flagella activation would not fully exert cell energy and if so, activates the Flagella; if there are any activated receptors, the Flagella push toward the sum of their position vectors
+- - void modify(String modifierName, float modifierValue): sets relevant attributes based on a modifier Gene name and value; responds to N_SUBSTRUCTURES Genes
 
 - void setMovementForceVector(const Vector2): sets the _movementForceVector to the given value 
 - Vector2 getMovementForceVector() const: returns _movementForceVector

@@ -18,6 +18,7 @@ Description: the Ribosomes class is a CellStructure that converts energy into nu
 
 ### Methods
 - void activate(CellState *cellState): checks whether the given CellState passes the activation threshold and if so, converts energy to nutrients
+- - void modify(String modifierName, float modifierValue): sets relevant attributes based on a modifier Gene name and value; responds to ACTIVATION_THRESHOLD, STRENGTH, CONVERSION_RATE, ACTIVATION_RESOURCE, and THRESHOLD_TYPE Genes
 
 - void setActivationThreshold(const float activationThreshold): sets _activationThreshold to the given value if it is in [0.0, 1.0]
 - float getActivationThreshold() const: returns _activationThreshold

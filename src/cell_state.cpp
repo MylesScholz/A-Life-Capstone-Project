@@ -13,6 +13,10 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_reproduction_nutrient_cost"), &CellState::getReproductionNutrientCost);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_nutrient_cost"), "set_reproduction_nutrient_cost", "get_reproduction_nutrient_cost");
 
+	ClassDB::bind_method(D_METHOD("set_growth_nutrient_cost", "growth_nutrient_cost"), &CellState::setGrowthNutrientCost);
+	ClassDB::bind_method(D_METHOD("get_growth_nutrient_cost"), &CellState::getGrowthNutrientCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "growth_nutrient_cost"), "set_growth_nutrient_cost", "get_growth_nutrient_cost");
+
 	ClassDB::bind_method(D_METHOD("set_total_nutrients", "total_nutrients"), &CellState::setTotalNutrients);
 	ClassDB::bind_method(D_METHOD("get_total_nutrients"), &CellState::getTotalNutrients);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_nutrients"), "set_total_nutrients", "get_total_nutrients");
@@ -29,6 +33,10 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_reproduction_energy_cost"), &CellState::getReproductionEnergyCost);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "reproduction_energy_cost"), "set_reproduction_energy_cost", "get_reproduction_energy_cost");
 
+	ClassDB::bind_method(D_METHOD("set_growth_energy_cost", "growth_energy_cost"), &CellState::setGrowthEnergyCost);
+	ClassDB::bind_method(D_METHOD("get_growth_energy_cost"), &CellState::getGrowthEnergyCost);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "growth_energy_cost"), "set_growth_energy_cost", "get_growth_energy_cost");
+
 	ClassDB::bind_method(D_METHOD("set_total_energy", "total_energy"), &CellState::setTotalEnergy);
 	ClassDB::bind_method(D_METHOD("get_total_energy"), &CellState::getTotalEnergy);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "total_energy"), "set_total_energy", "get_total_energy");
@@ -36,6 +44,11 @@ void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_energy_maximum", "energy_maximum"), &CellState::setEnergyMaximum);
 	ClassDB::bind_method(D_METHOD("get_energy_maximum"), &CellState::getEnergyMaximum);
 	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "energy_maximum"), "set_energy_maximum", "get_energy_maximum");
+
+	ClassDB::bind_method(D_METHOD("set_growth_rate", "growth_rate"), &CellState::setGrowthRate);
+	ClassDB::bind_method(D_METHOD("get_growth_rate"), &CellState::getGrowthRate);
+	ClassDB::add_property("CellState", PropertyInfo(Variant::FLOAT, "growth_rate"), "set_growth_rate", "get_growth_rate");
+
 	ClassDB::bind_method(D_METHOD("get_age"), &CellState::getAge);
 	ClassDB::bind_method(D_METHOD("get_scale"), &CellState::getScale);
 	ClassDB::bind_method(D_METHOD("get_alive"), &CellState::getAlive);
@@ -43,28 +56,38 @@ void CellState::_bind_methods() {
 
 CellState::CellState() {
 	_alive = true;
+	_age = 0.0;
 	_birthTime = 0.0;
+	_deathTime = NULL;
 	_lifespan = 60.0;
 	_scale = 1.0;
 	_homeostasisNutrientCost = 1.0;
 	_reproductionNutrientCost = 50.0;
+	_growthNutrientCost = 1000.0;
 	_homeostasisEnergyCost = 1.0;
 	_reproductionEnergyCost = 50.0;
+	_growthEnergyCost = 1000.0;
 	_totalNutrients = 100.0;
 	_totalEnergy = 100.0;
 	_energyMaximum = 100.0;
 	_nutrientMaximum = 100.0;
+	_growthRate = 1.01;
 	_nextMovementVector = Vector2();
 	_receptorVectors = Vector<Vector2>();
 }
 CellState::~CellState() {}
 
-void CellState::setAlive(const bool alive) { _alive = alive; }
+void CellState::setAlive(const bool alive) {
+	if (_alive && !alive) // If killing a Cell the first time
+		_deathTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
+	_alive = alive;
+}
 bool CellState::getAlive() const { return _alive; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }
-float CellState::getAge(const int currentMsec) const { return (currentMsec / 1000.0) - _birthTime; }
+float CellState::getAge() const { return _age; }
+void CellState::increaseAge(const float delta) { _age += delta; }
 
 void CellState::setLifespan(const float lifespan) {
 	if (lifespan > 0)
@@ -91,6 +114,12 @@ void CellState::setReproductionNutrientCost(const float reproductionNutrientCost
 }
 float CellState::getReproductionNutrientCost() const { return _reproductionNutrientCost; }
 
+void CellState::setGrowthNutrientCost(const float growthNutrientCost) {
+	if (growthNutrientCost >= 0)
+		_growthNutrientCost = growthNutrientCost;
+}
+float CellState::getGrowthNutrientCost() const { return _growthNutrientCost; }
+
 void CellState::setTotalNutrients(const float totalNutrients) {
 	if (totalNutrients < 0)
 		_totalNutrients = 0;
@@ -110,8 +139,11 @@ void CellState::incrementTotalNutrients(const float nutrients) {
 float CellState::getTotalNutrients() const { return _totalNutrients; }
 
 void CellState::setNutrientMaximum(const float nutrientMaximum) {
-	if (nutrientMaximum >= 0)
+	if (nutrientMaximum >= 0) {
 		_nutrientMaximum = nutrientMaximum;
+		if (_totalNutrients > _nutrientMaximum)
+			_totalNutrients = _nutrientMaximum;
+	}
 }
 float CellState::getNutrientMaximum() const { return _nutrientMaximum; }
 
@@ -126,6 +158,12 @@ void CellState::setReproductionEnergyCost(const float reproductionEnergyCost) {
 		_reproductionEnergyCost = reproductionEnergyCost;
 }
 float CellState::getReproductionEnergyCost() const { return _reproductionEnergyCost; }
+
+void CellState::setGrowthEnergyCost(const float growthEnergyCost) {
+	if (growthEnergyCost >= 0)
+		_growthEnergyCost = growthEnergyCost;
+}
+float CellState::getGrowthEnergyCost() const { return _growthEnergyCost; }
 
 void CellState::setTotalEnergy(const float totalEnergy) {
 	if (totalEnergy < 0)
@@ -146,14 +184,21 @@ void CellState::incrementTotalEnergy(const float energy) {
 float CellState::getTotalEnergy() const { return _totalEnergy; }
 
 void CellState::setEnergyMaximum(const float energyMaximum) {
-	if (energyMaximum >= 0)
+	if (energyMaximum >= 0) {
 		_energyMaximum = energyMaximum;
+		if (_totalEnergy > _energyMaximum)
+			_totalEnergy = _energyMaximum;
+	}
 }
 float CellState::getEnergyMaximum() const { return _energyMaximum; }
 
-void CellState::setNextMovementVector(const Vector2 nextMovementVector) {
-	_nextMovementVector = nextMovementVector;
+void CellState::setGrowthRate(const float growthRate) {
+	if (growthRate > 1)
+		_growthRate = growthRate;
 }
+float CellState::getGrowthRate() const { return _growthRate; }
+
+void CellState::setNextMovementVector(const Vector2 nextMovementVector) { _nextMovementVector = nextMovementVector; }
 Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
 
 void CellState::setReceptorVectors(const Vector<Vector2> receptorVectors) { _receptorVectors = receptorVectors; }

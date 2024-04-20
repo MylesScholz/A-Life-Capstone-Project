@@ -36,6 +36,9 @@ Flagella::Flagella() {
 Flagella::~Flagella() {}
 
 void Flagella::activate(CellState *cellState) {
+	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
+		this->getSprite()->stop();
+
 	bool thresholdCondition = false;
 
 	if (cellState->getTotalEnergy() >= _activationEnergyCost) {
@@ -43,11 +46,26 @@ void Flagella::activate(CellState *cellState) {
 	}
 
 	if (thresholdCondition) {
-		float direction = rand->randf_range(0, 2 * Math_PI);
-		Vector2 force = _movementForceVector.rotated(direction);
+		// Sum the activated receptor vectors to get the direction towards a NutrientZone
+		Vector2 force = Vector2();
+		for (Vector2 receptorVector : cellState->getReceptorVectors())
+			force += receptorVector.normalized();
+		// Scale the force by the movement force vector magnitude and the size of the Cell
+		force *= _movementForceVector.length() * cellState->getScale();
 
+		// If there are no activated Receptors, move in a random direction
+		if (cellState->getReceptorVectors().size() == 0) {
+			float direction = rand->randf_range(0, 2 * Math_PI);
+			force = _movementForceVector.rotated(direction) * cellState->getScale();
+		}
+
+		// Set the next movement vector
 		cellState->setNextMovementVector(force);
-		cellState->incrementTotalEnergy(-_activationEnergyCost);
+		// Subtract the energy cost of activating the Flagella, scaled by the magnitude of the force
+		cellState->incrementTotalEnergy(-(_activationEnergyCost * force.length()));
+
+		this->getSprite()->set_frame(rand->randi_range(1, 2));
+		this->getSprite()->play("activate");
 	} else {
 		cellState->setNextMovementVector(Vector2(0, 0));
 	}
@@ -83,7 +101,7 @@ void Flagella::setActivationEnergyThreshold(const float activationEnergyThreshol
 float Flagella::getActivationEnergyThreshold() const { return _activationEnergyThreshold; }
 
 void Flagella::_ready() {
-	Sprite2D *sprite = this->get_node<Sprite2D>("Sprite2D");
+	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 }
