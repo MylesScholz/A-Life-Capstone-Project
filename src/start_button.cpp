@@ -3,6 +3,7 @@
 #include "time_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 #include "helpers.hpp"
 
@@ -31,6 +32,7 @@ void StartButton::_pressed() {
 	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
 
 	for (int i = 0; i < spawner->getNumCells(); i++) {
+		UtilityFunctions::print("Starting");
 		spawner->spawnCell();
 	}
 

@@ -26,4 +26,5 @@ public:
 
 private:
 	float _reproductionNutrientThreshold;
+	float _reproductionEnergyThreshold;
 };

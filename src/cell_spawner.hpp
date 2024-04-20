@@ -8,6 +8,8 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/viewport.hpp>
 
+#include "cell.hpp"
+
 using namespace godot;
 
 class CellSpawner : public Node {
@@ -37,6 +39,7 @@ public:
 	void removeAllCells();
 
 	void _ready() override;
+	void _on_cell_reproduction(Cell*);
 
 private:
 	Ref<PackedScene> _cellScene;

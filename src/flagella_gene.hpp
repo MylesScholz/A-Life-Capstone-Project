@@ -14,6 +14,8 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
+	FlagellaGene* clone() { return new FlagellaGene(*this); }
+
 private:
 	/* data */
 };
