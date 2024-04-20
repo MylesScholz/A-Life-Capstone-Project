@@ -110,7 +110,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	cellEnvironment->add_child(cell);
 	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
-	if(!isImmortal) // Do we want the cells on the title screen to be able to reproduce?
+	if (!isImmortal) // Do we want the cells on the title screen to be able to reproduce?
 		cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
@@ -118,6 +118,9 @@ void CellSpawner::spawnCell(bool isImmortal) {
 }
 
 void CellSpawner::_on_cell_reproduction(Cell *cell) {
+	// Create a RandomNumberGenerator object
+	RandomNumberGenerator rand = RandomNumberGenerator();
+
 	Node *childCell = _cellScene->instantiate();
 	Cell *cellObject = Object::cast_to<Cell>(childCell);
 
@@ -126,12 +129,12 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellObject->set_position(cell->get_position());
 
 	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework
-	float force_magnitude = rand->randf_range(_minForce, _maxForce);
-	float direction = rand->randf_range(0, 2 * Math_PI);
+	float force_magnitude = rand.randf_range(_minForce, _maxForce);
+	float direction = rand.randf_range(0, 2 * Math_PI);
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
-	cellObject->apply_torque(rand->randf_range(-500, 500));
+	cellObject->apply_torque(rand.randf_range(-500, 500));
 
 	this->get_node<CellEnvironment>("CellEnvironment")->add_child(childCell); // not 100% sure using a Cell* instead of a Node* will work here
 
@@ -152,7 +155,7 @@ void CellSpawner::removeAllCells() {
 
 void CellSpawner::_ready() {
 	DONT_RUN_IN_EDITOR;
-	
+
 	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
 #ifdef TESTS_ENABLED

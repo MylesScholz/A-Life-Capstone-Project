@@ -21,7 +21,6 @@ animations = [{
 }]
 
 [node name="Nucleus" type="Nucleus"]
-reproduction_nutrient_threshold = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1

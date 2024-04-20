@@ -19,3 +19,5 @@ shape = SubResource("CircleShape2D_x8tnr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CellState" type="CellState" parent="."]
+reproduction_nutrient_cost = 30.0
+reproduction_energy_cost = 30.0
