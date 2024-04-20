@@ -70,16 +70,13 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setReproductionEnergyCost(otherCell->_cellState->getReproductionEnergyCost());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
 	_cellState->setEnergyMaximum(otherCell->_cellState->getEnergyMaximum());
-	_cellState->setScale(otherCell->_cellState->getScale());
 
-	set_mass(otherCell->get_mass());
+	float halfArea = (sqrt(2) / 2);
+	otherCell->applyScale(halfArea);
+	applyScale(otherCell->_cellState->getScale());
 
 	// Not sure if this makes sense to do
 	_spriteSize = otherCell->getSpriteSize();
-
-	float newScale = otherCell->getScale() * (sqrt(2) / 2);
-	applyScale(newScale);
-	otherCell->applyScale(newScale);
 }
 
 Cell::Cell() {
