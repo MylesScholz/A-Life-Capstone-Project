@@ -136,7 +136,9 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 
 	cellObject->apply_torque(rand.randf_range(-500, 500));
 
-	this->get_node<CellEnvironment>("CellEnvironment")->add_child(childCell); // not 100% sure using a Cell* instead of a Node* will work here
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
+	cellEnvironment->add_child(childCell);
+	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }

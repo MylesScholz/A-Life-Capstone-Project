@@ -50,11 +50,11 @@ void Cell::seteq(Cell *otherCell) {
 	// Create new genome. Overwriting the existing one should destruct it
 	_cellGenome = Genome();
 
-	// copy genome of otherCell
-	for(int i=0; i < otherCell->_cellGenome.getSize(); ++i){
-		Gene* gene = otherCell->_cellGenome.getGene(i);
+	// Copy genome of otherCell
+	for (int i = 0; i < otherCell->_cellGenome.getSize(); ++i) {
+		Gene *gene = otherCell->_cellGenome.getGene(i);
 
-		Gene* newGene = gene->clone();
+		Gene *newGene = gene->clone();
 		_cellGenome.addGene(newGene);
 	}
 
@@ -90,7 +90,7 @@ Cell::Cell() {
 	// Instantiate the random number generator
 	_rand.instantiate();
 
-	//temp setup a genome for testing.
+	// Temporary genome for start screen
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -121,32 +121,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
-
-	/*
-		// Load a CellStructure scene
-		Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
-		// Instantiate the scene and cast it to the specific type
-		Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
-		// Add the CellStructure pointer to _cellStructures and as a child under this Cell
-		_cellStructures.push_back(nucleus);
-		this->add_child(nucleus);
-
-		Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
-		Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
-		_cellStructures.push_back(mitochondria);
-		this->add_child(mitochondria);
-
-		Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
-		Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
-		_cellStructures.push_back(ribosomes);
-		this->add_child(ribosomes);
-
-		Ref<PackedScene> flagella_scene = ResourceLoader::get_singleton()->load("res://flagella.tscn");
-		Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
-		_cellStructures.push_back(flagella);
-		this->add_child(flagella);
-	*/
-	_spriteSize = Size2();
 }
 Cell::~Cell() {
 	queue_free();
@@ -240,8 +214,11 @@ void Cell::setImmortal(bool isImmortal) {
 void Cell::_ready() {
 	// Add CellStructures using the cell genome
 	_cellStructures = _cellGenome.expressGenes();
-	for (int i = 0; i < _cellStructures.size(); i++) {
-		this->add_child(_cellStructures.get(i));
+	for (auto &structure : _cellStructures) {
+		this->add_child(structure);
+
+		if (structure->getScale() != _cellState->getScale())
+			structure->applyScale(_cellState->getScale() / structure->getScale());
 	}
 
 	this->set_pickable(true);
@@ -250,7 +227,7 @@ void Cell::_ready() {
 	float sumReproductionNutrientCost = 0;
 	float sumReproductionEnergyCost = 0;
 
-	for (CellStructure* structure: _cellStructures) {
+	for (CellStructure *structure : _cellStructures) {
 		sumReproductionNutrientCost += structure->getCreationNutrientCost();
 		sumReproductionEnergyCost += structure->getCreationEnergyCost();
 	}

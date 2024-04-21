@@ -14,7 +14,7 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
-	NucleusGene* clone() { return new NucleusGene(*this); }
+	NucleusGene *clone() { return new NucleusGene(*this); }
 
 private:
 	/* data */

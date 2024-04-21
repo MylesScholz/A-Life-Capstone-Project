@@ -14,7 +14,7 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
-	MitochondriaGene* clone() { return new MitochondriaGene(*this); }
+	MitochondriaGene *clone() { return new MitochondriaGene(*this); }
 
 private:
 	/* data */
