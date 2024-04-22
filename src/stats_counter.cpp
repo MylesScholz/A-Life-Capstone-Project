@@ -28,7 +28,6 @@ void StatsCounter::_process(double delta) {
 }
 
 void StatsCounter::_ready() {
-	set_process_mode(Node::PROCESS_MODE_ALWAYS);
 	add_label("Click a cell to see information");
 }
 
