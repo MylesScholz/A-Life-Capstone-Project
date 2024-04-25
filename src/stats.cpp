@@ -2,12 +2,15 @@
 #include "cell.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
+#include <sstream>
+#include <iomanip>
 
 #include "helpers.hpp"
 
 using namespace godot;
 
 void Stats::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("_clear_selected_cell"), &Stats::_clear_selected_cell);
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
@@ -17,43 +20,62 @@ Stats::~Stats() {}
 void Stats::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
 
-    // THIS WILL PROC IT ONCE. USE THE COMMENTED OUT BLOCK DOWN BELOW TO PROC IN CONTINUAL PROCESS
-    /* 
-    if (selected_cell && !has_swapped){
+    static double time_since_last_update = 0.0;
+    time_since_last_update += delta;
 
-        has_swapped = true;
+    if (selected_cell && time_since_last_update >= 0.5) {
         _update_Stats(selected_cell);
-    }
-    */
-
-    update_counter ++;
-    if (update_counter >= 500) {
-        update_counter = 0;
-        if (selected_cell) { // Update every 10 frames
-            _update_Stats(selected_cell);
-        }
+        time_since_last_update = 0.0;
     }
 }
 
 void Stats::_ready() {
 	set_process_mode(Node::PROCESS_MODE_ALWAYS);
-    add_label("InstructionLabel", "Click a cell to see information");
+}
+
+void Stats::_set_selected_cell(Variant cell_instance) {
+    UtilityFunctions::print("assignment detected");
+    selected_cell = Object::cast_to<Cell>(cell_instance);
+}
+
+void Stats::_clear_selected_cell() {
+    UtilityFunctions::print("clear detected");
+    selected_cell = nullptr;
+    clear_stats();
+}
+
+String Stats::format_decimal(double value, int decimal_places) {
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(decimal_places) << value;
+    return stream.str().c_str();
 }
 
 void Stats::_update_Stats(Variant cell_instance){
-    
-    selected_cell = Object::cast_to<Cell>(cell_instance);
-    if (selected_cell) {
-        clear_stats();
-        Array stats = cell_instance.call("getStats");
-        add_label("StatLabel_1", " Birth Time: " + String(stats[0]));
-        add_label("StatLabel_2", " Alive: " + String(stats[1]));
-        add_label("StatLabel_3", " Age: " + String(stats[2])); 
-        add_label("StatLabel_4", " Energy: " + String(stats[3]));
-        add_label("StatLabel_5", " Nutrients: " + String(stats[4]));
-        add_label("StatLabel_6", " Mass: " + String(stats[5]) + " µg");
-        add_label("StatLabel_7", " Size: " + String(stats[6]) + " µm");
+    Array stats = cell_instance.call("getStats");
+    update_label("StatLabel_1", " Birth Time: " + format_decimal(stats[0], 3));
+    update_label("StatLabel_2", " Alive: " + String(stats[1]));
+    update_label("StatLabel_3", " Age: " + format_decimal(stats[2], 3)); 
+    update_label("StatLabel_4", " Energy: " + format_decimal(stats[3], 3));
+    update_label("StatLabel_5", " Nutrients: " + format_decimal(stats[4], 3));
+    update_label("StatLabel_6", " Mass: " + format_decimal(stats[5], 3) + " µg");
+    update_label("StatLabel_7", " Size: " + format_decimal(stats[6], 3) + " µm");
+}
+
+void Stats::update_label(String name, String text) {
+    NodePath path(name);
+    Label* label = get_node<Label>(path);
+    if (!label) {
+        label = add_label(name, text);
     }
+    label->set_text(text); 
+}
+
+Label* Stats::add_label(String name, String text) {
+    Label* label = new Label();
+    label->set_name(name);
+    label->set_text(text);
+    add_child(label);
+    return label;
 }
 
 void Stats::clear_stats() {
@@ -68,11 +90,4 @@ void Stats::clear_stats() {
             child->queue_free();
         }
     }
-}
-
-void Stats::add_label(String name, String text) {
-    Label* label = new Label();
-    label->set_name(name);
-    label->set_text(text);
-    add_child(label);
 }

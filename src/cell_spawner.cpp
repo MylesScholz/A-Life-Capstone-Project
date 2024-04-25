@@ -36,6 +36,8 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
 
+	ClassDB::bind_method(D_METHOD("spawn_cell", "is_immortal"), &CellSpawner::spawnCell);
+
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 

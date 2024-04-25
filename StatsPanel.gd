@@ -4,7 +4,6 @@ var dragging = false
 var drag_offset = Vector2()
 
 var bar_panel = null
-var open_button = null
 var s_key_was_pressed = false
 
 # Called when the node enters the scene tree for the first time.
@@ -12,21 +11,18 @@ func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	bar_panel = get_parent().get_node("BarPanel")
-	open_button = get_parent().get_node("NavBar").get_node("StatsOpenButton")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_key_pressed(KEY_S):
+func _process(_delta):
+	if Input.is_action_just_pressed("stat panel open"):
 		if not s_key_was_pressed and not bar_panel.visible:
 			visible = !visible
-			open_button.visible = !open_button.visible
 			s_key_was_pressed = true
 	else:
 		s_key_was_pressed = false
 
 func _on_stats_exit_button_pressed():
 	visible = false
-	open_button.visible = true
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -64,4 +60,3 @@ func clamp_position_within_viewport(global_pos):
 func _on_stats_open_button_pressed():
 	if not bar_panel.visible:
 		visible = true
-		open_button.visible = false
