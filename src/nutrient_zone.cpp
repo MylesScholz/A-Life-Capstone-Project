@@ -127,30 +127,32 @@ void NutrientZone::_ready() {
 	}
 }
 void NutrientZone::_process(float delta) {
-	// Regenerate nutrients
-	incrementTotalNutrients(delta * _regenerationRate);
+	if (delta != 0) {
+		// Regenerate nutrients
+		incrementTotalNutrients(delta * _regenerationRate);
 
-	// Feed each Cell in this NutrientZone
+		// Feed each Cell in this NutrientZone
 
-	// Feeding coefficient: a value that scales the nutrients fed to Cells based on the current delta and the NutrientZone's feeding rate and area (proportional to scale squared)
-	float feedingCoefficient = delta * _feedingRate / (this->get_scale().x * this->get_scale().x);
-	for (int i = 0; i < _feedingCells.size(); i++) {
-		// Calculate the feeding amount for this Cell:
-		// The total nutrients divided by the number of remaining unfed Cells and scaled by the feeding coefficient and the current Cell's area (proportional to scale squared)
-		float feedingAmount = feedingCoefficient * _feedingCells[i]->getScale() * _feedingCells[i]->getScale() * _totalNutrients / (_feedingCells.size() - i);
+		// Feeding coefficient: a value that scales the nutrients fed to Cells based on the current delta and the NutrientZone's feeding rate and area (proportional to scale squared)
+		float feedingCoefficient = delta * _feedingRate / (this->get_scale().x * this->get_scale().x);
+		for (int i = 0; i < _feedingCells.size(); i++) {
+			// Calculate the feeding amount for this Cell:
+			// The total nutrients divided by the number of remaining unfed Cells and scaled by the feeding coefficient and the current Cell's area (proportional to scale squared)
+			float feedingAmount = feedingCoefficient * _feedingCells[i]->getScale() * _feedingCells[i]->getScale() * _totalNutrients / (_feedingCells.size() - i);
 
-		// Make the feeding amount at least 0.01 so NutrientZones can run out
-		feedingAmount = MAX(feedingAmount, 0.01);
+			// Make the feeding amount at least 0.01 so NutrientZones can run out
+			feedingAmount = MAX(feedingAmount, 0.01);
 
-		// The NutrientZone may not have enough nutrients for the calculated feeding amount,
-		// so decrement the total nutrients and get the actual amount decremented (the return value)
-		float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
+			// The NutrientZone may not have enough nutrients for the calculated feeding amount,
+			// so decrement the total nutrients and get the actual amount decremented (the return value)
+			float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
 
-		// Delete the NutrientZone if it is empty and set to delete on empty (Note: will not delete unless trying to feed a Cell, should not be a problem)
-		if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {
-			queue_free();
+			// Delete the NutrientZone if it is empty and set to delete on empty (Note: will not delete unless trying to feed a Cell, should not be a problem)
+			if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {
+				queue_free();
+			}
+			// Feed the current Cell the actual feeding amount
+			_feedingCells[i]->incrementNutrients(actualFeedingAmount);
 		}
-		// Feed the current Cell the actual feeding amount
-		_feedingCells[i]->incrementNutrients(actualFeedingAmount);
 	}
 }

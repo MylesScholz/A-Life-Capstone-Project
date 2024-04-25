@@ -12,7 +12,7 @@ Description: The Time counter is a label that displays the simulation's current 
 None
 
 ### Methods
-- void _process(double delta): runs once per in-game frame; updates the text of this label with the the previous time plus delta the change in time.
+- void _process(double delta): runs once per in-game frame if not paused; updates the text of this label with the the previous time plus delta the change in time.
 
 ## Non-Member Functions
 None

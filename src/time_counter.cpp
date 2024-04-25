@@ -33,13 +33,15 @@ void TimeCounter::reset_time() {
 void TimeCounter::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
 
-	if (this->get_text() == "-1") { // Communicate with GDScript
-		this->toggle_time();
-	}
-	if (start) {
-		total_time += delta; // Accumulate delta to track total time
-		const String time =
-				"Time: " + String::num(int(total_time)) + "s";
-		set_text(time);
+	if (delta != 0) {
+		if (this->get_text() == "-1") { // Communicate with GDScript
+			this->toggle_time();
+		}
+		if (start) {
+			total_time += delta; // Accumulate delta to track total time
+			const String time =
+					"Time: " + String::num(int(total_time)) + "s";
+			set_text(time);
+		}
 	}
 }

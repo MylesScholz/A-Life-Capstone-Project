@@ -11,7 +11,7 @@ Description: The reset button is a UI element that triggers the simulation to re
 None
 
 ### Methods
-- void _pressed(): Uses CellSpawner to kill all Cells and then uses it again to spawn new ones. It also resets statistics like time and collisions.
+- void _pressed(): Uses CellSpawner to kill all Cells and then uses it again to spawn new ones. It also resets statistics like time and collisions and unpauses the simulation if paused
 
 ## Non-Member Functions
 None

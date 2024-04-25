@@ -12,7 +12,7 @@ Description: The stats counter is a label that counts the total number of collis
 None
 
 ### Methods
-- void _process(double delta): runs once per in-game frame; updates the text of this label with the static Cell property CollisionCount
+- void _process(double delta): runs once per in-game frame if not paused; updates the text of this label with the static Cell property CollisionCount
 
 ## Non-Member Functions
 None

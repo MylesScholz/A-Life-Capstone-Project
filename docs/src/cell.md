@@ -31,7 +31,7 @@ Description: The Cell object represents a biological cell within a simulation. I
 - void setImmortal(bool isImmortal): sets the global variable immortal to the given value
 
 - void _ready() override: runs once when the Cell has been created and is ready to be used; points _cellState to this Cell's CellState Node
-- void _process(double delta) override: runs once per in-game frame; delta stores the real time since the last frame; simulates CellStructure activation and Cell aging, starvation, and death
+- void _process(double delta) override: runs once per in-game frame; delta stores the real time since the last frame, will be set to 0 when sim is paused; simulates CellStructure activation and Cell aging, starvation, and death
 - void _on_body_entered(Node *body): runs when another Node collides with this one; increments CollisionCount
 - void _on_cell_growth(): triggered by a CellMembrane signal; increases this Cell's size if its nutrients and energy are sufficient
 

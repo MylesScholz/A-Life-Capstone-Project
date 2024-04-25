@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=26 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
 [ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="6_cqljf"]
-[ext_resource type="Script" path="res://SpeedUpButton.gd" id="7_0omg7"]
 [ext_resource type="Script" path="res://MenuButton.gd" id="8_7m3jv"]
 [ext_resource type="Script" path="res://SaveAndQuitButton.gd" id="9_i11s2"]
 [ext_resource type="Script" path="res://SimSettingsButton.gd" id="10_51xgw"]
@@ -286,13 +285,11 @@ scale = Vector2(0.857143, 0.857143)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
 
 [node name="SpeedUpButton" type="TextureButton" parent="UI/NavBar"]
-visible = false
 layout_mode = 0
 offset_left = 921.0
 offset_top = 11.0
 offset_right = 970.0
 offset_bottom = 53.0
-script = ExtResource("7_0omg7")
 
 [node name="Zoom1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(797.348, -93.2174)

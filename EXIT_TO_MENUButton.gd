@@ -17,12 +17,9 @@ func _pressed():
 	var pauseButton = rootNode.get_node("CellSpawner/UI/NavBar/PauseButton")
 	pauseButton.get_child(!get_tree().paused).visible = false # Change pause button visually
 	pauseButton.get_child(get_tree().paused).visible = true
-	get_tree().paused = !get_tree().paused # Pause and unpause
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS
-
+	GlobalVariables.time_scale_backup_two = Engine.time_scale # Pause and unpause
+	Engine.time_scale = GlobalVariables.time_scale_backup_one
+	GlobalVariables.time_scale_backup_one = GlobalVariables.time_scale_backup_two
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
