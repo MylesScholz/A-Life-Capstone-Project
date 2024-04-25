@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=28 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
 [ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
 [ext_resource type="Script" path="res://QuitButton.gd" id="6_cqljf"]
+[ext_resource type="Script" path="res://SlowDownButton.gd" id="7_ote0v"]
+[ext_resource type="Script" path="res://SpeedUpButton.gd" id="8_1chyv"]
 [ext_resource type="Script" path="res://MenuButton.gd" id="8_7m3jv"]
 [ext_resource type="Script" path="res://SaveAndQuitButton.gd" id="9_i11s2"]
 [ext_resource type="Script" path="res://SimSettingsButton.gd" id="10_51xgw"]
@@ -232,7 +234,6 @@ script = ExtResource("6_cqljf")
 
 [node name="NavBar" type="Panel" parent="UI"]
 unique_name_in_owner = true
-visible = false
 offset_right = 1080.0
 offset_bottom = 66.0
 theme = ExtResource("2_d86u0")
@@ -273,6 +274,8 @@ offset_left = 750.0
 offset_top = 12.0
 offset_right = 799.0
 offset_bottom = 53.0
+mouse_default_cursor_shape = 2
+script = ExtResource("7_ote0v")
 
 [node name="SpeedUp1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(731.239, -90.587)
@@ -290,6 +293,8 @@ offset_left = 921.0
 offset_top = 11.0
 offset_right = 970.0
 offset_bottom = 53.0
+mouse_default_cursor_shape = 2
+script = ExtResource("8_1chyv")
 
 [node name="Zoom1" type="Polygon2D" parent="UI/NavBar"]
 position = Vector2(797.348, -93.2174)
