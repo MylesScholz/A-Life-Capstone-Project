@@ -165,13 +165,14 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 }
 
 void CellSpawner::removeAllCells() {
-	CellEnvironment *env = this->get_node<CellEnvironment>("CellEnvironment");
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 
-	for (int i = env->get_child_count() - 1; i >= 0; i--) {
-		Node *child = env->get_child(i);
-		if (Object::cast_to<Cell>(child)) {
-			Object::cast_to<Cell>(child)->resetCollisions();
-			child->queue_free();
+	for (int i = cellEnvironment->get_child_count() - 1; i >= 0; i--) {
+		Node *child = cellEnvironment->get_child(i);
+
+		if (child->get_class() == "Cell") {
+			Cell *cell = Object::cast_to<Cell>(child);
+			cellEnvironment->removeCell(cell);
 		}
 	}
 }
