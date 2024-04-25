@@ -3,7 +3,10 @@
 LineageGraph::LineageGraph() {
 	_vertices = Vector<LineageGraphVertex *>();
 }
-LineageGraph::~LineageGraph() {}
+LineageGraph::~LineageGraph() {
+	for (LineageGraphVertex *vertex : _vertices)
+		delete vertex;
+}
 
 LineageGraphVertex *LineageGraph::addVertex(Cell *cell) {
 	LineageGraphVertex *newVertex = new LineageGraphVertex(cell);
@@ -17,6 +20,37 @@ LineageGraphVertex *LineageGraph::addVertex(LineageGraphVertex *vertex) {
 
 	return vertex;
 }
+void LineageGraph::removeVertex(Cell *keyCell) {
+	int index = indexOfCell(keyCell);
+	if (index < 0)
+		return;
+
+	LineageGraphVertex *vertex = _vertices.get(index);
+
+	for (LineageGraphVertex *parent : vertex->getParents())
+		parent->removeLinkToChild(vertex);
+
+	for (LineageGraphVertex *child : vertex->getChildren())
+		child->removeLinkToParent(vertex);
+
+	_vertices.remove_at(index);
+	delete vertex;
+}
+void LineageGraph::removeVertex(LineageGraphVertex *vertex) {
+	int index = _vertices.find(vertex);
+	if (index < 0)
+		return;
+
+	for (LineageGraphVertex *parent : vertex->getParents())
+		parent->removeLinkToChild(vertex);
+
+	for (LineageGraphVertex *child : vertex->getChildren())
+		child->removeLinkToParent(vertex);
+
+	_vertices.remove_at(index);
+	delete vertex;
+}
+
 LineageGraphVertex *LineageGraph::getVertex(Cell *cell) const {
 	int index = indexOfCell(cell);
 

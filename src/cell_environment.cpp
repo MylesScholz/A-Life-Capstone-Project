@@ -15,6 +15,7 @@ void CellEnvironment::_bind_methods() {
 
 CellEnvironment::CellEnvironment() {
 	_nNutrientZones = 0;
+	_lineageGraph = LineageGraph();
 }
 CellEnvironment::~CellEnvironment() {}
 
@@ -56,6 +57,21 @@ void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
 		_nNutrientZones = nNutrientZones;
 }
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }
+
+void CellEnvironment::addCell(Cell *cell) {
+	this->add_child(cell);
+	cell->connect("cell_death", Callable(this, "_on_cell_death"));
+
+	_lineageGraph.addVertex(cell);
+}
+void CellEnvironment::removeCell(Cell *cell) {
+	this->remove_child(cell);
+	cell->resetCollisions();
+	cell->queue_free();
+
+	_lineageGraph.removeVertex(cell);
+}
+LineageGraph *CellEnvironment::getLineageGraph() { return &_lineageGraph; }
 
 void CellEnvironment::_on_cell_death(Cell *cell) {
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone

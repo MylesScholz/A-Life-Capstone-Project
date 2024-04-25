@@ -13,6 +13,9 @@ public:
 
 	LineageGraphVertex *addVertex(Cell *);
 	LineageGraphVertex *addVertex(LineageGraphVertex *);
+	void removeVertex(Cell *);
+	void removeVertex(LineageGraphVertex *);
+
 	LineageGraphVertex *getVertex(Cell *) const;
 	Vector<LineageGraphVertex *> getVertices() const;
 
