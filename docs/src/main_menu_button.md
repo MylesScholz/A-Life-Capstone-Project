@@ -11,7 +11,7 @@ Description: The main menu button is a UI element that triggers the simulation r
 None
 
 ### Methods
-- void _pressed(): Uses CellSpawner to kill all Cells and then finds and makes all current ui elements invisible while reopening the main menu and spawns background cells. It also resets statistics like time and collisions.
+- void _pressed(): Uses CellSpawner to kill all Cells and NutrientZones and then finds and makes all current ui elements invisible while reopening the main menu, unpausing if paused and spawns background cells. It also resets statistics like time and collisions.
 
 ## Non-Member Functions
 None

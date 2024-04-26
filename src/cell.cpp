@@ -242,11 +242,27 @@ void Cell::_ready() {
 	}
 }
 
+// int paused = 0;
+
 void Cell::_process(double delta) {
 	DONT_RUN_IN_EDITOR;
 
 	this->keepCellsInBackground();
-	if (_cellState->getAlive()) {
+	// if paused
+	if (delta == 0) {
+		// paused = 1;
+
+		// if not paused run normal cell behavior
+	} else if (_cellState->getAlive() && delta != 0) {
+		// Check if spawned new cells while paused
+		// if (paused && (_cellState->getNextMovementVector() == Vector2(0, 0))) {
+		//	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+		//	UtilityFunctions::print("1 just unpaused", _cellState->getNextMovementVector());
+		//	spawner->applyInitalForces();
+		//	UtilityFunctions::print("2 just unpaused", _cellState->getNextMovementVector());
+		// }
+		// paused = 0;
+
 		// Living Cell behavior
 
 		// Activate the Cell's structures
