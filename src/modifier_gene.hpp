@@ -17,7 +17,7 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
-	ModifierGene* clone() { return new ModifierGene(*this); }
+	ModifierGene *clone() { return new ModifierGene(*this); }
 
 private:
 	float _modifierValue;

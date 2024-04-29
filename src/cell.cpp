@@ -59,7 +59,8 @@ void Cell::seteq(Cell *otherCell) {
 	}
 
 	// Copy relevant cell state information
-	_cellState = this->get_node<CellState>("CellState");
+	if(!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
 	_cellState->setAlive(otherCell->_cellState->getAlive());
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
 	_cellState->setHomeostasisNutrientCost(otherCell->_cellState->getHomeostasisNutrientCost());
@@ -150,7 +151,9 @@ void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
-	_cellState = this->get_node<CellState>("CellState");
+	if(!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+	
 	if (_cellState && _cellState->getScale() * scale > 1)
 		return;
 
@@ -212,6 +215,9 @@ void Cell::setImmortal(bool isImmortal) {
 }
 
 void Cell::_ready() {
+	if(!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+
 	// Add CellStructures using the cell genome
 	_cellStructures = _cellGenome.expressGenes();
 	for (auto &structure : _cellStructures) {
@@ -222,7 +228,6 @@ void Cell::_ready() {
 	}
 
 	this->set_pickable(true);
-	_cellState = this->get_node<CellState>("CellState");
 
 	float sumReproductionNutrientCost = 0;
 	float sumReproductionEnergyCost = 0;

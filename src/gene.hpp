@@ -15,7 +15,7 @@ public:
 	virtual CellStructure *express();
 	virtual float getValue();
 
-	virtual Gene* clone() = 0;
+	virtual Gene *clone() = 0;
 
 private:
 	/* data */
