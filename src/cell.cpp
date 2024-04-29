@@ -234,8 +234,8 @@ void Cell::_ready() {
 		sumReproductionNutrientCost += structure->getCreationNutrientCost();
 		sumReproductionEnergyCost += structure->getCreationEnergyCost();
 
-		sumReproductionNutrientCost += structure->getMaintenanceNutrientCost();
-		sumReproductionEnergyCost += structure->getMaintenanceEnergyCost();
+		sumHomeostasisNutrientCost += structure->getMaintenanceNutrientCost();
+		sumHomeostasisEnergyCost += structure->getMaintenanceEnergyCost();
 
 		if (structure->getScale() != _cellState->getScale())
 			structure->applyScale(_cellState->getScale() / structure->getScale());
