@@ -19,12 +19,6 @@ void Flagella::_bind_methods() {
 }
 
 Flagella::Flagella() {
-	// CellStructure attributes
-	this->setCreationNutrientCost(10.0);
-	this->setMaintenanceNutrientCost(1.0);
-	this->setCreationEnergyCost(10.0);
-	this->setMaintenanceEnergyCost(1.0);
-
 	// Flagella attributes
 	_movementForceVector = Vector2(0, 1);
 	_positionVector = Vector2();

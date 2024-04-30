@@ -27,19 +27,13 @@ void Mitochondria::_bind_methods() {
 }
 
 Mitochondria::Mitochondria() {
-	// CellStructure attributes
-	this->setCreationNutrientCost(10.0);
-	this->setMaintenanceNutrientCost(1.0);
-	this->setCreationEnergyCost(10.0);
-	this->setMaintenanceEnergyCost(1.0);
-
 	// Mitochondria attributes
-	_activationThreshold = 1.0;
+	_activationThreshold = 0.5;
 	_strength = 1.0;
 	_efficiency = 1.0;
 	_conversionRate = 1.0;
-	_activationResource = "nutrients";
-	_thresholdType = "high-pass";
+	_activationResource = "energy";
+	_thresholdType = "low-pass";
 }
 Mitochondria::~Mitochondria() {}
 

@@ -127,6 +127,8 @@ void NutrientZone::_ready() {
 	}
 }
 void NutrientZone::_process(float delta) {
+	DONT_RUN_IN_EDITOR;
+
 	if (delta != 0) {
 		// Regenerate nutrients
 		incrementTotalNutrients(delta * _regenerationRate);

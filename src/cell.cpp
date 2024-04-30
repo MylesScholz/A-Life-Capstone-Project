@@ -212,6 +212,9 @@ void Cell::setImmortal(bool isImmortal) {
 }
 
 void Cell::_ready() {
+	this->set_pickable(true);
+	_cellState = this->get_node<CellState>("CellState");
+
 	// Add CellStructures using the cell genome
 	_cellStructures = _cellGenome.expressGenes();
 	for (auto &structure : _cellStructures) {
@@ -220,9 +223,6 @@ void Cell::_ready() {
 		if (structure->getScale() != _cellState->getScale())
 			structure->applyScale(_cellState->getScale() / structure->getScale());
 	}
-
-	this->set_pickable(true);
-	_cellState = this->get_node<CellState>("CellState");
 
 	float sumReproductionNutrientCost = 0;
 	float sumReproductionEnergyCost = 0;
