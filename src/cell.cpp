@@ -58,7 +58,7 @@ void Cell::seteq(Cell *otherCell) {
 		_cellGenome.addGene(newGene);
 	}
 
-	// Copy relevant cell state information
+	// Copy relevant CellState information
 	if (!_cellState)
 		_cellState = this->get_node<CellState>("CellState");
 	_cellState->setAlive(otherCell->_cellState->getAlive());
@@ -66,12 +66,17 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
 
+	// Set both Cells' _birthTime to the current time and _age to 0
+	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
+	_cellState->setBirthTime(currentMsec);
+	_cellState->setAge(0);
+	otherCell->_cellState->setBirthTime(currentMsec);
+	otherCell->_cellState->setAge(0);
+
+	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
 	otherCell->applyScale(halfArea);
 	applyScale(otherCell->_cellState->getScale());
-
-	// Not sure if this makes sense to do
-	_spriteSize = otherCell->getSpriteSize();
 }
 
 Cell::Cell() {
@@ -84,6 +89,9 @@ Cell::Cell() {
 
 	// Instantiate the random number generator
 	_rand.instantiate();
+
+	// Instantiate Genome
+	_cellGenome = Genome();
 
 	// Temporary genome for start screen
 	_cellGenome.addGene(new NucleusGene());
@@ -151,7 +159,7 @@ void Cell::applyScale(const float scale) {
 	if (_cellState && _cellState->getScale() * scale > 1)
 		return;
 
-	// Apply the scaling to the collision shape, sprite, and CellState
+	// Apply the scaling to the CollisionShape2D and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
 	_cellState->applyScale(scale);
 
@@ -180,6 +188,10 @@ void Cell::applyScale(const float scale) {
 		if (structure)
 			structure->applyScale(scale);
 	}
+
+	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	if (cellMembrane)
+		_spriteSize = cellMembrane->getSpriteSize();
 }
 float Cell::getScale() const { return this->get_node<CellState>("CellState")->getScale(); }
 

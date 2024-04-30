@@ -21,6 +21,8 @@ public:
 
 	void setBirthTime(const int);
 	float getBirthTime() const;
+
+	void setAge(const float);
 	float getAge() const;
 	void increaseAge(const float);
 

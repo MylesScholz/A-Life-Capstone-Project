@@ -87,6 +87,11 @@ bool CellState::getAlive() const { return _alive; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }
+
+void CellState::setAge(const float age) {
+	if (age >= 0)
+		_age = age;
+}
 float CellState::getAge() const { return _age; }
 void CellState::increaseAge(const float delta) { _age += delta; }
 
