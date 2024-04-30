@@ -39,7 +39,7 @@ public:
 	void removeAllCells();
 
 	void _ready() override;
-	void _on_cell_reproduction(Cell*);
+	void _on_cell_reproduction(Cell *);
 
 private:
 	Ref<PackedScene> _cellScene;

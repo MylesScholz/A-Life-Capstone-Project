@@ -31,7 +31,6 @@ void StartButton::_pressed() {
 	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
 
 	for (int i = 0; i < spawner->getNumCells(); i++) {
-		// UtilityFunctions::print("Starting");
 		spawner->spawnCell();
 	}
 

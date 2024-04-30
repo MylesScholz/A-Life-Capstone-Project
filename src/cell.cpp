@@ -59,7 +59,8 @@ void Cell::seteq(Cell *otherCell) {
 	}
 
 	// Copy relevant cell state information
-	_cellState = this->get_node<CellState>("CellState");
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
 	_cellState->setAlive(otherCell->_cellState->getAlive());
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
 	_cellState->setHomeostasisNutrientCost(otherCell->_cellState->getHomeostasisNutrientCost());
@@ -150,7 +151,9 @@ void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
-	_cellState = this->get_node<CellState>("CellState");
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+
 	if (_cellState && _cellState->getScale() * scale > 1)
 		return;
 
@@ -212,28 +215,37 @@ void Cell::setImmortal(bool isImmortal) {
 }
 
 void Cell::_ready() {
-	this->set_pickable(true);
-	_cellState = this->get_node<CellState>("CellState");
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+
+	float sumReproductionNutrientCost = 0;
+	float sumReproductionEnergyCost = 0;
+
+	float sumHomeostasisNutrientCost = 0;
+	float sumHomeostasisEnergyCost = 0;
 
 	// Add CellStructures using the cell genome
 	_cellStructures = _cellGenome.expressGenes();
 	for (auto &structure : _cellStructures) {
 		this->add_child(structure);
 
+		sumReproductionNutrientCost += structure->getCreationNutrientCost();
+		sumReproductionEnergyCost += structure->getCreationEnergyCost();
+
+		sumHomeostasisNutrientCost += structure->getMaintenanceNutrientCost();
+		sumHomeostasisEnergyCost += structure->getMaintenanceEnergyCost();
+
 		if (structure->getScale() != _cellState->getScale())
 			structure->applyScale(_cellState->getScale() / structure->getScale());
 	}
 
-	float sumReproductionNutrientCost = 0;
-	float sumReproductionEnergyCost = 0;
-
-	for (CellStructure *structure : _cellStructures) {
-		sumReproductionNutrientCost += structure->getCreationNutrientCost();
-		sumReproductionEnergyCost += structure->getCreationEnergyCost();
-	}
-
 	_cellState->setReproductionNutrientCost(sumReproductionNutrientCost);
 	_cellState->setReproductionEnergyCost(sumReproductionEnergyCost);
+
+	_cellState->setHomeostasisNutrientCost(sumHomeostasisNutrientCost);
+	_cellState->setHomeostasisEnergyCost(sumHomeostasisEnergyCost);
+
+	this->set_pickable(true);
 
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 	if (cellMembrane) {

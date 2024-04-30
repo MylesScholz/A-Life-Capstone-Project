@@ -52,7 +52,7 @@ public:
 	Array getStats() const;
 
 private:
-	CellState *_cellState;
+	CellState *_cellState = NULL;
 	Size2 _spriteSize;
 	Vector<CellStructure *> _cellStructures;
 	Genome _cellGenome;
