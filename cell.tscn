@@ -20,4 +20,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CellState" type="CellState" parent="."]
 reproduction_nutrient_cost = 30.0
+growth_nutrient_cost = 100.0
 reproduction_energy_cost = 30.0
+growth_energy_cost = 100.0

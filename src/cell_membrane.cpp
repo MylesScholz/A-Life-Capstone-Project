@@ -43,7 +43,7 @@ void CellMembrane::activate(CellState *cellState) {
 	bool thresholdCondition = cellState->getTotalNutrients() >= _activationThreshold * cellState->getNutrientMaximum() && cellState->getTotalEnergy() >= _activationThreshold * cellState->getEnergyMaximum();
 
 	// If the threshold is met and the cellState's current scale does not exceed the growth cap, emit a growth signal
-	if (thresholdCondition)
+	if (thresholdCondition && cellState->getScale() * cellState->getGrowthRate() <= _growthCap)
 		this->emit_signal("cell_growth");
 }
 void CellMembrane::modify(String modifierName, float modifierValue) {
