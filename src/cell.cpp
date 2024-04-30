@@ -164,9 +164,13 @@ void Cell::applyScale(const float scale) {
 	// s ^ 2
 	float newNutrientMaximum = _cellState->getNutrientMaximum() * scale * scale;
 	_cellState->setNutrientMaximum(newNutrientMaximum);
+	if (_cellState->getTotalNutrients() > newNutrientMaximum)
+		_cellState->setTotalNutrients(newNutrientMaximum);
 
 	float newEnergyMaximum = _cellState->getEnergyMaximum() * scale * scale;
 	_cellState->setEnergyMaximum(newEnergyMaximum);
+	if (_cellState->getTotalEnergy() > newEnergyMaximum)
+		_cellState->setTotalEnergy(newEnergyMaximum);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area for a circle
 	this->set_mass(this->get_mass() * scale * scale);

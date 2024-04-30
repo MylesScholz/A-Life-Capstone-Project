@@ -31,6 +31,9 @@ public:
 	void applyScale(const float);
 	float getScale() const;
 
+	void setNutrientEnergyConversionRate(const float);
+	float getNutrientEnergyConversionRate() const;
+
 	void setHomeostasisNutrientCost(const float);
 	float getHomeostasisNutrientCost() const;
 
@@ -81,6 +84,7 @@ private:
 	float _deathTime;
 	float _lifespan;
 	float _scale;
+	float _nutrientEnergyConversionRate;
 	float _homeostasisNutrientCost;
 	float _reproductionNutrientCost;
 	float _growthNutrientCost;
