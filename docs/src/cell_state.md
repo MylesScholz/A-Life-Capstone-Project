@@ -15,6 +15,7 @@ Description: the CellState Node is a manager for the Cell's state variables, suc
 - _deathTime (float): the time in seconds when the Cell died
 - _lifespan (float): the time threshold beyond which the Cell has a chance to die
 - _scale (float): the proportion of the Cell's default size that the Cell currently is
+- _nutrientEnergyConversionRate (float): the ratio of nutrients to energy used by Mitochondria and Ribosomes in the Cell when converting between them
 - _homeostasisNutrientCost (float): the cost in nutrients to keep the Cell alive; summed from the maintenance costs of the Cell's CellStructures
 - _reproductionNutrientCost (float): the cost in nutrients expended when the Cell reproduces; summed form the creation costs of the Cell's CellStructures
 - _growthNutrientCost (float): the cost in nutrients per unit area expended when the Cell grows
@@ -35,7 +36,10 @@ Description: the CellState Node is a manager for the Cell's state variables, suc
 
 - void setBirthTime(const int currentMsec): sets _birthTime to the given millisecond / 1000.0
 - float getBirthTime() const: returns _birthTime
+
+- void setAge(const float age): sets _age to the given value if it is >= 0
 - float getAge(const int currentMsec) const: returns the difference in seconds between the given millisecond and _birthTime
+- void increaseAge(const float delta): increments _age by the given value
 
 - void setLifespan(const float lifespan): sets _lifespan to the given value; lifespan must be greater than zero
 - float getLifespan() const: returns _lifespan

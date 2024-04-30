@@ -14,6 +14,7 @@ Description: the CellSpawner is the root node of the project's main scene, conta
 - _numCells (int): the number of cells to spawn; written to by the Godot Editor
 - _minForce (float): the lower bound of the random initial force applied to cells; written to by the Godot Editor
 - _maxForce (float): the upper bound of the random initial force applied to cells; written to by the Godot Editor
+- _resourceProportion (float): the proportion of maximum resources that Cells will spawn with; written to by the Godot Editor
 
 ### Methods
 - void setNumCells(const int numCells): sets _numCells to the given value
@@ -27,6 +28,9 @@ Description: the CellSpawner is the root node of the project's main scene, conta
 
 - void setMaxForce(const float maxForce): sets _maxForce to the given value; does not allow _maxForce < _minForce
 - float getMaxForce() const: returns _maxForce
+
+- void setResourceProportion(const float resourceProportion): sets _resourceProportion to the given value if it is in [0, 1]
+- float getResourceProportion() const: returns _resourceProportion
 
 - void spawnCell(bool isImmortal): instantiates one Cell as a child of this Node; Cell placement, scaling, and initial force are randomized; Cell immortality is set to isImmortal
 
