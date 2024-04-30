@@ -128,7 +128,7 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 
 	cellObject->set_position(cell->get_position());
 
-	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework
+	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework it won't be
 	float force_magnitude = rand.randf_range(_minForce, _maxForce);
 	float direction = rand.randf_range(0, 2 * Math_PI);
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;

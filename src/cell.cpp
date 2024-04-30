@@ -63,14 +63,8 @@ void Cell::seteq(Cell *otherCell) {
 		_cellState = this->get_node<CellState>("CellState");
 	_cellState->setAlive(otherCell->_cellState->getAlive());
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
-	_cellState->setHomeostasisNutrientCost(otherCell->_cellState->getHomeostasisNutrientCost());
-	_cellState->setReproductionNutrientCost(otherCell->_cellState->getReproductionNutrientCost());
 	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
-	_cellState->setNutrientMaximum(otherCell->_cellState->getNutrientMaximum());
-	_cellState->setHomeostasisEnergyCost(otherCell->_cellState->getHomeostasisEnergyCost());
-	_cellState->setReproductionEnergyCost(otherCell->_cellState->getReproductionEnergyCost());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
-	_cellState->setEnergyMaximum(otherCell->_cellState->getEnergyMaximum());
 
 	float halfArea = (sqrt(2) / 2);
 	otherCell->applyScale(halfArea);
