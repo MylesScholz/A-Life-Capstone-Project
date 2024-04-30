@@ -34,6 +34,9 @@ public:
 	void setMaxForce(const float);
 	float getMaxForce() const;
 
+	void setResourceProportion(const float);
+	float getResourceProportion() const;
+
 	void spawnCell(bool isImmortal = 0);
 
 	void removeAllCells();
@@ -46,4 +49,5 @@ private:
 	int _numCells = 1;
 	float _minForce = 50.0;
 	float _maxForce = 150.0;
+	float _resourceProportion = 0.75;
 };

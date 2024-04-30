@@ -37,6 +37,10 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
 
+	ClassDB::bind_method(D_METHOD("set_resource_proportion", "resource_proportion"), &CellSpawner::setResourceProportion);
+	ClassDB::bind_method(D_METHOD("get_resource_proportion"), &CellSpawner::getResourceProportion);
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::FLOAT, "resource_proportion"), "set_resource_proportion", "get_resource_proportion");
+
 	ClassDB::bind_method(D_METHOD("_on_cell_reproduction", "cell"), &CellSpawner::_on_cell_reproduction);
 	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
 
@@ -75,6 +79,12 @@ void CellSpawner::setMaxForce(const float maxForce) {
 }
 float CellSpawner::getMaxForce() const { return _maxForce; }
 
+void CellSpawner::setResourceProportion(const float resourceProportion) {
+	if (resourceProportion >= 0 && resourceProportion <= 1)
+		_resourceProportion = resourceProportion;
+}
+float CellSpawner::getResourceProportion() const { return _resourceProportion; }
+
 void CellSpawner::spawnCell(bool isImmortal) {
 	// Create a RandomNumberGenerator object
 	RandomNumberGenerator rand = RandomNumberGenerator();
@@ -89,6 +99,11 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
 	Size2 cellSize = cellObject->getSpriteSize();
+
+	// Set Cell resources to _resourceProportion of their maxima
+	CellState *cellState = cellObject->get_node<CellState>("CellState");
+	cellState->setTotalNutrients(_resourceProportion * cellState->getNutrientMaximum());
+	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
 
 	// Set Cell position to random location in viewport
 	cellObject->set_position(Vector2(
