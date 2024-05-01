@@ -30,7 +30,7 @@ Description: the Flagella class is a CellStructure that enables the randomized m
 - void setActivationEnergyThreshold(const float): sets the _activationEnergyThreshold to the given value
 - float getActivationEnergyThreshold() const: returns _activationEnergyThreshold
 
-- void _ready() override: runs once when this object is created and ready to use; sets this CellStructure's sprite property to a child Sprite2D node
+- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node
 
 ### Non-Member Functions
 None

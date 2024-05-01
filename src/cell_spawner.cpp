@@ -125,7 +125,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	cellEnvironment->add_child(cell);
 	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
-	if (!isImmortal) // Do we want the cells on the title screen to be able to reproduce?
+	if (!isImmortal)
 		cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");

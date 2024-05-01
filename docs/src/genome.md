@@ -6,7 +6,7 @@ Genome
 Inherits: none
 Inherited by: none
 
-Description: the Genome is class representing the genetic material of a cell; it contains and manages the Cell's Genes
+Description: the Genome is a class that contains and manages the Cell's Genes
 
 ### Properties
 - genes (Vector\<Gene *\>): a list of references to Genes managed by this Genome

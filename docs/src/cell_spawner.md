@@ -34,7 +34,7 @@ Description: the CellSpawner is the root node of the project's main scene, conta
 
 - void spawnCell(bool isImmortal): instantiates one Cell as a child of this Node; Cell placement, scaling, and initial force are randomized; Cell immortality is set to isImmortal
 
-- void _ready() override: runs once when the CellSpawner has been created and is ready to be used; disables this object running in the Godot Editor
+- void _ready() override: runs once when the CellSpawner enters the node tree; disables this object running in the Godot Editor
 - void _on_cell_reproduction(Cell *cell): runs when a cell signals to reproduce. It then spawns a new cell which is a copy of the original. This is where mutation will take place once we implement it.
 
 ## Non-Member Functions

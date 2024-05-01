@@ -24,10 +24,10 @@ void Nucleus::activate(CellState *cellState) {
 		this->getSprite()->stop();
 
 	// Check that total resources are greater than or equal to the activation threshold and the reproduction cost
-	bool thresholdCondition = cellState->getTotalNutrients() >= _reproductionNutrientThreshold * cellState->getNutrientMaximum() && cellState->getTotalNutrients() >= cellState->getReproductionNutrientCost();
-	thresholdCondition = thresholdCondition && cellState->getTotalEnergy() >= _reproductionEnergyThreshold * cellState->getEnergyMaximum() && cellState->getTotalEnergy() >= cellState->getReproductionEnergyCost();
+	bool nutrientThresholdCondition = cellState->getTotalNutrients() >= _reproductionNutrientThreshold * cellState->getNutrientMaximum() && cellState->getTotalNutrients() >= cellState->getReproductionNutrientCost();
+	bool energyThresholdCondition = cellState->getTotalEnergy() >= _reproductionEnergyThreshold * cellState->getEnergyMaximum() && cellState->getTotalEnergy() >= cellState->getReproductionEnergyCost();
 
-	if (thresholdCondition) {
+	if (nutrientThresholdCondition && energyThresholdCondition) {
 		cellState->incrementTotalNutrients(-cellState->getReproductionNutrientCost());
 		cellState->incrementTotalEnergy(-cellState->getReproductionEnergyCost());
 

@@ -90,9 +90,6 @@ Cell::Cell() {
 	// Instantiate the random number generator
 	_rand.instantiate();
 
-	// Instantiate Genome
-	_cellGenome = Genome();
-
 	// Temporary genome for start screen
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());

@@ -89,7 +89,7 @@ Description: the CellState Node is a manager for the Cell's state variables, suc
 - void setReceptorVectors(const Vector<Vector2>): sets _receptorVectors to the given value
 - Vector<Vector2> getReceptorVectors() const: returns _receptorVectors
 
-- void _ready() override: runs once when the CellState has been created and is ready to be used; sets _birthTime to the current simulation second
+- void _ready() override: runs once when the CellState enters the node tree; sets _birthTime to the current simulation second
 
 ## Non-Member Functions
 None
