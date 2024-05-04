@@ -10,8 +10,3 @@ func _pressed():
 	if (!GlobalVariables.used_pause_button):
 		var pauseButton = rootNode.get_node("CellSpawner/UI/NavBar/PauseButton")
 		pauseButton.call("unpause")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
