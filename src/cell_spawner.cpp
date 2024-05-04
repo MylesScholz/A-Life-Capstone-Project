@@ -96,6 +96,10 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Cast cell scene to Cell object for ease of use
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
+	cellEnvironment->add_child(cell);
+	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
 	Size2 cellSize = cellObject->getSpriteSize();
@@ -120,10 +124,6 @@ void CellSpawner::spawnCell(bool isImmortal) {
 
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
-
-	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(cell);
-	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
 	if (!isImmortal)
 		cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
@@ -153,6 +153,12 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 	cellEnvironment->add_child(childCell);
+
+	// Split the parent Cell's area evenly between the parent and the child
+	float halfArea = (sqrt(2) / 2);
+	cell->applyScale(halfArea);
+	cellObject->applyScale(cell->getScale());
+
 	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));

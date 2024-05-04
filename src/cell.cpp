@@ -72,11 +72,6 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setAge(0);
 	otherCell->_cellState->setBirthTime(currentMsec);
 	otherCell->_cellState->setAge(0);
-
-	// Split the parent Cell's area evenly between the parent and the child
-	float halfArea = (sqrt(2) / 2);
-	otherCell->applyScale(halfArea);
-	applyScale(otherCell->_cellState->getScale());
 }
 
 Cell::Cell() {
