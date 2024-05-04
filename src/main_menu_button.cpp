@@ -28,6 +28,7 @@ void MainMenuButton::_pressed() {
 	UI->get_node<CanvasItem>("MenuPanels/SaveAndQuitMenuPanel")->set_visible(false);
 	Object::cast_to<FpsCounter>(UI->find_child("FpsCounter"))->toggle_fps();
 	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
+	Object::cast_to<Label>(UI->find_child("SpeedDisplay"))->call("toggle_display");
 
 	UI->get_node<CanvasItem>("BarPanel")->set_visible(true); // Open menu
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=29 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
 [ext_resource type="PackedScene" uid="uid://b3l77di28ev2c" path="res://cell_environment.tscn" id="2_ymrrk"]
+[ext_resource type="Script" path="res://SpeedDisplay.gd" id="3_44o7w"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
 [ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
@@ -88,6 +89,12 @@ z_index = 1
 offset_top = 90.0
 offset_right = 40.0
 offset_bottom = 113.0
+
+[node name="SpeedDisplay" type="Label" parent="UI"]
+offset_top = 114.0
+offset_right = 40.0
+offset_bottom = 137.0
+script = ExtResource("3_44o7w")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
 visible = false
@@ -234,6 +241,7 @@ script = ExtResource("6_cqljf")
 
 [node name="NavBar" type="Panel" parent="UI"]
 unique_name_in_owner = true
+visible = false
 offset_right = 1080.0
 offset_bottom = 66.0
 theme = ExtResource("2_d86u0")
