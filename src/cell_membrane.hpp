@@ -7,7 +7,6 @@
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/templates/vector.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 

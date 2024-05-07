@@ -21,7 +21,7 @@ Description: the Receptor class is a CellStructure that represents a single nutr
 - void setSprite(Sprite2D *sprite): sets _sprite to the given value
 - Sprite2D *getSprite(): returns _sprite
 
-- void _ready(): runs once when this object is created and ready to use; sets this Receptor's sprite property to a child Sprite2D node; also connects signals to callback functions
+- void _ready(): runs once when this object enters the node tree; sets this Receptor's sprite property to a child Sprite2D node; also connects signals to callback functions
 
 ## Non-Member Functions
 None

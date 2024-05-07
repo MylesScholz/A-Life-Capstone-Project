@@ -1,10 +1,12 @@
 #include "cell_structure.hpp"
 
-#include <godot_cpp/variant/utility_functions.hpp>
-
 void CellStructure::_bind_methods() {}
 
 CellStructure::CellStructure() {
+	_creationNutrientCost = 5.0;
+	_maintenanceNutrientCost = 0.5;
+	_creationEnergyCost = 5.0;
+	_maintenanceEnergyCost = 0.5;
 	_scale = 1.0;
 }
 CellStructure::~CellStructure() {}
@@ -59,4 +61,6 @@ AnimatedSprite2D *CellStructure::getSprite() { return _sprite; }
 Size2 CellStructure::getSpriteSize() {
 	if (_sprite)
 		return _sprite->get_sprite_frames()->get_frame_texture("activate", 0)->get_size();
+
+	return Size2();
 }

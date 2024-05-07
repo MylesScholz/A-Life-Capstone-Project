@@ -28,6 +28,7 @@
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
@@ -45,6 +46,34 @@ void Cell::_bind_methods() {
 int Cell::CollisionCount = 0;
 bool immortal = 0;
 
+void Cell::seteq(Cell *otherCell) {
+	// Create new genome. Overwriting the existing one should destruct it
+	_cellGenome = Genome();
+
+	// Copy genome of otherCell
+	for (int i = 0; i < otherCell->_cellGenome.getSize(); ++i) {
+		Gene *gene = otherCell->_cellGenome.getGene(i);
+
+		Gene *newGene = gene->clone();
+		_cellGenome.addGene(newGene);
+	}
+
+	// Copy relevant CellState information
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+	_cellState->setAlive(otherCell->_cellState->getAlive());
+	_cellState->setLifespan(otherCell->_cellState->getLifespan());
+	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
+	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
+
+	// Set both Cells' _birthTime to the current time and _age to 0
+	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
+	_cellState->setBirthTime(currentMsec);
+	_cellState->setAge(0);
+	otherCell->_cellState->setBirthTime(currentMsec);
+	otherCell->_cellState->setAge(0);
+}
+
 Cell::Cell() {
 	// Setting default required parameters for collision detection on RigidBody2D
 	// objects, then applying the signal to Cell objects.
@@ -56,7 +85,7 @@ Cell::Cell() {
 	// Instantiate the random number generator
 	_rand.instantiate();
 
-	//temp setup a genome for testing.
+	// Temporary genome for start screen
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -87,39 +116,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
-
-	// Add CellStructures using the cell genome
-
-	_cellStructures = _cellGenome.expressGenes();
-	for (int i = 0; i < _cellStructures.size(); i++) {
-		this->add_child(_cellStructures.get(i));
-	}
-
-	/*
-		// Load a CellStructure scene
-		Ref<PackedScene> nucleus_scene = ResourceLoader::get_singleton()->load("res://nucleus.tscn");
-		// Instantiate the scene and cast it to the specific type
-		Nucleus *nucleus = Object::cast_to<Nucleus>(nucleus_scene->instantiate());
-		// Add the CellStructure pointer to _cellStructures and as a child under this Cell
-		_cellStructures.push_back(nucleus);
-		this->add_child(nucleus);
-
-		Ref<PackedScene> mitochondria_scene = ResourceLoader::get_singleton()->load("res://mitochondria.tscn");
-		Mitochondria *mitochondria = Object::cast_to<Mitochondria>(mitochondria_scene->instantiate());
-		_cellStructures.push_back(mitochondria);
-		this->add_child(mitochondria);
-
-		Ref<PackedScene> ribosomes_scene = ResourceLoader::get_singleton()->load("res://ribosomes.tscn");
-		Ribosomes *ribosomes = Object::cast_to<Ribosomes>(ribosomes_scene->instantiate());
-		_cellStructures.push_back(ribosomes);
-		this->add_child(ribosomes);
-
-		Ref<PackedScene> flagella_scene = ResourceLoader::get_singleton()->load("res://flagella.tscn");
-		Flagella *flagella = Object::cast_to<Flagella>(flagella_scene->instantiate());
-		_cellStructures.push_back(flagella);
-		this->add_child(flagella);
-	*/
-	_spriteSize = Size2();
 }
 Cell::~Cell() {
 	queue_free();
@@ -149,11 +145,13 @@ void Cell::applyScale(const float scale) {
 	if (scale <= 0)
 		return;
 
-	_cellState = this->get_node<CellState>("CellState");
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+
 	if (_cellState && _cellState->getScale() * scale > 1)
 		return;
 
-	// Apply the scaling to the collision shape, sprite, and CellState
+	// Apply the scaling to the CollisionShape2D and CellState
 	this->get_node<CollisionShape2D>("CollisionShape2D")->apply_scale(Vector2(scale, scale));
 	_cellState->applyScale(scale);
 
@@ -166,9 +164,13 @@ void Cell::applyScale(const float scale) {
 	// s ^ 2
 	float newNutrientMaximum = _cellState->getNutrientMaximum() * scale * scale;
 	_cellState->setNutrientMaximum(newNutrientMaximum);
+	if (_cellState->getTotalNutrients() > newNutrientMaximum)
+		_cellState->setTotalNutrients(newNutrientMaximum);
 
 	float newEnergyMaximum = _cellState->getEnergyMaximum() * scale * scale;
 	_cellState->setEnergyMaximum(newEnergyMaximum);
+	if (_cellState->getTotalEnergy() > newEnergyMaximum)
+		_cellState->setTotalEnergy(newEnergyMaximum);
 
 	// Apply scaling to mass; scale is squared because mass is proportional to area for a circle
 	this->set_mass(this->get_mass() * scale * scale);
@@ -178,6 +180,10 @@ void Cell::applyScale(const float scale) {
 		if (structure)
 			structure->applyScale(scale);
 	}
+
+	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	if (cellMembrane)
+		_spriteSize = cellMembrane->getSpriteSize();
 }
 float Cell::getScale() const { return this->get_node<CellState>("CellState")->getScale(); }
 
@@ -211,8 +217,37 @@ void Cell::setImmortal(bool isImmortal) {
 }
 
 void Cell::_ready() {
+	if (!_cellState)
+		_cellState = this->get_node<CellState>("CellState");
+
+	float sumReproductionNutrientCost = 0;
+	float sumReproductionEnergyCost = 0;
+
+	float sumHomeostasisNutrientCost = 0;
+	float sumHomeostasisEnergyCost = 0;
+
+	// Add CellStructures using the cell genome
+	_cellStructures = _cellGenome.expressGenes();
+	for (auto &structure : _cellStructures) {
+		this->add_child(structure);
+
+		sumReproductionNutrientCost += structure->getCreationNutrientCost();
+		sumReproductionEnergyCost += structure->getCreationEnergyCost();
+
+		sumHomeostasisNutrientCost += structure->getMaintenanceNutrientCost();
+		sumHomeostasisEnergyCost += structure->getMaintenanceEnergyCost();
+
+		if (structure->getScale() != _cellState->getScale())
+			structure->applyScale(_cellState->getScale() / structure->getScale());
+	}
+
+	_cellState->setReproductionNutrientCost(sumReproductionNutrientCost);
+	_cellState->setReproductionEnergyCost(sumReproductionEnergyCost);
+
+	_cellState->setHomeostasisNutrientCost(sumHomeostasisNutrientCost);
+	_cellState->setHomeostasisEnergyCost(sumHomeostasisEnergyCost);
+
 	this->set_pickable(true);
-	_cellState = this->get_node<CellState>("CellState");
 
 	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 	if (cellMembrane) {

@@ -2,8 +2,6 @@
 
 #include "cell_structure.hpp"
 
-#include <godot_cpp/variant/utility_functions.hpp>
-
 using namespace godot;
 
 class Ribosomes : public CellStructure {
@@ -28,8 +26,8 @@ public:
 	void setEfficiency(const float);
 	float getEfficiency() const;
 
-	void setConversionRate(const float);
-	float getConversionRate() const;
+	void setPreferredConversionRate(const float);
+	float getPreferredConversionRate() const;
 
 	void setActivationResource(const String);
 	String getActivationResource() const;
@@ -43,7 +41,7 @@ private:
 	float _activationThreshold;
 	float _strength;
 	float _efficiency;
-	float _conversionRate;
+	float _preferredConversionRate;
 	String _activationResource;
 	String _thresholdType;
 };

@@ -61,6 +61,7 @@ CellState::CellState() {
 	_deathTime = NULL;
 	_lifespan = 60.0;
 	_scale = 1.0;
+	_nutrientEnergyConversionRate = -1.0; // An invalid default value so Mitochondria or Ribosomes only set this once
 	_homeostasisNutrientCost = 1.0;
 	_reproductionNutrientCost = 50.0;
 	_growthNutrientCost = 1000.0;
@@ -86,6 +87,11 @@ bool CellState::getAlive() const { return _alive; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }
+
+void CellState::setAge(const float age) {
+	if (age >= 0)
+		_age = age;
+}
 float CellState::getAge() const { return _age; }
 void CellState::increaseAge(const float delta) { _age += delta; }
 
@@ -101,6 +107,12 @@ void CellState::applyScale(const float scale) {
 		_scale *= scale;
 }
 float CellState::getScale() const { return _scale; }
+
+void CellState::setNutrientEnergyConversionRate(const float nutrientEnergyConversionRate) {
+	if (nutrientEnergyConversionRate >= 0.2 && nutrientEnergyConversionRate <= 5)
+		_nutrientEnergyConversionRate = nutrientEnergyConversionRate;
+}
+float CellState::getNutrientEnergyConversionRate() const { return _nutrientEnergyConversionRate; }
 
 void CellState::setHomeostasisNutrientCost(const float homeostasisNutrientCost) {
 	if (homeostasisNutrientCost > 0)

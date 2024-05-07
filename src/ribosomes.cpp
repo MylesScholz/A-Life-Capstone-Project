@@ -13,9 +13,9 @@ void Ribosomes::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_efficiency"), &Ribosomes::getEfficiency);
 	ClassDB::add_property("Ribosomes", PropertyInfo(Variant::FLOAT, "efficiency"), "set_efficiency", "get_efficiency");
 
-	ClassDB::bind_method(D_METHOD("set_conversion_rate", "conversion_rate"), &Ribosomes::setConversionRate);
-	ClassDB::bind_method(D_METHOD("get_conversion_rate"), &Ribosomes::getConversionRate);
-	ClassDB::add_property("Ribosomes", PropertyInfo(Variant::FLOAT, "conversion_rate"), "set_conversion_rate", "get_conversion_rate");
+	ClassDB::bind_method(D_METHOD("set_preferred_conversion_rate", "preferred_conversion_rate"), &Ribosomes::setPreferredConversionRate);
+	ClassDB::bind_method(D_METHOD("get_preferred_conversion_rate"), &Ribosomes::getPreferredConversionRate);
+	ClassDB::add_property("Ribosomes", PropertyInfo(Variant::FLOAT, "preferred_conversion_rate"), "set_preferred_conversion_rate", "get_preferred_conversion_rate");
 
 	ClassDB::bind_method(D_METHOD("set_activation_resource", "activation_resource"), &Ribosomes::setActivationResource);
 	ClassDB::bind_method(D_METHOD("get_activation_resource"), &Ribosomes::getActivationResource);
@@ -27,25 +27,23 @@ void Ribosomes::_bind_methods() {
 }
 
 Ribosomes::Ribosomes() {
-	// CellStructure attributes
-	this->setCreationNutrientCost(10.0);
-	this->setMaintenanceNutrientCost(1.0);
-	this->setCreationEnergyCost(10.0);
-	this->setMaintenanceEnergyCost(1.0);
-
 	// Ribosomes attributes
-	_activationThreshold = 1.0;
+	_activationThreshold = 0.5;
 	_strength = 1.0;
 	_efficiency = 1.0;
-	_conversionRate = 1.0;
-	_activationResource = "energy";
-	_thresholdType = "high-pass";
+	_preferredConversionRate = 1.0;
+	_activationResource = "nutrients";
+	_thresholdType = "low-pass";
 }
 Ribosomes::~Ribosomes() {}
 
 void Ribosomes::activate(CellState *cellState) {
 	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
 		this->getSprite()->stop();
+
+	// If the nutrient:energy conversion rate is not set (-1 by default), set it to these Ribosomes' preferred value
+	if (cellState->getNutrientEnergyConversionRate() == -1)
+		cellState->setNutrientEnergyConversionRate(_preferredConversionRate);
 
 	bool thresholdCondition = false;
 
@@ -73,7 +71,7 @@ void Ribosomes::activate(CellState *cellState) {
 		// Decrement the energy based on the strength and efficiency of these Ribosomes
 		cellState->incrementTotalEnergy(-_efficiency * _strength);
 		// Increment the nutrients based on the strength, conversion rate (nutrients:energy), and efficiency of these Ribosomes
-		cellState->incrementTotalNutrients(_efficiency * _conversionRate * _strength);
+		cellState->incrementTotalNutrients(_efficiency * cellState->getNutrientEnergyConversionRate() * _strength);
 
 		this->getSprite()->set_frame(1);
 		this->getSprite()->play("activate");
@@ -85,7 +83,7 @@ void Ribosomes::modify(String modifierName, float modifierValue) {
 	 * Relevant ModifierGenes
 	 * ACTIVATION_THRESHOLD: sets _activationThreshold
 	 * STRENGTH: sets _strength
-	 * CONVERSION_RATE: sets _conversionRate
+	 * CONVERSION_RATE: sets _preferredConversionRate
 	 * ACTIVATION_RESOURCE: sets _activationResource (0 -> "nutrients", 1 -> "energy")
 	 * THRESHOLD_TYPE: sets _thresholdType (0 -> "low-pass", 1 -> "high-pass")
 	 */
@@ -95,7 +93,7 @@ void Ribosomes::modify(String modifierName, float modifierValue) {
 	} else if (modifierName == "STRENGTH") {
 		setStrength(modifierValue);
 	} else if (modifierName == "CONVERSION_RATE") {
-		setConversionRate(modifierValue);
+		setPreferredConversionRate(modifierValue);
 	} else if (modifierName == "ACTIVATION_RESOURCE") {
 		// Map float modifierValue to String _activationResource
 		if (modifierValue == 0) {
@@ -131,11 +129,11 @@ void Ribosomes::setEfficiency(const float efficiency) {
 }
 float Ribosomes::getEfficiency() const { return _efficiency; }
 
-void Ribosomes::setConversionRate(const float conversionRate) {
-	if (conversionRate > 0.0)
-		_conversionRate = conversionRate;
+void Ribosomes::setPreferredConversionRate(const float preferredConversionRate) {
+	if (preferredConversionRate > 0.0)
+		_preferredConversionRate = preferredConversionRate;
 }
-float Ribosomes::getConversionRate() const { return _conversionRate; }
+float Ribosomes::getPreferredConversionRate() const { return _preferredConversionRate; }
 
 void Ribosomes::setActivationResource(const String activationResource) {
 	if (activationResource == "nutrients" || activationResource == "energy")

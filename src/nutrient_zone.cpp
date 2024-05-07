@@ -59,7 +59,7 @@ void NutrientZone::_on_body_exited(Node *body) {
 }
 
 void NutrientZone::applyScale(const float scale) {
-	if (scale < 0 && scale > 1.0)
+	if (scale < 0 || scale > 1.0)
 		return;
 
 	// Apply the scaling to the collision shape and sprite
@@ -127,6 +127,8 @@ void NutrientZone::_ready() {
 	}
 }
 void NutrientZone::_process(float delta) {
+	DONT_RUN_IN_EDITOR;
+
 	if (delta != 0) {
 		// Regenerate nutrients
 		incrementTotalNutrients(delta * _regenerationRate);
@@ -144,8 +146,8 @@ void NutrientZone::_process(float delta) {
 			feedingAmount = MAX(feedingAmount, 0.01);
 
 			// The NutrientZone may not have enough nutrients for the calculated feeding amount,
-			// so decrement the total nutrients and get the actual amount decremented (the return value)
-			float actualFeedingAmount = incrementTotalNutrients(-feedingAmount);
+			// so decrement the total nutrients and get the actual amount decremented (negative return value)
+			float actualFeedingAmount = -incrementTotalNutrients(-feedingAmount);
 
 			// Delete the NutrientZone if it is empty and set to delete on empty (Note: will not delete unless trying to feed a Cell, should not be a problem)
 			if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {

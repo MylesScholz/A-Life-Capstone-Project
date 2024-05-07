@@ -21,6 +21,7 @@ animations = [{
 }]
 
 [node name="CellMembrane" type="CellMembrane"]
+activation_threshold = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.087, 0.087)
