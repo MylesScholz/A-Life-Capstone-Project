@@ -1,6 +1,12 @@
 #include "lineage_graph.hpp"
 
 LineageGraph::LineageGraph() {
+	// Number of columns of Cells in the storage area
+	_nColumns = 5;
+	// Storage basis vector; the top left position of the storage area; just to the right of the CellEnvironment
+	_storageBasis = Vector2(1400, 0);
+	// Spacing between Cells in the storage area
+	_storageSpacing = 150;
 	_vertices = Vector<LineageGraphVertex *>();
 }
 LineageGraph::~LineageGraph() {
@@ -9,10 +15,8 @@ LineageGraph::~LineageGraph() {
 }
 
 Vector2 LineageGraph::storeCell(Cell *cell) {
-	// Initialize position at the top left corner of the storage area (just right of the CellEnvironment)
-	Vector2 position = Vector2(1400, 0);
-
-	int columns = 10;
+	// Initialize position at the storage basis vector
+	Vector2 position = _storageBasis;
 
 	int index = indexOfCell(cell);
 	if (index < 0) {
@@ -20,8 +24,8 @@ Vector2 LineageGraph::storeCell(Cell *cell) {
 		index = indexOfCell(cell);
 	}
 
-	position.x += (index % columns) * 150;
-	position.y += (index / columns) * 150;
+	position.x += (index % _nColumns) * _storageSpacing;
+	position.y += (index / _nColumns) * _storageSpacing;
 
 	cell->set_position(position);
 

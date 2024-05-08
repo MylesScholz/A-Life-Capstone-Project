@@ -28,5 +28,8 @@ public:
 	int indexOfCell(Cell *) const;
 
 private:
+	int _nColumns;
+	int _storageSpacing;
+	Vector2 _storageBasis;
 	Vector<LineageGraphVertex *> _vertices;
 };
