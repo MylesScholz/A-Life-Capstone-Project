@@ -70,6 +70,7 @@ corner_radius_bottom_left = 10
 [node name="CellSpawner" type="CellSpawner"]
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
+resource_proportion = 0.8
 
 [node name="CellEnvironment" parent="." instance=ExtResource("2_ymrrk")]
 

@@ -2,6 +2,7 @@
 
 #include "lineage_graph_vertex.hpp"
 
+#include <godot_cpp/classes/collision_object2d.hpp>
 #include <godot_cpp/templates/vector.hpp>
 
 using namespace godot;
@@ -10,6 +11,8 @@ class LineageGraph {
 public:
 	LineageGraph();
 	~LineageGraph();
+
+	Vector2 storeCell(Cell *);
 
 	LineageGraphVertex *addVertex(Cell *);
 	LineageGraphVertex *addVertex(LineageGraphVertex *);

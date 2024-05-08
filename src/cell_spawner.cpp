@@ -97,8 +97,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(cell);
-	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+	cellEnvironment->addCell(cellObject);
 
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
@@ -152,14 +151,12 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellObject->apply_torque(rand.randf_range(-500, 500));
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(childCell);
+	cellEnvironment->addCell(cellObject);
 
 	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
 	cell->applyScale(halfArea);
 	cellObject->applyScale(cell->getScale());
-
-	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }

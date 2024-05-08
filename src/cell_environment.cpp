@@ -74,6 +74,16 @@ void CellEnvironment::removeCell(Cell *cell) {
 LineageGraph *CellEnvironment::getLineageGraph() { return &_lineageGraph; }
 
 void CellEnvironment::_on_cell_death(Cell *cell) {
+	// Disable Cell physics
+	cell->set_disable_mode(cell->DISABLE_MODE_REMOVE);
+	cell->set_process_mode(cell->PROCESS_MODE_DISABLED);
+
+	// Store Cell position for placing the NutrientZone
+	Vector2 cellPosition = cell->get_position();
+
+	// Move Cell outside the CellEnvironment bounds for storage
+	_lineageGraph.storeCell(cell);
+
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
 
@@ -84,7 +94,6 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 	nutrientZone->applyScale(cell->getScale() / 4);
 
 	// Set the NutrientZone's position in the same position as the dead cell
-	godot::Vector2 cellPosition = cell->get_position();
 	Vector2 nutrientZonePosition = Vector2(cellPosition.x - viewportSize.x / 2, cellPosition.y - viewportSize.y / 2);
 	nutrientZone->set_position(nutrientZonePosition);
 

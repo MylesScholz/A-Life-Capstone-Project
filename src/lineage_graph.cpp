@@ -8,6 +8,26 @@ LineageGraph::~LineageGraph() {
 		delete vertex;
 }
 
+Vector2 LineageGraph::storeCell(Cell *cell) {
+	// Initialize position at the top left corner of the storage area (just right of the CellEnvironment)
+	Vector2 position = Vector2(1400, 0);
+
+	int columns = 10;
+
+	int index = indexOfCell(cell);
+	if (index < 0) {
+		addVertex(cell);
+		index = indexOfCell(cell);
+	}
+
+	position.x += (index % columns) * 150;
+	position.y += (index / columns) * 150;
+
+	cell->set_position(position);
+
+	return position;
+}
+
 LineageGraphVertex *LineageGraph::addVertex(Cell *cell) {
 	LineageGraphVertex *newVertex = new LineageGraphVertex(cell);
 
