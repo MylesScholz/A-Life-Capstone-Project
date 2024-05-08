@@ -152,6 +152,7 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 	cellEnvironment->addCell(cellObject);
+	cellEnvironment->getLineageGraph()->addEdge(cell, cellObject);
 
 	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
