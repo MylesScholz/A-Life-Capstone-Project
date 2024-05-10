@@ -37,4 +37,8 @@ void MainMenuButton::_pressed() {
 	for (int i = 0; i < spawner->getNumCells(); i++) {
 		spawner->spawnCell(1);
 	}
+	// Respawn nutrient zones
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
+	}
 }

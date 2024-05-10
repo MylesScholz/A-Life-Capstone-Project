@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=28 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://MenuButton.gd" id="8_7m3jv"]
 [ext_resource type="Script" path="res://SaveAndQuitButton.gd" id="9_i11s2"]
 [ext_resource type="Script" path="res://SimSettingsButton.gd" id="10_51xgw"]
-[ext_resource type="Script" path="res://EXIT_TO_MENUButton.gd" id="11_md7wg"]
 [ext_resource type="Script" path="res://MenuExitButton.gd" id="12_snkx7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wap8f"]
@@ -462,10 +461,10 @@ script = ExtResource("10_51xgw")
 
 [node name="Panel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 51.0
-offset_right = 473.0
-offset_bottom = 349.0
+offset_left = 9.0
+offset_top = 56.0
+offset_right = 476.0
+offset_bottom = 354.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_hta6u")
 
@@ -606,14 +605,13 @@ offset_bottom = 258.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "EXIT TO MENU"
 
-[node name="EXIT_TO_MENUButton" type="TextureButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
+[node name="MainMenuButton" type="MainMenuButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
 layout_mode = 0
 offset_left = -33.0
 offset_top = -6.0
 offset_right = 147.0
 offset_bottom = 34.0
 mouse_default_cursor_shape = 2
-script = ExtResource("11_md7wg")
 
 [node name="ExitPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 layout_mode = 0

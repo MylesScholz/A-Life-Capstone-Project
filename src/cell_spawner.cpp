@@ -129,6 +129,13 @@ void CellSpawner::_ready() {
 	for (int i = 0; i < this->getNumCells(); i++) {
 		this->spawnCell(1);
 	}
+
+	// Spawn nutrient zones
+	CellEnvironment *environment = this->get_node<CellEnvironment>("CellEnvironment");
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
+	}
+
 	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
 #ifdef TESTS_ENABLED
