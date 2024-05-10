@@ -8,6 +8,9 @@
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/classes/viewport.hpp>
 
+#include "cell_spawner.hpp"
+#include "stats.hpp"
+
 using namespace godot;
 
 class CellEnvironment : public Area2D {

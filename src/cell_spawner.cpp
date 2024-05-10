@@ -45,6 +45,8 @@ void CellSpawner::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
 
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
+
+	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);  
 }
 
 CellSpawner::CellSpawner() {}

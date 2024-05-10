@@ -11,6 +11,8 @@ void CellEnvironment::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("_on_cell_death"), &CellEnvironment::_on_cell_death);
 	ADD_SIGNAL(MethodInfo("cell_death"));
+
+	ClassDB::bind_method(D_METHOD("remove_all_nutrient_zones"), &CellEnvironment::removeAllNutrientZones);
 }
 
 CellEnvironment::CellEnvironment() {

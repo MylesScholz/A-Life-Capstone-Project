@@ -26,10 +26,13 @@ func ui_reset():
 	rootNode.get_node("CellSpawner/UI/StatsPanel/TabContainer/Stats")._clear_selected_cell() # clear any selections
 	
 	var spawner = rootNode.get_node("CellSpawner")
-	for child in spawner.get_children():
+	var zones = rootNode.get_node("CellSpawner/CellEnvironment")
+	for child in zones.get_children():
 		if child is Cell:
-			spawner.remove_child(child)
+			zones.remove_child(child)
 			child.queue_free()
 	
 	for i in range(spawner.get_num_cells()):
 		spawner.spawn_cell(1)
+	
+	zones.remove_all_nutrient_zones()
