@@ -14,6 +14,8 @@ public:
 	CellStructure *express() override;
 	float getValue() override;
 
+	RibosomesGene *clone() { return new RibosomesGene(*this); }
+
 private:
 	/* data */
 };

@@ -52,7 +52,7 @@ void CellEnvironment::setNutrientZoneScene(const Ref<PackedScene> nutrientZoneSc
 Ref<PackedScene> CellEnvironment::getNutrientZoneScene() const { return _nutrientZoneScene; }
 
 void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
-	if (nNutrientZones > 0 && nNutrientZones < 10)
+	if (nNutrientZones > 0 && nNutrientZones < 50)
 		_nNutrientZones = nNutrientZones;
 }
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }

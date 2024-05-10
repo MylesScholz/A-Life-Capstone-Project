@@ -11,7 +11,7 @@ Description: The start button is a UI element that triggers the simulation to st
 None
 
 ### Methods
-- void _ready(): runs once when the StartButton has been created and is ready to be used; sets the button text to "Start"
+- void _ready(): runs once when the StartButton enters the node tree; sets the button text to "Start"
 - void _pressed(): runs when the button is pressed; uses CellSpawner to create Cells and then becomes invisible
 
 ## Non-Member Functions

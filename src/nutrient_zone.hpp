@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cell.hpp"
+#include "helpers.hpp"
 
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/collision_shape2d.hpp>

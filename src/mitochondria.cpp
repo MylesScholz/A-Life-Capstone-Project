@@ -13,9 +13,9 @@ void Mitochondria::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_efficiency"), &Mitochondria::getEfficiency);
 	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::FLOAT, "efficiency"), "set_efficiency", "get_efficiency");
 
-	ClassDB::bind_method(D_METHOD("set_conversion_rate", "conversion_rate"), &Mitochondria::setConversionRate);
-	ClassDB::bind_method(D_METHOD("get_conversion_rate"), &Mitochondria::getConversionRate);
-	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::FLOAT, "conversion_rate"), "set_conversion_rate", "get_conversion_rate");
+	ClassDB::bind_method(D_METHOD("set_preferred_conversion_rate", "preferred_conversion_rate"), &Mitochondria::setPreferredConversionRate);
+	ClassDB::bind_method(D_METHOD("get_preferred_conversion_rate"), &Mitochondria::getPreferredConversionRate);
+	ClassDB::add_property("Mitochondria", PropertyInfo(Variant::FLOAT, "preferred_conversion_rate"), "set_preferred_conversion_rate", "get_preferred_conversion_rate");
 
 	ClassDB::bind_method(D_METHOD("set_activation_resource", "activation_resource"), &Mitochondria::setActivationResource);
 	ClassDB::bind_method(D_METHOD("get_activation_resource"), &Mitochondria::getActivationResource);
@@ -27,25 +27,23 @@ void Mitochondria::_bind_methods() {
 }
 
 Mitochondria::Mitochondria() {
-	// CellStructure attributes
-	this->setCreationNutrientCost(10.0);
-	this->setMaintenanceNutrientCost(1.0);
-	this->setCreationEnergyCost(10.0);
-	this->setMaintenanceEnergyCost(1.0);
-
 	// Mitochondria attributes
-	_activationThreshold = 1.0;
+	_activationThreshold = 0.5;
 	_strength = 1.0;
 	_efficiency = 1.0;
-	_conversionRate = 1.0;
-	_activationResource = "nutrients";
-	_thresholdType = "high-pass";
+	_preferredConversionRate = 1.0;
+	_activationResource = "energy";
+	_thresholdType = "low-pass";
 }
 Mitochondria::~Mitochondria() {}
 
 void Mitochondria::activate(CellState *cellState) {
 	if (this->getSprite()->get_frame() == this->getSprite()->get_sprite_frames()->get_frame_count("activate") - 1)
 		this->getSprite()->stop();
+
+	// If the nutrient:energy conversion rate is not set (-1 by default), set it to these Mitochondria's preferred value
+	if (cellState->getNutrientEnergyConversionRate() == -1)
+		cellState->setNutrientEnergyConversionRate(_preferredConversionRate);
 
 	bool thresholdCondition = false;
 
@@ -73,7 +71,8 @@ void Mitochondria::activate(CellState *cellState) {
 		// Decrement the nutrients based on the strength and efficiency of these Mitochondria
 		cellState->incrementTotalNutrients(-_efficiency * _strength);
 		// Increment the energy based on the strength, conversion rate (energy:nutrients), and efficiency of these Mitochondria
-		cellState->incrementTotalEnergy(_efficiency * _conversionRate * _strength);
+		float energyNutrientConversionRate = 1.0 / cellState->getNutrientEnergyConversionRate();
+		cellState->incrementTotalEnergy(_efficiency * energyNutrientConversionRate * _strength);
 
 		this->getSprite()->set_frame(1);
 		this->getSprite()->play("activate");
@@ -85,7 +84,7 @@ void Mitochondria::modify(String modifierName, float modifierValue) {
 	 * Relevant ModifierGenes
 	 * ACTIVATION_THRESHOLD: sets _activationThreshold
 	 * STRENGTH: sets _strength
-	 * CONVERSION_RATE: sets _conversionRate
+	 * CONVERSION_RATE: sets _preferredConversionRate
 	 * ACTIVATION_RESOURCE: sets _activationResource (0 -> "nutrients", 1 -> "energy")
 	 * THRESHOLD_TYPE: sets _thresholdType (0 -> "low-pass", 1 -> "high-pass")
 	 */
@@ -95,7 +94,7 @@ void Mitochondria::modify(String modifierName, float modifierValue) {
 	} else if (modifierName == "STRENGTH") {
 		setStrength(modifierValue);
 	} else if (modifierName == "CONVERSION_RATE") {
-		setConversionRate(modifierValue);
+		setPreferredConversionRate(modifierValue);
 	} else if (modifierName == "ACTIVATION_RESOURCE") {
 		// Map float modifierValue to String _activationResource
 		if (modifierValue == 0) {
@@ -131,11 +130,11 @@ void Mitochondria::setEfficiency(const float efficiency) {
 }
 float Mitochondria::getEfficiency() const { return _efficiency; }
 
-void Mitochondria::setConversionRate(const float conversionRate) {
-	if (conversionRate > 0.0)
-		_conversionRate = conversionRate;
+void Mitochondria::setPreferredConversionRate(const float preferredConversionRate) {
+	if (preferredConversionRate > 0.0)
+		_preferredConversionRate = preferredConversionRate;
 }
-float Mitochondria::getConversionRate() const { return _conversionRate; }
+float Mitochondria::getPreferredConversionRate() const { return _preferredConversionRate; }
 
 void Mitochondria::setActivationResource(const String activationResource) {
 	if (activationResource == "nutrients" || activationResource == "energy")

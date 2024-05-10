@@ -2,8 +2,6 @@
 
 #include "cell_structure.hpp"
 
-#include <godot_cpp/variant/utility_functions.hpp>
-
 using namespace godot;
 
 class Nucleus : public CellStructure {
@@ -22,8 +20,12 @@ public:
 	void setReproductionNutrientThreshold(const float);
 	float getReproductionNutrientThreshold() const;
 
+	void setReproductionEnergyThreshold(const float);
+	float getReproductionEnergyThreshold() const;
+
 	void _ready() override;
 
 private:
 	float _reproductionNutrientThreshold;
+	float _reproductionEnergyThreshold;
 };

@@ -37,6 +37,13 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_max_force"), &CellSpawner::getMaxForce);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "max_force"), "set_max_force", "get_max_force");
 
+	ClassDB::bind_method(D_METHOD("set_resource_proportion", "resource_proportion"), &CellSpawner::setResourceProportion);
+	ClassDB::bind_method(D_METHOD("get_resource_proportion"), &CellSpawner::getResourceProportion);
+	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::FLOAT, "resource_proportion"), "set_resource_proportion", "get_resource_proportion");
+
+	ClassDB::bind_method(D_METHOD("_on_cell_reproduction", "cell"), &CellSpawner::_on_cell_reproduction);
+	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
+
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 }
 
@@ -72,6 +79,12 @@ void CellSpawner::setMaxForce(const float maxForce) {
 }
 float CellSpawner::getMaxForce() const { return _maxForce; }
 
+void CellSpawner::setResourceProportion(const float resourceProportion) {
+	if (resourceProportion >= 0 && resourceProportion <= 1)
+		_resourceProportion = resourceProportion;
+}
+float CellSpawner::getResourceProportion() const { return _resourceProportion; }
+
 void CellSpawner::spawnCell(bool isImmortal) {
 	// Create a RandomNumberGenerator object
 	RandomNumberGenerator rand = RandomNumberGenerator();
@@ -83,9 +96,18 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Cast cell scene to Cell object for ease of use
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
+	cellEnvironment->add_child(cell);
+	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
 	Size2 cellSize = cellObject->getSpriteSize();
+
+	// Set Cell resources to _resourceProportion of their maxima
+	CellState *cellState = cellObject->get_node<CellState>("CellState");
+	cellState->setTotalNutrients(_resourceProportion * cellState->getNutrientMaximum());
+	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
 
 	// Set Cell position to random location in viewport
 	cellObject->set_position(Vector2(
@@ -103,12 +125,43 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
 
-	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(cell);
-	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+	if (!isImmortal)
+		cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 
 	/*StatsCounter *statsCounter = this->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
 	cellObject->connect("cell_selected", Callable(statsCounter, "_update_Stats"));*/
+}
+
+void CellSpawner::_on_cell_reproduction(Cell *cell) {
+	// Create a RandomNumberGenerator object
+	RandomNumberGenerator rand = RandomNumberGenerator();
+
+	Node *childCell = _cellScene->instantiate();
+	Cell *cellObject = Object::cast_to<Cell>(childCell);
+
+	cellObject->seteq(cell);
+
+	cellObject->set_position(cell->get_position());
+
+	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework it won't be
+	float force_magnitude = rand.randf_range(_minForce, _maxForce);
+	float direction = rand.randf_range(0, 2 * Math_PI);
+	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
+	cellObject->apply_force(force);
+
+	cellObject->apply_torque(rand.randf_range(-500, 500));
+
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
+	cellEnvironment->add_child(childCell);
+
+	// Split the parent Cell's area evenly between the parent and the child
+	float halfArea = (sqrt(2) / 2);
+	cell->applyScale(halfArea);
+	cellObject->applyScale(cell->getScale());
+
+	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+
+	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
@@ -125,16 +178,6 @@ void CellSpawner::removeAllCells() {
 
 void CellSpawner::_ready() {
 	DONT_RUN_IN_EDITOR;
-	// Spawn back ground cells that don't die
-	for (int i = 0; i < this->getNumCells(); i++) {
-		this->spawnCell(1);
-	}
-
-	// Spawn nutrient zones
-	CellEnvironment *environment = this->get_node<CellEnvironment>("CellEnvironment");
-	for (int i = 0; i < environment->getNNutrientZones(); i++) {
-		environment->spawnNutrientZone();
-	}
 
 	// If tests are enabled, check for custom cmdline arg to run tests,
 	// forwarding additional user args into doctest as its args
@@ -154,4 +197,15 @@ void CellSpawner::_ready() {
 		}
 	}
 #endif
+
+	// Spawn back ground cells that don't die
+	for (int i = 0; i < this->getNumCells(); i++) {
+		this->spawnCell(1);
+	}
+
+	// Spawn nutrient zones
+	CellEnvironment *environment = this->get_node<CellEnvironment>("CellEnvironment");
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
+	}
 }
