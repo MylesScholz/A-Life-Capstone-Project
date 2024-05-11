@@ -60,6 +60,12 @@ void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }
 
 void CellEnvironment::_on_cell_death(Cell *cell) {
+	// Clear Cell selection
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
+	Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
+	if (cell == stats->get_selected_cell())
+		stats->_clear_selected_cell();
+
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
 

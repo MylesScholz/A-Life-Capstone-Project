@@ -24,6 +24,7 @@ public:
 	void _process(double delta) override;
 	void _update_Stats(Variant cell_instance);
 	void _set_selected_cell(Variant cell_instance);
+	Cell *get_selected_cell();
 	void _clear_selected_cell();
 	void clear_stats();
 	void update_label(String name, String text);

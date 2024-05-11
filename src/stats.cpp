@@ -37,6 +37,7 @@ void Stats::_set_selected_cell(Variant cell_instance) {
 	UtilityFunctions::print("assignment detected");
 	selected_cell = Object::cast_to<Cell>(cell_instance);
 }
+Cell *Stats::get_selected_cell() { return selected_cell; }
 
 void Stats::_clear_selected_cell() {
 	UtilityFunctions::print("clear detected");
