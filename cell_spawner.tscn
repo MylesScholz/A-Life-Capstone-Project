@@ -70,24 +70,56 @@ corner_radius_bottom_left = 10
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yf4le"]
 
 [node name="CellSpawner" type="CellSpawner"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 num_cells = 10
 cell_scene = ExtResource("1_dm1x8")
+script = null
 
 [node name="CellEnvironment" parent="." instance=ExtResource("2_ymrrk")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
+script = null
 
 [node name="UI" type="Node" parent="."]
 
 [node name="FpsCounter" type="FpsCounter" parent="UI"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 z_index = 1
 offset_top = 66.0
 offset_right = 40.0
 offset_bottom = 89.0
+script = null
 
 [node name="TimeCounter" type="TimeCounter" parent="UI"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 z_index = 1
 offset_top = 90.0
 offset_right = 40.0
 offset_bottom = 113.0
+script = null
 
 [node name="SpeedDisplay" type="Label" parent="UI"]
 offset_top = 114.0
@@ -105,7 +137,13 @@ theme = ExtResource("2_d86u0")
 script = ExtResource("3_o15cp")
 
 [node name="StatsCounter" type="StatsCounter" parent="UI/StatsPanel"]
+_import_path = NodePath("")
+unique_name_in_owner = false
 process_mode = 3
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
@@ -117,6 +155,7 @@ offset_right = -13.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+script = null
 
 [node name="Tree" type="Tree" parent="UI/StatsPanel"]
 layout_mode = 0
@@ -196,6 +235,13 @@ offset_bottom = 672.0
 theme = ExtResource("2_d86u0")
 
 [node name="StartButton" type="StartButton" parent="UI/BarPanel"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.344
@@ -211,6 +257,7 @@ grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
 text = "Start New Simulation"
+script = null
 
 [node name="LoadSimButton" type="Button" parent="UI/BarPanel"]
 layout_mode = 0
@@ -258,83 +305,76 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "A-Life Challenge 2.0"
 
 [node name="MainMenuButton" type="MainMenuButton" parent="UI/NavBar/NavTitle"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 0
 offset_left = -12.0
 offset_top = -1.0
 offset_right = 351.0
 offset_bottom = 65.0
 mouse_default_cursor_shape = 2
+script = null
 
 [node name="SlowDown1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(560.268, -87.3415)
+position = Vector2(654.268, -87.3415)
 scale = Vector2(0.829268, 0.829268)
 polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
 
 [node name="SlowDown2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(573.13, -86.9565)
+position = Vector2(667.13, -86.9565)
 scale = Vector2(0.826087, 0.826087)
 polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
 
 [node name="SlowDownButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 750.0
+offset_left = 844.0
 offset_top = 12.0
-offset_right = 799.0
+offset_right = 893.0
 offset_bottom = 53.0
 mouse_default_cursor_shape = 2
 script = ExtResource("7_ote0v")
 
 [node name="SpeedUp1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(731.239, -90.587)
+position = Vector2(825.239, -90.587)
 scale = Vector2(0.847826, 0.847826)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
 [node name="SpeedUp2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(740.143, -91.7143)
+position = Vector2(834.143, -91.7143)
 scale = Vector2(0.857143, 0.857143)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
 
 [node name="SpeedUpButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 921.0
+offset_left = 1015.0
 offset_top = 11.0
-offset_right = 970.0
+offset_right = 1064.0
 offset_bottom = 53.0
 mouse_default_cursor_shape = 2
 script = ExtResource("8_1chyv")
 
-[node name="Zoom1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(797.348, -93.2174)
-scale = Vector2(0.869565, 0.869565)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
-
-[node name="Zoom2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(808.457, -95.8478)
-scale = Vector2(0.891304, 0.891304)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
-
-[node name="Zoom3" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(827.605, -92.079)
-scale = Vector2(0.868421, 0.868421)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
-
 [node name="Div1" type="Line2D" parent="UI/NavBar"]
-position = Vector2(169, 68)
+position = Vector2(263, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
 [node name="Div2" type="Line2D" parent="UI/NavBar"]
-position = Vector2(51, 68)
+position = Vector2(145, 68)
 points = PackedVector2Array(563, -59, 563, -10)
 width = 5.0
 default_color = Color(0.121569, 0.121569, 0.121569, 1)
 
 [node name="MenuText" type="LineEdit" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 510.0
+offset_left = 604.0
 offset_top = 3.0
-offset_right = 622.0
+offset_right = 716.0
 offset_bottom = 63.0
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
@@ -351,27 +391,35 @@ script = ExtResource("8_7m3jv")
 
 [node name="ResetText" type="LineEdit" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 632.0
+offset_left = 726.0
 offset_top = 3.0
-offset_right = 744.0
+offset_right = 838.0
 offset_bottom = 63.0
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Reset"
 
 [node name="ResetButton" type="ResetButton" parent="UI/NavBar/ResetText"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 0
 offset_left = -8.0
 offset_top = 3.0
 offset_right = 91.0
 offset_bottom = 59.0
 mouse_default_cursor_shape = 2
+script = null
 
 [node name="PauseButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 838.0
+offset_left = 932.0
 offset_top = 10.0
-offset_right = 884.0
+offset_right = 978.0
 offset_bottom = 57.0
 mouse_default_cursor_shape = 2
 script = ExtResource("6_8cqgg")
@@ -606,12 +654,20 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_rq021")
 text = "EXIT TO MENU"
 
 [node name="MainMenuButton" type="MainMenuButton" parent="UI/MenuPanels/SaveAndQuitMenuPanel/Panel/EXIT_TO_MENUText"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 0
 offset_left = -33.0
 offset_top = -6.0
 offset_right = 147.0
 offset_bottom = 34.0
 mouse_default_cursor_shape = 2
+script = null
 
 [node name="ExitPanel" type="Panel" parent="UI/MenuPanels/SaveAndQuitMenuPanel"]
 layout_mode = 0
