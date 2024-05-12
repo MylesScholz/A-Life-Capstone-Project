@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=45 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -22,6 +22,12 @@
 [ext_resource type="Script" path="res://SimSettingsButton.gd" id="10_51xgw"]
 [ext_resource type="Script" path="res://ExitMenuButton.gd" id="10_j1ug1"]
 [ext_resource type="Script" path="res://EXIT_TO_MENUButton.gd" id="11_md7wg"]
+[ext_resource type="Script" path="res://Cell.gd" id="12_51nej"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfs3d"]
+bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.882353)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6wmf3"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.882353)
@@ -70,6 +76,13 @@ bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.882353)
 border_width_bottom = 2
 border_color = Color(0.0509804, 0.0509804, 0.0509804, 0.882353)
 border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ku2p"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peo4t"]
 bg_color = Color(0, 0, 0, 1)
@@ -146,14 +159,26 @@ cell_scene = ExtResource("1_dm1x8")
 
 [node name="CellEnvironment" parent="." instance=ExtResource("2_g8x7p")]
 
+[node name="Stats" type="Stats" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 838.0
+offset_top = 397.0
+offset_right = 828.0
+offset_bottom = 351.0
+theme = ExtResource("2_d86u0")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ExtraPanel" type="Panel" parent="UI"]
 visible = false
-offset_top = 66.0
+offset_top = 64.0
 offset_right = 100.0
-offset_bottom = 120.0
-theme = ExtResource("2_d86u0")
+offset_bottom = 118.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tfs3d")
 script = ExtResource("3_dv34r")
 
 [node name="TimeCounter" type="TimeCounter" parent="UI/ExtraPanel"]
@@ -247,10 +272,9 @@ layout_mode = 2
 button_pressed = true
 text = "FPS + Timer Menu"
 
-[node name="CheckButton" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
-visible = false
+[node name="MenuPauseCheck" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
 layout_mode = 2
-text = "Auto-pause on settings open"
+text = "Auto-pause on menu open"
 
 [node name="CheckButton3" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
 visible = false
@@ -266,7 +290,6 @@ layout_mode = 2
 script = ExtResource("8_74sho")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
-visible = false
 offset_left = 826.0
 offset_top = 320.0
 offset_right = 1079.0
@@ -314,43 +337,38 @@ theme = ExtResource("2_d86u0")
 theme_override_constants/side_margin = 0
 clip_tabs = false
 
-[node name="Stats" type="Stats" parent="UI/StatsPanel/TabContainer"]
-process_mode = 3
+[node name="Cell" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
 layout_mode = 2
-theme = ExtResource("2_d86u0")
+script = ExtResource("12_51nej")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/StatsPanel/TabContainer/Stats"]
-visible = false
-layout_mode = 2
-
-[node name="CellName" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="CellName" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Name:"
 
-[node name="CellBirth" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="CellBirth" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Birth time:"
 
-[node name="CellAge" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="CellAge" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Age:"
 
-[node name="CellAlive" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="CellAlive" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Alive:"
 
-[node name="SizeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="SizeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Size (µm):"
 
-[node name="MassLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="MassLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 text = "Mass (µg):"
 
-[node name="Energy" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="Energy" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 
-[node name="Nutrients" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Stats/VBoxContainer"]
+[node name="Nutrients" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Cell"]
 layout_mode = 2
 
 [node name="General" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
@@ -361,6 +379,7 @@ theme_override_constants/separation = 5
 script = ExtResource("5_q0lri")
 
 [node name="TimeCounter" type="TimeCounter" parent="UI/StatsPanel/TabContainer/General"]
+visible = false
 layout_mode = 2
 
 [node name="Tree" type="Tree" parent="UI/StatsPanel/TabContainer"]
@@ -389,16 +408,16 @@ shape = SubResource("RectangleShape2D_mq8oa")
 [node name="BarPanel" type="Panel" parent="UI"]
 unique_name_in_owner = true
 offset_left = 184.0
-offset_right = 504.0
+offset_right = 464.0
 offset_bottom = 720.0
 theme = ExtResource("2_d86u0")
 
 [node name="Title" type="Label" parent="UI/BarPanel"]
 layout_mode = 0
-offset_left = 36.0
-offset_top = 204.0
-offset_right = 399.0
-offset_bottom = 308.0
+offset_left = 32.0
+offset_top = 200.0
+offset_right = 395.0
+offset_bottom = 296.0
 theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
 text = "Protobiota"
@@ -406,27 +425,35 @@ text = "Protobiota"
 [node name="Label" type="Label" parent="UI/BarPanel/Title"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 91.0
-offset_right = 159.0
-offset_bottom = 114.0
-text = "A-Life Challenge 2.0"
+offset_top = 88.0
+offset_right = 213.0
+offset_bottom = 111.0
+text = "Artificial Life Challenge 2.0"
+
+[node name="Label2" type="Label" parent="UI/BarPanel/Title"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 112.0
+offset_right = 94.0
+offset_bottom = 135.0
+text = "Version 1.0"
 
 [node name="ButtonPanel" type="Panel" parent="UI/BarPanel"]
 layout_mode = 0
-offset_left = 36.0
-offset_top = 356.0
-offset_right = 278.0
-offset_bottom = 530.0
+offset_left = 32.0
+offset_top = 352.0
+offset_right = 248.0
+offset_bottom = 512.0
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ovba3")
 
 [node name="StartButton" type="StartButton" parent="UI/BarPanel/ButtonPanel"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 27.0
-offset_top = 24.0
-offset_right = 211.0
-offset_bottom = 58.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 200.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
@@ -435,20 +462,20 @@ text = "Start New Simulation"
 
 [node name="MenuSettingsButton" type="Button" parent="UI/BarPanel/ButtonPanel"]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 69.0
-offset_right = 211.0
-offset_bottom = 103.0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 200.0
+offset_bottom = 98.0
 theme = ExtResource("6_wranc")
 text = "Settings"
 script = ExtResource("8_dmx0r")
 
 [node name="QuitButton" type="Button" parent="UI/BarPanel/ButtonPanel"]
 layout_mode = 0
-offset_left = 27.0
-offset_top = 116.0
-offset_right = 211.0
-offset_bottom = 150.0
+offset_left = 16.0
+offset_top = 112.0
+offset_right = 200.0
+offset_bottom = 146.0
 theme = ExtResource("6_wranc")
 text = "Quit"
 script = ExtResource("6_cqljf")
@@ -457,58 +484,66 @@ script = ExtResource("6_cqljf")
 unique_name_in_owner = true
 visible = false
 offset_right = 1080.0
-offset_bottom = 66.0
+offset_bottom = 64.0
 theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_xidby")
 
-[node name="MenuButton" type="Button" parent="UI/NavBar"]
+[node name="ButtonPanel" type="Panel" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 504.0
-offset_top = 16.0
-offset_right = 565.0
-offset_bottom = 47.0
+offset_left = 256.0
+offset_top = 8.0
+offset_right = 473.0
+offset_bottom = 58.0
+theme = ExtResource("2_d86u0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ku2p")
+
+[node name="MenuButton" type="Button" parent="UI/NavBar/ButtonPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 67.0
+offset_bottom = 41.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
 text = "Menu"
 script = ExtResource("8_7m3jv")
 
-[node name="ResetButton" type="ResetButton" parent="UI/NavBar"]
+[node name="ResetButton" type="ResetButton" parent="UI/NavBar/ButtonPanel"]
 layout_mode = 0
-offset_left = 573.0
-offset_top = 16.0
-offset_right = 638.0
-offset_bottom = 48.0
+offset_left = 75.0
+offset_top = 10.0
+offset_right = 140.0
+offset_bottom = 42.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("2_d86u0")
 text = "Reset"
 
-[node name="StatsButton" type="Button" parent="UI/NavBar"]
+[node name="StatsButton" type="Button" parent="UI/NavBar/ButtonPanel"]
 layout_mode = 0
-offset_left = 648.0
-offset_top = 16.0
-offset_right = 710.0
-offset_bottom = 48.0
+offset_left = 150.0
+offset_top = 10.0
+offset_right = 212.0
+offset_bottom = 42.0
 theme = ExtResource("2_d86u0")
 text = "Stats"
 script = ExtResource("6_1h57o")
 
-[node name="NavTitle" type="LineEdit" parent="UI/NavBar"]
+[node name="NavTitle" type="Label" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 1.0
-offset_right = 401.0
-offset_bottom = 61.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 240.0
+offset_bottom = 57.0
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxEmpty_okge4")
-text = "A-Life Challenge 2.0"
+text = "PROTOBIOTA"
 
 [node name="MainMenuButton" type="MainMenuButton" parent="UI/NavBar/NavTitle"]
 layout_mode = 0
-offset_left = -12.0
-offset_top = -1.0
-offset_right = 351.0
-offset_bottom = 65.0
+offset_top = 8.0
+offset_right = 232.0
+offset_bottom = 40.0
 mouse_default_cursor_shape = 2
 
 [node name="SlowDown1" type="Polygon2D" parent="UI/NavBar"]
@@ -1022,4 +1057,6 @@ limit_bottom = 720
 script = ExtResource("2_iwa60")
 
 [connection signal="toggled" from="UI/MenuPanel/TabContainer/General/ExtraMenuCheck" to="UI/ExtraPanel" method="_on_check_button_2_toggled"]
+[connection signal="toggled" from="UI/MenuPanel/TabContainer/General/MenuPauseCheck" to="UI/MenuPanel/ExitMenuButton" method="_on_menu_pause_check_toggled"]
+[connection signal="toggled" from="UI/MenuPanel/TabContainer/General/MenuPauseCheck" to="UI/NavBar/ButtonPanel/MenuButton" method="_on_menu_pause_check_toggled"]
 [connection signal="pressed" from="UI/StatsPanel/StatsExitButton" to="UI/StatsPanel" method="_on_stats_exit_button_pressed"]

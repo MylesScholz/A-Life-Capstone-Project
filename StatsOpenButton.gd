@@ -7,7 +7,7 @@ func _pressed():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	stats_panel = get_parent().get_parent().get_node("StatsPanel")
+	stats_panel = get_parent().get_parent().get_parent().get_node("StatsPanel")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
