@@ -202,4 +202,10 @@ void CellSpawner::_ready() {
 	for (int i = 0; i < this->getNumCells(); i++) {
 		this->spawnCell(1);
 	}
+
+	// Spawn nutrient zones
+	CellEnvironment *environment = this->get_node<CellEnvironment>("CellEnvironment");
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
+	}
 }
