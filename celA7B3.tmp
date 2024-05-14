@@ -260,18 +260,14 @@ layout_mode = 2
 button_pressed = true
 text = "FPS + Timer Menu"
 
-[node name="ZoomCheck" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
-layout_mode = 2
-button_pressed = true
-text = "Auto-zoom to cell on click"
-
-[node name="StatsOpenCheck" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
-layout_mode = 2
-text = "Auto-open cell statistics on click"
-
 [node name="MenuPauseCheck" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
 layout_mode = 2
 text = "Auto-pause on menu open"
+
+[node name="CheckButton3" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
+visible = false
+layout_mode = 2
+text = "Auto-open cell statistics on click"
 
 [node name="Keybindings" type="ScrollContainer" parent="UI/MenuPanel/TabContainer"]
 visible = false
@@ -283,8 +279,8 @@ script = ExtResource("8_74sho")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
 visible = false
-offset_left = 800.0
-offset_top = 424.0
+offset_left = 808.0
+offset_top = 320.0
 offset_right = 1079.0
 offset_bottom = 720.0
 theme = ExtResource("2_d86u0")
@@ -322,62 +318,66 @@ text = "Cell Statistics"
 
 [node name="TabContainer" type="TabContainer" parent="UI/StatsPanel"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 40.0
-offset_right = 265.0
-offset_bottom = 284.0
+offset_left = 7.0
+offset_top = 36.0
+offset_right = 266.0
+offset_bottom = 392.0
 theme = ExtResource("2_d86u0")
 theme_override_constants/side_margin = 0
 clip_tabs = false
 
-[node name="Cell" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
+[node name="Stats" type="Stats" parent="UI/StatsPanel/TabContainer"]
+process_mode = 3
+layout_mode = 2
+theme = ExtResource("2_d86u0")
+
+[node name="CellStats" type="VBoxContainer" parent="UI/StatsPanel/TabContainer/Stats"]
 layout_mode = 2
 script = ExtResource("12_51nej")
 
-[node name="BirthLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="BaseLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
+layout_mode = 2
+text = "Select a cell to view statistics."
+
+[node name="BirthLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 text = "Birth time:"
 
-[node name="AliveLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
-layout_mode = 2
-text = "Alive:"
-
-[node name="AgeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="AgeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 text = "Age:"
 
-[node name="SizeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="AliveLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
+layout_mode = 2
+text = "Alive:"
+
+[node name="SizeLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 text = "Size (µm):"
 
-[node name="MassLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="MassLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 text = "Mass (µg):"
 
-[node name="HBoxContainer" type="HSplitContainer" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="HBoxContainer" type="HSplitContainer" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 
-[node name="EnergyLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell/HBoxContainer"]
+[node name="EnergyLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats/HBoxContainer"]
 layout_mode = 2
 text = "Energy:"
 
-[node name="Energy" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Cell/HBoxContainer"]
+[node name="Energy" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Stats/CellStats/HBoxContainer"]
 layout_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="UI/StatsPanel/TabContainer/Cell"]
+[node name="HSplitContainer" type="HSplitContainer" parent="UI/StatsPanel/TabContainer/Stats/CellStats"]
 layout_mode = 2
 
-[node name="NutrientLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell/HSplitContainer"]
+[node name="NutrientLabel" type="Label" parent="UI/StatsPanel/TabContainer/Stats/CellStats/HSplitContainer"]
 layout_mode = 2
 text = "Nutrients:"
 
-[node name="Nutrients2" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Cell/HSplitContainer"]
+[node name="Nutrients2" type="ProgressBar" parent="UI/StatsPanel/TabContainer/Stats/CellStats/HSplitContainer"]
 layout_mode = 2
-
-[node name="BaseLabel" type="Label" parent="UI/StatsPanel/TabContainer/Cell"]
-visible = false
-layout_mode = 2
-text = "Select a cell to view statistics."
 
 [node name="Environment" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
 visible = false
@@ -1065,7 +1065,6 @@ limit_bottom = 720
 script = ExtResource("2_iwa60")
 
 [connection signal="toggled" from="UI/MenuPanel/TabContainer/General/ExtraMenuCheck" to="UI/ExtraPanel" method="_on_check_button_2_toggled"]
-[connection signal="toggled" from="UI/MenuPanel/TabContainer/General/ZoomCheck" to="UI_Cam" method="_on_zoom_check_toggled"]
 [connection signal="toggled" from="UI/MenuPanel/TabContainer/General/MenuPauseCheck" to="UI/MenuPanel/ExitMenuButton" method="_on_menu_pause_check_toggled"]
 [connection signal="toggled" from="UI/MenuPanel/TabContainer/General/MenuPauseCheck" to="UI/NavBar/ButtonPanel/MenuButton" method="_on_menu_pause_check_toggled"]
 [connection signal="pressed" from="UI/StatsPanel/StatsExitButton" to="UI/StatsPanel" method="_on_stats_exit_button_pressed"]

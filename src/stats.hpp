@@ -22,13 +22,8 @@ public:
 
 	void _ready() override;
 	void _process(double delta) override;
-	void _update_Stats(Variant cell_instance);
 	void _set_selected_cell(Variant cell_instance);
 	void _clear_selected_cell();
-	void clear_stats();
-	void update_label(String name, String text);
-	Label *add_label(String name, String text);
-	String format_decimal(double value, int decimal_places);
 
 private:
 	Cell *selected_cell = nullptr;

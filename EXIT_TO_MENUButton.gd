@@ -23,7 +23,8 @@ func ui_reset():
 	rootNode.get_node("CellSpawner/UI/CellSelectPanel").visible = false
 	rootNode.get_node("CellSpawner/UI/ExtraPanel").visible = false
 	
-	rootNode.get_node("CellSpawner/UI/StatsPanel/TabContainer/Stats")._clear_selected_cell() # clear any selections
+	var cell_cam = rootNode.get_node("CellSpawner/UI_Cam") # clear any selections
+	cell_cam.clear_selection()
 	
 	var spawner = rootNode.get_node("CellSpawner")
 	var zones = rootNode.get_node("CellSpawner/CellEnvironment")

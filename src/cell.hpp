@@ -50,6 +50,9 @@ public:
 	void _on_cell_growth();
 
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
+
+	void clearStatsOnDeath(Cell *cell);
+	String formatDecimal(float value) const;
 	Array getStats() const;
 
 private:
@@ -57,6 +60,8 @@ private:
 	Size2 _spriteSize;
 	Vector<CellStructure *> _cellStructures;
 	Genome _cellGenome;
+
+	Array stats_array;
 
 	Ref<RandomNumberGenerator> _rand;
 };

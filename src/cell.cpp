@@ -30,6 +30,9 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include <sstream>
+#include <iomanip> 
+
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
 
@@ -313,6 +316,8 @@ void Cell::_process(double delta) {
 				this->set_angular_damp(10.0);
 				// Create NutrientZone
 				this->emit_signal("cell_death", this);
+
+				clearStatsOnDeath(this);
 				// Remove the Cell from the scene
 				queue_free();
 			}
@@ -324,6 +329,8 @@ void Cell::_process(double delta) {
 			this->set_angular_damp(10.0);
 			// Create NutrientZone
 			this->emit_signal("cell_death", this);
+			
+			clearStatsOnDeath(this);
 			// Remove the Cell from the scene
 			queue_free();
 		}
@@ -340,24 +347,41 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
 
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
+		//Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
 		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 
 		ui_cam->call("on_cell_select", this);
 
-		stats->_set_selected_cell(this);
+		if(ui_cam->get("cam_focus_check")){
+			UtilityFunctions::print("override detected");
+			ui_cam->call("camera_check_override");
+			ui_cam->call("camera_zoom");
+		}
+		//stats->_set_selected_cell(this);
 	}
+}
+
+void Cell::clearStatsOnDeath(Cell *cell){
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
+	ui_cam->call("on_cell_deselect", cell);
+}
+
+String Cell::formatDecimal(float value) const {
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(3) << value;
+	return stream.str().c_str();
 }
 
 Array Cell::getStats() const {
 	Array stats_array;
-	stats_array.push_back(_cellState->getBirthTime()); // index 0
+	stats_array.push_back(formatDecimal(_cellState->getBirthTime())); // index 0
 	stats_array.push_back(_cellState->getAlive()); // index 1
-	stats_array.push_back(_cellState->getAge() - _cellState->getLifespan());
-	stats_array.push_back(_cellState->getTotalEnergy());
-	stats_array.push_back(_cellState->getTotalNutrients());
-	stats_array.push_back(get_mass());
-	stats_array.push_back(getScale());
+	stats_array.push_back(formatDecimal(_cellState->getAge()));
+	stats_array.push_back(formatDecimal(getScale()));
+	stats_array.push_back(formatDecimal(get_mass()));
+	stats_array.push_back(formatDecimal(_cellState->getTotalEnergy()));
+	stats_array.push_back(formatDecimal(_cellState->getTotalNutrients()));
 	// Continue adding stats in a specific order
 	return stats_array;
 }

@@ -17,6 +17,7 @@ void MainMenuButton::_pressed() {
 	// Remove old cells
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	spawner->removeAllCells();
+
 	// Remove old nutrient zones
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();

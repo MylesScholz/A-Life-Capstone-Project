@@ -17,9 +17,7 @@ void ResetButton::_pressed() {
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	spawner->removeAllCells();
 
-	Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
-	stats->_clear_selected_cell();
-
+	// Clear camera selection
 	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 	ui_cam->call("clear_selection");
 
