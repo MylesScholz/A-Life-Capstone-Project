@@ -23,6 +23,7 @@ public:
 	void _ready() override;
 	void _process(double delta) override;
 	void _set_selected_cell(Variant cell_instance);
+	Cell *get_selected_cell();
 	void _clear_selected_cell();
 
 private:

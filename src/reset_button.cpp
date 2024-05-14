@@ -13,20 +13,23 @@ ResetButton::~ResetButton() {}
 
 // _pressed is used as the function for when the button is pressed
 void ResetButton::_pressed() {
-	// Remove old cells
+	// Clear Cell selection
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-	spawner->removeAllCells();
 
 	// Clear camera selection
 	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 	ui_cam->call("clear_selection");
 
-	// Respawn new cells
+	// Remove old Cells
+	spawner->removeAllCells();
+
+	// Respawn new Cells
 	Object::cast_to<TimeCounter>(spawner->get_child(1))->reset_time();
 	for (int i = 0; i < spawner->getNumCells(); i++) {
 		spawner->spawnCell();
 	}
 
+	// Respawn NutrientZones
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();
 	for (int i = 0; i < environment->getNNutrientZones(); i++) {
