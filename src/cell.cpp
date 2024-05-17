@@ -327,6 +327,30 @@ void Cell::_process(double delta) {
 	}
 }
 
+void Cell::_mutate() {
+	switch (_rand->randi_range(0,2))
+	{
+		//Insert Gene
+	case 0:
+		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+			this->_cellGenome.insertGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		else
+			this->_cellGenome.addGene(_cellGenome.GenerateRandomGene());
+		break;
+		//Modify Gene
+	case 1:
+		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+			this->_cellGenome.setGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		break;
+		//Delete Gene
+	case 2:
+		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+			this->_cellGenome.removeGene(_rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		break;
+	}
+
+}
+
 void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 	Ref<InputEventMouseButton> mouse_button_event = event;
 	if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT) {

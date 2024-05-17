@@ -56,6 +56,7 @@ void CellState::_bind_methods() {
 
 CellState::CellState() {
 	_alive = true;
+	_protectedGenes = 0;
 	_age = 0.0;
 	_birthTime = 0.0;
 	_deathTime = NULL;
@@ -75,6 +76,7 @@ CellState::CellState() {
 	_growthRate = 1.01;
 	_nextMovementVector = Vector2();
 	_receptorVectors = Vector<Vector2>();
+	_mutationChances.push_back(0.2);
 }
 CellState::~CellState() {}
 
@@ -84,6 +86,10 @@ void CellState::setAlive(const bool alive) {
 	_alive = alive;
 }
 bool CellState::getAlive() const { return _alive; }
+
+void CellState::increaseProtectedGenes(const int protect) { _protectedGenes += protect; }
+
+int CellState::getProtectedGenes() { return _protectedGenes; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }
@@ -215,6 +221,18 @@ Vector2 CellState::getNextMovementVector() const { return _nextMovementVector; }
 
 void CellState::setReceptorVectors(const Vector<Vector2> receptorVectors) { _receptorVectors = receptorVectors; }
 Vector<Vector2> CellState::getReceptorVectors() const { return _receptorVectors; }
+
+void CellState::addMutationChance(const float chance) {
+	_mutationChances.push_back(chance);
+}
+
+float CellState::getMutationChance(const int index) {
+	return _mutationChances[index];
+}
+
+int CellState::getMutationChanceCount() const {
+	return _mutationChances.size();
+}
 
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;

@@ -48,7 +48,8 @@ ModifierGene *randomModifierGene() {
 		"GROWTH_CAP",
 		"ACTIVATION_RESOURCE",
 		"THRESHOLD_TYPE",
-		"N_SUBSTRUCTURES"
+		"N_SUBSTRUCTURES",
+		"CHANCE"
 	};
 	const int nModifierGeneTypes = sizeof(modifierGeneTypes) / sizeof(modifierGeneTypes[0]);
 
@@ -87,6 +88,9 @@ ModifierGene *randomModifierGene() {
 	}
 	if (randType == "N_SUBSTRUCTURES") {
 		return discreteValueModifierGene(randType, substructureValues);
+	}
+	if (randType == "CHANCE") {
+		return boundedValueModifierGene(randType, 0, 1);
 	}
 
 	// Reaching this point should be impossible, but for safety, return a dummy ModifierGene

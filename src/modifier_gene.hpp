@@ -22,6 +22,16 @@ public:
 private:
 	float _modifierValue;
 	String _geneName;
+
+	String _modifierGeneTypes[7] = {
+		"ACTIVATION_THRESHOLD",
+		"STRENGTH",
+		"CONVERSION_RATE",
+		"GROWTH_CAP",
+		"ACTIVATION_RESOURCE",
+		"THRESHOLD_TYPE",
+		"N_SUBSTRUCTURES"
+	};
 };
 
 ModifierGene *boundedValueModifierGene(String, const float, const float, std::optional<const float>);
