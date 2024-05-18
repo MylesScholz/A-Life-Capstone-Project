@@ -61,6 +61,16 @@ void Cell::seteq(Cell *otherCell) {
 		_cellGenome.addGene(newGene);
 	}
 
+	// Mutate based on otherCell's mutation chances
+	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++)
+	{
+		if(_rand->randf_range(0.0,1.0) < otherCell->_cellState->getMutationChance(i))
+		{
+			this->_mutate();
+		}
+	}
+	
+
 	// Copy relevant CellState information
 	if (!_cellState)
 		_cellState = this->get_node<CellState>("CellState");
