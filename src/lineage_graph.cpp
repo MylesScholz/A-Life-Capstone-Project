@@ -27,7 +27,7 @@ Vector2 LineageGraph::storeCell(Cell *cell) {
 	position.x += (index % _nColumns) * _storageSpacing;
 	position.y += (index / _nColumns) * _storageSpacing;
 
-	cell->set_position(position);
+	cell->set_global_position(position);
 
 	return position;
 }

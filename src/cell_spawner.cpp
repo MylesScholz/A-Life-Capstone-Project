@@ -46,7 +46,7 @@ void CellSpawner::_bind_methods() {
 
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 
-	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);  
+	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);
 }
 
 CellSpawner::CellSpawner() {}
@@ -111,7 +111,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
 
 	// Set Cell position to random location in viewport
-	cellObject->set_position(Vector2(
+	cellObject->set_global_position(Vector2(
 			rand.randi_range(cellSize.x / 4, viewportSize.x - cellSize.x / 4),
 			rand.randi_range(cellSize.y / 4, viewportSize.y - cellSize.y / 4)));
 
