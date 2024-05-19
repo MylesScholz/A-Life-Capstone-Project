@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=47 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://ExtraPanel.gd" id="3_dv34r"]
 [ext_resource type="Script" path="res://StatsPanel.gd" id="3_o15cp"]
 [ext_resource type="Script" path="res://StatsExitButton.gd" id="4_beosf"]
+[ext_resource type="Script" path="res://SpeedDisplay.gd" id="4_qih6h"]
 [ext_resource type="Script" path="res://General.gd" id="5_q0lri"]
 [ext_resource type="Script" path="res://StatsOpenButton.gd" id="6_1h57o"]
 [ext_resource type="Script" path="res://PauseButton.gd" id="6_8cqgg"]
@@ -23,6 +24,7 @@
 [ext_resource type="Script" path="res://ExitMenuButton.gd" id="10_j1ug1"]
 [ext_resource type="Script" path="res://EXIT_TO_MENUButton.gd" id="11_md7wg"]
 [ext_resource type="Script" path="res://Cell.gd" id="12_51nej"]
+[ext_resource type="Script" path="res://SlowDownButton.gd" id="19_g2bfb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfs3d"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.882353)
@@ -162,12 +164,18 @@ cell_scene = ExtResource("1_dm1x8")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ExtraPanel" type="Panel" parent="UI"]
-visible = false
 offset_top = 64.0
-offset_right = 100.0
-offset_bottom = 118.0
+offset_right = 104.0
+offset_bottom = 144.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_tfs3d")
 script = ExtResource("3_dv34r")
+
+[node name="FpsCounter" type="FpsCounter" parent="UI/ExtraPanel"]
+z_index = 1
+layout_mode = 0
+offset_left = 8.0
+offset_right = 48.0
+offset_bottom = 23.0
 
 [node name="TimeCounter" type="TimeCounter" parent="UI/ExtraPanel"]
 z_index = 1
@@ -177,12 +185,12 @@ offset_top = 26.0
 offset_right = 48.0
 offset_bottom = 49.0
 
-[node name="FpsCounter" type="FpsCounter" parent="UI/ExtraPanel"]
-z_index = 1
-layout_mode = 0
+[node name="SpeedDisplay" type="Label" parent="UI/ExtraPanel"]
 offset_left = 8.0
-offset_right = 48.0
-offset_bottom = 23.0
+offset_top = 49.0
+offset_right = 88.0
+offset_bottom = 72.0
+script = ExtResource("4_qih6h")
 
 [node name="CellSelectPanel" type="Panel" parent="UI"]
 visible = false
@@ -390,7 +398,7 @@ script = ExtResource("5_q0lri")
 visible = false
 layout_mode = 2
 
-[node name="Lineage" type="Tree" parent="UI/StatsPanel/TabContainer"]
+[node name="Lineage" type="GraphEdit" parent="UI/StatsPanel/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_excg5")
@@ -554,78 +562,47 @@ offset_right = 232.0
 offset_bottom = 40.0
 mouse_default_cursor_shape = 2
 
-[node name="SlowDown1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(560.268, -87.3415)
-scale = Vector2(0.829268, 0.829268)
-polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
-
-[node name="SlowDown2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(573.13, -86.9565)
-scale = Vector2(0.826087, 0.826087)
-polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
-
 [node name="SlowDownButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 750.0
-offset_top = 12.0
-offset_right = 799.0
+offset_left = 888.0
+offset_top = 10.0
+offset_right = 944.0
 offset_bottom = 56.0
+script = ExtResource("19_g2bfb")
 
-[node name="SpeedUp1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(731.239, -90.587)
-scale = Vector2(0.847826, 0.847826)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
+[node name="SlowDown1" type="Polygon2D" parent="UI/NavBar/SlowDownButton"]
+position = Vector2(-189.732, -99.3415)
+scale = Vector2(0.85, 0.85)
+polygon = PackedVector2Array(230, 144, 271, 168, 271, 121)
 
-[node name="SpeedUp2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(740.143, -91.7143)
-scale = Vector2(0.857143, 0.857143)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 267, 144)
+[node name="SlowDown2" type="Polygon2D" parent="UI/NavBar/SlowDownButton"]
+position = Vector2(-175, -100)
+scale = Vector2(0.85, 0.85)
+polygon = PackedVector2Array(225, 144, 271, 168, 271, 121)
 
 [node name="SpeedUpButton" type="TextureButton" parent="UI/NavBar"]
-visible = false
-layout_mode = 0
-offset_left = 921.0
-offset_top = 11.0
-offset_right = 970.0
-offset_bottom = 53.0
+offset_left = 1008.0
+offset_top = 13.0
+offset_right = 1064.0
+offset_bottom = 61.0
 script = ExtResource("7_0omg7")
 
-[node name="Zoom1" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(797.348, -93.2174)
-scale = Vector2(0.869565, 0.869565)
+[node name="SpeedUp1" type="Polygon2D" parent="UI/NavBar/SpeedUpButton"]
+position = Vector2(-184, -101)
+scale = Vector2(0.85, 0.85)
 polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
 
-[node name="Zoom2" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(808.457, -95.8478)
-scale = Vector2(0.891304, 0.891304)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 271, 144)
-
-[node name="Zoom3" type="Polygon2D" parent="UI/NavBar"]
-position = Vector2(827.605, -92.079)
-scale = Vector2(0.868421, 0.868421)
-polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 263, 144)
-
-[node name="Div1" type="Line2D" parent="UI/NavBar"]
-visible = false
-position = Vector2(72, 56)
-scale = Vector2(1.15999, 0.745763)
-points = PackedVector2Array(563, -59, 563, -28.708, 563, -10)
-width = 5.0
-default_color = Color(0.121569, 0.121569, 0.121569, 1)
-
-[node name="Div2" type="Line2D" parent="UI/NavBar"]
-visible = false
-position = Vector2(51, 68)
-points = PackedVector2Array(563, -59, 563, -10)
-width = 5.0
-default_color = Color(0.121569, 0.121569, 0.121569, 1)
+[node name="SpeedUp2" type="Polygon2D" parent="UI/NavBar/SpeedUpButton"]
+position = Vector2(-194, -101)
+scale = Vector2(0.85, 0.85)
+polygon = PackedVector2Array(225, 121, 225, 145, 225, 168, 257.833, 149.333, 267, 144)
 
 [node name="PauseButton" type="TextureButton" parent="UI/NavBar"]
 layout_mode = 0
-offset_left = 838.0
-offset_top = 10.0
-offset_right = 884.0
-offset_bottom = 57.0
+offset_left = 952.0
+offset_top = 7.0
+offset_right = 998.0
+offset_bottom = 62.0
 mouse_default_cursor_shape = 2
 script = ExtResource("6_8cqgg")
 
@@ -635,7 +612,7 @@ position = Vector2(-225, -121)
 polygon = PackedVector2Array(225, 121, 225, 168, 271, 144)
 
 [node name="PauseButton1" type="Polygon2D" parent="UI/NavBar/PauseButton"]
-position = Vector2(-681, -86.2143)
+position = Vector2(-678, -82)
 scale = Vector2(1, 0.928571)
 polygon = PackedVector2Array(711, 96, 711, 138, 719, 138, 719, 96)
 

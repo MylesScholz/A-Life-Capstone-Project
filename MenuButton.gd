@@ -9,11 +9,8 @@ func _pressed():
 	menu_panel.visible = !menu_panel.visible
 		
 	if ((Engine.time_scale != 0) and (pauseCheck == true)): 
-		pauseButton.get_child(1).visible = false # Change pause button visually
-		pauseButton.get_child(0).visible = true
-		GlobalVariables.time_scale_backup_two = Engine.time_scale # Pause and unpause
-		Engine.time_scale = GlobalVariables.time_scale_backup_one
-		GlobalVariables.time_scale_backup_one = GlobalVariables.time_scale_backup_two
+		pauseButton.pause()
+		GlobalVariables.used_pause_button = false
 	else:
 		pauseButton.unpause()
 

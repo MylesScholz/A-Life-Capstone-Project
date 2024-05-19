@@ -29,6 +29,7 @@ void StartButton::_pressed() {
 	Object::cast_to<CanvasItem>(UI->find_child("StatsPanel"))->set_visible(true); // Stats
 	Object::cast_to<FpsCounter>(UI->find_child("FpsCounter"))->toggle_fps();
 	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
+	Object::cast_to<Label>(UI->find_child("SpeedDisplay"))->call("toggle_display");
 
 	for (int i = 0; i < spawner->getNumCells(); i++) {
 		spawner->spawnCell();

@@ -99,8 +99,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(cell);
-	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+	cellEnvironment->addCell(cellObject);
 
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
@@ -154,26 +153,26 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellObject->apply_torque(rand.randf_range(-500, 500));
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(childCell);
+	cellEnvironment->addCell(cellObject);
+	cellEnvironment->getLineageGraph()->addEdge(cell, cellObject);
 
 	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
 	cell->applyScale(halfArea);
 	cellObject->applyScale(cell->getScale());
 
-	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
-
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
-	CellEnvironment *env = this->get_node<CellEnvironment>("CellEnvironment");
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 
-	for (int i = env->get_child_count() - 1; i >= 0; i--) {
-		Node *child = env->get_child(i);
-		if (Object::cast_to<Cell>(child)) {
-			Object::cast_to<Cell>(child)->resetCollisions();
-			child->queue_free();
+	for (int i = cellEnvironment->get_child_count() - 1; i >= 0; i--) {
+		Node *child = cellEnvironment->get_child(i);
+
+		if (child->get_class() == "Cell") {
+			Cell *cell = Object::cast_to<Cell>(child);
+			cellEnvironment->removeCell(cell);
 		}
 	}
 }
@@ -203,5 +202,11 @@ void CellSpawner::_ready() {
 	// Spawn back ground cells that don't die
 	for (int i = 0; i < this->getNumCells(); i++) {
 		this->spawnCell(1);
+	}
+
+	// Spawn nutrient zones
+	CellEnvironment *environment = this->get_node<CellEnvironment>("CellEnvironment");
+	for (int i = 0; i < environment->getNNutrientZones(); i++) {
+		environment->spawnNutrientZone();
 	}
 }

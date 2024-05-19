@@ -1,13 +1,16 @@
 extends TextureButton
 
+#var paused = false
 func _pressed():
-	GlobalVariables.delta_multiplier += .25
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+	var rootNode = get_tree().get_root()
+	#paused = GlobalVariables.used_pause_button
+	
+	# Speed up if less than 2 while not paused
+	if (Engine.time_scale < GlobalVariables.max_speed and not GlobalVariables.paused):
+		Engine.time_scale *= 2
+		rootNode.get_node("CellSpawner/UI/ExtraPanel/SpeedDisplay").call("update_speed_display", Engine.time_scale)
+	
+	# If paused, speed up to take place when unpaused
+	if (Engine.time_scale == 0 and (GlobalVariables.time_scale_backup_one < GlobalVariables.max_speed)):
+		GlobalVariables.time_scale_backup_one *= 2
+		rootNode.get_node("CellSpawner/UI/ExtraPanel/SpeedDisplay").call("update_speed_display", GlobalVariables.time_scale_backup_one)

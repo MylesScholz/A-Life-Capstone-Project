@@ -311,9 +311,6 @@ void Cell::_process(double delta) {
 			// some variability to Cell lifespans.
 			if (_rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
 				_cellState->setAlive(false);
-				// Stop Cell movement
-				this->set_linear_damp(10.0);
-				this->set_angular_damp(10.0);
 				// Create NutrientZone
 				this->emit_signal("cell_death", this);
 
@@ -324,9 +321,6 @@ void Cell::_process(double delta) {
 		}
 		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
-			// Stop Cell movement
-			this->set_linear_damp(10.0);
-			this->set_angular_damp(10.0);
 			// Create NutrientZone
 			this->emit_signal("cell_death", this);
 			

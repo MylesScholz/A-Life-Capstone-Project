@@ -1,5 +1,6 @@
 #pragma once
 
+#include "lineage_graph.hpp"
 #include "nutrient_zone.hpp"
 
 #include <godot_cpp/classes/area2d.hpp>
@@ -32,9 +33,14 @@ public:
 	void setNNutrientZones(const int);
 	int getNNutrientZones() const;
 
+	void addCell(Cell *);
+	void removeCell(Cell *);
+	LineageGraph *getLineageGraph();
+
 	void _on_cell_death(Cell *);
 
 private:
 	int _nNutrientZones;
 	Ref<PackedScene> _nutrientZoneScene;
+	LineageGraph _lineageGraph;
 };
