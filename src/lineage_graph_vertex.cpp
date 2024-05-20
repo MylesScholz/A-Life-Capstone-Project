@@ -1,13 +1,13 @@
 #include "lineage_graph_vertex.hpp"
 
-LineageGraphVertex::LineageGraphVertex(Cell *cell = nullptr) {
+LineageGraphVertex::LineageGraphVertex(Cell *cell) {
 	_cell = cell;
 	_parents = Vector<LineageGraphVertex *>();
 	_children = Vector<LineageGraphVertex *>();
 }
 LineageGraphVertex::~LineageGraphVertex() {}
 
-void LineageGraphVertex::setCell(Cell *cell) {}
+void LineageGraphVertex::setCell(Cell *cell) { _cell = cell; }
 Cell *LineageGraphVertex::getCell() const { return _cell; }
 
 int LineageGraphVertex::getIndegree() const { return _parents.size(); }

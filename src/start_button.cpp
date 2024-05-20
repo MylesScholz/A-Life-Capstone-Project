@@ -1,5 +1,6 @@
 #include "start_button.hpp"
 #include "fps_counter.hpp"
+#include "lineage_camera.hpp"
 #include "time_counter.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
@@ -34,6 +35,9 @@ void StartButton::_pressed() {
 	for (int i = 0; i < spawner->getNumCells(); i++) {
 		spawner->spawnCell();
 	}
+
+	LineageCamera *lineageCamera = spawner->get_node<LineageCamera>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport/LineageCamera");
+	lineageCamera->selectLUCA();
 
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();

@@ -13,6 +13,7 @@ void CellEnvironment::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("cell_death"));
 
 	ClassDB::bind_method(D_METHOD("remove_all_nutrient_zones"), &CellEnvironment::removeAllNutrientZones);
+	ClassDB::bind_method(D_METHOD("spawn_nutrient_zone"), &CellEnvironment::spawnNutrientZone);
 }
 
 CellEnvironment::CellEnvironment() {
@@ -67,11 +68,11 @@ void CellEnvironment::addCell(Cell *cell) {
 	_lineageGraph.addVertex(cell);
 }
 void CellEnvironment::removeCell(Cell *cell) {
+	_lineageGraph.removeVertex(cell);
+
 	this->remove_child(cell);
 	cell->resetCollisions();
 	cell->queue_free();
-
-	_lineageGraph.removeVertex(cell);
 }
 LineageGraph *CellEnvironment::getLineageGraph() { return &_lineageGraph; }
 

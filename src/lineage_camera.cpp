@@ -9,21 +9,16 @@ LineageCamera::LineageCamera() {}
 LineageCamera::~LineageCamera() {}
 
 void LineageCamera::selectCell(Cell *cell) {
+	_subViewportContainer->set_visible(true);
 	_selectCellPrompt->set_visible(false);
 	_LUCAMessage->set_visible(false);
 	clearButtonContainers();
 
-	if (!cell->get_node<CellState>("CellState")->getAlive()) {
-		_subViewportContainer->set_visible(true);
-		this->set_global_position(cell->get_global_position());
-	} else {
-		_subViewportContainer->set_visible(true);
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	CellEnvironment *cellEnvironment = spawner->get_node<CellEnvironment>("CellEnvironment");
+	LineageGraph *lineageGraph = cellEnvironment->getLineageGraph();
+	this->set_global_position(lineageGraph->getCellPosition(cell));
 
-		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		CellEnvironment *cellEnvironment = spawner->get_node<CellEnvironment>("CellEnvironment");
-		LineageGraph *lineageGraph = cellEnvironment->getLineageGraph();
-		this->set_global_position(lineageGraph->getCellPosition(cell));
-	}
 	fillButtonContainers(cell);
 }
 void LineageCamera::selectLUCA() {

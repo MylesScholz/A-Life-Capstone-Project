@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cell_environment.hpp"
-#include "cell_state.hpp"
 #include "lineage_graph.hpp"
 
 #include <godot_cpp/classes/camera2d.hpp>

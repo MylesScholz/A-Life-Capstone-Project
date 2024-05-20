@@ -32,6 +32,8 @@ void ResetButton::_pressed() {
 		spawner->spawnCell();
 	}
 
+	lineageCamera->selectLUCA();
+
 	// Remove old NutrientZones
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();

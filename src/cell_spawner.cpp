@@ -41,6 +41,8 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_resource_proportion"), &CellSpawner::getResourceProportion);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::FLOAT, "resource_proportion"), "set_resource_proportion", "get_resource_proportion");
 
+	ClassDB::bind_method(D_METHOD("remove_all_cells"), &CellSpawner::removeAllCells);
+
 	ClassDB::bind_method(D_METHOD("_on_cell_reproduction", "cell"), &CellSpawner::_on_cell_reproduction);
 	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
 
@@ -172,6 +174,18 @@ void CellSpawner::removeAllCells() {
 
 		if (child->get_class() == "Cell") {
 			Cell *cell = Object::cast_to<Cell>(child);
+			cellEnvironment->removeCell(cell);
+		}
+	}
+
+	SubViewport *subViewport = this->get_node<SubViewport>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport");
+
+	for (int i = subViewport->get_child_count() - 1; i >= 0; i--) {
+		Node *child = subViewport->get_child(i);
+
+		if (child->get_class() == "Cell") {
+			Cell *cell = Object::cast_to<Cell>(child);
+			subViewport->remove_child(cell);
 			cellEnvironment->removeCell(cell);
 		}
 	}
