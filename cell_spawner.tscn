@@ -425,6 +425,7 @@ text = "Select a cell to view its lineage."
 autowrap_mode = 3
 
 [node name="LUCAMessage" type="Label" parent="UI/StatsPanel/TabContainer/Lineage"]
+visible = false
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 text = "Last universal common ancestor (LUCA) is selected."
