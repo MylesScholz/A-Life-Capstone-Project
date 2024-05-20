@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=44 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -54,9 +54,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_excg5"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okge4"]
 
@@ -275,6 +272,7 @@ text = "Auto-open cell statistics on click"
 
 [node name="MenuPauseCheck" type="CheckButton" parent="UI/MenuPanel/TabContainer/General"]
 layout_mode = 2
+button_pressed = true
 text = "Auto-pause on menu open"
 
 [node name="Keybindings" type="ScrollContainer" parent="UI/MenuPanel/TabContainer"]
@@ -286,20 +284,29 @@ layout_mode = 2
 script = ExtResource("8_74sho")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
-visible = false
-offset_left = 800.0
-offset_top = 424.0
-offset_right = 1079.0
-offset_bottom = 720.0
+clip_contents = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -400.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("2_d86u0")
 script = ExtResource("3_o15cp")
 
 [node name="StatsExitButton" type="Button" parent="UI/StatsPanel"]
-layout_mode = 0
-offset_left = 240.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
 offset_top = 5.0
-offset_right = 264.0
+offset_right = -11.0
 offset_bottom = 30.0
+grow_horizontal = 0
 theme = ExtResource("2_d86u0")
 theme_override_styles/normal = SubResource("StyleBoxFlat_f3iov")
 theme_override_styles/hover = SubResource("StyleBoxFlat_k07st")
@@ -307,11 +314,11 @@ text = "x"
 script = ExtResource("4_beosf")
 
 [node name="UpperLabel" type="Label" parent="UI/StatsPanel"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 8.0
-offset_right = 88.0
-offset_bottom = 31.0
+layout_mode = 1
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 84.0
+offset_bottom = 28.0
 text = "Statistics
 "
 
@@ -325,16 +332,20 @@ offset_bottom = 25.0
 text = "Cell Statistics"
 
 [node name="TabContainer" type="TabContainer" parent="UI/StatsPanel"]
-layout_mode = 0
-offset_left = 16.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
 offset_top = 40.0
-offset_right = 265.0
-offset_bottom = 284.0
+offset_right = 140.0
+offset_bottom = 390.0
+grow_horizontal = 2
 theme = ExtResource("2_d86u0")
 theme_override_constants/side_margin = 0
-clip_tabs = false
 
 [node name="Cell" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("12_51nej")
 
@@ -394,10 +405,54 @@ script = ExtResource("5_q0lri")
 visible = false
 layout_mode = 2
 
-[node name="Lineage" type="GraphEdit" parent="UI/StatsPanel/TabContainer"]
-visible = false
+[node name="Lineage" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
+clip_contents = true
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_excg5")
+
+[node name="ParentButtonContainer" type="HFlowContainer" parent="UI/StatsPanel/TabContainer/Lineage"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ParentsLabel" type="Label" parent="UI/StatsPanel/TabContainer/Lineage/ParentButtonContainer"]
+layout_mode = 2
+text = "Parents:"
+
+[node name="SelectCellPrompt" type="Label" parent="UI/StatsPanel/TabContainer/Lineage"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+text = "Select a cell to view its lineage."
+autowrap_mode = 3
+
+[node name="LUCAMessage" type="Label" parent="UI/StatsPanel/TabContainer/Lineage"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+text = "Last universal common ancestor (LUCA) is selected."
+autowrap_mode = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI/StatsPanel/TabContainer/Lineage"]
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SubViewport" type="SubViewport" parent="UI/StatsPanel/TabContainer/Lineage/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 0
+
+[node name="LineageCamera" type="LineageCamera" parent="UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport"]
+zoom = Vector2(1.3, 1.3)
+editor_draw_limits = true
+
+[node name="ChildButtonContainer" type="HFlowContainer" parent="UI/StatsPanel/TabContainer/Lineage"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ChildrenLabel" type="Label" parent="UI/StatsPanel/TabContainer/Lineage/ChildButtonContainer"]
+layout_mode = 2
+text = "Children:"
 
 [node name="BarPanel" type="Panel" parent="UI"]
 unique_name_in_owner = true

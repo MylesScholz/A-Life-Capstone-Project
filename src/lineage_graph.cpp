@@ -6,12 +6,34 @@ LineageGraph::LineageGraph() {
 	// Storage basis vector; the top left position of the storage area; just to the right of the CellEnvironment
 	_storageBasis = Vector2(1400, 0);
 	// Spacing between Cells in the storage area
-	_storageSpacing = 150;
+	_storageSpacing = 200;
 	_vertices = Vector<LineageGraphVertex *>();
+	// Last universal common ancestor
+	_LUCA = new LineageGraphVertex(nullptr);
 }
 LineageGraph::~LineageGraph() {
 	for (LineageGraphVertex *vertex : _vertices)
 		delete vertex;
+}
+
+LineageGraphVertex *LineageGraph::getLUCA() const { return _LUCA; }
+Vector2 LineageGraph::getLUCAPosition() {
+	return _storageBasis + Vector2(0, _storageSpacing);
+}
+void LineageGraph::updateLUCAEdges() {
+	if (!_LUCA)
+		return;
+
+	for (LineageGraphVertex *vertex : _vertices) {
+		Vector<LineageGraphVertex *> parents = vertex->getParents();
+		if (parents.size() == 0) {
+			vertex->linkToParent(_LUCA);
+			_LUCA->linkToChild(vertex);
+		} else if (parents.size() > 1 && parents.find(_LUCA) >= 0) {
+			vertex->removeLinkToParent(_LUCA);
+			_LUCA->removeLinkToChild(vertex);
+		}
+	}
 }
 
 Vector2 LineageGraph::storeCell(Cell *cell) {
@@ -31,17 +53,33 @@ Vector2 LineageGraph::storeCell(Cell *cell) {
 
 	return position;
 }
+Vector2 LineageGraph::getCellPosition(Cell *cell) {
+	// Initialize position at the storage basis vector
+	Vector2 position = _storageBasis;
+
+	int index = indexOfCell(cell);
+	if (index < 0)
+		return Vector2();
+
+	position.x += (index % _nColumns) * _storageSpacing;
+	position.y += (index / _nColumns) * _storageSpacing;
+
+	return position;
+}
 
 LineageGraphVertex *LineageGraph::addVertex(Cell *cell) {
 	LineageGraphVertex *newVertex = new LineageGraphVertex(cell);
 
 	_vertices.push_back(newVertex);
+
+	updateLUCAEdges();
 	return newVertex;
 }
 LineageGraphVertex *LineageGraph::addVertex(LineageGraphVertex *vertex) {
 	if (_vertices.find(vertex) == -1)
 		_vertices.push_back(vertex);
 
+	updateLUCAEdges();
 	return vertex;
 }
 void LineageGraph::removeVertex(Cell *keyCell) {
@@ -59,6 +97,8 @@ void LineageGraph::removeVertex(Cell *keyCell) {
 
 	_vertices.remove_at(index);
 	delete vertex;
+
+	updateLUCAEdges();
 }
 void LineageGraph::removeVertex(LineageGraphVertex *vertex) {
 	int index = _vertices.find(vertex);
@@ -73,6 +113,8 @@ void LineageGraph::removeVertex(LineageGraphVertex *vertex) {
 
 	_vertices.remove_at(index);
 	delete vertex;
+
+	updateLUCAEdges();
 }
 
 LineageGraphVertex *LineageGraph::getVertex(Cell *cell) const {
@@ -106,6 +148,8 @@ void LineageGraph::addEdge(Cell *parentCell, Cell *childCell) {
 	// Link the two vertices symmetrically
 	parentVertex->linkToChild(childVertex);
 	childVertex->linkToParent(parentVertex);
+
+	updateLUCAEdges();
 }
 void LineageGraph::removeEdge(Cell *parentCell, Cell *childCell) {
 	LineageGraphVertex *parentVertex = getVertex(parentCell);
@@ -116,6 +160,8 @@ void LineageGraph::removeEdge(Cell *parentCell, Cell *childCell) {
 
 	if (childVertex)
 		childVertex->removeLinkToParent(parentVertex);
+
+	updateLUCAEdges();
 }
 
 int LineageGraph::indexOfCell(Cell *keyCell) const {

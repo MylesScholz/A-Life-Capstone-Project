@@ -12,7 +12,12 @@ public:
 	LineageGraph();
 	~LineageGraph();
 
+	LineageGraphVertex *getLUCA() const;
+	Vector2 getLUCAPosition();
+	void updateLUCAEdges();
+
 	Vector2 storeCell(Cell *);
+	Vector2 getCellPosition(Cell *);
 
 	LineageGraphVertex *addVertex(Cell *);
 	LineageGraphVertex *addVertex(LineageGraphVertex *);
@@ -32,4 +37,5 @@ private:
 	int _storageSpacing;
 	Vector2 _storageBasis;
 	Vector<LineageGraphVertex *> _vertices;
+	LineageGraphVertex *_LUCA;
 };

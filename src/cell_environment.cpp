@@ -85,6 +85,8 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 
 	// Move Cell outside the CellEnvironment bounds for storage
 	_lineageGraph.storeCell(cell);
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
+	cell->reparent(spawner->get_node<SubViewport>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport"));
 
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());

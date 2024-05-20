@@ -30,8 +30,8 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
+#include <iomanip>
 #include <sstream>
-#include <iomanip> 
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
@@ -315,18 +315,14 @@ void Cell::_process(double delta) {
 				this->emit_signal("cell_death", this);
 
 				clearStatsOnDeath(this);
-				// Remove the Cell from the scene
-				queue_free();
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
 			// Create NutrientZone
 			this->emit_signal("cell_death", this);
-			
+
 			clearStatsOnDeath(this);
-			// Remove the Cell from the scene
-			queue_free();
 		}
 	}
 }
@@ -343,10 +339,12 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 		//Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
 		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
+		Camera2D *lineage_cam = spawner->get_node<Camera2D>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport/LineageCamera");
 
 		ui_cam->call("on_cell_select", this);
+		lineage_cam->call("select_cell", this);
 
-		if(ui_cam->get("cam_focus_check")){
+		if (ui_cam->get("cam_focus_check")) {
 			UtilityFunctions::print("override detected");
 			ui_cam->call("camera_check_override");
 			ui_cam->call("camera_zoom");
@@ -355,9 +353,10 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 	}
 }
 
-void Cell::clearStatsOnDeath(Cell *cell){
+void Cell::clearStatsOnDeath(Cell *cell) {
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
+
 	ui_cam->call("on_cell_deselect", cell);
 }
 

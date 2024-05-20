@@ -2,6 +2,7 @@
 
 #include "cell_environment.hpp"
 #include "cell_spawner.hpp"
+#include "lineage_camera.hpp"
 #include "stats.hpp"
 
 #include <godot_cpp/classes/button.hpp>

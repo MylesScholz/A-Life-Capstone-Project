@@ -20,6 +20,9 @@ void ResetButton::_pressed() {
 	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 	ui_cam->call("clear_selection");
 
+	LineageCamera *lineageCamera = spawner->get_node<LineageCamera>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport/LineageCamera");
+	lineageCamera->deselect();
+
 	// Remove old Cells
 	spawner->removeAllCells();
 
@@ -29,9 +32,11 @@ void ResetButton::_pressed() {
 		spawner->spawnCell();
 	}
 
-	// Respawn NutrientZones
+	// Remove old NutrientZones
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();
+
+	// Respawn new NutrientZones
 	for (int i = 0; i < environment->getNNutrientZones(); i++) {
 		environment->spawnNutrientZone();
 	}

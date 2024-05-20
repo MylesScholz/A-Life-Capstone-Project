@@ -7,6 +7,7 @@
 #include "cell_state.hpp"
 #include "flagella.hpp"
 #include "fps_counter.hpp"
+#include "lineage_camera.hpp"
 #include "main_menu_button.hpp"
 #include "mitochondria.hpp"
 #include "nucleus.hpp"
@@ -45,6 +46,7 @@ void initialize_gdextension_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<ResetButton>();
 	ClassDB::register_class<MainMenuButton>();
 	ClassDB::register_class<Stats>();
+	ClassDB::register_class<LineageCamera>();
 }
 
 void uninitialize_gdextension_module(ModuleInitializationLevel p_level) {
