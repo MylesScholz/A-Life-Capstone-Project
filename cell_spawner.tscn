@@ -284,6 +284,7 @@ layout_mode = 2
 script = ExtResource("8_74sho")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
+visible = false
 clip_contents = true
 anchors_preset = 3
 anchor_left = 1.0
@@ -345,7 +346,6 @@ theme = ExtResource("2_d86u0")
 theme_override_constants/side_margin = 0
 
 [node name="Cell" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("12_51nej")
 
@@ -406,6 +406,7 @@ visible = false
 layout_mode = 2
 
 [node name="Lineage" type="VBoxContainer" parent="UI/StatsPanel/TabContainer"]
+visible = false
 clip_contents = true
 layout_mode = 2
 
