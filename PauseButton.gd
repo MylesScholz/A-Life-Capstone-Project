@@ -32,11 +32,13 @@ func pause_functionality():
 
 func unpause(): # If paused, unpause
 	if (Engine.time_scale == 0):
+		pressed_check = false
 		texture_normal = normal_texture
 		pause_functionality()
 
 func pause(): # If unpaused, pause
 	if (Engine.time_scale != 0):
+		pressed_check = true
 		texture_normal = pressed_texture
 		pause_functionality()
 
