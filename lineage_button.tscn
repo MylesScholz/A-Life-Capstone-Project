@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtgdhrdnm42f4"]
+
+[ext_resource type="Texture2D" uid="uid://dwtie2cr8yf56" path="res://sprites/Buttons/LineageButton.png" id="1_ehw5r"]
+[ext_resource type="Script" path="res://lineage_button.gd" id="2_xvw87"]
+
+[node name="LineageButton" type="TextureButton"]
+custom_minimum_size = Vector2(25, 25)
+texture_normal = ExtResource("1_ehw5r")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_xvw87")

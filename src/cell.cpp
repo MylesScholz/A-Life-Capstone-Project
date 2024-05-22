@@ -14,7 +14,7 @@
 #include "ribosomes_gene.hpp"
 
 #include "cell_spawner.hpp"
-#include "stats_counter.hpp"
+#include "stats.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
@@ -29,6 +29,9 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
+
+#include <iomanip>
+#include <sstream>
 
 void Cell::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &Cell::_on_body_entered);
@@ -308,24 +311,18 @@ void Cell::_process(double delta) {
 			// some variability to Cell lifespans.
 			if (_rand->randf_range(0, (1.0 / delta) * _cellState->getLifespan()) < ageDiff) {
 				_cellState->setAlive(false);
-				// Stop Cell movement
-				this->set_linear_damp(10.0);
-				this->set_angular_damp(10.0);
 				// Create NutrientZone
 				this->emit_signal("cell_death", this);
-				// Remove the Cell from the scene
-				queue_free();
+
+				clearStatsOnDeath(this);
 			}
 		}
 		if (nutrients <= 0 || energy <= 0) {
 			_cellState->setAlive(false);
-			// Stop Cell movement
-			this->set_linear_damp(10.0);
-			this->set_angular_damp(10.0);
 			// Create NutrientZone
 			this->emit_signal("cell_death", this);
-			// Remove the Cell from the scene
-			queue_free();
+
+			clearStatsOnDeath(this);
 		}
 	}
 }
@@ -340,28 +337,56 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		//Node *global_signals = Object::cast_to<Node>(Engine::get_singleton()->get_singleton("res://GlobalSignals.gd"));
 
 		CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-		StatsCounter *statsCounter = spawner->get_node<StatsCounter>("UI/StatsPanel/StatsCounter");
+		//Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
+		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
+		Camera2D *lineage_cam = spawner->get_node<Camera2D>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport/LineageCamera");
+		Panel *bar_panel = spawner->get_node<Panel>("UI/BarPanel");
 
-		emit_signal("cell_selected", this);
+		CheckButton *stats_open_check = spawner->get_node<CheckButton>("UI/MenuPanel/TabContainer/General/StatsOpenCheck");
+		Panel *stats_panel = spawner->get_node<Panel>("UI/StatsPanel");
 
-		statsCounter->_update_Stats(this);
-		//statsCounter->_update_signal(this);
+		if (!bar_panel->is_visible()) {
+			ui_cam->call("on_cell_select", this);
+			lineage_cam->call("select_cell", this);
+
+			if (ui_cam->get("cam_focus_check")) {
+				UtilityFunctions::print("override detected");
+				ui_cam->call("camera_check_override");
+				ui_cam->call("camera_zoom");
+			}
+
+			if (stats_open_check->is_pressed()) {
+				stats_panel->show();
+			}
+		}
+		//stats->_set_selected_cell(this);
 	}
 }
 
+void Cell::clearStatsOnDeath(Cell *cell) {
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
+
+	ui_cam->call("on_cell_deselect", cell);
+}
+
+String Cell::formatDecimal(float value) const {
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(3) << value;
+	return stream.str().c_str();
+}
+
 Array Cell::getStats() const {
-	Array stats;
-	stats.push_back(Math::round(_cellState->getBirthTime() * 1000.0) / 1000.0); // index 0
-	stats.push_back(_cellState->getAlive()); // index 1
-	stats.push_back(Math::round(_cellState->getAge() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalEnergy() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getEnergyMaximum() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getTotalNutrients() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(_cellState->getNutrientMaximum() * 1000.0) / 1000.0);
-	stats.push_back(Math::round(get_mass() * 1000000) / 1000000.00);
-	stats.push_back(Math::round(_cellState->getScale() * 1000000) / 1000000.00);
+	Array stats_array;
+	stats_array.push_back(formatDecimal(_cellState->getBirthTime())); // index 0
+	stats_array.push_back(_cellState->getAlive()); // index 1
+	stats_array.push_back(formatDecimal(_cellState->getAge()));
+	stats_array.push_back(formatDecimal(getScale()));
+	stats_array.push_back(formatDecimal(get_mass()));
+	stats_array.push_back(formatDecimal(_cellState->getTotalEnergy()));
+	stats_array.push_back(formatDecimal(_cellState->getTotalNutrients()));
 	// Continue adding stats in a specific order
-	return stats;
+	return stats_array;
 }
 
 // function updates on cell contacts. Increments counter for use in

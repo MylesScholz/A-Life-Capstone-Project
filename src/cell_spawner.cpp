@@ -1,7 +1,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
 #include "cell_environment.hpp"
-#include "stats_counter.hpp"
+#include "stats.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 
@@ -23,6 +23,7 @@ using namespace godot;
 void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_num_cells", "num_cells"), &CellSpawner::setNumCells);
 	ClassDB::bind_method(D_METHOD("get_num_cells"), &CellSpawner::getNumCells);
+
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "num_cells"), "set_num_cells", "get_num_cells");
 
 	ClassDB::bind_method(D_METHOD("set_cell_scene", "cell_scene"), &CellSpawner::setCellScene);
@@ -41,10 +42,14 @@ void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_resource_proportion"), &CellSpawner::getResourceProportion);
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::FLOAT, "resource_proportion"), "set_resource_proportion", "get_resource_proportion");
 
+	ClassDB::bind_method(D_METHOD("remove_all_cells"), &CellSpawner::removeAllCells);
+
 	ClassDB::bind_method(D_METHOD("_on_cell_reproduction", "cell"), &CellSpawner::_on_cell_reproduction);
 	ADD_SIGNAL(MethodInfo("cell_reproduction", PropertyInfo(Variant::OBJECT, "cell")));
 
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
+
+	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);
 }
 
 CellSpawner::CellSpawner() {}
@@ -97,8 +102,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	Cell *cellObject = Object::cast_to<Cell>(cell);
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(cell);
-	cell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+	cellEnvironment->addCell(cellObject);
 
 	// Set Cell size
 	cellObject->applyScale(rand.randf_range(0.25, 1));
@@ -110,7 +114,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
 
 	// Set Cell position to random location in viewport
-	cellObject->set_position(Vector2(
+	cellObject->set_global_position(Vector2(
 			rand.randi_range(cellSize.x / 4, viewportSize.x - cellSize.x / 4),
 			rand.randi_range(cellSize.y / 4, viewportSize.y - cellSize.y / 4)));
 
@@ -152,26 +156,38 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellObject->apply_torque(rand.randf_range(-500, 500));
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
-	cellEnvironment->add_child(childCell);
+	cellEnvironment->addCell(cellObject);
+	cellEnvironment->getLineageGraph()->addEdge(cell, cellObject);
 
 	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
 	cell->applyScale(halfArea);
 	cellObject->applyScale(cell->getScale());
 
-	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
-
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
-	CellEnvironment *env = this->get_node<CellEnvironment>("CellEnvironment");
+	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 
-	for (int i = env->get_child_count() - 1; i >= 0; i--) {
-		Node *child = env->get_child(i);
-		if (Object::cast_to<Cell>(child)) {
-			Object::cast_to<Cell>(child)->resetCollisions();
-			child->queue_free();
+	for (int i = cellEnvironment->get_child_count() - 1; i >= 0; i--) {
+		Node *child = cellEnvironment->get_child(i);
+
+		if (child->get_class() == "Cell") {
+			Cell *cell = Object::cast_to<Cell>(child);
+			cellEnvironment->removeCell(cell);
+		}
+	}
+
+	SubViewport *subViewport = this->get_node<SubViewport>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport");
+
+	for (int i = subViewport->get_child_count() - 1; i >= 0; i--) {
+		Node *child = subViewport->get_child(i);
+
+		if (child->get_class() == "Cell") {
+			Cell *cell = Object::cast_to<Cell>(child);
+			subViewport->remove_child(cell);
+			cellEnvironment->removeCell(cell);
 		}
 	}
 }

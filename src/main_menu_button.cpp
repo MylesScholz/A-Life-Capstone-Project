@@ -17,28 +17,13 @@ void MainMenuButton::_pressed() {
 	// Remove old cells
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	spawner->removeAllCells();
+
 	// Remove old nutrient zones
 	CellEnvironment *environment = spawner->get_node<CellEnvironment>("CellEnvironment");
 	environment->removeAllNutrientZones();
 
-	// Close in-simulation display
-	Node *UI = spawner->get_node<Node>("UI");
-	UI->get_node<CanvasItem>("NavBar")->set_visible(false);
-	UI->get_node<CanvasItem>("StatsPanel")->set_visible(false);
-	UI->get_node<CanvasItem>("MenuPanels/SaveAndQuitMenuPanel")->set_visible(false);
-	Object::cast_to<FpsCounter>(UI->find_child("FpsCounter"))->toggle_fps();
-	Object::cast_to<TimeCounter>(UI->find_child("TimeCounter"))->toggle_time();
-	Object::cast_to<Label>(UI->find_child("SpeedDisplay"))->call("toggle_display");
+	Button *exitMenuButton = spawner->get_node<Button>("UI/MenuPanel/EXIT_TO_MENUButton");
 
-	UI->get_node<CanvasItem>("BarPanel")->set_visible(true); // Open menu
-
-	// Respawn background cells that don't die
-	spawner->get_node<Node>("UI/NavBar/PauseButton")->call("unpause");
-	for (int i = 0; i < spawner->getNumCells(); i++) {
-		spawner->spawnCell(1);
-	}
-	// Respawn nutrient zones
-	for (int i = 0; i < environment->getNNutrientZones(); i++) {
-		environment->spawnNutrientZone();
-	}
+	// call through to exitMenuButton to reset the UI
+	exitMenuButton->call("ui_reset");
 }

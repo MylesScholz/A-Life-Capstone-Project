@@ -5,18 +5,47 @@ void CellEnvironment::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_nutrient_zone_scene"), &CellEnvironment::getNutrientZoneScene);
 	ClassDB::add_property("CellEnvironment", PropertyInfo(Variant::OBJECT, "nutrient_zone_scene"), "set_nutrient_zone_scene", "get_nutrient_zone_scene");
 
+	ClassDB::bind_method(D_METHOD("get_alive_count"), &CellEnvironment::GetAliveCount);
+	ClassDB::bind_method(D_METHOD("get_nutrient_zone_count"), &CellEnvironment::GetNutrientZoneCount);
+
 	ClassDB::bind_method(D_METHOD("set_n_nutrient_zones", "nutrient_zone_scene"), &CellEnvironment::setNNutrientZones);
 	ClassDB::bind_method(D_METHOD("get_n_nutrient_zones"), &CellEnvironment::getNNutrientZones);
 	ClassDB::add_property("CellEnvironment", PropertyInfo(Variant::INT, "n_nutrient_zones"), "set_n_nutrient_zones", "get_n_nutrient_zones");
 
 	ClassDB::bind_method(D_METHOD("_on_cell_death"), &CellEnvironment::_on_cell_death);
 	ADD_SIGNAL(MethodInfo("cell_death"));
+
+	ClassDB::bind_method(D_METHOD("remove_all_nutrient_zones"), &CellEnvironment::removeAllNutrientZones);
+	ClassDB::bind_method(D_METHOD("spawn_nutrient_zone"), &CellEnvironment::spawnNutrientZone);
 }
 
 CellEnvironment::CellEnvironment() {
 	_nNutrientZones = 0;
+	_lineageGraph = LineageGraph();
 }
 CellEnvironment::~CellEnvironment() {}
+
+int CellEnvironment::GetAliveCount() {
+	int count = 0;
+	for (int i = 0; i < this->get_child_count(); i++) {
+		Node *child = this->get_child(i);
+		if (Object::cast_to<Cell>(child)) {
+			count++;
+		}
+	}
+	return count;
+}
+
+int CellEnvironment::GetNutrientZoneCount() {
+	int count = 0;
+	for (int i = 0; i < this->get_child_count(); i++) {
+		Node *child = this->get_child(i);
+		if (Object::cast_to<NutrientZone>(child)) {
+			count++;
+		}
+	}
+	return count;
+}
 
 void CellEnvironment::spawnNutrientZone() {
 	// Create a random number generator
@@ -57,7 +86,34 @@ void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
 }
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }
 
+void CellEnvironment::addCell(Cell *cell) {
+	this->add_child(cell);
+	cell->connect("cell_death", Callable(this, "_on_cell_death"));
+
+	_lineageGraph.addVertex(cell);
+}
+void CellEnvironment::removeCell(Cell *cell) {
+	_lineageGraph.removeVertex(cell);
+
+	this->remove_child(cell);
+	cell->resetCollisions();
+	cell->queue_free();
+}
+LineageGraph *CellEnvironment::getLineageGraph() { return &_lineageGraph; }
+
 void CellEnvironment::_on_cell_death(Cell *cell) {
+	// Disable Cell physics
+	cell->set_disable_mode(cell->DISABLE_MODE_REMOVE);
+	cell->set_process_mode(cell->PROCESS_MODE_DISABLED);
+
+	// Store Cell position for placing the NutrientZone
+	Vector2 cellPosition = cell->get_position();
+
+	// Move Cell outside the CellEnvironment bounds for storage
+	_lineageGraph.storeCell(cell);
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
+	cell->reparent(spawner->get_node<SubViewport>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport"));
+
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
 
@@ -68,7 +124,6 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 	nutrientZone->applyScale(cell->getScale() / 4);
 
 	// Set the NutrientZone's position in the same position as the dead cell
-	godot::Vector2 cellPosition = cell->get_position();
 	Vector2 nutrientZonePosition = Vector2(cellPosition.x - viewportSize.x / 2, cellPosition.y - viewportSize.y / 2);
 	nutrientZone->set_position(nutrientZonePosition);
 

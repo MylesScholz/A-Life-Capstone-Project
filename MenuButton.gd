@@ -1,10 +1,23 @@
-extends TextureButton
+extends Button
+
+var menu_panel = null
+var pauseButton = null
+
+var pauseCheck = false
 
 func _pressed():
-	var rootNode = get_tree().get_root()
-	rootNode.get_node("CellSpawner/UI/MenuPanels/SaveAndQuitMenuPanel").visible = true
-	
-	var pauseButton = rootNode.get_node("CellSpawner/UI/NavBar/PauseButton")
-	if (Engine.time_scale != 0):
-		pauseButton.call("pause")
-		GlobalVariables.used_pause_button = false
+	menu_panel.visible = !menu_panel.visible
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	menu_panel = get_parent().get_parent().get_parent().get_node("MenuPanel")
+	pauseButton = get_parent().get_parent().get_node("SpeedControlPanel/PauseButton")
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+
+
+func _on_menu_pause_check_toggled(toggled_on):
+	pauseCheck = toggled_on

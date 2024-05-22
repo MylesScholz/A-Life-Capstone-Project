@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://xrmkxnl40oq3"]
 
-[ext_resource type="Texture2D" uid="uid://ftm20f5a6seu" path="res://sprites/Ribosomes/Ribosomes.png" id="1_auepq"]
+[ext_resource type="Texture2D" path="res://sprites/Ribosomes/Ribosomes.png" id="1_auepq"]
 [ext_resource type="Texture2D" uid="uid://bl128i8m40qdl" path="res://sprites/Ribosomes/RibosomesActivated.png" id="2_ly5y4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p7tnh"]

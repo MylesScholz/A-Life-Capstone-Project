@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgm2tf2frjsuw"]
 
-[ext_resource type="Texture2D" uid="uid://dta8ucnffe3ld" path="res://sprites/Mitochondria/Mitochondria.png" id="1_y4sua"]
+[ext_resource type="Texture2D" path="res://sprites/Mitochondria/Mitochondria.png" id="1_y4sua"]
 [ext_resource type="Texture2D" uid="uid://f52f22d765fg" path="res://sprites/Mitochondria/MitochondriaActivated.png" id="2_7ekrb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ugb65"]
