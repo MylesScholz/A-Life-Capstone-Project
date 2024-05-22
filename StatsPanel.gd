@@ -54,7 +54,7 @@ func clamp_position_within_viewport(global_pos):
 	# Get the size of the Control node explicitly if rect_size is not recognized
 	var panel_size = self.rect_size if "rect_size" in self else self.get_rect().size
 	var clamped_x = clamp(global_pos.x, 0, viewport_size.x - panel_size.x)
-	var clamped_y = clamp(global_pos.y, 0, viewport_size.y - panel_size.y)
+	var clamped_y = clamp(global_pos.y, 80, viewport_size.y - panel_size.y)
 	return Vector2(clamped_x, clamped_y)
 
 func _on_stats_open_button_pressed():

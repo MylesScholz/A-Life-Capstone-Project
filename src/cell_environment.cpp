@@ -5,6 +5,9 @@ void CellEnvironment::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_nutrient_zone_scene"), &CellEnvironment::getNutrientZoneScene);
 	ClassDB::add_property("CellEnvironment", PropertyInfo(Variant::OBJECT, "nutrient_zone_scene"), "set_nutrient_zone_scene", "get_nutrient_zone_scene");
 
+	ClassDB::bind_method(D_METHOD("get_alive_count"), &CellEnvironment::GetAliveCount);
+	ClassDB::bind_method(D_METHOD("get_nutrient_zone_count"), &CellEnvironment::GetNutrientZoneCount);
+
 	ClassDB::bind_method(D_METHOD("set_n_nutrient_zones", "nutrient_zone_scene"), &CellEnvironment::setNNutrientZones);
 	ClassDB::bind_method(D_METHOD("get_n_nutrient_zones"), &CellEnvironment::getNNutrientZones);
 	ClassDB::add_property("CellEnvironment", PropertyInfo(Variant::INT, "n_nutrient_zones"), "set_n_nutrient_zones", "get_n_nutrient_zones");
@@ -21,6 +24,29 @@ CellEnvironment::CellEnvironment() {
 	_lineageGraph = LineageGraph();
 }
 CellEnvironment::~CellEnvironment() {}
+
+
+int CellEnvironment::GetAliveCount() {
+    int count = 0;
+    for (int i = 0; i < this->get_child_count(); i++) {
+        Node *child = this->get_child(i);
+        if (Object::cast_to<Cell>(child)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int CellEnvironment::GetNutrientZoneCount() {
+    int count = 0;
+    for (int i = 0; i < this->get_child_count(); i++) {
+        Node *child = this->get_child(i);
+        if (Object::cast_to<NutrientZone>(child)) {
+            count++;
+        }
+    }
+    return count;
+}
 
 void CellEnvironment::spawnNutrientZone() {
 	// Create a random number generator

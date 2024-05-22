@@ -6,6 +6,8 @@
 #include "nucleus.hpp"
 
 #include <godot_cpp/classes/camera2d.hpp>
+#include <godot_cpp/classes/panel.hpp>
+#include <godot_cpp/classes/check_button.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>

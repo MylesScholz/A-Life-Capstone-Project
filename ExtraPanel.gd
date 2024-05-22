@@ -1,4 +1,4 @@
-extends Panel
+extends VBoxContainer
 
 var toggle_button = null
 var main_menu = null

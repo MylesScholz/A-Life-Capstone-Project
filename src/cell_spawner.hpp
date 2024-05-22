@@ -25,6 +25,8 @@ public:
 	void setNumCells(const int);
 	int getNumCells() const;
 
+	int GetAliveCount();
+
 	void setCellScene(const Ref<PackedScene>);
 	Ref<PackedScene> getCellScene() const;
 

@@ -23,6 +23,7 @@ using namespace godot;
 void CellSpawner::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_num_cells", "num_cells"), &CellSpawner::setNumCells);
 	ClassDB::bind_method(D_METHOD("get_num_cells"), &CellSpawner::getNumCells);
+
 	ClassDB::add_property("CellSpawner", PropertyInfo(Variant::INT, "num_cells"), "set_num_cells", "get_num_cells");
 
 	ClassDB::bind_method(D_METHOD("set_cell_scene", "cell_scene"), &CellSpawner::setCellScene);

@@ -28,6 +28,9 @@ public:
 	void spawnNutrientZone();
 	void removeAllNutrientZones();
 
+	int GetAliveCount();
+	int GetNutrientZoneCount();
+
 	void setNutrientZoneScene(const Ref<PackedScene>);
 	Ref<PackedScene> getNutrientZoneScene() const;
 

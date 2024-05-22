@@ -340,14 +340,24 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		//Stats *stats = spawner->get_node<Stats>("UI/StatsPanel/TabContainer/Stats");
 		Camera2D *ui_cam = spawner->get_node<Camera2D>("UI_Cam");
 		Camera2D *lineage_cam = spawner->get_node<Camera2D>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport/LineageCamera");
+		Panel *bar_panel = spawner->get_node<Panel>("UI/BarPanel");
 
-		ui_cam->call("on_cell_select", this);
-		lineage_cam->call("select_cell", this);
+		CheckButton *stats_open_check = spawner->get_node<CheckButton>("UI/MenuPanel/TabContainer/General/StatsOpenCheck");
+		Panel *stats_panel = spawner->get_node<Panel>("UI/StatsPanel");
 
-		if (ui_cam->get("cam_focus_check")) {
-			UtilityFunctions::print("override detected");
-			ui_cam->call("camera_check_override");
-			ui_cam->call("camera_zoom");
+		if(!bar_panel->is_visible()){
+			ui_cam->call("on_cell_select", this);
+			lineage_cam->call("select_cell", this);
+
+			if (ui_cam->get("cam_focus_check")) {
+				UtilityFunctions::print("override detected");
+				ui_cam->call("camera_check_override");
+				ui_cam->call("camera_zoom");
+			}
+
+			if (stats_open_check->is_pressed()) {
+                stats_panel->show();
+            }
 		}
 		//stats->_set_selected_cell(this);
 	}

@@ -27,8 +27,8 @@ func _process(_delta):
 	pass
 
 func update_stats():
-	var cell_count = cell_spawner.get_num_cells()
-	count_label.text = "Total Cells: %s" % str(cell_count)
+	var cell_count = cell_zone.get_alive_count()
+	count_label.text = "Alive Cells: %s" % str(cell_count)
 	
-	var cell_zone_count = cell_zone.get_child_count()
-	zone_label.text = "Total Cell Zones: %s" % str(cell_zone_count)
+	var cell_zone_count = cell_zone.get_nutrient_zone_count()
+	zone_label.text = "Nutrient Zones: %s" % str(cell_zone_count)

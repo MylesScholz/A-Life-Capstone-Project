@@ -26,7 +26,7 @@ func ui_reset():
 	rootNode.get_node("CellSpawner/UI/ExtraPanel").visible = false
 	
 	
-	var speed_display = rootNode.get_node("CellSpawner/UI/ExtraPanel/SpeedDisplay")
+	var speed_display = rootNode.get_node("CellSpawner/UI/NavBar/SpeedControlPanel/SpeedDisplay")
 	speed_display.toggle_display()
 	
 	var cell_cam = rootNode.get_node("CellSpawner/UI_Cam") # clear any selections

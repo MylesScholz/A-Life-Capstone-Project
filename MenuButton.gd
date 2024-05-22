@@ -7,17 +7,11 @@ var pauseCheck = false
 
 func _pressed():
 	menu_panel.visible = !menu_panel.visible
-		
-	if ((Engine.time_scale != 0) and (pauseCheck == true)): 
-		pauseButton.pause()
-		GlobalVariables.used_pause_button = false
-	else:
-		pauseButton.unpause()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	menu_panel = get_parent().get_parent().get_parent().get_node("MenuPanel")
-	pauseButton = get_parent().get_parent().get_node("PauseButton")
+	pauseButton = get_parent().get_parent().get_node("SpeedControlPanel/PauseButton")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

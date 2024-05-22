@@ -21,7 +21,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	menu_panel = get_parent()
 	bar_panel = get_parent().get_parent().get_node("BarPanel")
-	pause_button = get_parent().get_parent().get_node("NavBar/PauseButton")
+	pause_button = get_parent().get_parent().get_node("NavBar/SpeedControlPanel/PauseButton")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
