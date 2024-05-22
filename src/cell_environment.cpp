@@ -25,27 +25,26 @@ CellEnvironment::CellEnvironment() {
 }
 CellEnvironment::~CellEnvironment() {}
 
-
 int CellEnvironment::GetAliveCount() {
-    int count = 0;
-    for (int i = 0; i < this->get_child_count(); i++) {
-        Node *child = this->get_child(i);
-        if (Object::cast_to<Cell>(child)) {
-            count++;
-        }
-    }
-    return count;
+	int count = 0;
+	for (int i = 0; i < this->get_child_count(); i++) {
+		Node *child = this->get_child(i);
+		if (Object::cast_to<Cell>(child)) {
+			count++;
+		}
+	}
+	return count;
 }
 
 int CellEnvironment::GetNutrientZoneCount() {
-    int count = 0;
-    for (int i = 0; i < this->get_child_count(); i++) {
-        Node *child = this->get_child(i);
-        if (Object::cast_to<NutrientZone>(child)) {
-            count++;
-        }
-    }
-    return count;
+	int count = 0;
+	for (int i = 0; i < this->get_child_count(); i++) {
+		Node *child = this->get_child(i);
+		if (Object::cast_to<NutrientZone>(child)) {
+			count++;
+		}
+	}
+	return count;
 }
 
 void CellEnvironment::spawnNutrientZone() {

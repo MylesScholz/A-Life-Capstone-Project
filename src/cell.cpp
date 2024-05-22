@@ -345,7 +345,7 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 		CheckButton *stats_open_check = spawner->get_node<CheckButton>("UI/MenuPanel/TabContainer/General/StatsOpenCheck");
 		Panel *stats_panel = spawner->get_node<Panel>("UI/StatsPanel");
 
-		if(!bar_panel->is_visible()){
+		if (!bar_panel->is_visible()) {
 			ui_cam->call("on_cell_select", this);
 			lineage_cam->call("select_cell", this);
 
@@ -356,8 +356,8 @@ void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 			}
 
 			if (stats_open_check->is_pressed()) {
-                stats_panel->show();
-            }
+				stats_panel->show();
+			}
 		}
 		//stats->_set_selected_cell(this);
 	}
