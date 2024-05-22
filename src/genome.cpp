@@ -6,13 +6,12 @@
 #include "nucleus_gene.hpp"
 #include "ribosomes_gene.hpp"
 
-//Gene Probs
+//Gene Probs. Currently setup to be out of 100. any values not in these ranges are defaulted to a random modifier gene
 const static float CELL_MEMBRANE_CHANCE[2] = {0,15};
 const static float FLAGELLA_CHANCE[2] = {15,30};
 const static float MITOCHONDRIA_CHANCE[2] = {30,40};
 const static float NUCLEUS_CHANCE[2] = {40,45};
 const static float RIBOSOME_CHANCE[2] = {45,55};
-const static float MODIFIER_CHANCE[2] = {55,100};
 
 Genome::Genome() {
 }
@@ -92,7 +91,6 @@ Gene *Genome::GenerateRandomGene() {
 	if(generatedValue >= RIBOSOME_CHANCE[0] && generatedValue < RIBOSOME_CHANCE[1])
 		return new RibosomesGene();
 
-	if(generatedValue >= MODIFIER_CHANCE[0] && generatedValue < MODIFIER_CHANCE[1])
-		return randomModifierGene();
+	//Default to a Random modifier gene.
 	return randomModifierGene();
 }
