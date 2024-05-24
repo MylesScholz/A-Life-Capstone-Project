@@ -61,15 +61,6 @@ void Cell::seteq(Cell *otherCell) {
 		_cellGenome.addGene(newGene);
 	}
 
-	// Mutate based on otherCell's mutation chances
-	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++)
-	{
-		if(_rand->randf_range(0.0,1.0) < otherCell->_cellState->getMutationChance(i))
-		{
-			this->_mutate();
-		}
-	}
-	
 
 	// Copy relevant CellState information
 	if (!_cellState)
@@ -78,6 +69,16 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
 	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
+
+	// Mutate based on otherCell's mutation chances
+	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++)
+	{
+		if(_rand->randf_range(0.0,1.0) < otherCell->_cellState->getMutationChance(i))
+		{
+			this->_mutate();
+		}
+	}
+
 
 	// Set both Cells' _birthTime to the current time and _age to 0
 	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
@@ -343,19 +344,27 @@ void Cell::_mutate() {
 		//Insert Gene
 	case 0:
 		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+		{
 			this->_cellGenome.insertGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		}
 		else
+		{
 			this->_cellGenome.addGene(_cellGenome.GenerateRandomGene());
+		}
 		break;
 		//Modify Gene
 	case 1:
 		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+		{
 			this->_cellGenome.setGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		}
 		break;
 		//Delete Gene
 	case 2:
 		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
+		{
 			this->_cellGenome.removeGene(_rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+		}
 		break;
 	}
 

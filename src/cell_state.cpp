@@ -76,6 +76,7 @@ CellState::CellState() {
 	_growthRate = 1.01;
 	_nextMovementVector = Vector2();
 	_receptorVectors = Vector<Vector2>();
+	_mutationChances = Vector<float>();
 	_mutationChances.push_back(0.2);
 }
 CellState::~CellState() {}
