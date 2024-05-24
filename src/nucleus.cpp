@@ -40,8 +40,8 @@ void Nucleus::activate(CellState *cellState) {
 
 		this->emit_signal("cell_reproduction", cell);
 
-		this->getSprite()->set_frame(1);
-		this->getSprite()->play("activate");
+		cell->emit_signal("cell_death", cell);
+		
 	}
 
 	if(!_hasUpdatedState)

@@ -84,8 +84,6 @@ void Cell::seteq(Cell *otherCell) {
 	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
 	_cellState->setBirthTime(currentMsec);
 	_cellState->setAge(0);
-	otherCell->_cellState->setBirthTime(currentMsec);
-	otherCell->_cellState->setAge(0);
 }
 
 Cell::Cell() {

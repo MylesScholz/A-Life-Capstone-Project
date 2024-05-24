@@ -141,11 +141,15 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	RandomNumberGenerator rand = RandomNumberGenerator();
 
 	Node *childCell = _cellScene->instantiate();
+	Node *secondCell = _cellScene->instantiate();
 	Cell *cellObject = Object::cast_to<Cell>(childCell);
+	Cell *secondObject = Object::cast_to<Cell>(secondCell);
 
 	cellObject->seteq(cell);
+	secondObject->seteq(cell);
 
 	cellObject->set_position(cell->get_position());
+	secondObject->set_position(cell->get_position());
 
 	// This probably shouldn't be random for a child cell, and I assume w/ the flagella rework it won't be
 	float force_magnitude = rand.randf_range(_minForce, _maxForce);
@@ -153,18 +157,29 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
+	force_magnitude = rand.randf_range(_minForce, _maxForce);
+	direction = rand.randf_range(0, 2 * Math_PI);
+	force = Vector2(0, -1).rotated(direction) * force_magnitude;
+	secondObject->apply_force(force);
+
 	cellObject->apply_torque(rand.randf_range(-500, 500));
+	secondObject->apply_torque(rand.randf_range(-500, 500));
 
 	CellEnvironment *cellEnvironment = this->get_node<CellEnvironment>("CellEnvironment");
 	cellEnvironment->addCell(cellObject);
 	cellEnvironment->getLineageGraph()->addEdge(cell, cellObject);
 
+	cellEnvironment->addCell(secondObject);
+	cellEnvironment->getLineageGraph()->addEdge(cell, secondObject);
+
 	// Split the parent Cell's area evenly between the parent and the child
 	float halfArea = (sqrt(2) / 2);
 	cell->applyScale(halfArea);
 	cellObject->applyScale(cell->getScale());
+	secondObject->applyScale(cell->getScale());
 
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+	secondObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
