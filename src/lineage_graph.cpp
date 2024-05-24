@@ -4,7 +4,7 @@ LineageGraph::LineageGraph() {
 	// Number of columns of Cells in the storage area
 	_nColumns = 5;
 	// Storage basis vector; the top left position of the storage area; just to the right of the CellEnvironment
-	_storageBasis = Vector2(1400, 0);
+	_storageBasis = Vector2(2000, 0);
 	// Spacing between Cells in the storage area
 	_storageSpacing = 200;
 	_vertices = Vector<LineageGraphVertex *>();

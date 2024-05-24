@@ -15,7 +15,8 @@ func _pressed():
 		ui_cam.clear_selection()
 	if target_cell and not luca_targeted:
 		lineage_camera.select_cell(target_cell)
-		ui_cam.on_cell_select(target_cell)
+		if target_cell.get_node("CellState").get_alive():
+			ui_cam.on_cell_select(target_cell)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

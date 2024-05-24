@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://htdfk532t5nd" path="res://nutrient_zone.tscn" id="1_5dxwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4vorx"]
-size = Vector2(200, 720)
+size = Vector2(200, 920)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_du2en"]
-size = Vector2(1480, 200)
+size = Vector2(1840, 200)
 
 [node name="CellEnvironment" type="CellEnvironment"]
 nutrient_zone_scene = ExtResource("1_5dxwq")
@@ -15,17 +15,17 @@ n_nutrient_zones = 3
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 
 [node name="LeftEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(-100, 360)
+position = Vector2(-100, 460)
 shape = SubResource("RectangleShape2D_4vorx")
 
 [node name="RightEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(1180, 360)
+position = Vector2(1540, 460)
 shape = SubResource("RectangleShape2D_4vorx")
 
 [node name="TopEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(540, -100)
+position = Vector2(720, -100)
 shape = SubResource("RectangleShape2D_du2en")
 
 [node name="BottomEdgeBoundary" type="CollisionShape2D" parent="ViewportBoundaries"]
-position = Vector2(540, 820)
+position = Vector2(720, 1020)
 shape = SubResource("RectangleShape2D_du2en")
