@@ -1,4 +1,7 @@
 #include "nutrient_zone.hpp"
+#include "cell_spawner.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 void NutrientZone::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &NutrientZone::_on_body_entered);
@@ -120,6 +123,20 @@ void NutrientZone::_ready() {
 	this->connect("body_exited", Callable(this, "_on_body_exited"));
 
 	_sprite = this->get_node<Sprite2D>("Sprite2D");
+
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	// Set to values from simulation parameters menu
+	SpinBox *NutrientMaximumSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NutrientZoneNutrientMaximumContainer/SpinBox");
+	this->setNutrientMaximum(NutrientMaximumSpinBox->get_value());
+
+	SpinBox *FeedingRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/FeedingRateContainer/SpinBox");
+	this->setFeedingRate(FeedingRateSpinBox->get_value());
+
+	SpinBox *RegenerationRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/RegenerationRateContainer/SpinBox");
+	this->setRegenerationRate(RegenerationRateSpinBox->get_value());
+
+	Button *deleteOnEmptyInput = spawner->get_node<Button>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NutrientZoneDelete");
+	this->setDeleteOnEmpty(deleteOnEmptyInput->is_pressed());
 
 	// If spawned with no nutrients, delete the NutrientZone
 	if (this->getDeleteOnEmpty() && this->getTotalNutrients() == 0) {

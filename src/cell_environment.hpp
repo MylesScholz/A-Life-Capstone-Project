@@ -43,6 +43,8 @@ public:
 
 	void _on_cell_death(Cell *);
 
+	void _ready() override;
+
 private:
 	int _nNutrientZones;
 	Ref<PackedScene> _nutrientZoneScene;

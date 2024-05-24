@@ -17,6 +17,8 @@ void CellEnvironment::_bind_methods() {
 
 	ClassDB::bind_method(D_METHOD("remove_all_nutrient_zones"), &CellEnvironment::removeAllNutrientZones);
 	ClassDB::bind_method(D_METHOD("spawn_nutrient_zone"), &CellEnvironment::spawnNutrientZone);
+
+	ClassDB::bind_method(D_METHOD("setNNutrientZones", "value"), &CellEnvironment::setNNutrientZones);
 }
 
 CellEnvironment::CellEnvironment() {
@@ -81,7 +83,7 @@ void CellEnvironment::setNutrientZoneScene(const Ref<PackedScene> nutrientZoneSc
 Ref<PackedScene> CellEnvironment::getNutrientZoneScene() const { return _nutrientZoneScene; }
 
 void CellEnvironment::setNNutrientZones(const int nNutrientZones) {
-	if (nNutrientZones > 0 && nNutrientZones < 50)
+	if (nNutrientZones > 0 && nNutrientZones <= 50)
 		_nNutrientZones = nNutrientZones;
 }
 int CellEnvironment::getNNutrientZones() const { return _nNutrientZones; }
@@ -137,4 +139,14 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 
 	// Add the NutrientZone as a child of this node
 	this->add_child(nutrientZone);
+}
+
+void CellEnvironment::_ready() {
+	DONT_RUN_IN_EDITOR;
+
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+
+	// Connect to values from simulation parameters menu
+	Node *NStartingNutrientZonesSpinBox = spawner->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NNutrientZoneContainer/SpinBox");
+	NStartingNutrientZonesSpinBox->connect("value_changed", Callable(this, "setNNutrientZones"));
 }

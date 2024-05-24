@@ -50,6 +50,10 @@ void CellSpawner::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 
 	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);
+
+	ClassDB::bind_method(D_METHOD("setNumCells", "value"), &CellSpawner::setNumCells);
+
+	ClassDB::bind_method(D_METHOD("setResourceProportion", "value"), &CellSpawner::setResourceProportion);
 }
 
 CellSpawner::CellSpawner() {}
@@ -213,6 +217,13 @@ void CellSpawner::_ready() {
 		}
 	}
 #endif
+
+	// Connect to values from simulation parameters menu
+	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NStartingCellsContainer/SpinBox");
+	NumberOfStartingCellsSpinBox->connect("value_changed", Callable(this, "setNumCells"));
+
+	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/ResourceProportionContainer/SpinBox");
+	ResourceProportionSpinBox->connect("value_changed", Callable(this, "setResourceProportion"));
 
 	// Spawn back ground cells that don't die
 	for (int i = 0; i < this->getNumCells(); i++) {

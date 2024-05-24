@@ -1,4 +1,7 @@
 #include "cell_state.hpp"
+#include "cell_spawner.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_lifespan", "lifespan"), &CellState::setLifespan);
@@ -218,4 +221,15 @@ Vector<Vector2> CellState::getReceptorVectors() const { return _receptorVectors;
 
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
+
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	// Set to values from simulation parameters menu
+	SpinBox *LifeSpanSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/CellLifespanContainer/SpinBox");
+	this->setLifespan(LifeSpanSpinBox->get_value());
+
+	SpinBox *GrowthNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthNutrientCostContainer/SpinBox");
+	this->setGrowthNutrientCost(GrowthNutrientCostSpinBox->get_value());
+
+	SpinBox *GrowthEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthEnergyCostContainer/SpinBox");
+	this->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
 }

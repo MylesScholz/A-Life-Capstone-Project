@@ -240,6 +240,138 @@ text = "Q - Toggle Pause"
 layout_mode = 2
 text = "X - Deselect Cell"
 
+[node name="InitalValues" type="VBoxContainer" parent="UI/MenuPanel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues"]
+custom_minimum_size = Vector2(0, 215)
+layout_mode = 2
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="InitalValuesContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer"]
+layout_mode = 2
+
+[node name="NStartingCellsContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NStartingCellsContainer"]
+layout_mode = 2
+text = "Starting Cells"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NStartingCellsContainer"]
+layout_mode = 2
+value = 10.0
+
+[node name="ResourceProportionContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/ResourceProportionContainer"]
+layout_mode = 2
+text = "Cell Resource Proportion"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/ResourceProportionContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.75
+
+[node name="NNutrientZoneContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NNutrientZoneContainer"]
+layout_mode = 2
+text = "Starting NutrientZones"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NNutrientZoneContainer"]
+layout_mode = 2
+max_value = 50.0
+value = 3.0
+
+[node name="NutrientZoneNutrientMaximumContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NutrientZoneNutrientMaximumContainer"]
+layout_mode = 2
+text = "NutrientZone Nutrient Maximum"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NutrientZoneNutrientMaximumContainer"]
+layout_mode = 2
+max_value = 10000.0
+step = 10.0
+value = 1000.0
+
+[node name="FeedingRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/FeedingRateContainer"]
+layout_mode = 2
+text = "NutrientZone Feeding Rate"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/FeedingRateContainer"]
+layout_mode = 2
+min_value = 0.01
+step = 0.01
+value = 0.1
+
+[node name="RegenerationRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/RegenerationRateContainer"]
+layout_mode = 2
+text = "NutrientZone Regeneration Rate"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/RegenerationRateContainer"]
+layout_mode = 2
+step = 0.1
+value = 1.0
+
+[node name="NutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Delete NutrientZone on Empty"
+
+[node name="CellLifespanContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/CellLifespanContainer"]
+layout_mode = 2
+text = "Cell Lifespan"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/CellLifespanContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 60.0
+
+[node name="GrowthNutrientCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthNutrientCostContainer"]
+layout_mode = 2
+text = "Cell Growth Nutrients Cost"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthNutrientCostContainer"]
+layout_mode = 2
+max_value = 10000.0
+step = 50.0
+value = 1000.0
+
+[node name="GrowthEnergyCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthEnergyCostContainer"]
+layout_mode = 2
+text = "Cell Growth Energy Cost"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthEnergyCostContainer"]
+layout_mode = 2
+max_value = 10000.0
+step = 50.0
+value = 1000.0
+
 [node name="StatsPanel" type="Panel" parent="UI"]
 visible = false
 z_index = 20
@@ -604,6 +736,7 @@ offset_left = 102.0
 offset_right = 1303.0
 offset_bottom = 1200.0
 scale = Vector2(0.0466376, 0.0400051)
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("20_udhdp")
 stretch_mode = 5
 script = ExtResource("7_0omg7")
@@ -626,6 +759,7 @@ layout_mode = 0
 offset_right = 1142.0
 offset_bottom = 1276.0
 scale = Vector2(0.0472789, 0.0376173)
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("20_udhdp")
 ignore_texture_size = true
 stretch_mode = 5
