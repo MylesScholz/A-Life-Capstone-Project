@@ -95,7 +95,6 @@ void CellEnvironment::addCell(Cell *cell) {
 void CellEnvironment::removeCell(Cell *cell) {
 	_lineageGraph.removeVertex(cell);
 
-	this->remove_child(cell);
 	cell->resetCollisions();
 	cell->queue_free();
 }

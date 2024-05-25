@@ -185,9 +185,6 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cell->emit_signal("cell_death", cell);
 	cell->clearStatsOnDeath(cell);
 
-	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
-	secondCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
-
 	// Check for Nuclei and if present, attach reproduction signal
 	Nucleus *nucleus = cellObject->get_node<Nucleus>("Nucleus");
 	if (nucleus)

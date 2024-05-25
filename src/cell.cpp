@@ -260,7 +260,7 @@ void Cell::_ready() {
 
 	this->set_pickable(true);
 
-	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	CellMembrane *cellMembrane = Object::cast_to<CellMembrane>(this->get_node_or_null("CellMembrane"));
 	if (cellMembrane) {
 		_spriteSize = cellMembrane->getSpriteSize();
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
@@ -291,7 +291,7 @@ void Cell::_process(double delta) {
 		// Living Cell behavior
 
 		// Kill Cells without CellMembranes
-		CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+		CellMembrane *cellMembrane = Object::cast_to<CellMembrane>(this->get_node_or_null("CellMembrane"));
 		if (!cellMembrane) {
 			_cellState->setAlive(false);
 			this->emit_signal("cell_death", this);
