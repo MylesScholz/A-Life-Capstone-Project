@@ -92,7 +92,7 @@ void CellState::increaseProtectedGenes(const int protect) { _protectedGenes += p
 
 int CellState::getProtectedGenes() { return _protectedGenes; }
 
-void CellState::resetProtectedGenes() { _protectedGenes = 0;}
+void CellState::resetProtectedGenes() { _protectedGenes = 0; }
 
 void CellState::setBirthTime(const int currentMsec) { _birthTime = currentMsec / 1000.0; }
 float CellState::getBirthTime() const { return _birthTime; }

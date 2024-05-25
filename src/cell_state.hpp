@@ -23,7 +23,6 @@ public:
 	int getProtectedGenes();
 	void resetProtectedGenes();
 
-
 	void setBirthTime(const int);
 	float getBirthTime() const;
 

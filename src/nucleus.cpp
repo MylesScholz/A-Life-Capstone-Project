@@ -39,18 +39,14 @@ void Nucleus::activate(CellState *cellState) {
 		Cell *cell = Object::cast_to<Cell>(cellState->get_parent());
 
 		this->emit_signal("cell_reproduction", cell);
-
-		
 	}
 
-	if(!_hasUpdatedState)
-	{
+	if (!_hasUpdatedState) {
 		cellState->increaseProtectedGenes(_protectingCount);
-		for (int i = 0; i < _mutationChances.size(); i++)
-		{
+		for (int i = 0; i < _mutationChances.size(); i++) {
 			cellState->addMutationChance(_mutationChances.get(i));
 		}
-		
+
 		_hasUpdatedState = true;
 	}
 }
@@ -65,10 +61,10 @@ void Nucleus::modify(String modifierName, float modifierValue) {
 		setReproductionNutrientThreshold(modifierValue);
 		setReproductionEnergyThreshold(modifierValue);
 	}
-	if(modifierName == "STRENGTH") {
+	if (modifierName == "STRENGTH") {
 		increaseProtectingCount(modifierValue);
 	}
-	if(modifierName == "CHANCE") {
+	if (modifierName == "CHANCE") {
 		addMutationChance(modifierValue);
 	}
 }
@@ -87,7 +83,7 @@ void Nucleus::setReproductionEnergyThreshold(const float reproductionEnergyThres
 
 float Nucleus::getReproductionEnergyThreshold() const { return _reproductionEnergyThreshold; }
 void Nucleus::increaseProtectingCount(const float protectCount) {
-	_protectingCount += protectCount; 
+	_protectingCount += protectCount;
 }
 
 int Nucleus::getProtectingCount() const {

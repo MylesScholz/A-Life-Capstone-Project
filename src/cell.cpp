@@ -293,7 +293,6 @@ void Cell::_process(double delta) {
 		// Kill Cells without CellMembranes
 		CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
 		if (!cellMembrane) {
-			UtilityFunctions::print("Killing Cell without CellMembrane");
 			_cellState->setAlive(false);
 			this->emit_signal("cell_death", this);
 			clearStatsOnDeath(this);
