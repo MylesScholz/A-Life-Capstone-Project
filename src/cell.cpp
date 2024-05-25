@@ -69,8 +69,10 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
 	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
+	_cellState->increaseProtectedGenes(otherCell->_cellState->getProtectedGenes());
 
 	// Mutate based on otherCell's mutation chances
+	
 	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++)
 	{
 		if(_rand->randf_range(0.0,1.0) < otherCell->_cellState->getMutationChance(i))
@@ -78,7 +80,7 @@ void Cell::seteq(Cell *otherCell) {
 			this->_mutate();
 		}
 	}
-
+	
 
 	// Set both Cells' _birthTime to the current time and _age to 0
 	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
@@ -134,6 +136,7 @@ Cell::~Cell() {
 }
 
 void Cell::activateCellStructures() {
+	this->_cellState->resetProtectedGenes();
 	for (auto &structure : _cellStructures) {
 		if (structure) {
 			structure->activate(_cellState);

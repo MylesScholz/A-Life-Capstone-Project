@@ -40,7 +40,6 @@ void Nucleus::activate(CellState *cellState) {
 
 		this->emit_signal("cell_reproduction", cell);
 
-		cell->emit_signal("cell_death", cell);
 		
 	}
 

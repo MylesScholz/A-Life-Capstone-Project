@@ -178,6 +178,12 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellObject->applyScale(cell->getScale());
 	secondObject->applyScale(cell->getScale());
 
+	//Kill the Parent cell once its created the 2 child cells
+	CellState *cellState = cell->get_node<CellState>("CellState");
+	cellState->setTotalEnergy(0.0);
+	cellState->setTotalNutrients(0.0);
+	cell->emit_signal("cell_death", cell);
+
 	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 	secondObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }

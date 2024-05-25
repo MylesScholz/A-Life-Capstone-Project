@@ -21,6 +21,7 @@ public:
 
 	void increaseProtectedGenes(const int);
 	int getProtectedGenes();
+	void resetProtectedGenes();
 
 
 	void setBirthTime(const int);
