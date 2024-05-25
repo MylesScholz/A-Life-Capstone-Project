@@ -61,7 +61,6 @@ void Cell::seteq(Cell *otherCell) {
 		_cellGenome.addGene(newGene);
 	}
 
-
 	// Copy relevant CellState information
 	if (!_cellState)
 		_cellState = this->get_node<CellState>("CellState");
@@ -72,15 +71,12 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->increaseProtectedGenes(otherCell->_cellState->getProtectedGenes());
 
 	// Mutate based on otherCell's mutation chances
-	
-	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++)
-	{
-		if(_rand->randf_range(0.0,1.0) < otherCell->_cellState->getMutationChance(i))
-		{
+
+	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++) {
+		if (_rand->randf_range(0.0, 1.0) < otherCell->_cellState->getMutationChance(i)) {
 			this->_mutate();
 		}
 	}
-	
 
 	// Set both Cells' _birthTime to the current time and _age to 0
 	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
@@ -268,6 +264,12 @@ void Cell::_ready() {
 	if (cellMembrane) {
 		_spriteSize = cellMembrane->getSpriteSize();
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
+	} else {
+		_cellState->setAlive(false);
+		this->emit_signal("cell_death", this);
+		this->set_linear_damp(10.0);
+		this->set_angular_damp(10.0);
+		queue_free();
 	}
 }
 
@@ -340,35 +342,28 @@ void Cell::_process(double delta) {
 }
 
 void Cell::_mutate() {
-	switch (_rand->randi_range(0,2))
-	{
-		//Insert Gene
-	case 0:
-		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
-		{
-			this->_cellGenome.insertGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
-		}
-		else
-		{
-			this->_cellGenome.addGene(_cellGenome.GenerateRandomGene());
-		}
-		break;
-		//Modify Gene
-	case 1:
-		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
-		{
-			this->_cellGenome.setGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
-		}
-		break;
-		//Delete Gene
-	case 2:
-		if(_cellState->getProtectedGenes() < _cellGenome.getSize())
-		{
-			this->_cellGenome.removeGene(_rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
-		}
-		break;
+	switch (_rand->randi_range(0, 2)) {
+			//Insert Gene
+		case 0:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.insertGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			} else {
+				this->_cellGenome.addGene(_cellGenome.GenerateRandomGene());
+			}
+			break;
+			//Modify Gene
+		case 1:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.setGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			}
+			break;
+			//Delete Gene
+		case 2:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.removeGene(_rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			}
+			break;
 	}
-
 }
 
 void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {

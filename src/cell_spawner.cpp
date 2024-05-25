@@ -184,8 +184,16 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellState->setTotalNutrients(0.0);
 	cell->emit_signal("cell_death", cell);
 
-	cellObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
-	secondObject->get_node<Nucleus>("Nucleus")->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+	secondCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
+
+	// Check for Nuclei and if present, attach reproduction signal
+	Nucleus *nucleus = cellObject->get_node<Nucleus>("Nucleus");
+	if (nucleus)
+		nucleus->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
+	nucleus = secondObject->get_node<Nucleus>("Nucleus");
+	if (nucleus)
+		nucleus->connect("cell_reproduction", Callable(this, "_on_cell_reproduction"));
 }
 
 void CellSpawner::removeAllCells() {
