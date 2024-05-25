@@ -183,6 +183,7 @@ void CellSpawner::_on_cell_reproduction(Cell *cell) {
 	cellState->setTotalEnergy(0.0);
 	cellState->setTotalNutrients(0.0);
 	cell->emit_signal("cell_death", cell);
+	cell->clearStatsOnDeath(cell);
 
 	childCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));
 	secondCell->connect("cell_death", Callable(cellEnvironment, "_on_cell_death"));

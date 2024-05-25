@@ -114,6 +114,10 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
 	cell->reparent(spawner->get_node<SubViewport>("UI/StatsPanel/TabContainer/Lineage/SubViewportContainer/SubViewport"));
 
+	CellState *cellState = cell->get_node<CellState>("CellState");
+	if (cellState->getTotalNutrients() <= 0)
+		return;
+
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
 
@@ -131,7 +135,6 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 	nutrientZone->setDeleteOnEmpty(true);
 
 	// Set the NutrientZone's total nutrients to the dead cell's total nutrients and not to regenerate
-	CellState *cellState = cell->get_node<CellState>("CellState");
 	nutrientZone->setTotalNutrients(cellState->getTotalNutrients());
 	nutrientZone->setRegenerationRate(0.0);
 

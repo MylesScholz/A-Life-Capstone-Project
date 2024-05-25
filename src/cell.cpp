@@ -264,12 +264,6 @@ void Cell::_ready() {
 	if (cellMembrane) {
 		_spriteSize = cellMembrane->getSpriteSize();
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
-	} else {
-		_cellState->setAlive(false);
-		this->emit_signal("cell_death", this);
-		this->set_linear_damp(10.0);
-		this->set_angular_damp(10.0);
-		queue_free();
 	}
 }
 
@@ -295,6 +289,15 @@ void Cell::_process(double delta) {
 		// paused = 0;
 
 		// Living Cell behavior
+
+		// Kill Cells without CellMembranes
+		CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+		if (!cellMembrane) {
+			UtilityFunctions::print("Killing Cell without CellMembrane");
+			_cellState->setAlive(false);
+			this->emit_signal("cell_death", this);
+			clearStatsOnDeath(this);
+		}
 
 		// Activate the Cell's structures
 		this->activateCellStructures();
