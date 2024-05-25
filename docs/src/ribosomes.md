@@ -38,7 +38,7 @@ Description: the Ribosomes class is a CellStructure that converts energy into nu
 - void setThresholdType(const String thresholdType): sets _thresholdType to the given value if it is either "high-pass" or "low-pass"
 - String getThresholdType() const: returns _thresholdType
 
-- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node
+- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node; calls setActivationThreshold(), setStrength(), setEfficiency(), setPreferredConversionRate(), setActivationResource(), setThresholdType(), setCreationNutrientCost(), setCreationEnergyCost(), setMaintenanceNutrientCost() and setMaintenanceEnergyCost() with their respective setting in the InitalValues menu within the UI
 
 ## Non-Member Functions
 None

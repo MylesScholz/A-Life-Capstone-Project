@@ -224,12 +224,15 @@ void CellState::_ready() {
 
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	// Set to values from simulation parameters menu
-	SpinBox *LifeSpanSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/CellLifespanContainer/SpinBox");
+	SpinBox *GrowthRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer/SpinBox");
+	this->setGrowthRate(GrowthRateSpinBox->get_value());
+
+	SpinBox *LifeSpanSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer/SpinBox");
 	this->setLifespan(LifeSpanSpinBox->get_value());
 
-	SpinBox *GrowthNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthNutrientCostContainer/SpinBox");
+	SpinBox *GrowthNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer/SpinBox");
 	this->setGrowthNutrientCost(GrowthNutrientCostSpinBox->get_value());
 
-	SpinBox *GrowthEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/GrowthEnergyCostContainer/SpinBox");
+	SpinBox *GrowthEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer/SpinBox");
 	this->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
 }

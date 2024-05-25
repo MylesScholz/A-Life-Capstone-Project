@@ -219,10 +219,10 @@ void CellSpawner::_ready() {
 #endif
 
 	// Connect to values from simulation parameters menu
-	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NStartingCellsContainer/SpinBox");
+	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer/SpinBox");
 	NumberOfStartingCellsSpinBox->connect("value_changed", Callable(this, "setNumCells"));
 
-	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/ResourceProportionContainer/SpinBox");
+	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer/SpinBox");
 	ResourceProportionSpinBox->connect("value_changed", Callable(this, "setResourceProportion"));
 
 	// Spawn back ground cells that don't die

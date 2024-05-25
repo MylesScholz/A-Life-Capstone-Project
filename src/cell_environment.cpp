@@ -147,6 +147,6 @@ void CellEnvironment::_ready() {
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 
 	// Connect to values from simulation parameters menu
-	Node *NStartingNutrientZonesSpinBox = spawner->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/ScrollContainer/InitalValuesContainer/NNutrientZoneContainer/SpinBox");
+	Node *NStartingNutrientZonesSpinBox = spawner->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NNutrientZoneContainer/SpinBox");
 	NStartingNutrientZonesSpinBox->connect("value_changed", Callable(this, "setNNutrientZones"));
 }
