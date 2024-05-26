@@ -20,6 +20,10 @@ public:
 	void setAlive(const bool);
 	bool getAlive() const;
 
+	void increaseProtectedGenes(const int);
+	int getProtectedGenes();
+	void resetProtectedGenes();
+
 	void setBirthTime(const int);
 	float getBirthTime() const;
 
@@ -78,10 +82,15 @@ public:
 	void setReceptorVectors(const Vector<Vector2>);
 	Vector<Vector2> getReceptorVectors() const;
 
+	void addMutationChance(const float);
+	float getMutationChance(const int);
+	int getMutationChanceCount() const;
+
 	void _ready() override;
 
 private:
 	bool _alive;
+	int _protectedGenes;
 	float _age;
 	float _birthTime;
 	float _deathTime;
@@ -101,4 +110,5 @@ private:
 	float _growthRate;
 	Vector2 _nextMovementVector;
 	Vector<Vector2> _receptorVectors;
+	Vector<float> _mutationChances;
 };

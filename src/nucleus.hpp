@@ -22,10 +22,19 @@ public:
 
 	void setReproductionEnergyThreshold(const float);
 	float getReproductionEnergyThreshold() const;
+	void increaseProtectingCount(const float);
+	int getProtectingCount() const;
+
+	void addMutationChance(const float);
+	int getMutationCount() const;
+	int getMutationChance(const int);
 
 	void _ready() override;
 
 private:
 	float _reproductionNutrientThreshold;
 	float _reproductionEnergyThreshold;
+	int _protectingCount;
+	bool _hasUpdatedState;
+	Vector<float> _mutationChances;
 };

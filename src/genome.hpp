@@ -22,6 +22,8 @@ public:
 	Gene *getGene(int);
 	int getSize();
 
+	Gene *GenerateRandomGene();
+
 private:
 	Vector<Gene *> genes;
 };

@@ -75,11 +75,11 @@ void LineageCamera::fillButtonContainers(Cell *cell) {
 	}
 }
 void LineageCamera::clearButtonContainers() {
-	for (int i = _parentButtonContainer->get_child_count(); i > 0; i--) {
+	for (int i = _parentButtonContainer->get_child_count() - 1; i > 0; i--) {
 		Node *button = _parentButtonContainer->get_child(i);
 		_parentButtonContainer->remove_child(button);
 	}
-	for (int i = _childButtonContainer->get_child_count(); i > 0; i--) {
+	for (int i = _childButtonContainer->get_child_count() - 1; i > 0; i--) {
 		Node *button = _childButtonContainer->get_child(i);
 		_childButtonContainer->remove_child(button);
 	}

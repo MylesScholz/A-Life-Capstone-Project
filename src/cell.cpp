@@ -68,13 +68,20 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setLifespan(otherCell->_cellState->getLifespan());
 	_cellState->setTotalNutrients(otherCell->_cellState->getTotalNutrients());
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
+	_cellState->increaseProtectedGenes(otherCell->_cellState->getProtectedGenes());
+
+	// Mutate based on otherCell's mutation chances
+
+	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++) {
+		if (_rand->randf_range(0.0, 1.0) < otherCell->_cellState->getMutationChance(i)) {
+			this->_mutate();
+		}
+	}
 
 	// Set both Cells' _birthTime to the current time and _age to 0
 	uint64_t currentMsec = Time::get_singleton()->get_ticks_msec();
 	_cellState->setBirthTime(currentMsec);
 	_cellState->setAge(0);
-	otherCell->_cellState->setBirthTime(currentMsec);
-	otherCell->_cellState->setAge(0);
 }
 
 Cell::Cell() {
@@ -125,6 +132,7 @@ Cell::~Cell() {
 }
 
 void Cell::activateCellStructures() {
+	this->_cellState->resetProtectedGenes();
 	for (auto &structure : _cellStructures) {
 		if (structure) {
 			structure->activate(_cellState);
@@ -252,7 +260,7 @@ void Cell::_ready() {
 
 	this->set_pickable(true);
 
-	CellMembrane *cellMembrane = this->get_node<CellMembrane>("CellMembrane");
+	CellMembrane *cellMembrane = Object::cast_to<CellMembrane>(this->get_node_or_null("CellMembrane"));
 	if (cellMembrane) {
 		_spriteSize = cellMembrane->getSpriteSize();
 		cellMembrane->connect("cell_growth", Callable(this, "_on_cell_growth"));
@@ -281,6 +289,14 @@ void Cell::_process(double delta) {
 		// paused = 0;
 
 		// Living Cell behavior
+
+		// Kill Cells without CellMembranes
+		CellMembrane *cellMembrane = Object::cast_to<CellMembrane>(this->get_node_or_null("CellMembrane"));
+		if (!cellMembrane) {
+			_cellState->setAlive(false);
+			this->emit_signal("cell_death", this);
+			clearStatsOnDeath(this);
+		}
 
 		// Activate the Cell's structures
 		this->activateCellStructures();
@@ -324,6 +340,31 @@ void Cell::_process(double delta) {
 
 			clearStatsOnDeath(this);
 		}
+	}
+}
+
+void Cell::_mutate() {
+	switch (_rand->randi_range(0, 2)) {
+			//Insert Gene
+		case 0:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.insertGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			} else {
+				this->_cellGenome.addGene(_cellGenome.GenerateRandomGene());
+			}
+			break;
+			//Modify Gene
+		case 1:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.setGene(_cellGenome.GenerateRandomGene(), _rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			}
+			break;
+			//Delete Gene
+		case 2:
+			if (_cellState->getProtectedGenes() < _cellGenome.getSize()) {
+				this->_cellGenome.removeGene(_rand->randi_range(_cellState->getProtectedGenes(), _cellGenome.getSize() - 1));
+			}
+			break;
 	}
 }
 

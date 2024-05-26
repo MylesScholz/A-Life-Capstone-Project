@@ -51,6 +51,7 @@ public:
 	void _on_body_entered(Node *body);
 	void _on_cell_growth();
 
+	void _mutate();
 	void _input_event(Node *viewport, Ref<InputEvent> event, int shape_idx);
 
 	void clearStatsOnDeath(Cell *cell);
