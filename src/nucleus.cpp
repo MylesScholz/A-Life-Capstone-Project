@@ -15,6 +15,8 @@ void Nucleus::_bind_methods() {
 Nucleus::Nucleus() {
 	_reproductionNutrientThreshold = 0.5;
 	_reproductionEnergyThreshold = 0.5;
+	_protectingCount = 0;
+	_hasUpdatedState = false;
 }
 
 Nucleus::~Nucleus() {}
@@ -37,9 +39,15 @@ void Nucleus::activate(CellState *cellState) {
 		Cell *cell = Object::cast_to<Cell>(cellState->get_parent());
 
 		this->emit_signal("cell_reproduction", cell);
+	}
 
-		this->getSprite()->set_frame(1);
-		this->getSprite()->play("activate");
+	if (!_hasUpdatedState) {
+		cellState->increaseProtectedGenes(_protectingCount);
+		for (int i = 0; i < _mutationChances.size(); i++) {
+			cellState->addMutationChance(_mutationChances.get(i));
+		}
+
+		_hasUpdatedState = true;
 	}
 }
 
@@ -52,6 +60,12 @@ void Nucleus::modify(String modifierName, float modifierValue) {
 	if (modifierName == "ACTIVATION_THRESHOLD") {
 		setReproductionNutrientThreshold(modifierValue);
 		setReproductionEnergyThreshold(modifierValue);
+	}
+	if (modifierName == "STRENGTH") {
+		increaseProtectingCount(modifierValue);
+	}
+	if (modifierName == "CHANCE") {
+		addMutationChance(modifierValue);
 	}
 }
 
@@ -68,6 +82,25 @@ void Nucleus::setReproductionEnergyThreshold(const float reproductionEnergyThres
 }
 
 float Nucleus::getReproductionEnergyThreshold() const { return _reproductionEnergyThreshold; }
+void Nucleus::increaseProtectingCount(const float protectCount) {
+	_protectingCount += protectCount;
+}
+
+int Nucleus::getProtectingCount() const {
+	return _protectingCount;
+}
+
+void Nucleus::addMutationChance(const float newChance) {
+	_mutationChances.push_back(newChance);
+}
+
+int Nucleus::getMutationCount() const {
+	return _mutationChances.size();
+}
+
+int Nucleus::getMutationChance(const int index) {
+	return _mutationChances[index];
+}
 
 void Nucleus::_ready() {
 	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");

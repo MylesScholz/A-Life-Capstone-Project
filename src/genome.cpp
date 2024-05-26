@@ -1,4 +1,17 @@
 #include "genome.hpp"
+#include "cell_membrane_gene.hpp"
+#include "flagella_gene.hpp"
+#include "mitochondria_gene.hpp"
+#include "modifier_gene.hpp"
+#include "nucleus_gene.hpp"
+#include "ribosomes_gene.hpp"
+
+//Gene Probs. Currently setup to be out of 100. any values not in these ranges are defaulted to a random modifier gene
+const static float CELL_MEMBRANE_CHANCE[2] = { 0, 15 };
+const static float FLAGELLA_CHANCE[2] = { 15, 30 };
+const static float MITOCHONDRIA_CHANCE[2] = { 30, 40 };
+const static float NUCLEUS_CHANCE[2] = { 40, 45 };
+const static float RIBOSOME_CHANCE[2] = { 45, 55 };
 
 Genome::Genome() {
 }
@@ -11,12 +24,12 @@ Genome::~Genome() {
 
 Vector<CellStructure *> Genome::expressGenes() {
 	Vector<CellStructure *> cellStructures;
-	CellStructure *currentStructure;
+	CellStructure *currentStructure = nullptr;
 	for (int i = 0; i < genes.size(); i++) {
 		if (genes.get(i)->getType() == "Structure") {
 			currentStructure = genes.get(i)->express();
 			cellStructures.push_back(currentStructure);
-		} else {
+		} else if (currentStructure) {
 			currentStructure->modify(genes.get(i)->getName(), genes.get(i)->getValue());
 		}
 	}
@@ -56,4 +69,28 @@ Gene *Genome::getGene(int index) {
 
 int Genome::getSize() {
 	return genes.size();
+}
+
+//The random genes will need to be added to everytime we make a new gene type. We might want to come up with a better solution in the future.
+Gene *Genome::GenerateRandomGene() {
+	RandomNumberGenerator rand = RandomNumberGenerator();
+	int generatedValue = rand.randf_range(0, 100);
+
+	if (generatedValue >= CELL_MEMBRANE_CHANCE[0] && generatedValue < CELL_MEMBRANE_CHANCE[1])
+		return new CellMembraneGene();
+
+	if (generatedValue >= FLAGELLA_CHANCE[0] && generatedValue < FLAGELLA_CHANCE[1])
+		return new FlagellaGene();
+
+	if (generatedValue >= MITOCHONDRIA_CHANCE[0] && generatedValue < MITOCHONDRIA_CHANCE[1])
+		return new MitochondriaGene();
+
+	if (generatedValue >= NUCLEUS_CHANCE[0] && generatedValue < NUCLEUS_CHANCE[1])
+		return new NucleusGene();
+
+	if (generatedValue >= RIBOSOME_CHANCE[0] && generatedValue < RIBOSOME_CHANCE[1])
+		return new RibosomesGene();
+
+	//Default to a Random modifier gene.
+	return randomModifierGene();
 }
