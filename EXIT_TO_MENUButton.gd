@@ -19,6 +19,7 @@ func ui_reset():
 	rootNode.get_node("CellSpawner/UI/ExtraPanel/FpsCounter").text = "-1" # Toggles FpsCounter off
 	rootNode.get_node("CellSpawner/UI/ExtraPanel/TimeCounter").text = "-1" # Toggles TimeCounter off
 	rootNode.get_node("CellSpawner/UI/MenuPanel").visible = false
+	rootNode.get_node("CellSpawner/UI/MenuPanel/ExitMenuButton").from_main_menu = false
 	rootNode.get_node("CellSpawner/UI/StatsPanel").visible = false
 	rootNode.get_node("CellSpawner/UI/NavBar").visible = false
 	rootNode.get_node("CellSpawner/UI/BarPanel").visible = true

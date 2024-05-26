@@ -11,7 +11,6 @@
 #include <godot_cpp/classes/viewport.hpp>
 
 #include "cell_spawner.hpp"
-#include "stats.hpp"
 
 using namespace godot;
 

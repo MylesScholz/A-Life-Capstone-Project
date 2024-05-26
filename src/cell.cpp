@@ -14,7 +14,6 @@
 #include "ribosomes_gene.hpp"
 
 #include "cell_spawner.hpp"
-#include "stats.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>

@@ -2,7 +2,6 @@
 #include "cell.hpp"
 #include "cell_environment.hpp"
 #include "genome.hpp"
-#include "stats.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 
