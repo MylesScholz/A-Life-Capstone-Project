@@ -8,6 +8,7 @@ CellStructure::CellStructure() {
 	_creationEnergyCost = 5.0;
 	_maintenanceEnergyCost = 0.5;
 	_scale = 1.0;
+	_sprite = nullptr;
 }
 CellStructure::~CellStructure() {}
 

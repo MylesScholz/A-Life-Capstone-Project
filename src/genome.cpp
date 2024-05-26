@@ -1,17 +1,15 @@
 #include "genome.hpp"
 #include "cell_membrane_gene.hpp"
+#include "cell_spawner.hpp"
 #include "flagella_gene.hpp"
 #include "mitochondria_gene.hpp"
 #include "modifier_gene.hpp"
 #include "nucleus_gene.hpp"
 #include "ribosomes_gene.hpp"
 
-//Gene Probs. Currently setup to be out of 100. any values not in these ranges are defaulted to a random modifier gene
-const static float CELL_MEMBRANE_CHANCE[2] = { 0, 15 };
-const static float FLAGELLA_CHANCE[2] = { 15, 30 };
-const static float MITOCHONDRIA_CHANCE[2] = { 30, 40 };
-const static float NUCLEUS_CHANCE[2] = { 40, 45 };
-const static float RIBOSOME_CHANCE[2] = { 45, 55 };
+#include "helpers.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 Genome::Genome() {
 }
@@ -20,6 +18,49 @@ Genome::~Genome() {
 	for (int i = 0; i < genes.size(); i++) {
 		delete genes.get(i);
 	}
+}
+
+void Genome::setCellMembraneChance(float min, float max) {
+	this->cell_membrane_chance[0] = min;
+	this->cell_membrane_chance[1] = max;
+}
+float *Genome::getCellMembraneChance() const { return (float *)cell_membrane_chance; }
+
+void Genome::setFlagellaChance(float min, float max) {
+	this->flagella_chance[0] = min;
+	this->flagella_chance[1] = max;
+}
+float *Genome::getFlagellaChance() const { return (float *)flagella_chance; }
+
+void Genome::setMitochondriaChance(float min, float max) {
+	this->mitochondria_chance[0] = min;
+	this->mitochondria_chance[1] = max;
+}
+float *Genome::getMitochondriaChance() const { return (float *)mitochondria_chance; }
+
+void Genome::setNucleusChance(float min, float max) {
+	this->nucleus_chance[0] = min;
+	this->nucleus_chance[1] = max;
+}
+float *Genome::getNucleusChance() const { return (float *)nucleus_chance; }
+
+void Genome::setRibosomeChance(float min, float max) {
+	this->ribosome_chance[0] = min;
+	this->ribosome_chance[1] = max;
+}
+float *Genome::getRibosomeChance() const { return (float *)ribosome_chance; }
+
+void Genome::setGeneChances(float cell_membrane_chance, float flagella_chance, float mitochondria_chance, float nucleus_chance, float ribosome_chance) {
+	float cumulative = 0.0;
+	this->setCellMembraneChance(0, cell_membrane_chance);
+	cumulative += cell_membrane_chance;
+	this->setFlagellaChance(cumulative, cumulative + flagella_chance);
+	cumulative += flagella_chance;
+	this->setMitochondriaChance(cumulative, cumulative + mitochondria_chance);
+	cumulative += mitochondria_chance;
+	this->setNucleusChance(cumulative, cumulative + nucleus_chance);
+	cumulative += nucleus_chance;
+	this->setRibosomeChance(cumulative, cumulative + ribosome_chance);
 }
 
 Vector<CellStructure *> Genome::expressGenes() {
@@ -76,19 +117,19 @@ Gene *Genome::GenerateRandomGene() {
 	RandomNumberGenerator rand = RandomNumberGenerator();
 	int generatedValue = rand.randf_range(0, 100);
 
-	if (generatedValue >= CELL_MEMBRANE_CHANCE[0] && generatedValue < CELL_MEMBRANE_CHANCE[1])
+	if (generatedValue >= this->cell_membrane_chance[0] && generatedValue < this->cell_membrane_chance[1])
 		return new CellMembraneGene();
 
-	if (generatedValue >= FLAGELLA_CHANCE[0] && generatedValue < FLAGELLA_CHANCE[1])
+	if (generatedValue >= this->flagella_chance[0] && generatedValue < this->flagella_chance[1])
 		return new FlagellaGene();
 
-	if (generatedValue >= MITOCHONDRIA_CHANCE[0] && generatedValue < MITOCHONDRIA_CHANCE[1])
+	if (generatedValue >= this->mitochondria_chance[0] && generatedValue < this->mitochondria_chance[1])
 		return new MitochondriaGene();
 
-	if (generatedValue >= NUCLEUS_CHANCE[0] && generatedValue < NUCLEUS_CHANCE[1])
+	if (generatedValue >= this->nucleus_chance[0] && generatedValue < this->nucleus_chance[1])
 		return new NucleusGene();
 
-	if (generatedValue >= RIBOSOME_CHANCE[0] && generatedValue < RIBOSOME_CHANCE[1])
+	if (generatedValue >= this->ribosome_chance[0] && generatedValue < this->ribosome_chance[1])
 		return new RibosomesGene();
 
 	//Default to a Random modifier gene.

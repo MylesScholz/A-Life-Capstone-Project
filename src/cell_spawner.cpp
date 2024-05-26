@@ -1,7 +1,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
 #include "cell_environment.hpp"
-#include "stats.hpp"
+#include "genome.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 
@@ -50,6 +50,10 @@ void CellSpawner::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("cell_selected", PropertyInfo(Variant::OBJECT, "cell")));
 
 	ClassDB::bind_method(D_METHOD("spawn_cell", "isImmortal"), &CellSpawner::spawnCell);
+
+	ClassDB::bind_method(D_METHOD("setNumCells", "value"), &CellSpawner::setNumCells);
+
+	ClassDB::bind_method(D_METHOD("setResourceProportion", "value"), &CellSpawner::setResourceProportion);
 }
 
 CellSpawner::CellSpawner() {}
@@ -112,6 +116,30 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	CellState *cellState = cellObject->get_node<CellState>("CellState");
 	cellState->setTotalNutrients(_resourceProportion * cellState->getNutrientMaximum());
 	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
+
+	// Set to values from simulation parameters menu
+	SpinBox *GrowthRateSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer/SpinBox");
+	cellState->setGrowthRate(GrowthRateSpinBox->get_value());
+
+	SpinBox *LifeSpanSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer/SpinBox");
+	cellState->setLifespan(LifeSpanSpinBox->get_value());
+
+	SpinBox *GrowthNutrientCostSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer/SpinBox");
+	cellState->setGrowthNutrientCost(GrowthNutrientCostSpinBox->get_value());
+
+	SpinBox *GrowthEnergyCostSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer/SpinBox");
+	cellState->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
+
+	SpinBox *mutationChanceSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MutationChanceContainer/SpinBox");
+	cellState->addMutationChance(mutationChanceSpinBox->get_value());
+
+	// Set gene probabilities from sim parameters
+	float cellMembraneProb = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellMembraneMutationChance/SpinBox")->get_value();
+	float flagellaMutationProb = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/FlagellaMutationChance/SpinBox")->get_value();
+	float mitochondriaMutationProb = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MitochondriaMutationChance/SpinBox")->get_value();
+	float nucleusMutationProb = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NucleusMutationChance/SpinBox")->get_value();
+	float ribosomeMutationProb = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/RibosomeMutationChance/SpinBox")->get_value();
+	cellObject->getGenome()->setGeneChances(cellMembraneProb, flagellaMutationProb, mitochondriaMutationProb, nucleusMutationProb, ribosomeMutationProb);
 
 	// Set Cell position to random location in viewport
 	cellObject->set_global_position(Vector2(
@@ -240,6 +268,13 @@ void CellSpawner::_ready() {
 		}
 	}
 #endif
+
+	// Connect to values from simulation parameters menu
+	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer/SpinBox");
+	NumberOfStartingCellsSpinBox->connect("value_changed", Callable(this, "setNumCells"));
+
+	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer/SpinBox");
+	ResourceProportionSpinBox->connect("value_changed", Callable(this, "setResourceProportion"));
 
 	// Spawn back ground cells that don't die
 	for (int i = 0; i < this->getNumCells(); i++) {

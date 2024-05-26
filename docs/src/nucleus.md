@@ -22,7 +22,7 @@ Description: the Nucleus class is CellStructure that manages reproduction
 - void setReproductionEnergyThreshold(const float reproductionNutrientThreshold): sets _reproductionEnergyThreshold to the given value if it is > 0.0
 - float getReproductionEnergyThreshold() const: returns reproductionEnergyThreshold
 
-- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node
+- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node; calls setReproductionNutrientThreshold(), setCreationNutrientCost(), setCreationEnergyCost(), setMaintenanceNutrientCost() and setMaintenanceEnergyCost() with their respective setting in the Parameters menu within the UI
 
 ## Non-Member Functions
 None

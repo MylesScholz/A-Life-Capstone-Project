@@ -41,5 +41,7 @@ Description: The Cell object represents a biological cell within a simulation. I
 
 - Array getStats(): returns this Cell's statistics as an Array in appropriate units
 
+- Genome *getGenome(): returns a reference to _cellGenome
+
 ## Non-Member Functions
 None

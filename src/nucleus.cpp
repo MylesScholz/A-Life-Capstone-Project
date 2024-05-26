@@ -1,6 +1,10 @@
 #include "nucleus.hpp"
 #include "cell.hpp"
+#include "cell_spawner.hpp"
 
+#include "helpers.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
 void Nucleus::_bind_methods() {
@@ -103,7 +107,25 @@ int Nucleus::getMutationChance(const int index) {
 }
 
 void Nucleus::_ready() {
+	DONT_RUN_IN_EDITOR;
 	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
+
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	// Set to values from simulation parameters menu
+	SpinBox *reproductionNutrientThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold/SpinBox");
+	this->setReproductionNutrientThreshold(reproductionNutrientThresholdSpinBox->get_value());
+
+	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
+	this->setCreationNutrientCost(creationNutrientCostSpinBox->get_value());
+
+	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
+	this->setCreationEnergyCost(creationEnergyCostSpinBox->get_value());
+
+	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
+	this->setMaintenanceNutrientCost(maintenanceNutrientCostSpinBox->get_value());
+
+	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
+	this->setMaintenanceEnergyCost(maintenanceEnergyCostSpinBox->get_value());
 }

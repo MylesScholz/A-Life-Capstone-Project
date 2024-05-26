@@ -1,4 +1,7 @@
 #include "nutrient_zone.hpp"
+#include "cell_spawner.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 void NutrientZone::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_on_body_entered", "body"), &NutrientZone::_on_body_entered);

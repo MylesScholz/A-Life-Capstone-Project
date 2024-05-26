@@ -58,6 +58,8 @@ public:
 	String formatDecimal(float value) const;
 	Array getStats() const;
 
+	Genome *getGenome();
+
 private:
 	CellState *_cellState = NULL;
 	Size2 _spriteSize;

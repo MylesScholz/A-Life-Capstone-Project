@@ -1,4 +1,7 @@
 #include "cell_state.hpp"
+#include "cell_spawner.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 void CellState::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_lifespan", "lifespan"), &CellState::setLifespan);
@@ -77,7 +80,6 @@ CellState::CellState() {
 	_nextMovementVector = Vector2();
 	_receptorVectors = Vector<Vector2>();
 	_mutationChances = Vector<float>();
-	_mutationChances.push_back(0.99);
 }
 CellState::~CellState() {}
 

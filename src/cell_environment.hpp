@@ -11,7 +11,6 @@
 #include <godot_cpp/classes/viewport.hpp>
 
 #include "cell_spawner.hpp"
-#include "stats.hpp"
 
 using namespace godot;
 
@@ -42,6 +41,8 @@ public:
 	LineageGraph *getLineageGraph();
 
 	void _on_cell_death(Cell *);
+
+	void _ready() override;
 
 private:
 	int _nNutrientZones;

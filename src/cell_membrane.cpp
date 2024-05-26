@@ -1,4 +1,9 @@
 #include "cell_membrane.hpp"
+#include "cell_spawner.hpp"
+
+#include "helpers.hpp"
+
+#include <godot_cpp/classes/spin_box.hpp>
 
 void CellMembrane::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_activation_threshold", "activation_threshold"), &CellMembrane::setActivationThreshold);
@@ -101,11 +106,29 @@ Vector<Receptor *> CellMembrane::getReceptors() { return _receptors; }
 Vector<Receptor *> CellMembrane::getActivatedReceptors() { return _activatedReceptors; }
 
 void CellMembrane::_ready() {
+	DONT_RUN_IN_EDITOR;
 	AnimatedSprite2D *sprite = this->get_node<AnimatedSprite2D>("AnimatedSprite2D");
 	if (sprite)
 		this->setSprite(sprite);
 
 	_updateReceptors();
+
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
+	// Set to values from simulation parameters menu
+	SpinBox *activationThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/activationThreshold/SpinBox");
+	this->setActivationThreshold(activationThresholdSpinBox->get_value());
+
+	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
+	this->setCreationNutrientCost(creationNutrientCostSpinBox->get_value());
+
+	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
+	this->setCreationEnergyCost(creationEnergyCostSpinBox->get_value());
+
+	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
+	this->setMaintenanceNutrientCost(maintenanceNutrientCostSpinBox->get_value());
+
+	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
+	this->setMaintenanceEnergyCost(maintenanceEnergyCostSpinBox->get_value());
 }
 
 void CellMembrane::_rearrangeReceptors() {

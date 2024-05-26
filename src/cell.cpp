@@ -14,7 +14,6 @@
 #include "ribosomes_gene.hpp"
 
 #include "cell_spawner.hpp"
-#include "stats.hpp"
 
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/input_event.hpp>
@@ -70,6 +69,23 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
 	_cellState->increaseProtectedGenes(otherCell->_cellState->getProtectedGenes());
 
+	// Set Genome chances
+	Genome *otherGenome = otherCell->getGenome();
+	float *otherCellMembraneChance = otherGenome->getCellMembraneChance();
+	_cellGenome.setCellMembraneChance(otherCellMembraneChance[0], otherCellMembraneChance[1]);
+
+	float *otherFlagellaChance = otherGenome->getFlagellaChance();
+	_cellGenome.setFlagellaChance(otherFlagellaChance[0], otherFlagellaChance[1]);
+
+	float *otherMitochondriaChance = otherGenome->getMitochondriaChance();
+	_cellGenome.setMitochondriaChance(otherMitochondriaChance[0], otherMitochondriaChance[1]);
+
+	float *otherNucleusChance = otherGenome->getNucleusChance();
+	_cellGenome.setNucleusChance(otherNucleusChance[0], otherNucleusChance[1]);
+
+	float *otherRibosomeChance = otherGenome->getRibosomeChance();
+	_cellGenome.setRibosomeChance(otherRibosomeChance[0], otherRibosomeChance[1]);
+
 	// Mutate based on otherCell's mutation chances
 
 	for (int i = 0; i < otherCell->_cellState->getMutationChanceCount(); i++) {
@@ -96,6 +112,12 @@ Cell::Cell() {
 	_rand.instantiate();
 
 	// Temporary genome for start screen
+	_cellGenome.addGene(new CellMembraneGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -109,12 +131,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new RibosomesGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(new CellMembraneGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -467,3 +483,5 @@ void Cell::_on_cell_growth() {
 		cellMembrane->getSprite()->play("activate");
 	}
 }
+
+Genome *Cell::getGenome() { return &_cellGenome; }
