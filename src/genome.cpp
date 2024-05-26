@@ -50,6 +50,19 @@ void Genome::setRibosomeChance(float min, float max) {
 }
 float *Genome::getRibosomeChance() const { return (float *)ribosome_chance; }
 
+void Genome::setGeneChances(float cell_membrane_chance, float flagella_chance, float mitochondria_chance, float nucleus_chance, float ribosome_chance) {
+	float cumulative = 0.0;
+	this->setCellMembraneChance(0, cell_membrane_chance);
+	cumulative += cell_membrane_chance;
+	this->setFlagellaChance(cumulative, cumulative + flagella_chance);
+	cumulative += flagella_chance;
+	this->setMitochondriaChance(cumulative, cumulative + mitochondria_chance);
+	cumulative += mitochondria_chance;
+	this->setNucleusChance(cumulative, cumulative + nucleus_chance);
+	cumulative += nucleus_chance;
+	this->setRibosomeChance(cumulative, cumulative + ribosome_chance);
+}
+
 Vector<CellStructure *> Genome::expressGenes() {
 	Vector<CellStructure *> cellStructures;
 	CellStructure *currentStructure = nullptr;

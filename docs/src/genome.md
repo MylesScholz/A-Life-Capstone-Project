@@ -32,6 +32,8 @@ Description: the Genome is a class that contains and manages the Cell's Genes
 - void setRibosomeChance(float min, float max): sets ribosome_chance to the given values
 - float *getRibosomeChance() const: returns a reference to ribosome_chance
 
+- void setGeneChances(float cell_membrane_chance, float flagella_chance, float mitochondria_chance, float nucleus_chance, float ribosome_chance): Sets all genes chances to given values. Overflow will effectively be taken off the chance of ribosome then nucleus then mitochondria then flagella
+
 - Vector<CellStructure *> expressGenes(): iterates through genes and creates the list of modified CellStructures defined by it
 
 - void addGene(Gene *newGene): appends the given Gene reference to genes

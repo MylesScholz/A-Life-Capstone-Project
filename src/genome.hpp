@@ -27,6 +27,8 @@ public:
 	void setRibosomeChance(float, float);
 	float *getRibosomeChance() const;
 
+	void setGeneChances(float, float, float, float, float);
+
 	Vector<CellStructure *> expressGenes();
 
 	void addGene(Gene *);
