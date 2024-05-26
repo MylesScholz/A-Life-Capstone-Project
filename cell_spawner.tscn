@@ -397,10 +397,9 @@ layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="NutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
+[node name="StartingNutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-button_pressed = true
-text = "Delete Nutrient Zone on Empty"
+text = "Delete Starting Nutrient Zones On Empty"
 
 [node name="Cell Membrane" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false

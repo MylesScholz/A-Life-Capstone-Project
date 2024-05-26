@@ -79,8 +79,8 @@ void CellEnvironment::spawnNutrientZone() {
 	SpinBox *RegenerationRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/RegenerationRateContainer/SpinBox");
 	nutrientZone->setRegenerationRate(RegenerationRateSpinBox->get_value());
 
-	Button *deleteOnEmptyInput = spawner->get_node<Button>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NutrientZoneDelete");
-	nutrientZone->setDeleteOnEmpty(deleteOnEmptyInput->is_pressed());
+	Button *deleteStartingOnEmptyInput = spawner->get_node<Button>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/StartingNutrientZoneDelete");
+	nutrientZone->setDeleteOnEmpty(deleteStartingOnEmptyInput->is_pressed());
 
 	// Add the NutrientZone as a child of this node
 	this->add_child(nutrientZone);
