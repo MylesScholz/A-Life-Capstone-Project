@@ -64,8 +64,8 @@ void CellEnvironment::spawnNutrientZone() {
 
 	// Set the NutrientZone's position randomly in the viewport
 	nutrientZone->set_position(Vector2(
-			rand.randi_range(-viewportSize.x / 2, viewportSize.x / 2),
-			rand.randi_range(-viewportSize.y / 2, viewportSize.y / 2)));
+			rand.randi_range(0, viewportSize.x),
+			rand.randi_range(0, viewportSize.y)));
 
 	// Set to values from simulation parameters menu
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
@@ -137,15 +137,11 @@ void CellEnvironment::_on_cell_death(Cell *cell) {
 	// Instantiate the NutrientZone scene and cast it to a NutrientZone
 	NutrientZone *nutrientZone = Object::cast_to<NutrientZone>(_nutrientZoneScene->instantiate());
 
-	// Get viewport size for positioning
-	Size2 viewportSize = get_viewport()->get_visible_rect().size;
-
 	// Apply a scaling to the NutrientZone approximately proportional to the dead cell
 	nutrientZone->applyScale(cell->getScale() / 4);
 
 	// Set the NutrientZone's position in the same position as the dead cell
-	Vector2 nutrientZonePosition = Vector2(cellPosition.x - viewportSize.x / 2, cellPosition.y - viewportSize.y / 2);
-	nutrientZone->set_position(nutrientZonePosition);
+	nutrientZone->set_position(cellPosition);
 
 	// Set the NutrientZone to delete itself when it runs out of nutrients
 	nutrientZone->setDeleteOnEmpty(true);

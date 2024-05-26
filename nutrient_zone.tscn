@@ -8,10 +8,8 @@ radius = 200.0
 [node name="NutrientZone" type="NutrientZone"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(540, 360)
 shape = SubResource("CircleShape2D_4wa2l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(540, 360)
 scale = Vector2(0.308, 0.308)
 texture = ExtResource("1_dkqov")

@@ -96,14 +96,16 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="CellSpawner" type="CellSpawner"]
-num_cells = 10
+num_cells = 20
 cell_scene = ExtResource("1_dm1x8")
 
 [node name="CellEnvironment" parent="." instance=ExtResource("2_g8x7p")]
+n_nutrient_zones = 5
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ExtraPanel" type="VBoxContainer" parent="UI"]
+visible = false
 offset_left = 536.0
 offset_top = 15.0
 offset_right = 640.0
@@ -149,10 +151,17 @@ text = "\"C\" - Toggle Camera Tracking
 [node name="MenuPanel" type="Panel" parent="UI"]
 visible = false
 z_index = 50
-offset_left = 296.0
-offset_top = 216.0
-offset_right = 776.0
-offset_bottom = 568.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -176.0
+offset_right = 240.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_d86u0")
 script = ExtResource("9_i2ah6")
 
@@ -1249,7 +1258,7 @@ theme = ExtResource("2_d86u0")
 unique_name_in_owner = true
 offset_left = 184.0
 offset_right = 464.0
-offset_bottom = 720.0
+offset_bottom = 920.0
 theme = ExtResource("2_d86u0")
 
 [node name="Title" type="Label" parent="UI/BarPanel"]
@@ -1323,7 +1332,7 @@ script = ExtResource("6_cqljf")
 [node name="NavBar" type="Panel" parent="UI"]
 unique_name_in_owner = true
 visible = false
-offset_right = 1080.0
+offset_right = 1440.0
 offset_bottom = 80.0
 theme = ExtResource("2_d86u0")
 theme_type_variation = &"BarPanel"
@@ -1387,11 +1396,18 @@ offset_bottom = 40.0
 mouse_default_cursor_shape = 2
 
 [node name="SpeedControlPanel" type="Panel" parent="UI/NavBar"]
-layout_mode = 0
-offset_left = 856.0
-offset_top = 16.0
-offset_right = 1064.0
-offset_bottom = 64.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -24.0
+offset_right = -16.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
 theme = ExtResource("2_d86u0")
 theme_override_styles/panel = SubResource("StyleBoxFlat_itm0m")
 
@@ -1401,6 +1417,7 @@ offset_left = 162.0
 offset_top = 12.0
 offset_right = 196.0
 offset_bottom = 35.0
+text = "1x"
 script = ExtResource("4_qih6h")
 
 [node name="SpeedUpButton" type="TextureButton" parent="UI/NavBar/SpeedControlPanel"]
@@ -1484,8 +1501,8 @@ anchor_mode = 0
 ignore_rotation = false
 limit_left = 0
 limit_top = 0
-limit_right = 1080
-limit_bottom = 720
+limit_right = 1440
+limit_bottom = 920
 script = ExtResource("2_iwa60")
 
 [connection signal="toggled" from="UI/MenuPanel/TabContainer/General/ExtraMenuCheck" to="UI/ExtraPanel" method="_on_check_button_2_toggled"]
