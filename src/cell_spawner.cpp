@@ -1,6 +1,7 @@
 #include "cell_spawner.hpp"
 #include "cell.hpp"
 #include "cell_environment.hpp"
+#include "genome.hpp"
 #include "stats.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
@@ -129,6 +130,11 @@ void CellSpawner::spawnCell(bool isImmortal) {
 
 	SpinBox *GrowthEnergyCostSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer/SpinBox");
 	cellState->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
+
+	SpinBox *mutationChanceSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MutationChanceContainer/SpinBox");
+	cellState->addMutationChance(mutationChanceSpinBox->get_value());
+
+	cellObject->setGenomeProbabilities(); // also from simulation parameters menu
 
 	// Set Cell position to random location in viewport
 	cellObject->set_global_position(Vector2(

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dm4rsl52782k2"]
+[gd_scene load_steps=39 format=3 uid="uid://dm4rsl52782k2"]
 
 [ext_resource type="PackedScene" uid="uid://b8e2qe8b5d8pw" path="res://cell.tscn" id="1_dm1x8"]
 [ext_resource type="Theme" uid="uid://cnptgal3iyuy5" path="res://dark_mode.tres" id="2_d86u0"]
@@ -20,7 +20,9 @@
 [ext_resource type="Script" path="res://MenuPauseCheck.gd" id="9_0ibtq"]
 [ext_resource type="Script" path="res://MenuPanel.gd" id="9_i2ah6"]
 [ext_resource type="Script" path="res://ExitMenuButton.gd" id="10_j1ug1"]
+[ext_resource type="Script" path="res://SpinBoxMin.gd" id="10_t051x"]
 [ext_resource type="Script" path="res://EXIT_TO_MENUButton.gd" id="11_md7wg"]
+[ext_resource type="Script" path="res://SpinBoxMax.gd" id="11_w6gas"]
 [ext_resource type="Script" path="res://Cell.gd" id="12_51nej"]
 [ext_resource type="Script" path="res://SlowDownButton.gd" id="19_g2bfb"]
 [ext_resource type="Texture2D" uid="uid://dghgkdthd3uwf" path="res://sprites/Buttons/FastForward.svg" id="20_udhdp"]
@@ -336,6 +338,19 @@ max_value = 10000.0
 step = 50.0
 value = 1000.0
 
+[node name="MutationChanceContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MutationChanceContainer"]
+layout_mode = 2
+text = "Base Mutation Chance"
+
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MutationChanceContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.99
+
 [node name="Nutrient Zone" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
@@ -477,6 +492,22 @@ min_value = 0.1
 step = 0.1
 value = 0.5
 
+[node name="mutationChanceRange" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+text = "Mutation Chance Range"
+
+[node name="SpinBoxMin" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+script = ExtResource("10_t051x")
+
+[node name="SpinBoxMax" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 15.0
+script = ExtResource("11_w6gas")
+
 [node name="Flagella" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
@@ -591,6 +622,23 @@ min_value = 0.1
 step = 0.1
 value = 0.5
 
+[node name="mutationChanceRange" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+text = "Mutation Chance Range"
+
+[node name="SpinBoxMin" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 15.0
+script = ExtResource("10_t051x")
+
+[node name="SpinBoxMax" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 30.0
+script = ExtResource("11_w6gas")
+
 [node name="Nucleus" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
@@ -667,6 +715,23 @@ layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
+
+[node name="mutationChanceRange" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+text = "Mutation Chance Range"
+
+[node name="SpinBoxMin" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 40.0
+script = ExtResource("10_t051x")
+
+[node name="SpinBoxMax" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 45.0
+script = ExtResource("11_w6gas")
 
 [node name="Mitochondria" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
@@ -816,6 +881,23 @@ min_value = 0.1
 step = 0.1
 value = 0.5
 
+[node name="mutationChanceRange" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+text = "Mutation Chance Range"
+
+[node name="SpinBoxMin" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 30.0
+script = ExtResource("10_t051x")
+
+[node name="SpinBoxMax" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 40.0
+script = ExtResource("11_w6gas")
+
 [node name="Ribosomes" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
@@ -963,6 +1045,23 @@ layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
+
+[node name="mutationChanceRange" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+text = "Mutation Chance Range"
+
+[node name="SpinBoxMin" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 45.0
+script = ExtResource("10_t051x")
+
+[node name="SpinBoxMax" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange"]
+layout_mode = 2
+value = 55.0
+script = ExtResource("11_w6gas")
 
 [node name="StatsPanel" type="Panel" parent="UI"]
 visible = false

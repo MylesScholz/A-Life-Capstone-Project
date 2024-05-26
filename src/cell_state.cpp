@@ -80,7 +80,6 @@ CellState::CellState() {
 	_nextMovementVector = Vector2();
 	_receptorVectors = Vector<Vector2>();
 	_mutationChances = Vector<float>();
-	_mutationChances.push_back(0.99);
 }
 CellState::~CellState() {}
 
