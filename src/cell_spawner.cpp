@@ -134,7 +134,26 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	SpinBox *mutationChanceSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MutationChanceContainer/SpinBox");
 	cellState->addMutationChance(mutationChanceSpinBox->get_value());
 
-	cellObject->setGenomeProbabilities(); // also from simulation parameters menu
+	// Set gene probabilities from sim parameters
+	SpinBox *cellMembraneMutationChanceMinSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
+	SpinBox *cellMembraneMutationChanceMaxSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
+	cellObject->getGenome()->setCellMembraneChance(cellMembraneMutationChanceMinSpinBox->get_value(), cellMembraneMutationChanceMaxSpinBox->get_value());
+
+	SpinBox *flagellaMutationChanceMinSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
+	SpinBox *flagellaMutationChanceMaxSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
+	cellObject->getGenome()->setFlagellaChance(flagellaMutationChanceMinSpinBox->get_value(), flagellaMutationChanceMaxSpinBox->get_value());
+
+	SpinBox *mitochondriaMutationChanceMinSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
+	SpinBox *mitochondriaMutationChanceMaxSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
+	cellObject->getGenome()->setMitochondriaChance(mitochondriaMutationChanceMinSpinBox->get_value(), mitochondriaMutationChanceMaxSpinBox->get_value());
+
+	SpinBox *nucleusMutationChanceMinSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
+	SpinBox *nucleusMutationChanceMaxSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
+	cellObject->getGenome()->setNucleusChance(nucleusMutationChanceMinSpinBox->get_value(), nucleusMutationChanceMaxSpinBox->get_value());
+
+	SpinBox *ribosomeMutationChanceMinSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
+	SpinBox *ribosomeMutationChanceMaxSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
+	cellObject->getGenome()->setRibosomeChance(ribosomeMutationChanceMinSpinBox->get_value(), ribosomeMutationChanceMaxSpinBox->get_value());
 
 	// Set Cell position to random location in viewport
 	cellObject->set_global_position(Vector2(

@@ -13,10 +13,19 @@ public:
 	~Genome();
 
 	void setCellMembraneChance(float, float);
+	float *getCellMembraneChance() const;
+
 	void setFlagellaChance(float, float);
+	float *getFlagellaChance() const;
+
 	void setMitochondriaChance(float, float);
+	float *getMitochondriaChance() const;
+
 	void setNucleusChance(float, float);
+	float *getNucleusChance() const;
+
 	void setRibosomeChance(float, float);
+	float *getRibosomeChance() const;
 
 	Vector<CellStructure *> expressGenes();
 

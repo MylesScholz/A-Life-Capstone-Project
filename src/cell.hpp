@@ -58,7 +58,7 @@ public:
 	String formatDecimal(float value) const;
 	Array getStats() const;
 
-	void setGenomeProbabilities();
+	Genome *getGenome();
 
 private:
 	CellState *_cellState = NULL;

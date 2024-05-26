@@ -24,26 +24,31 @@ void Genome::setCellMembraneChance(float min, float max) {
 	this->cell_membrane_chance[0] = min;
 	this->cell_membrane_chance[1] = max;
 }
+float *Genome::getCellMembraneChance() const { return (float *)cell_membrane_chance; }
 
 void Genome::setFlagellaChance(float min, float max) {
 	this->flagella_chance[0] = min;
 	this->flagella_chance[1] = max;
 }
+float *Genome::getFlagellaChance() const { return (float *)flagella_chance; }
 
 void Genome::setMitochondriaChance(float min, float max) {
 	this->mitochondria_chance[0] = min;
 	this->mitochondria_chance[1] = max;
 }
+float *Genome::getMitochondriaChance() const { return (float *)mitochondria_chance; }
 
 void Genome::setNucleusChance(float min, float max) {
 	this->nucleus_chance[0] = min;
 	this->nucleus_chance[1] = max;
 }
+float *Genome::getNucleusChance() const { return (float *)nucleus_chance; }
 
 void Genome::setRibosomeChance(float min, float max) {
 	this->ribosome_chance[0] = min;
 	this->ribosome_chance[1] = max;
 }
+float *Genome::getRibosomeChance() const { return (float *)ribosome_chance; }
 
 Vector<CellStructure *> Genome::expressGenes() {
 	Vector<CellStructure *> cellStructures;

@@ -70,7 +70,22 @@ void Cell::seteq(Cell *otherCell) {
 	_cellState->setTotalEnergy(otherCell->_cellState->getTotalEnergy());
 	_cellState->increaseProtectedGenes(otherCell->_cellState->getProtectedGenes());
 
-	this->setGenomeProbabilities();
+	// Set Genome chances
+	Genome *otherGenome = otherCell->getGenome();
+	float *otherCellMembraneChance = otherGenome->getCellMembraneChance();
+	_cellGenome.setCellMembraneChance(otherCellMembraneChance[0], otherCellMembraneChance[1]);
+
+	float *otherFlagellaChance = otherGenome->getFlagellaChance();
+	_cellGenome.setFlagellaChance(otherFlagellaChance[0], otherFlagellaChance[1]);
+
+	float *otherMitochondriaChance = otherGenome->getMitochondriaChance();
+	_cellGenome.setMitochondriaChance(otherMitochondriaChance[0], otherMitochondriaChance[1]);
+
+	float *otherNucleusChance = otherGenome->getNucleusChance();
+	_cellGenome.setNucleusChance(otherNucleusChance[0], otherNucleusChance[1]);
+
+	float *otherRibosomeChance = otherGenome->getRibosomeChance();
+	_cellGenome.setRibosomeChance(otherRibosomeChance[0], otherRibosomeChance[1]);
 
 	// Mutate based on otherCell's mutation chances
 
@@ -98,6 +113,12 @@ Cell::Cell() {
 	_rand.instantiate();
 
 	// Temporary genome for start screen
+	_cellGenome.addGene(new CellMembraneGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
+	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new NucleusGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -111,12 +132,6 @@ Cell::Cell() {
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(new RibosomesGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(randomModifierGene());
-	_cellGenome.addGene(new CellMembraneGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
 	_cellGenome.addGene(randomModifierGene());
@@ -470,26 +485,4 @@ void Cell::_on_cell_growth() {
 	}
 }
 
-void Cell::setGenomeProbabilities() {
-	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-	// Set gene probabilities from sim parameters
-	SpinBox *cellMembraneMutationChanceMinSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
-	SpinBox *cellMembraneMutationChanceMaxSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
-	this->_cellGenome.setCellMembraneChance(cellMembraneMutationChanceMinSpinBox->get_value(), cellMembraneMutationChanceMaxSpinBox->get_value());
-
-	SpinBox *flagellaMutationChanceMinSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
-	SpinBox *flagellaMutationChanceMaxSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
-	this->_cellGenome.setFlagellaChance(flagellaMutationChanceMinSpinBox->get_value(), flagellaMutationChanceMaxSpinBox->get_value());
-
-	SpinBox *mitochondriaMutationChanceMinSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
-	SpinBox *mitochondriaMutationChanceMaxSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
-	this->_cellGenome.setMitochondriaChance(mitochondriaMutationChanceMinSpinBox->get_value(), mitochondriaMutationChanceMaxSpinBox->get_value());
-
-	SpinBox *nucleusMutationChanceMinSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
-	SpinBox *nucleusMutationChanceMaxSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
-	this->_cellGenome.setNucleusChance(nucleusMutationChanceMinSpinBox->get_value(), nucleusMutationChanceMaxSpinBox->get_value());
-
-	SpinBox *ribosomeMutationChanceMinSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMin");
-	SpinBox *ribosomeMutationChanceMaxSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/mutationChanceRange/SpinBoxMax");
-	this->_cellGenome.setRibosomeChance(ribosomeMutationChanceMinSpinBox->get_value(), ribosomeMutationChanceMaxSpinBox->get_value());
-}
+Genome *Cell::getGenome() { return &_cellGenome; }
