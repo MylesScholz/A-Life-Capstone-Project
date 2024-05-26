@@ -3,9 +3,14 @@
 bin/*.dll
 bin/*.exp
 bin/*.lib
+bin/*.so
 .sconsign.dblite
 src/*.obj
+src/*.os
 tests/*.obj
 .vscode/
 compile_commands.json
 *.pdb
+
+build/*
+!build/.gitkeep

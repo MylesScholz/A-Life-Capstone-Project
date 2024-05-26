@@ -38,3 +38,13 @@ A-Life-Capstone-Project/: The repository directory
 |
 └──...
 ```
+
+## Exporting the project
+
+In order to export the project as a whole, first all the platforms that will be exported need to have the gdextesion built. To do this, execute the following command for each of the desired target platforms:
+```
+scons platform=<PLATFORM> target=template_release
+```
+Note: If you're building for a platform that is not the platform you're building on, there may be some extra cross compiling steps needed. In the [godot building documentation](https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html#building-for-target-platforms) there's some information about this. Beyond what's provided there, for windows the simplest way to build linux seems to be with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+Then opening the project in the editor, go to Project>Editor and there are the currently available presets. From there, you can either export all presets or export a specific preset using "Export All..." or "Export Project..." respectively. The default export path points to the `build/` folder. When godot exports it will output both the main executable for the respective platform, as well as the necessary gdextension library file.
