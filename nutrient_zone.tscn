@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://htdfk532t5nd"]
 
-[ext_resource type="Texture2D" uid="uid://q37a7gray3ag" path="res://NutrientZone.png" id="1_dkqov"]
+[ext_resource type="Texture2D" uid="uid://q37a7gray3ag" path="res://sprites/NutrientZone/NutrientZone.png" id="1_dkqov"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4wa2l"]
 radius = 200.0

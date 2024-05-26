@@ -107,27 +107,27 @@ void Flagella::_ready() {
 
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	// Set to values from simulation parameters menu
-	SpinBox *activationEnergyThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold/SpinBox");
+	SpinBox *activationEnergyThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold/SpinBox");
 	this->setActivationEnergyThreshold(activationEnergyThresholdSpinBox->get_value());
 
-	SpinBox *activationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost/SpinBox");
+	SpinBox *activationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost/SpinBox");
 	this->setActivationEnergyCost(activationEnergyCostSpinBox->get_value());
 
-	SpinBox *movementForceVectorXSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX/SpinBox");
+	SpinBox *movementForceVectorXSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX/SpinBox");
 	this->setMovementForceVector(Vector2(movementForceVectorXSpinBox->get_value(), _movementForceVector.y));
 
-	SpinBox *movementForceVectorYSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY/SpinBox");
+	SpinBox *movementForceVectorYSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY/SpinBox");
 	this->setMovementForceVector(Vector2(_movementForceVector.x, movementForceVectorYSpinBox->get_value()));
 
-	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
+	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
 	this->setCreationNutrientCost(creationNutrientCostSpinBox->get_value());
 
-	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
+	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
 	this->setCreationEnergyCost(creationEnergyCostSpinBox->get_value());
 
-	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
+	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
 	this->setMaintenanceNutrientCost(maintenanceNutrientCostSpinBox->get_value());
 
-	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
+	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
 	this->setMaintenanceEnergyCost(maintenanceEnergyCostSpinBox->get_value());
 }

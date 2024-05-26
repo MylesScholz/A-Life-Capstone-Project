@@ -117,6 +117,19 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	cellState->setTotalNutrients(_resourceProportion * cellState->getNutrientMaximum());
 	cellState->setTotalEnergy(_resourceProportion * cellState->getEnergyMaximum());
 
+	// Set to values from simulation parameters menu
+	SpinBox *GrowthRateSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer/SpinBox");
+	cellState->setGrowthRate(GrowthRateSpinBox->get_value());
+
+	SpinBox *LifeSpanSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer/SpinBox");
+	cellState->setLifespan(LifeSpanSpinBox->get_value());
+
+	SpinBox *GrowthNutrientCostSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer/SpinBox");
+	cellState->setGrowthNutrientCost(GrowthNutrientCostSpinBox->get_value());
+
+	SpinBox *GrowthEnergyCostSpinBox = this->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer/SpinBox");
+	cellState->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
+
 	// Set Cell position to random location in viewport
 	cellObject->set_global_position(Vector2(
 			rand.randi_range(cellSize.x / 4, viewportSize.x - cellSize.x / 4),
@@ -219,10 +232,10 @@ void CellSpawner::_ready() {
 #endif
 
 	// Connect to values from simulation parameters menu
-	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer/SpinBox");
+	Node *NumberOfStartingCellsSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer/SpinBox");
 	NumberOfStartingCellsSpinBox->connect("value_changed", Callable(this, "setNumCells"));
 
-	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer/SpinBox");
+	Node *ResourceProportionSpinBox = this->get_node<Node>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer/SpinBox");
 	ResourceProportionSpinBox->connect("value_changed", Callable(this, "setResourceProportion"));
 
 	// Spawn back ground cells that don't die

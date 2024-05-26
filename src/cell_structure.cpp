@@ -59,8 +59,9 @@ float CellStructure::getScale() const { return _scale; }
 void CellStructure::setSprite(AnimatedSprite2D *sprite) { _sprite = sprite; }
 AnimatedSprite2D *CellStructure::getSprite() { return _sprite; }
 Size2 CellStructure::getSpriteSize() {
-	if (_sprite)
+	try {
 		return _sprite->get_sprite_frames()->get_frame_texture("activate", 0)->get_size();
-
-	return Size2();
+	} catch (...) {
+		return Size2();
+	}
 }

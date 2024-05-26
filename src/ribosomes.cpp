@@ -161,33 +161,33 @@ void Ribosomes::_ready() {
 
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	// Set to values from simulation parameters menu
-	SpinBox *activationThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold/SpinBox");
+	SpinBox *activationThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold/SpinBox");
 	this->setActivationThreshold(activationThresholdSpinBox->get_value());
 
-	SpinBox *strengthSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength/SpinBox");
+	SpinBox *strengthSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength/SpinBox");
 	this->setStrength(strengthSpinBox->get_value());
 
-	SpinBox *efficiencySpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency/SpinBox");
+	SpinBox *efficiencySpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency/SpinBox");
 	this->setEfficiency(efficiencySpinBox->get_value());
 
-	SpinBox *preferredConversionRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate/SpinBox");
+	SpinBox *preferredConversionRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate/SpinBox");
 	this->setPreferredConversionRate(preferredConversionRateSpinBox->get_value());
 
-	OptionButton *activationResourceOptionButton = spawner->get_node<OptionButton>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource/OptionButton");
+	OptionButton *activationResourceOptionButton = spawner->get_node<OptionButton>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource/OptionButton");
 	this->setActivationResource(activationResourceOptionButton->get_item_text(activationResourceOptionButton->get_selected()));
 
-	OptionButton *thresholdTypeOptionButton = spawner->get_node<OptionButton>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType/OptionButton");
+	OptionButton *thresholdTypeOptionButton = spawner->get_node<OptionButton>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType/OptionButton");
 	this->setThresholdType(thresholdTypeOptionButton->get_item_text(thresholdTypeOptionButton->get_selected()));
 
-	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
+	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
 	this->setCreationNutrientCost(creationNutrientCostSpinBox->get_value());
 
-	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
+	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
 	this->setCreationEnergyCost(creationEnergyCostSpinBox->get_value());
 
-	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
+	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
 	this->setMaintenanceNutrientCost(maintenanceNutrientCostSpinBox->get_value());
 
-	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
+	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
 	this->setMaintenanceEnergyCost(maintenanceEnergyCostSpinBox->get_value());
 }

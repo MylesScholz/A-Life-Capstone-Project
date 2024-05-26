@@ -40,7 +40,7 @@ Description: The NutrientZone object represents a location within the simulation
 - void setDeleteOnEmpty(const bool): sets _deleteOnEmpty to the bool
 - bool getDeleteOnEmpty() const: returns _deleteOnEmpty
 
-- void _ready(): runs once when this object enters the node tree; connects body_entered and body_exited signals with _on_body_entered and _on_body_exited functions; gets sprite; removes itself if spawned with no nutrients; calls setNutrientMaximum(), setFeedingRate(), setRegenerationRate() and setDeleteOnEmpty() with their respective setting in the InitalValues menu within the UI
+- void _ready(): runs once when this object enters the node tree; connects body_entered and body_exited signals with _on_body_entered and _on_body_exited functions; gets sprite; removes itself if spawned with no nutrients
 
 - void _process(float): runs once per in-game frame; delta stores the real time since the last frame, will be set to 0 when sim is paused; regenerates nutrients based on _regenerationRate and increases nutrients of cells in the zone/_feedingCells based on the _feedingRate and NutrientZone scale split evenly between all cells; the total nutrients given is then removed from the NutrientZone
 

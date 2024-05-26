@@ -240,507 +240,507 @@ text = "Q - Toggle Pause"
 layout_mode = 2
 text = "X - Deselect Cell"
 
-[node name="InitalValues" type="VBoxContainer" parent="UI/MenuPanel/TabContainer"]
+[node name="Parameters" type="VBoxContainer" parent="UI/MenuPanel/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="UI/MenuPanel/TabContainer/InitalValues"]
+[node name="TabContainer" type="TabContainer" parent="UI/MenuPanel/TabContainer/Parameters"]
 layout_mode = 2
 
-[node name="Cell" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Cell" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 size_flags_vertical = 0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer"]
 layout_mode = 2
 
-[node name="NStartingCellsContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="NStartingCellsContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer"]
 layout_mode = 2
 text = "Starting Cells"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer"]
 layout_mode = 2
 value = 10.0
 
-[node name="GrowthRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="GrowthRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer"]
 layout_mode = 2
 text = "Growth Rate"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer"]
 layout_mode = 2
 min_value = 1.01
 step = 0.01
 value = 1.01
 
-[node name="ResourceProportionContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="ResourceProportionContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer"]
 layout_mode = 2
 text = "Resource Proportion"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/ResourceProportionContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 0.75
 
-[node name="CellLifespanContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="CellLifespanContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer"]
 layout_mode = 2
 text = "Lifespan"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 1000.0
 value = 60.0
 
-[node name="GrowthNutrientCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="GrowthNutrientCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer"]
 layout_mode = 2
 text = "Growth Nutrients Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer"]
 layout_mode = 2
 max_value = 10000.0
 step = 50.0
 value = 1000.0
 
-[node name="GrowthEnergyCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer"]
+[node name="GrowthEnergyCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer"]
 layout_mode = 2
 text = "Growth Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer"]
 layout_mode = 2
 max_value = 10000.0
 step = 50.0
 value = 1000.0
 
-[node name="NutrientZone" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Nutrient Zone" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer"]
 layout_mode = 2
 
-[node name="NNutrientZoneContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer"]
+[node name="NNutrientZoneContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NNutrientZoneContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NNutrientZoneContainer"]
 layout_mode = 2
-text = "Starting NutrientZones"
+text = "Starting Nutrient Zones"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NNutrientZoneContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NNutrientZoneContainer"]
 layout_mode = 2
 max_value = 50.0
 value = 3.0
 
-[node name="NutrientZoneNutrientMaximumContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer"]
+[node name="NutrientZoneNutrientMaximumContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NutrientZoneNutrientMaximumContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NutrientZoneNutrientMaximumContainer"]
 layout_mode = 2
-text = "NutrientZone Nutrient Maximum"
+text = "Nutrient Zone Nutrient Maximum"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NutrientZoneNutrientMaximumContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NutrientZoneNutrientMaximumContainer"]
 layout_mode = 2
 max_value = 10000.0
 step = 10.0
 value = 1000.0
 
-[node name="FeedingRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer"]
+[node name="FeedingRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/FeedingRateContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/FeedingRateContainer"]
 layout_mode = 2
-text = "NutrientZone Feeding Rate"
+text = "Nutrient Zone Feeding Rate"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/FeedingRateContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/FeedingRateContainer"]
 layout_mode = 2
 min_value = 0.01
 step = 0.01
 value = 0.1
 
-[node name="RegenerationRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer"]
+[node name="RegenerationRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/RegenerationRateContainer"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/RegenerationRateContainer"]
 layout_mode = 2
-text = "NutrientZone Regeneration Rate"
+text = "Nutrient Zone Regeneration Rate"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/RegenerationRateContainer"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/RegenerationRateContainer"]
 layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="NutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer"]
+[node name="NutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 button_pressed = true
-text = "Delete NutrientZone on Empty"
+text = "Delete Nutrient Zone on Empty"
 
-[node name="CellMembrane" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Cell Membrane" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer"]
 layout_mode = 2
 
-[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer"]
+[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 text = "Activation Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 0.75
 
-[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer"]
+[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 text = "Creation Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer"]
+[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 text = "Creation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer"]
+[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 text = "Maintenance Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer"]
+[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 text = "Maintenance Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/CellMembrane/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="Flagella" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Flagella" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer"]
 layout_mode = 2
 
-[node name="activationEnergyThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="activationEnergyThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold"]
 layout_mode = 2
 text = "Activation Energy Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold"]
 layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="activationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="activationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost"]
 layout_mode = 2
 text = "Activation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyCost"]
 layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="movementForceVectorX" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="movementForceVectorX" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX"]
 layout_mode = 2
 text = "Movement Force Vector X"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorX"]
 layout_mode = 2
 min_value = -1.0
 max_value = 1.0
 step = 0.1
 
-[node name="movementForceVectorY" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="movementForceVectorY" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY"]
 layout_mode = 2
 text = "Movement Force Vector Y"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/movementForceVectorY"]
 layout_mode = 2
 min_value = -1.0
 max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 text = "Creation Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 text = "Creation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 text = "Maintenance Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
+[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 text = "Maintenance Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="Nucleus" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Nucleus" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer"]
 layout_mode = 2
 
-[node name="reproductionNutrientThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+[node name="reproductionNutrientThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
 layout_mode = 2
 text = "Reproduction Nutrient Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
 layout_mode = 2
 min_value = 0.05
 max_value = 0.95
 step = 0.05
 value = 0.5
 
-[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 text = "Creation Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 text = "Creation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 text = "Maintenance Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
+[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 text = "Maintenance Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="Mitochondria" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Mitochondria" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer"]
 layout_mode = 2
 
-[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 text = "Activation Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 0.5
 
-[node name="strength" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="strength" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/strength"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/strength"]
 layout_mode = 2
 text = "Strength"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/strength"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/strength"]
 layout_mode = 2
 max_value = 10.0
 step = 0.5
 value = 1.0
 
-[node name="efficiency" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="efficiency" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/efficiency"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/efficiency"]
 layout_mode = 2
 text = "Efficiency"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/efficiency"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/efficiency"]
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="preferredConversionRate" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="preferredConversionRate" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/preferredConversionRate"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
 text = "Preferred Conversion Rate"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/preferredConversionRate"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
 min_value = 0.5
 max_value = 10.0
 step = 0.5
 value = 1.0
 
-[node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationResource"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationResource"]
 layout_mode = 2
 text = "Activation Resource"
 
-[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationResource"]
+[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/activationResource"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -749,14 +749,14 @@ popup/item_0/id = 0
 popup/item_1/text = "nutrients"
 popup/item_1/id = 1
 
-[node name="thresholdType" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="thresholdType" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/thresholdType"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/thresholdType"]
 layout_mode = 2
 text = "Threshold Type"
 
-[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/thresholdType"]
+[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/thresholdType"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -765,130 +765,130 @@ popup/item_0/id = 0
 popup/item_1/text = "high-pass"
 popup/item_1/id = 1
 
-[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 text = "Creation Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 text = "Creation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 text = "Maintenance Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
+[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 text = "Maintenance Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="Ribosomes" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer"]
+[node name="Ribosomes" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes"]
 custom_minimum_size = Vector2(0, 175)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer"]
 layout_mode = 2
 
-[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="activationThreshold" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 text = "Activation Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationThreshold"]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 0.5
 
-[node name="strength" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="strength" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength"]
 layout_mode = 2
 text = "Strength"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/strength"]
 layout_mode = 2
 max_value = 10.0
 step = 0.5
 value = 1.0
 
-[node name="efficiency" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="efficiency" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency"]
 layout_mode = 2
 text = "Efficiency"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/efficiency"]
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="preferredConversionRate" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="preferredConversionRate" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
 text = "Preferred Conversion Rate"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
 min_value = 0.5
 max_value = 10.0
 step = 0.5
 value = 1.0
 
-[node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource"]
 layout_mode = 2
 text = "Activation Resource"
 
-[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource"]
+[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/activationResource"]
 layout_mode = 2
 item_count = 2
 selected = 1
@@ -897,14 +897,14 @@ popup/item_0/id = 0
 popup/item_1/text = "nutrients"
 popup/item_1/id = 1
 
-[node name="thresholdType" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="thresholdType" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType"]
 layout_mode = 2
 text = "Threshold Type"
 
-[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType"]
+[node name="OptionButton" type="OptionButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/thresholdType"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -913,53 +913,53 @@ popup/item_0/id = 0
 popup/item_1/text = "high-pass"
 popup/item_1/id = 1
 
-[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 text = "Creation Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationNutrientCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 text = "Creation Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/creationEnergyCost"]
 layout_mode = 2
 min_value = 0.5
 step = 0.5
 value = 5.0
 
-[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 text = "Maintenance Nutrient Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceNutrientCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 0.5
 
-[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
+[node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 text = "Maintenance Energy Cost"
 
-[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/InitalValues/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
+[node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/maintenanceEnergyCost"]
 layout_mode = 2
 min_value = 0.1
 step = 0.1

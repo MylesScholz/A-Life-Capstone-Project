@@ -221,18 +221,4 @@ Vector<Vector2> CellState::getReceptorVectors() const { return _receptorVectors;
 
 void CellState::_ready() {
 	_birthTime = Time::get_singleton()->get_ticks_msec() / 1000.0;
-
-	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
-	// Set to values from simulation parameters menu
-	SpinBox *GrowthRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthRateContainer/SpinBox");
-	this->setGrowthRate(GrowthRateSpinBox->get_value());
-
-	SpinBox *LifeSpanSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/CellLifespanContainer/SpinBox");
-	this->setLifespan(LifeSpanSpinBox->get_value());
-
-	SpinBox *GrowthNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthNutrientCostContainer/SpinBox");
-	this->setGrowthNutrientCost(GrowthNutrientCostSpinBox->get_value());
-
-	SpinBox *GrowthEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Cell/ScrollContainer/VBoxContainer/GrowthEnergyCostContainer/SpinBox");
-	this->setGrowthEnergyCost(GrowthEnergyCostSpinBox->get_value());
 }

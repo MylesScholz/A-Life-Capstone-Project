@@ -67,6 +67,21 @@ void CellEnvironment::spawnNutrientZone() {
 			rand.randi_range(-viewportSize.x / 2, viewportSize.x / 2),
 			rand.randi_range(-viewportSize.y / 2, viewportSize.y / 2)));
 
+	// Set to values from simulation parameters menu
+	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->get_parent());
+
+	SpinBox *NutrientMaximumSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NutrientZoneNutrientMaximumContainer/SpinBox");
+	nutrientZone->setNutrientMaximum(NutrientMaximumSpinBox->get_value());
+
+	SpinBox *FeedingRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/FeedingRateContainer/SpinBox");
+	nutrientZone->setFeedingRate(FeedingRateSpinBox->get_value());
+
+	SpinBox *RegenerationRateSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/RegenerationRateContainer/SpinBox");
+	nutrientZone->setRegenerationRate(RegenerationRateSpinBox->get_value());
+
+	Button *deleteOnEmptyInput = spawner->get_node<Button>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NutrientZoneDelete");
+	nutrientZone->setDeleteOnEmpty(deleteOnEmptyInput->is_pressed());
+
 	// Add the NutrientZone as a child of this node
 	this->add_child(nutrientZone);
 }
@@ -147,6 +162,6 @@ void CellEnvironment::_ready() {
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 
 	// Connect to values from simulation parameters menu
-	Node *NStartingNutrientZonesSpinBox = spawner->get_node<Node>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/NutrientZone/ScrollContainer/VBoxContainer/NNutrientZoneContainer/SpinBox");
+	Node *NStartingNutrientZonesSpinBox = spawner->get_node<Node>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NNutrientZoneContainer/SpinBox");
 	NStartingNutrientZonesSpinBox->connect("value_changed", Callable(this, "setNNutrientZones"));
 }

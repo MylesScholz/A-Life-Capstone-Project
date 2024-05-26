@@ -32,9 +32,9 @@ Description: the CellSpawner is the root node of the project's main scene, conta
 - void setResourceProportion(const float resourceProportion): sets _resourceProportion to the given value if it is in [0, 1]
 - float getResourceProportion() const: returns _resourceProportion
 
-- void spawnCell(bool isImmortal): instantiates one Cell as a child of this Node; Cell placement, scaling, and initial force are randomized; Cell immortality is set to isImmortal
+- void spawnCell(bool isImmortal): instantiates one Cell as a child of this Node; Cell placement, scaling, and initial force are randomized; Cell immortality is set to isImmortal; sets CellState default values from their respective setting in the Parameters menu within the UI
 
-- void _ready() override: runs once when the CellSpawner enters the node tree; disables this object running in the Godot Editor; connects setNumCells() and setResourceProportion() to their respective setting in the InitalValues menu within the UI; spawns NutrientZones
+- void _ready() override: runs once when the CellSpawner enters the node tree; disables this object running in the Godot Editor; connects setNumCells() and setResourceProportion() to their respective setting in the Parameters menu within the UI; spawns NutrientZones
 - void _on_cell_reproduction(Cell *cell): runs when a cell signals to reproduce. It then spawns a new cell which is a copy of the original. This is where mutation will take place once we implement it.
 
 ## Non-Member Functions

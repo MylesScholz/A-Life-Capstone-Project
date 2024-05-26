@@ -81,18 +81,18 @@ void Nucleus::_ready() {
 
 	CellSpawner *spawner = Object::cast_to<CellSpawner>(this->find_parent("CellSpawner"));
 	// Set to values from simulation parameters menu
-	SpinBox *reproductionNutrientThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold/SpinBox");
+	SpinBox *reproductionNutrientThresholdSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold/SpinBox");
 	this->setReproductionNutrientThreshold(reproductionNutrientThresholdSpinBox->get_value());
 
-	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
+	SpinBox *creationNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationNutrientCost/SpinBox");
 	this->setCreationNutrientCost(creationNutrientCostSpinBox->get_value());
 
-	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
+	SpinBox *creationEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/creationEnergyCost/SpinBox");
 	this->setCreationEnergyCost(creationEnergyCostSpinBox->get_value());
 
-	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
+	SpinBox *maintenanceNutrientCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceNutrientCost/SpinBox");
 	this->setMaintenanceNutrientCost(maintenanceNutrientCostSpinBox->get_value());
 
-	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/InitalValues/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
+	SpinBox *maintenanceEnergyCostSpinBox = spawner->get_node<SpinBox>("UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/maintenanceEnergyCost/SpinBox");
 	this->setMaintenanceEnergyCost(maintenanceEnergyCostSpinBox->get_value());
 }

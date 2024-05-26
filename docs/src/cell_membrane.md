@@ -35,7 +35,7 @@ Description: the CellMembrane class is a CellStructure that contains and manages
 - Vector\<Receptor *\> getReceptors(): returns _receptors
 - Vector\<Receptor *\> getActivatedReceptors(): returns _activatedReceptors
 
-- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node; calls setActivationThreshold(), setCreationNutrientCost(), setCreationNutrientCost(), setMaintenanceNutrientCost() and setMaintenanceEnergyCost() with their respective setting in the InitalValues menu within the UI
+- void _ready() override: runs once when this object enters the node tree; sets this CellStructure's sprite property to a child Sprite2D node; calls setActivationThreshold(), setCreationNutrientCost(), setCreationNutrientCost(), setMaintenanceNutrientCost() and setMaintenanceEnergyCost() with their respective setting in the Parameters menu within the UI
 
 - void _rearrangeReceptors(): resets the position, rotation, and scaling of each Receptor in _receptors
 
