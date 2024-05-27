@@ -48,3 +48,7 @@ scons platform=<PLATFORM> target=template_release
 Note: If you're building for a platform that is not the platform you're building on, there may be some extra cross compiling steps needed. In the [godot building documentation](https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html#building-for-target-platforms) there's some information about this. Beyond what's provided there, for windows the simplest way to build linux seems to be with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 Then opening the project in the editor, go to Project>Editor and there are the currently available presets. From there, you can either export all presets or export a specific preset using "Export All..." or "Export Project..." respectively. The default export path points to the `build/` folder. When godot exports it will output both the main executable for the respective platform, as well as the necessary gdextension library file.
+
+### Licensing
+
+This project is distrubited under the GNU GENERAL PUBLIC LICENSE version 3. Please read [LICENSE](/LICENSE) for more information. This project also uses third party libraries which are distributed using their own terms. Please read [3RD-PARTY-LICENSE](/3RD-PARTY-LICENSE) for more information.
