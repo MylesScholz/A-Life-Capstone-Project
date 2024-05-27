@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="A-life sim 2.0"
+config/name="Protobiota"
 run/main_scene="res://cell_spawner.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://CellLogo.png"
+config/windows_native_icon="res://CellLogo.ico"
 
 [autoload]
 
