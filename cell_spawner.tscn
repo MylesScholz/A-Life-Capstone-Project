@@ -100,7 +100,6 @@ num_cells = 20
 cell_scene = ExtResource("1_dm1x8")
 
 [node name="CellEnvironment" parent="." instance=ExtResource("2_g8x7p")]
-n_nutrient_zones = 5
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -281,7 +280,7 @@ text = "Starting Cells"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NStartingCellsContainer"]
 layout_mode = 2
-value = 10.0
+value = 20.0
 
 [node name="GrowthRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -333,7 +332,7 @@ text = "Growth Nutrients Cost"
 layout_mode = 2
 max_value = 10000.0
 step = 50.0
-value = 1000.0
+value = 100.0
 
 [node name="GrowthEnergyCostContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -346,7 +345,7 @@ text = "Growth Energy Cost"
 layout_mode = 2
 max_value = 10000.0
 step = 50.0
-value = 1000.0
+value = 100.0
 
 [node name="MutationChanceContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -359,7 +358,7 @@ text = "Base Mutation Chance"
 layout_mode = 2
 max_value = 1.0
 step = 0.01
-value = 0.99
+value = 0.5
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -371,7 +370,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellMembraneMutationChance"]
 layout_mode = 2
-text = "Cell Membrane Mutation Chance"
+text = "Cell Membrane Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellMembraneMutationChance"]
 layout_mode = 2
@@ -383,11 +382,11 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/FlagellaMutationChance"]
 layout_mode = 2
-text = "Flagella Mutation Chance"
+text = "Flagella Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/FlagellaMutationChance"]
 layout_mode = 2
-value = 15.0
+value = 20.0
 script = ExtResource("11_n8jko")
 
 [node name="MitochondriaMutationChance" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
@@ -395,11 +394,11 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MitochondriaMutationChance"]
 layout_mode = 2
-text = "Mitochondria Mutation Chance"
+text = "Mitochondria Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MitochondriaMutationChance"]
 layout_mode = 2
-value = 10.0
+value = 30.0
 script = ExtResource("11_n8jko")
 
 [node name="NucleusMutationChance" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
@@ -407,7 +406,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NucleusMutationChance"]
 layout_mode = 2
-text = "Nucleus Mutation Chance"
+text = "Nucleus Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/NucleusMutationChance"]
 layout_mode = 2
@@ -419,11 +418,11 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/RibosomeMutationChance"]
 layout_mode = 2
-text = "Ribosome Mutation Chance"
+text = "Ribosome Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/RibosomeMutationChance"]
 layout_mode = 2
-value = 10.0
+value = 30.0
 script = ExtResource("11_n8jko")
 
 [node name="Nutrient Zone" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
@@ -447,7 +446,7 @@ text = "Starting Nutrient Zones"
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/NNutrientZoneContainer"]
 layout_mode = 2
 max_value = 50.0
-value = 3.0
+value = 5.0
 
 [node name="NutrientZoneNutrientMaximumContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -460,7 +459,7 @@ text = "Nutrient Zone Nutrient Maximum"
 layout_mode = 2
 max_value = 10000.0
 step = 10.0
-value = 1000.0
+value = 10000.0
 
 [node name="FeedingRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -471,9 +470,9 @@ text = "Nutrient Zone Feeding Rate"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/FeedingRateContainer"]
 layout_mode = 2
-min_value = 0.01
-step = 0.01
-value = 0.1
+max_value = 1000.0
+step = 10.0
+value = 100.0
 
 [node name="RegenerationRateContainer" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -484,8 +483,9 @@ text = "Nutrient Zone Regeneration Rate"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer/RegenerationRateContainer"]
 layout_mode = 2
-step = 0.1
-value = 1.0
+max_value = 1000.0
+step = 10.0
+value = 300.0
 
 [node name="StartingNutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -513,7 +513,7 @@ text = "Activation Threshold"
 layout_mode = 2
 max_value = 1.0
 step = 0.05
-value = 0.75
+value = 0.5
 
 [node name="creationNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -526,7 +526,7 @@ text = "Creation Nutrient Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -539,7 +539,7 @@ text = "Creation Energy Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -552,7 +552,7 @@ text = "Maintenance Nutrient Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell Membrane/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -565,7 +565,7 @@ text = "Maintenance Energy Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="Flagella" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
@@ -587,8 +587,9 @@ text = "Activation Energy Threshold"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer/activationEnergyThreshold"]
 layout_mode = 2
+max_value = 1.0
 step = 0.1
-value = 1.0
+value = 0.1
 
 [node name="activationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -640,7 +641,7 @@ text = "Creation Nutrient Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -653,7 +654,7 @@ text = "Creation Energy Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -666,7 +667,7 @@ text = "Maintenance Nutrient Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Flagella/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -679,7 +680,7 @@ text = "Maintenance Energy Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="Nucleus" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
@@ -697,12 +698,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
 layout_mode = 2
-text = "Reproduction Nutrient Threshold"
+text = "Reproduction Threshold"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer/reproductionNutrientThreshold"]
 layout_mode = 2
 min_value = 0.05
-max_value = 0.95
+max_value = 1.0
 step = 0.05
 value = 0.5
 
@@ -717,7 +718,7 @@ text = "Creation Nutrient Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -730,7 +731,7 @@ text = "Creation Energy Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -743,7 +744,7 @@ text = "Maintenance Nutrient Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nucleus/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -756,7 +757,7 @@ text = "Maintenance Energy Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="Mitochondria" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
@@ -817,9 +818,9 @@ text = "Preferred Conversion Rate"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
-min_value = 0.5
+min_value = 0.1
 max_value = 10.0
-step = 0.5
+step = 0.1
 value = 1.0
 
 [node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
@@ -865,7 +866,7 @@ text = "Creation Nutrient Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -878,7 +879,7 @@ text = "Creation Energy Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -891,7 +892,7 @@ text = "Maintenance Nutrient Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Mitochondria/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -904,7 +905,7 @@ text = "Maintenance Energy Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="Ribosomes" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
 visible = false
@@ -965,9 +966,9 @@ text = "Preferred Conversion Rate"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer/preferredConversionRate"]
 layout_mode = 2
-min_value = 0.5
+min_value = 0.1
 max_value = 10.0
-step = 0.5
+step = 0.1
 value = 1.0
 
 [node name="activationResource" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
@@ -1013,7 +1014,7 @@ text = "Creation Nutrient Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="creationEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1026,7 +1027,7 @@ text = "Creation Energy Cost"
 layout_mode = 2
 min_value = 0.5
 step = 0.5
-value = 5.0
+value = 3.0
 
 [node name="maintenanceNutrientCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1039,7 +1040,7 @@ text = "Maintenance Nutrient Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="maintenanceEnergyCost" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Ribosomes/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -1052,7 +1053,7 @@ text = "Maintenance Energy Cost"
 layout_mode = 2
 min_value = 0.1
 step = 0.1
-value = 0.5
+value = 0.1
 
 [node name="StatsPanel" type="Panel" parent="UI"]
 visible = false

@@ -10,7 +10,7 @@ size = Vector2(1840, 200)
 
 [node name="CellEnvironment" type="CellEnvironment"]
 nutrient_zone_scene = ExtResource("1_5dxwq")
-n_nutrient_zones = 3
+n_nutrient_zones = 5
 
 [node name="ViewportBoundaries" type="StaticBody2D" parent="."]
 

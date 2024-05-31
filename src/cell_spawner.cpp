@@ -152,7 +152,7 @@ void CellSpawner::spawnCell(bool isImmortal) {
 	Vector2 force = Vector2(0, -1).rotated(direction) * force_magnitude;
 	cellObject->apply_force(force);
 
-	cellObject->apply_torque(rand.randf_range(-500, 500));
+	cellObject->apply_torque(rand.randf_range(-100, 100));
 
 	// Prevent display cells from dying
 	cellObject->setImmortal(isImmortal);
