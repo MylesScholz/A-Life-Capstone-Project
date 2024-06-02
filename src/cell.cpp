@@ -386,7 +386,7 @@ void Cell::_mutate() {
 
 void Cell::_input_event(Node *viewport, Ref<InputEvent> event, int shape_idx) {
 	Ref<InputEventMouseButton> mouse_button_event = event;
-	if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT) {
+	if (mouse_button_event.is_valid() && mouse_button_event->is_pressed() && mouse_button_event->get_button_index() == MOUSE_BUTTON_LEFT && immortal == false) {
 		UtilityFunctions::print("press detected");
 		UtilityFunctions::print(this);
 
