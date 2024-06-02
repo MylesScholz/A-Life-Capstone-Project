@@ -231,22 +231,18 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MenuPanel/TabContainer/Keybindings"]
 layout_mode = 2
-text = "ESC - Toggle Menu"
+text = "ESC - Toggle Settings Menu"
 
 [node name="Label2" type="Label" parent="UI/MenuPanel/TabContainer/Keybindings"]
 layout_mode = 2
-text = "S - Toggle Statistics"
+text = "S - Toggle Statistics Panel"
 
 [node name="Label3" type="Label" parent="UI/MenuPanel/TabContainer/Keybindings"]
 layout_mode = 2
-text = "C - Toggle Camera
+text = "C - Toggle Camera Tracking
 "
 
 [node name="Label4" type="Label" parent="UI/MenuPanel/TabContainer/Keybindings"]
-layout_mode = 2
-text = "Q - Toggle Pause"
-
-[node name="Label5" type="Label" parent="UI/MenuPanel/TabContainer/Keybindings"]
 layout_mode = 2
 text = "X - Deselect Cell"
 
@@ -374,7 +370,7 @@ text = "Cell Membrane Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/CellMembraneMutationChance"]
 layout_mode = 2
-value = 15.0
+value = 5.0
 script = ExtResource("11_n8jko")
 
 [node name="FlagellaMutationChance" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
@@ -386,7 +382,7 @@ text = "Flagella Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/FlagellaMutationChance"]
 layout_mode = 2
-value = 20.0
+value = 5.0
 script = ExtResource("11_n8jko")
 
 [node name="MitochondriaMutationChance" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
@@ -398,7 +394,7 @@ text = "Mitochondria Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/MitochondriaMutationChance"]
 layout_mode = 2
-value = 30.0
+value = 5.0
 script = ExtResource("11_n8jko")
 
 [node name="NucleusMutationChance" type="HBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer"]
@@ -422,7 +418,7 @@ text = "Ribosome Mutation Chance (%)"
 
 [node name="SpinBox" type="SpinBox" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Cell/ScrollContainer/VBoxContainer/RibosomeMutationChance"]
 layout_mode = 2
-value = 30.0
+value = 5.0
 script = ExtResource("11_n8jko")
 
 [node name="Nutrient Zone" type="VBoxContainer" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer"]
@@ -485,7 +481,7 @@ text = "Nutrient Zone Regeneration Rate"
 layout_mode = 2
 max_value = 1000.0
 step = 10.0
-value = 300.0
+value = 500.0
 
 [node name="StartingNutrientZoneDelete" type="CheckButton" parent="UI/MenuPanel/TabContainer/Parameters/TabContainer/Nutrient Zone/ScrollContainer/VBoxContainer"]
 layout_mode = 2

@@ -1,6 +1,8 @@
 # A-Life-Capstone-Project
 An artificial life simulator by Maxwell Cole, Ethan Doll, Wyatt Holliday, Sasha Rosenthal, and Myles Scholz.
 
+For user documentation, visit https://protobiota.github.io/.
+
 ## Repository Overview
 The repository incorporates multiple external systems that have their own associated files and directories. For the most part, these do not need to be edited. The most important directories for development are /src/, /tests/, and /docs/, which contain source files, unit testing files, and documentation, respectively. There are also multiple Godot project files that are important for development, but these are best used through the Godot Editor.
 
